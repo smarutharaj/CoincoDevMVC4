@@ -6,6 +6,16 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Coinco.SMS.AXWrapper", "Coinco.SMS.AXWrapper\Coinco.SMS.AXWrapper.csproj", "{580EC956-0050-4BD9-944B-3BACEE657FF0}"
 EndProject
 Global
+	GlobalSection(SourceCodeControl) = preSolution
+		SccNumberOfProjects = 3
+		SccLocalPath0 = .
+		SccProjectUniqueName1 = Coinco.SMS.Website\\Coinco.SMS.Website.csproj
+		SccProjectName1 = \u0022$/CoincoDevMVC4/Coinco.SMS.Website\u0022,\u0020DFRBAAAA
+		SccLocalPath1 = Coinco.SMS.Website
+		SccProjectUniqueName2 = Coinco.SMS.AXWrapper\\Coinco.SMS.AXWrapper.csproj
+		SccProjectName2 = \u0022$/CoincoDevMVC4/Coinco.SMS.AXWrapper\u0022,\u0020WERBAAAA
+		SccLocalPath2 = Coinco.SMS.AXWrapper
+	EndGlobalSection
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
 		Release|Any CPU = Release|Any CPU
