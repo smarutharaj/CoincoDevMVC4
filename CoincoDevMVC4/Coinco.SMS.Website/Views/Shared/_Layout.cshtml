@@ -7,7 +7,7 @@
     <title>@ViewBag.Title - Service Management System</title>
     <link href="~/favicon.ico" rel="shortcut icon" type="image/x-icon" />
     <meta name="viewport" content="width=device-width" />
-
+    @Scripts.Render("~/bundles/modernizr")
     @{Html.Telerik().StyleSheetRegistrar()
                     .DefaultGroup(group => group.Add("telerik.common.css")
                                             .Add("telerik.Office2010Blue.css")
@@ -75,6 +75,7 @@
        
     </header>
     <div id="body">
+     @RenderSection("featured", required: false)
         <section class="content-wrapper main-content clear-fix">
             @RenderBody()
         </section>

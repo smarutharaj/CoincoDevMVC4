@@ -238,7 +238,22 @@ h5, h6 {
     max-width: 960px;
 }
 
+#body {
+     background: #ffff;
+    clear: both;
+    padding-bottom: 5px;
+   
+}
 
+    .main-content {
+        background: url("../Images/accent.png") no-repeat;
+        padding-left: 10px;
+        padding-top: 5px;
+    }
+
+    .featured + .main-content {
+        background: url("../Images/heroAccent.png") no-repeat;
+    }
 header .content-wrapper {
     padding-top: 2px; 
 }
