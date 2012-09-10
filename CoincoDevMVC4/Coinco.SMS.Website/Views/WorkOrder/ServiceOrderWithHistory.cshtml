@@ -1,0 +1,99 @@
+﻿@model Coinco.SMS.Website.Models.ServiceOrder
+
+@using Telerik.Web.Mvc.UI
+@using Telerik.Web.Mvc
+
+@{
+    ViewBag.Title = "Service Orders With History";
+}
+
+
+<div id="SOWH">
+<h6>Service Orders</h6>
+<div id="SODiv">
+@{Html.Telerik().Grid((IEnumerable<Coinco.SMS.Website.Models.ServiceOrder>)ViewData["ServiceOrder"])
+        .Name("ServiceOrderGrid")
+        .Columns(columns =>
+        {
+            columns.Bound(c => c.ServiceOrderId).Title("Service Order").Width(120);
+            columns.Bound(c => c.Customer.CustomerAccount).Title("Customer").Width(100);
+            columns.Bound(c => c.Customer.CustomerName).Width(200);
+            columns.Bound(c => c.Comments).Width(100);
+            columns.Bound(c => c.Status).Width(100);
+            columns.Bound(c => c.WOClassification.WOClassificationName).Title("Classification").Width(120);
+            columns.Bound(c => c.ServiceTechnician.ServiceTechnicianName).Title("Technician").Width(100);
+            columns.Bound(c => c.ServiceOrderDate).Title("Order Date").Width(100).Format("{0:dd/MM/yyyy}");
+        })
+    
+        .DataBinding(dataBinding =>
+            {
+                dataBinding.Ajax().OperationMode(GridOperationMode.Client).Select("_SelectionClientSide_ServiceOrders", "WorkOrder")
+                    .Enabled(true);
+            }
+        )
+        .HtmlAttributes(new { style = "font-size: 8pt; font-family: Verdana;" })
+        .Scrollable()
+        .Pageable((pager => pager.PageSize(10)))
+        .Sortable()
+        .Selectable()
+        .Filterable()
+        .ClientEvents(clientEvents => clientEvents.OnDataBinding("onServiceGridDataBinding"))
+        .ClientEvents(events => events.OnRowSelect("onRowSelected"))
+
+       .Render();
+    
+        }
+  </div> 
+  <div id="serialnumberGrid">
+  <h6>Service Receipts (<span id="customerID">@ViewData["id"] </span>)</h6>
+@(Html.Telerik().Grid((IEnumerable<Coinco.SMS.Website.Models.ServiceOrderLine>)ViewData["ServiceOrderLine"])
+            .Name("ServiceOrderLineGrid")
+        .Columns(columns=>
+        {
+            columns.Bound(c => c.SerialNumber).Width(100);
+            columns.Bound(c => c.PartNumber).Width(100);
+            columns.Bound(c => c.PartType).Width(100); 
+            columns.Bound(c => c.Quantity).Width(100);
+            columns.Bound(c => c.RepairType).Width(100);
+            columns.Bound(c => c.Warranty).Width(100);
+            columns.Bound(c => c.Comments).Width(100);
+        })
+            //.DataBinding(dataBinding => dataBinding.Ajax().Select("_SelectionClientSide_SerialNumber", "ServiceOrderLineGrid", new
+            //{
+            //serviceOrderId = "" }))
+             .DataBinding(dataBinding => dataBinding.Ajax().Select("_SelectionClientSide_SerialNumber", "WorkOrder"))
+        .ClientEvents(clientEvents => clientEvents.OnDataBinding("onDataBinding"))
+        .HtmlAttributes(new { style = "font-size: 8pt; font-family: Verdana;" })
+        .Pageable()
+        .Sortable()
+        .Scrollable()
+        
+
+ )
+  </div>
+   </div>
+<script type="text/javascript">
+    var serviceOrderNumber;
+    function onRowSelected(e) {
+    
+        var serviceOrderLineGrid = $('#ServiceOrderLineGrid').data('tGrid');
+
+        serviceOrderNumber = e.row.cells[0].innerHTML;
+
+        // update ui text
+        $('#customerID').text(serviceOrderNumber);
+
+        serviceOrderLineGrid.rebind();
+       
+    }
+    function onServiceGridDataBinding(e) {
+        serviceOrderNumber = "";
+    }
+    function onDataBinding(e) {
+        e.data = $.extend(e.data, { serviceOrderID: serviceOrderNumber });
+    }
+
+    function refreshGrid() {
+        $("ServiceOrderGrid .t-grid .t-refresh").trigger('click');
+    }
+</script>
