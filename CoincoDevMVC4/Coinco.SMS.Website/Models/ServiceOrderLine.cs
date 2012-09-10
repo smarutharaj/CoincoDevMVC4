@@ -31,7 +31,7 @@ namespace Coinco.SMS.Website.Models
             List<ServiceOrderLine> serviceOrderLineItemList = new List<ServiceOrderLine>();
             try
             {
-                DataTable resultTable = axHelper.GetServiceOrderLinesByServiceOrderId(serviceOrder, userName); //- Changed the name GetSerialNumberBySOList to GetSerialNumberBySerialOrder in AX Wrapper.
+                DataTable resultTable = axHelper.GetServiceOrderLinesByServiceOrderId(serviceOrder, userName); 
 
 
                 foreach (DataRow row in resultTable.Rows)
