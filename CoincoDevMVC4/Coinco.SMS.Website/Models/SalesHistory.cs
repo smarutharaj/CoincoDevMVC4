@@ -3,7 +3,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Data;
-namespace Coinco.SMS.Models
+using Coinco.SMS.AXWrapper;
+using StructureMap;
+
+namespace Coinco.SMS.Website.Models
 {
     public class SalesHistory
     {
@@ -28,7 +31,7 @@ namespace Coinco.SMS.Models
 
         public List<SalesHistory> GetSalesDetails(string serialNumber, string userName)
         {
-            Coinco.SMS.AXWrapper.AXHelper axHelper = new AXWrapper.AXHelper();
+            IAXHelper axHelper = ObjectFactory.GetInstance<IAXHelper>();
             List<SalesHistory> salesList = new List<SalesHistory>();
             try
             {
@@ -66,7 +69,7 @@ namespace Coinco.SMS.Models
         {
             //DateTime dateValue;
             //string dateExecute = "";
-            Coinco.SMS.AXWrapper.AXHelper axHelper = new AXWrapper.AXHelper();
+            IAXHelper axHelper = ObjectFactory.GetInstance<IAXHelper>();
             List<SalesHistory> salesList = new List<SalesHistory>();
             try
             {

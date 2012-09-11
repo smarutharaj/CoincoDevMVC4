@@ -7,6 +7,7 @@ using System.Collections;
 using System.Web.Mvc;
 using StructureMap;
 using Coinco.SMS.AXWrapper;
+
 namespace Coinco.SMS.Website.Models
 {
     public class Site

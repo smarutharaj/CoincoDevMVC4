@@ -184,5 +184,256 @@ namespace Coinco.SMS.AXWrapper
             return serialTable;
         }
 
+        public DataTable GetSerialNumberList(string serialId, string itemNumber, string custAccount, string userName)
+        {
+
+            Axapta ax = null;
+            AxaptaRecord axRecord;
+            DataTable serialTable = new DataTable();
+            serialTable.Columns.Add("SerialNumber", typeof(String));
+            serialTable.Columns.Add("PartNumber", typeof(String));
+            serialTable.Columns.Add("PartType", typeof(String));
+            serialTable.Columns.Add("Quantity", typeof(String));
+            serialTable.Columns.Add("Warranty", typeof(String));
+            serialTable.Columns.Add("RepairType", typeof(String));
+            serialTable.Columns.Add("CustAccount", typeof(String));
+            object[] param = new object[3];
+            try
+            {
+
+                ax = new Axapta();
+                ax.LogonAs(userName.Trim(), "", networkCredentials, axCompany, "", "", "");
+                param[0] = serialId;
+                param[1] = itemNumber;
+                param[2] = custAccount;
+                axRecord = (AxaptaRecord)ax.CallStaticClassMethod("ServiceOrderManagement", "getSMASerialNumberDetailsCust", param);
+                axRecord.ExecuteStmt("select * from %1");
+
+                while (axRecord.Found)
+                {
+                    DataRow row = serialTable.NewRow();
+                    row["SerialNumber"] = axRecord.get_Field("SerialNumber");
+                    row["PartNumber"] = axRecord.get_Field("ItemID");
+                    row["PartType"] = axRecord.get_Field("ItemGroup");
+                    row["Quantity"] = axRecord.get_Field("Quantity");
+                    row["Warranty"] = axRecord.get_Field("Warranty");
+                    row["RepairType"] = axRecord.get_Field("RepairType");
+                    row["CustAccount"] = axRecord.get_Field("CustAccount");
+                    serialTable.Rows.Add(row);
+                    axRecord.Next();
+                }
+
+
+
+
+            }
+            catch (Exception e)
+            {
+                throw e;
+                // Take other error action as needed.
+            }
+            finally
+            {
+                if (ax != null) ax.Logoff();
+            }
+            return serialTable;
+        }
+
+        public DataTable GetCustomerAddressList(string customerAccount, string userName)
+        {
+
+
+            Axapta ax = null;
+            ax = new Axapta();
+            DataTable addressTable = new DataTable();
+            addressTable.Columns.Add("AddressID", typeof(String));
+            addressTable.Columns.Add("AddressDesc", typeof(String));
+            addressTable.Columns.Add("Address", typeof(String));
+            addressTable.Columns.Add("IsBilling", typeof(String));
+            addressTable.Columns.Add("IsShipping", typeof(String));
+            try
+            {
+                ax.LogonAs(userName.Trim(), "", networkCredentials, axCompany, "", "", "");
+                AxaptaRecord axRecord;
+                axRecord = (AxaptaRecord)ax.CallStaticClassMethod("ServiceOrderManagement", "getSMACustomerAddresses", customerAccount);
+                axRecord.ExecuteStmt("select * from %1");
+
+                while (axRecord.Found)
+                {
+                    DataRow row = addressTable.NewRow();
+                    row["AddressID"] = axRecord.get_Field("AddressID");
+                    row["AddressDesc"] = axRecord.get_Field("AddressDesc");
+                    row["Address"] = axRecord.get_Field("Address");
+                    row["IsBilling"] = axRecord.get_Field("IsBilling");
+                    row["IsShipping"] = axRecord.get_Field("Isshipping");
+                    addressTable.Rows.Add(row);
+                    axRecord.Next();
+
+                }
+            }
+            catch (Exception e)
+            {
+                throw e;
+                // Take other error action as needed.
+            }
+            finally
+            {
+                if (ax != null) ax.Logoff();
+            }
+            return addressTable;
+        }
+
+        public DataTable GetCustomers(string userName)
+        {
+
+
+            Axapta ax = null;
+
+            ax = new Axapta();
+            DataTable customerTable = new DataTable();
+            customerTable.Columns.Add("CustomerAccount", typeof(String));
+            customerTable.Columns.Add("CustomerName", typeof(String));
+            try
+            {
+                ax.LogonAs(userName.Trim(), "", networkCredentials, axCompany, "", "", "");
+                AxaptaRecord axRecord;
+                axRecord = (AxaptaRecord)ax.CallStaticClassMethod("ServiceOrderManagement", "getSMACustomers");
+                axRecord.ExecuteStmt("select * from %1");
+                while (axRecord.Found)
+                {
+                    DataRow row = customerTable.NewRow();
+                    row["CustomerAccount"] = axRecord.get_Field("CustAccount");
+                    row["CustomerName"] = axRecord.get_Field("custName");
+                    customerTable.Rows.Add(row);
+                    axRecord.Next();
+
+                }
+
+            }
+            catch (Exception e)
+            {
+                throw e;
+                // Take other error action as needed.
+            }
+            finally
+            {
+                if (ax != null) ax.Logoff();
+            }
+            return customerTable;
+        }
+
+        #region "Sales Details"
+
+        public DataTable GetSalesInformation(string salesSerialNumber, string userName)
+        {
+
+            Axapta ax = null;
+            AxaptaRecord axRecord;
+            DataTable salesTable = new DataTable();
+
+
+            salesTable.Columns.Add("SalesNumber", typeof(String));
+            salesTable.Columns.Add("InvoiceNumber", typeof(String));
+            salesTable.Columns.Add("InvoiceDate", typeof(String));
+            salesTable.Columns.Add("Name", typeof(String));
+            salesTable.Columns.Add("ItemNumber", typeof(String));
+
+
+            try
+            {
+
+                ax = new Axapta();
+                ax.LogonAs(userName.Trim(), "", networkCredentials, axCompany, "", "", "");
+
+                axRecord = (AxaptaRecord)ax.CallStaticClassMethod("ServiceOrderManagement", "getSMASalesInformation", salesSerialNumber);
+                axRecord.ExecuteStmt("select * from %1");
+
+                while (axRecord.Found)
+                {
+                    DataRow row = salesTable.NewRow();
+
+                    row["SalesNumber"] = axRecord.get_Field("OrigSalesId");
+                    row["InvoiceNumber"] = axRecord.get_Field("InvoiceId");
+                    row["InvoiceDate"] = axRecord.get_Field("InvoiceDate");
+                    row["Name"] = axRecord.get_Field("Name");
+                    row["ItemNumber"] = axRecord.get_Field("ItemId");
+
+
+
+
+                    salesTable.Rows.Add(row);
+                    axRecord.Next();
+                }
+
+            }
+
+            catch (Exception e)
+            {
+                throw e;
+                // Take other error action as needed.
+            }
+            finally
+            {
+                if (ax != null) ax.Logoff();
+            }
+            return salesTable;
+        }
+
+        public DataTable GetSalesHistory(string salesSerialNumber, string userName)
+        {
+
+            Axapta ax = null;
+            AxaptaRecord axRecord;
+            DataTable salesTable = new DataTable();
+
+
+            salesTable.Columns.Add("ServiceOrderId", typeof(String));
+            salesTable.Columns.Add("SalesPrice", typeof(String));
+            salesTable.Columns.Add("DateExecution", typeof(String));
+            salesTable.Columns.Add("Description", typeof(String));
+
+
+
+            try
+            {
+
+                ax = new Axapta();
+                ax.LogonAs(userName.Trim(), "", networkCredentials, axCompany, "", "", "");
+
+                axRecord = (AxaptaRecord)ax.CallStaticClassMethod("ServiceOrderManagement", "getSMAServiceHistory", salesSerialNumber);
+                axRecord.ExecuteStmt("select * from %1");
+
+                while (axRecord.Found)
+                {
+                    DataRow row = salesTable.NewRow();
+
+                    row["ServiceOrderId"] = axRecord.get_Field("ServiceOrderId");
+                    row["SalesPrice"] = axRecord.get_Field("ProjSalesPrice");
+                    row["DateExecution"] = axRecord.get_Field("DateExecution");
+                    row["Description"] = axRecord.get_Field("DescriptionService");
+
+
+
+
+
+                    salesTable.Rows.Add(row);
+                    axRecord.Next();
+                }
+
+            }
+
+            catch (Exception e)
+            {
+                throw e;
+                // Take other error action as needed.
+            }
+            finally
+            {
+                if (ax != null) ax.Logoff();
+            }
+            return salesTable;
+        }
+
+        #endregion
     }
 }

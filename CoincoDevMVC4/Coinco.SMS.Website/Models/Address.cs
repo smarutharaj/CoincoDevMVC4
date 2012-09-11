@@ -3,6 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Data;
+using Coinco.SMS.AXWrapper;
+using StructureMap;
+
 namespace Coinco.SMS.Website.Models
 {
     public class Address
@@ -26,7 +29,7 @@ namespace Coinco.SMS.Website.Models
 
         public List<Address> GetCustomerAddress(string customerAccount, string userName)
         {
-            Coinco.SMS.AXWrapper.AXHelper axHelper = new AXWrapper.AXHelper();
+            IAXHelper axHelper = ObjectFactory.GetInstance<IAXHelper>();
             List<Address> addressList = new List<Address>();
             try
             {
