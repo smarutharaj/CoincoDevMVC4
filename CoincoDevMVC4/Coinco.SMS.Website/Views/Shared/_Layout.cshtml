@@ -11,7 +11,7 @@
     @{Html.Telerik().StyleSheetRegistrar()
                     .DefaultGroup(group => group.Add("telerik.common.css")
                                             .Add("telerik.Office2010Blue.css")
-                                            .Add("CoincoSite.css") 
+                                            .Add("StyleSheet.css") 
                                             .CacheDurationInDays(5)
                                             .Combined(false)
                                             .Compress(false)).Render();}
@@ -20,65 +20,68 @@
 </head>
 <body>
     <header>
-    <div class ="headerImageClass">
-                <img src="../../Images/Coinco - Logo.png" alt="Coinco - Logo" />
-            </div>
-            <div class ="siteuserClass">
-                <div  class ="siteView">
-                             @{Html.RenderPartial("Sites");}
+    <div class = "LayoutHeader">
+             <div class ="headerfeatured">
+                <div class ="headerImageClass">
+                    <img src="../../Images/Coinco - Logo.png" alt="Coinco - Logo" />
                 </div>
-                <div class ="userDetail">
-                    <section id="login">
-                            Hello, <span >@User.Identity.Name</span>!
-                    </section>
+                <div class ="siteuserClass">
+                    <div  class ="siteView">
+                                @{Html.RenderPartial("Sites");}
+                    </div>
+                    <div class ="userDetail">
+                        <section id="login">
+                                Hello, <span >@User.Identity.Name</span>!
+                        </section>
+                    </div>
                 </div>
-            </div>
-
-            <div class ="smsMenuHeader">
-                <div id="InProcess" class="ribbonIconBarClass" >
-                        <a href="@Url.Action("ServiceOrderWithHistory", "WorkOrder")">
-                            <img class="imgClass" src="@Url.Content("../../Images/WorkOrder-Open.png")" alt="" /></a>
-                            <p  class= "imgTitle">In Process</p>
-                </div>
-                <div id="Posted" class="ribbonIconBarClass" >
-                        <a href="@Url.Action("ServiceOrderWithHistory", "WorkOrder")">
-                            <img class="imgClass" src="@Url.Content("../../Images/WorkOrder-Posted.png")" alt=""/></a>
-                            <p  class= "imgTitle">Posted</p>
-                </div>
+            
+                <div class ="smsMenuHeader">
+                        <div id="InProcess" class="ribbonIconBarClass" >
+                                <a href="@Url.Action("ServiceOrderWithHistory", "WorkOrder")" style = "text-decoration:none;">
+                                    <img class="imgClass" src="@Url.Content("../../Images/WorkOrder-Open.png")" alt="" />
+                                    <p  class= "imgTitle">In Process</p></a>
+                        </div>
+                        <div id="Posted" class="ribbonIconBarClass" >
+                                <a href="@Url.Action("ServiceOrderWithHistory", "WorkOrder")" style = "text-decoration:none;">
+                                    <img class="imgClass" src="@Url.Content("../../Images/WorkOrder-Posted.png")" alt=""/>
+                                    <p  class= "imgTitle">Posted</p></a>
+                        </div>
                
-                <div id="Canceled" class="ribbonIconBarClass">
-                        <a href="@Url.Action("ServiceOrderWithHistory", "WorkOrder")">
-                        <img class="imgClass" src="@Url.Content("../../Images/WorkOrder-Closed.png")" alt=""/> </a>   
-                        <p class= "imgTitle">Canceled</p>
+                        <div id="Canceled" class="ribbonIconBarClass">
+                                <a href="@Url.Action("ServiceOrderWithHistory", "WorkOrder")" style = "text-decoration:none;">
+                                <img class="imgClass" src="@Url.Content("../../Images/WorkOrder-Closed.png")" alt=""/>  
+                                <p class= "imgTitle">Canceled</p></a>  
                        
-                </div>
+                        </div>
 
-                <div id="CheckIN" class="ribbonIconBarClass" >
-                        <a href="@Url.Action("CheckIn", "CheckIn")">
-                            <img class="imgClass" src="@Url.Content("../../Images/WorkOrder.png")" alt="" /></a>
-                            <p  class= "imgTitle">Check In</p>
-                </div>
-                <div id="RepairLines" class="ribbonIconBarClass">
-                        <a href="@Url.Action("RepairLines", "RepairLines")">
-                        <img class="imgClass" src="@Url.Content("../../Images/RepairLines.png")" alt=""/></a>
-                        <p class= "imgTitle">Repair Lines</p>
+                        <div id="CheckIN" class="ribbonIconBarClass" >
+                                <a href="@Url.Action("CheckIn", "CheckIn")" style = "text-decoration:none;">
+                                    <img class="imgClass" src="@Url.Content("../../Images/WorkOrder.png")" alt="" />
+                                    <p  class= "imgTitle">Check In</p></a>
+                        </div>
+                        <div id="RepairLines" class="ribbonIconBarClass">
+                                <a href="@Url.Action("RepairLines", "RepairLines")" style = "text-decoration:none;">
+                                <img class="imgClass" src="@Url.Content("../../Images/RepairLines.png")" alt=""/>
+                                <p class= "imgTitle">Repair Lines</p></a>
                         
-                </div>
-                <div id="OrderProcess" class="ribbonIconBarClass">
-                        <a href="@Url.Action("ServiceOrderProcess", "WorkOrder")">
-                        <img class="imgClass" src="@Url.Content("../../Images/new.png")" alt="" /></a>   
-                        <p class= "imgTitle">Order Process</p>
+                        </div>
+                        <div id="OrderProcess" class="ribbonIconBarClass">
+                                <a href="@Url.Action("ServiceOrderProcess", "WorkOrder")" style = "text-decoration:none;">
+                                <img class="imgClass" src="@Url.Content("../../Images/new.png")" alt="" />  
+                                <p class= "imgTitle">Order Process</p></a> 
                         
+                        </div>
                 </div>
             </div>
-           
-       
+    </div>
     </header>
-    <div id="body">
-     @RenderSection("featured", required: false)
-        <section class="content-wrapper main-content clear-fix">
-            @RenderBody()
-        </section>
+    <div id="body" class="LayoutBody">
+        <div class ="featured">
+           @* <section class="content-wrapper">*@
+                @RenderBody()
+          @*  </section>*@
+        </div>
     </div>
     <footer>
         <div class="content-wrapper">
