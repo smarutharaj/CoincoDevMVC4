@@ -57,7 +57,7 @@ namespace Coinco.SMS.Website.Models
 
         //- To get the GetTechniciansParts for Service Order Process Page 
 
-        public List<ServiceTechnician> GetTechniciansParts(string transactionType, string specialityCode, string userName)
+        public List<ServiceTechnician> GetTechniciansServiceOrderProcess(string transactionType, string specialityCode, string userName)
         {
             IAXHelper axHelper = ObjectFactory.GetInstance<IAXHelper>();
             List<ServiceTechnician> techniciansList = new List<ServiceTechnician>();
