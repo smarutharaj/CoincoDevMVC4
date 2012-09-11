@@ -322,6 +322,176 @@ namespace Coinco.SMS.AXWrapper
             return customerTable;
         }
 
+        public DataTable GetWOClassificationList(string userName)
+        {
+            DataTable resultTable = new DataTable();
+            Axapta ax = null;
+            AxaptaRecord axRecord;
+            try
+            {
+                // Login to Microsoft Dynamics AX.
+                ax = new Axapta();
+                ax.LogonAs(userName.Trim(), "", networkCredentials, axCompany, "", "", "");
+                resultTable.Columns.Add("WOCode", typeof(String));
+                resultTable.Columns.Add("WODescription", typeof(String));
+                using (axRecord = ax.CreateAxaptaRecord("SMAWOClassification"))
+                {
+                    // Execute the query on the table.
+                    axRecord.ExecuteStmt("select Code, Description from %1 where %1.DataAreaID=='" + axCompany + "'");
+                    // Loop through the set of retrieved records.
+                    while (axRecord.Found)
+                    {
+
+                        DataRow row = resultTable.NewRow();
+                        row["WOCode"] = axRecord.get_Field("Code");
+                        row["WODescription"] = axRecord.get_Field("Description");
+                        resultTable.Rows.Add(row);
+                        axRecord.Next();
+
+                    }
+
+
+                }
+            }
+            catch (Exception e)
+            {
+                throw e;
+                // Take other error action as needed.
+            }
+            finally
+            {
+                if (ax != null) ax.Logoff();
+            }
+            return resultTable;
+        }
+
+        public DataTable GetTechnicians(string userName)
+        {
+
+
+            Axapta ax = null;
+
+            ax = new Axapta();
+            DataTable techniciansTable = new DataTable();
+            techniciansTable.Columns.Add("Name", typeof(String));
+            techniciansTable.Columns.Add("Number", typeof(String));
+            try
+            {
+                ax.LogonAs(userName.Trim(), "", networkCredentials, axCompany, "", "", "");
+                AxaptaRecord axRecord;
+                axRecord = (AxaptaRecord)ax.CallStaticClassMethod("ServiceOrderManagement", "getSMATechnicians");
+                axRecord.ExecuteStmt("select * from %1");
+
+
+                while (axRecord.Found)
+                {
+                    DataRow row = techniciansTable.NewRow();
+                    row["Name"] = axRecord.get_Field("Name");
+                    row["Number"] = axRecord.get_Field("Number");
+                    techniciansTable.Rows.Add(row);
+                    axRecord.Next();
+
+                }
+            }
+            catch (Exception e)
+            {
+                throw e;
+                // Take other error action as needed.
+            }
+            finally
+            {
+                if (ax != null) ax.Logoff();
+            }
+
+            return techniciansTable;
+        }
+
+        public DataTable GetTechniciansPartDetails(string transactionType, string specialityCode, string userName)
+        {
+
+
+            Axapta ax = null;
+
+            ax = new Axapta();
+            DataTable techniciansTable = new DataTable();
+            techniciansTable.Columns.Add("Name", typeof(String));
+            techniciansTable.Columns.Add("Number", typeof(String));
+            try
+            {
+                ax.LogonAs(userName.Trim(), "", networkCredentials, axCompany, "", "", "");
+                AxaptaRecord axRecord;
+                axRecord = (AxaptaRecord)ax.CallStaticClassMethod("ServiceOrderManagement", "getSMATechniciansParts", transactionType, specialityCode);
+                axRecord.ExecuteStmt("select * from %1");
+
+
+                while (axRecord.Found)
+                {
+                    DataRow row = techniciansTable.NewRow();
+                    row["Name"] = axRecord.get_Field("Name");
+                    row["Number"] = axRecord.get_Field("Number");
+                    techniciansTable.Rows.Add(row);
+                    axRecord.Next();
+
+                }
+            }
+            catch (Exception e)
+            {
+                throw e;
+                // Take other error action as needed.
+            }
+            finally
+            {
+                if (ax != null) ax.Logoff();
+            }
+
+            return techniciansTable;
+        }
+
+        public DataTable GetItemNumbersList(string userName)
+        {
+            DataTable resultTable = new DataTable();
+            Axapta ax = null;
+            AxaptaRecord axRecord;
+            try
+            {
+                // Login to Microsoft Dynamics AX.
+                ax = new Axapta();
+                ax.LogonAs(userName.Trim(), "", networkCredentials, axCompany, "", "", "");
+                resultTable.Columns.Add("ItemNumber", typeof(String));
+                resultTable.Columns.Add("ProductName", typeof(String));
+                resultTable.Columns.Add("ProductSubType", typeof(String));
+                using (axRecord = ax.CreateAxaptaRecord("InventTableExpanded"))
+                {
+                    // Execute the query on the table.
+                    axRecord.ExecuteStmt("select ItemID, ProductName, ProductSubType  from %1 where %1.DataAreaID=='" + axCompany + "'");
+                    // Loop through the set of retrieved records.
+                    while (axRecord.Found)
+                    {
+
+                        DataRow row = resultTable.NewRow();
+                        row["ItemNumber"] = axRecord.get_Field("ItemID");
+                        row["ProductName"] = axRecord.get_Field("ProductName");
+                        row["ProductSubType"] = axRecord.get_Field("ProductSubType");
+                        resultTable.Rows.Add(row);
+                        axRecord.Next();
+
+                    }
+
+
+                }
+            }
+            catch (Exception e)
+            {
+                throw e;
+                // Take other error action as needed.
+            }
+            finally
+            {
+                if (ax != null) ax.Logoff();
+            }
+            return resultTable;
+        }
+
         #region "Sales Details"
 
         public DataTable GetSalesInformation(string salesSerialNumber, string userName)
