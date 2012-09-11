@@ -35,18 +35,18 @@ namespace Coinco.SMS.Website.Models
             List<Customer> customerList = new List<Customer>();
             try
             {
-                DataTable resultTable = axHelper.GetCustomers(userName);
+                //DataTable resultTable = axHelper.GetCustomers(userName);
 
 
-                foreach (DataRow row in resultTable.Rows)
-                {
-                    Customer customerObject = new Customer();
-                    customerObject.CustomerAccount = row["CustomerAccount"].ToString();
-                    customerObject.CustomerName = row["CustomerName"].ToString();
+                //foreach (DataRow row in resultTable.Rows)
+                //{
+                //    Customer customerObject = new Customer();
+                //    customerObject.CustomerAccount = row["CustomerAccount"].ToString();
+                //    customerObject.CustomerName = row["CustomerName"].ToString();
 
-                    customerList.Add(customerObject);
+                //    customerList.Add(customerObject);
 
-                }
+                //}
             }
             catch (Exception e)
             {
