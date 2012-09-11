@@ -35,23 +35,23 @@ namespace Coinco.SMS.Website.Models
             List<SalesHistory> salesList = new List<SalesHistory>();
             try
             {
-                DataTable resultTable = axHelper.GetSalesInformation(serialNumber, userName);
+                //DataTable resultTable = axHelper.GetSalesInformation(serialNumber, userName);
 
 
-                foreach (DataRow row in resultTable.Rows)
-                {
-                    SalesHistory salesObject = new SalesHistory();
-                    salesObject.SalesOrderNumber = row["SalesNumber"].ToString();
-                    salesObject.InvoiceNumber = row["InvoiceNumber"].ToString();
-                    salesObject.InvoiceDate = row["InvoiceDate"].ToString();
-                    salesObject.CustomerName = row["Name"].ToString();
-                    salesObject.ItemNumber = row["ItemNumber"].ToString();
+                //foreach (DataRow row in resultTable.Rows)
+                //{
+                //    SalesHistory salesObject = new SalesHistory();
+                //    salesObject.SalesOrderNumber = row["SalesNumber"].ToString();
+                //    salesObject.InvoiceNumber = row["InvoiceNumber"].ToString();
+                //    salesObject.InvoiceDate = row["InvoiceDate"].ToString();
+                //    salesObject.CustomerName = row["Name"].ToString();
+                //    salesObject.ItemNumber = row["ItemNumber"].ToString();
 
 
 
-                    salesList.Add(salesObject);
+                //    salesList.Add(salesObject);
 
-                }
+                //}
             }
             catch (Exception ex)
             {
@@ -72,22 +72,22 @@ namespace Coinco.SMS.Website.Models
             IAXHelper axHelper = ObjectFactory.GetInstance<IAXHelper>();
             List<SalesHistory> salesList = new List<SalesHistory>();
             try
-            {
-                DataTable resultTable = axHelper.GetSalesHistory(serialNumber, userName);
+            //{
+            //    DataTable resultTable = axHelper.GetSalesHistory(serialNumber, userName);
 
 
-                foreach (DataRow row in resultTable.Rows)
-                {
-                    SalesHistory salesObject = new SalesHistory();
-                    salesObject.SalesServiceOrder = row["ServiceOrderId"].ToString();
-                    salesObject.SalesPrice = row["SalesPrice"].ToString();
-                    salesObject.DateExecution = row["DateExecution"].ToString();
-                    salesObject.Description = row["Description"].ToString();
+            //    foreach (DataRow row in resultTable.Rows)
+            //    {
+            //        SalesHistory salesObject = new SalesHistory();
+            //        salesObject.SalesServiceOrder = row["ServiceOrderId"].ToString();
+            //        salesObject.SalesPrice = row["SalesPrice"].ToString();
+            //        salesObject.DateExecution = row["DateExecution"].ToString();
+            //        salesObject.Description = row["Description"].ToString();
 
 
 
 
-                    salesList.Add(salesObject);
+            //        salesList.Add(salesObject);
 
                 }
             }
