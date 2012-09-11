@@ -33,20 +33,20 @@ namespace Coinco.SMS.Website.Models
             List<Address> addressList = new List<Address>();
             try
             {
-                DataTable resultTable = axHelper.GetCustomerAddressList(customerAccount, userName);
+                //DataTable resultTable = axHelper.GetCustomerAddressList(customerAccount, userName);
 
-                foreach (DataRow row in resultTable.Rows)
-                {
-                    Address addressObject = new Address();
+                //foreach (DataRow row in resultTable.Rows)
+                //{
+                //    Address addressObject = new Address();
 
-                    addressObject.AddressId = row["AddressId"].ToString();
-                    addressObject.AddressDescription = row["AddressDesc"].ToString();
-                    addressObject.AddressDetails = row["Address"].ToString();
-                    addressObject.AddresswithDesc = addressObject.AddressDescription + " " + addressObject.AddressDetails;
-                    addressObject.IsBilling = row["IsBilling"].ToString();
-                    addressObject.IsShipping = row["IsShipping"].ToString();
-                    addressList.Add(addressObject);
-                }
+                //    addressObject.AddressId = row["AddressId"].ToString();
+                //    addressObject.AddressDescription = row["AddressDesc"].ToString();
+                //    addressObject.AddressDetails = row["Address"].ToString();
+                //    addressObject.AddresswithDesc = addressObject.AddressDescription + " " + addressObject.AddressDetails;
+                //    addressObject.IsBilling = row["IsBilling"].ToString();
+                //    addressObject.IsShipping = row["IsShipping"].ToString();
+                //    addressList.Add(addressObject);
+                //}
             }
             catch (Exception ex)
             {
