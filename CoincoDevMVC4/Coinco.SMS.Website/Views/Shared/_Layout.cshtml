@@ -11,7 +11,7 @@
     @{Html.Telerik().StyleSheetRegistrar()
                     .DefaultGroup(group => group.Add("telerik.common.css")
                                             .Add("telerik.Office2010Blue.css")
-                                            .Add("StyleSheet.css") 
+                                            .Add("CoincoSite.css") 
                                             .CacheDurationInDays(5)
                                             .Combined(false)
                                             .Compress(false)).Render();}
@@ -27,7 +27,7 @@
                 </div>
                 <div class ="siteuserClass">
                     <div  class ="siteView">
-                                @{Html.RenderPartial("Sites");}
+                           Site:  @{Html.RenderPartial("Sites");}
                     </div>
                     <div class ="userDetail">
                         <section id="login">
