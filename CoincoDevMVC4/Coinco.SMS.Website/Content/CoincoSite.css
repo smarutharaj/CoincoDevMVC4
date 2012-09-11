@@ -68,6 +68,10 @@ margin-left:5px;
     vertical-align:middle;
     background: #084B8A;
     
+    overflow:hidden;
+    position:relative;
+
+
 }
 .siteView
 {
@@ -75,6 +79,9 @@ margin-left:5px;
     color: #FFFFFF;
     vertical-align:middle;
     padding-left: 20px;
+    
+    position:absolute;
+    top:10%;
 
 }
 .userDetail
@@ -108,16 +115,29 @@ margin-left:5px;
     font-weight: bold;
 }
 
+.headerfeatured {
+    background-color: #fff;
+}
 
-
-
-
-
-
-
-
-
-
+.LayoutHeader
+{
+    margin: 0 auto;
+    max-width: 960px;
+    padding-bottom:0px;
+    height:100px;
+}
+.LayoutBody
+{
+    margin: 0 auto;
+    max-width: 960px;
+    padding-top:0px;
+    
+}
+.featured {
+    background-color: #fff;
+    padding-left:5px;
+    padding-right:5px;
+}
 
 
 /************************************************************/
@@ -129,7 +149,7 @@ html {
 }
 
 body {
-    background-color: #fff;
+    background-color: #e2e2e2;
     border-top: solid 0px #000;
     color: #333;
     font-size: .85em;
@@ -233,29 +253,31 @@ h5, h6 {
 
 /* main layout
 ----------------------------------------------------------*/
+
 .content-wrapper {
-    margin: 5px auto;
+    margin: 0 auto;
     max-width: 960px;
+    
 }
 
 #body {
      background: #ffff;
     clear: both;
     padding-bottom: 5px;
-   
 }
 
     .main-content {
         background: url("../Images/accent.png") no-repeat;
         padding-left: 10px;
-        padding-top: 5px;
+       
     }
 
     .featured + .main-content {
         background: url("../Images/heroAccent.png") no-repeat;
     }
 header .content-wrapper {
-    padding-top: 2px; 
+    padding-top: 2px;
+    
 }
 
 footer {
@@ -347,9 +369,10 @@ ul#menu {
 /* page elements
 ----------------------------------------------------------*/
 /* featured */
-.featured {
+
+/*.featured {
     background-color: #fff;
-}
+}*/
 
     .featured .content-wrapper {
         background-color: #7ac0da;
@@ -668,7 +691,7 @@ input[type="checkbox"].input-validation-error {
 /********************
 *   Mobile Styles   *
 ********************/
-@media only screen and (max-width: 850px) {
+ @media only screen and (max-width: 850px) {
 
     /* header
     ----------------------------------------------------------*/
@@ -735,7 +758,7 @@ input[type="checkbox"].input-validation-error {
     ----------------------------------------------------------*/
     .main-content,
     .featured + .main-content {
-        background-position: 2px 0;
+        background-position: 10px 0;
     }
 
     .content-wrapper {
@@ -744,7 +767,7 @@ input[type="checkbox"].input-validation-error {
     }
 
     .featured .content-wrapper {
-        padding: 5px;
+        padding: 0px;
     }
 
     /* page content */
