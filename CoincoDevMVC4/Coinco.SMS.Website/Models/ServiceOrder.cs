@@ -19,7 +19,7 @@ namespace Coinco.SMS.Website.Models
         public Customer Customer { get; set; }
         public ServiceTechnician ServiceTechnician { get; set; }
         public WOClassification WOClassification { get; set; }
-
+        
         public ServiceOrder()
         {
 
