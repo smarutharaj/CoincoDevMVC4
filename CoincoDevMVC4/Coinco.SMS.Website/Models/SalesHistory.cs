@@ -72,7 +72,7 @@ namespace Coinco.SMS.Website.Models
             IAXHelper axHelper = ObjectFactory.GetInstance<IAXHelper>();
             List<SalesHistory> salesList = new List<SalesHistory>();
             try
-            //{
+            {
             //    DataTable resultTable = axHelper.GetSalesHistory(serialNumber, userName);
 
 
@@ -89,7 +89,7 @@ namespace Coinco.SMS.Website.Models
 
             //        salesList.Add(salesObject);
 
-                }
+                //}
             }
             catch (Exception ex)
             {
