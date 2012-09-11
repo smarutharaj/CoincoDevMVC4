@@ -26,7 +26,7 @@ Site: @{
             $.ajax({
                 url: "/WorkOrder/ServiceOrderWithHistory",
                 type: 'GET',
-                data: { siteId: siteId },
+                data: { siteId: siteId, process: -1 },
                 dataType: 'html',
                 success: function (result) {
                     $('#SOWH').html(result);
