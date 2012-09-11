@@ -140,11 +140,21 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\Address.cs" />
     <Compile Include="Models\Customer.cs" />
+    <Compile Include="Models\FailureCode.cs" />
+    <Compile Include="Models\LineProperty.cs" />
+    <Compile Include="Models\Location.cs" />
+    <Compile Include="Models\PartDetails.cs" />
+    <Compile Include="Models\SalesHistory.cs" />
+    <Compile Include="Models\SerivceOrderPartLine.cs" />
     <Compile Include="Models\ServiceOrder.cs" />
     <Compile Include="Models\ServiceOrderLine.cs" />
     <Compile Include="Models\ServiceTechnician.cs" />
     <Compile Include="Models\Site.cs" />
+    <Compile Include="Models\SpecialtyCode.cs" />
+    <Compile Include="Models\TransactionType.cs" />
+    <Compile Include="Models\WareHouse.cs" />
     <Compile Include="Models\WOClassification.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -479,8 +489,8 @@
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Views\WorkOrder\ServiceOrderProcess.cshtml" />
     <Content Include="Views\WorkOrder\ServiceOrderWithHistory.cshtml" />
-    <Content Include="Views\CheckIn\CheckIn.cshtml" />
     <Content Include="Views\RepairLines\RepairLines.cshtml" />
+    <Content Include="Views\CheckIn\CheckIn.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
