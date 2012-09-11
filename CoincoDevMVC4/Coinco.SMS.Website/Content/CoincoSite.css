@@ -5,6 +5,7 @@
     width: 36px;
     height: 36px;
     text-align: justify;
+    border:none;
     
 }
 
@@ -137,6 +138,7 @@ margin-left:5px;
     background-color: #fff;
     padding-left:5px;
     padding-right:5px;
+    padding-bottom:5px;
 }
 
 
