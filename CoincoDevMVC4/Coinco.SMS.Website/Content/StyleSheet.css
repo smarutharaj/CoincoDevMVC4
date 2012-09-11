@@ -68,6 +68,10 @@ margin-left:5px;
     vertical-align:middle;
     background: #084B8A;
     
+    overflow:hidden;
+    position:relative;
+
+
 }
 .siteView
 {
@@ -75,6 +79,9 @@ margin-left:5px;
     color: #FFFFFF;
     vertical-align:middle;
     padding-left: 20px;
+    
+    position:absolute;
+    top:10%;
 
 }
 .userDetail
