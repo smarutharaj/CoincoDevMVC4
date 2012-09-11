@@ -2,7 +2,7 @@
 @using Telerik.Web.Mvc.UI
 
 
-Site: @{
+ @{
     Html.Telerik().DropDownList().Name("siteDropDownList")
         .BindTo((SelectList)TempData["FeaturedSites"])
         .ClientEvents(e => e.OnOpen("onOpen"))
