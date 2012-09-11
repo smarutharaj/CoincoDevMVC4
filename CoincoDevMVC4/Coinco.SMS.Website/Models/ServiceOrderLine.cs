@@ -18,7 +18,7 @@ namespace Coinco.SMS.Website.Models
         public string Warranty { get; set; }
         public string Comments { get; set; }
         public string LineProperty { get; set; }
-
+        public string CustAccount { get; set; }
         public ServiceOrderLine()
         {
 
