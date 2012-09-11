@@ -64,22 +64,22 @@ namespace Coinco.SMS.Website.Models
             List<ServiceOrderLine> serviceOrderList = new List<ServiceOrderLine>();
             try
             {
-                DataTable resultTable = axHelper.GetSerialNumberList(serialId, itemNumber, custAccount, userName);
+                //DataTable resultTable = axHelper.GetSerialNumberList(serialId, itemNumber, custAccount, userName);
 
 
-                foreach (DataRow row in resultTable.Rows)
-                {
-                    ServiceOrderLine serviceObject = new ServiceOrderLine();
-                    serviceObject.SerialNumber = row["SerialNumber"].ToString();
-                    serviceObject.PartNumber = row["PartNumber"].ToString();
-                    serviceObject.PartType = row["PartType"].ToString();
-                    serviceObject.Quantity = row["Quantity"].ToString();
-                    serviceObject.Warranty = row["Warranty"].ToString();
-                    serviceObject.RepairType = row["RepairType"].ToString();
-                    serviceObject.CustAccount = row["CustAccount"].ToString();
-                    serviceOrderList.Add(serviceObject);
+                //foreach (DataRow row in resultTable.Rows)
+                //{
+                //    ServiceOrderLine serviceObject = new ServiceOrderLine();
+                //    serviceObject.SerialNumber = row["SerialNumber"].ToString();
+                //    serviceObject.PartNumber = row["PartNumber"].ToString();
+                //    serviceObject.PartType = row["PartType"].ToString();
+                //    serviceObject.Quantity = row["Quantity"].ToString();
+                //    serviceObject.Warranty = row["Warranty"].ToString();
+                //    serviceObject.RepairType = row["RepairType"].ToString();
+                //    serviceObject.CustAccount = row["CustAccount"].ToString();
+                //    serviceOrderList.Add(serviceObject);
 
-                }
+                //}
             }
             catch (Exception e)
             {
