@@ -14,24 +14,28 @@ namespace Coinco.SMS.Controllers
 
         // GET: /WorkOrder/
         [HttpGet]
-        public ActionResult ServiceOrderWithHistory(string siteId)
+        public ActionResult ServiceOrderWithHistory(string siteId, string process)
         {
             if (siteId == null)
             {
                 GetSites();
+                if (process == null)
+                {
+                    process = "-1";
+                }
             }
             else
             {
                 TempData["SiteId"] = siteId;
                 TempData.Keep();
             }
-            ViewData["ServiceOrder"] = GetServiceOrders(TempData["SiteId"].ToString());
+            ViewData["ServiceOrder"] = GetServiceOrders(TempData["SiteId"].ToString(), process);
             ViewData["ServiceOrderLine"] = GetServiceOrderLinesByServiceOrderID("");
             return View();
         }
 
         [GridAction]
-        public ActionResult _SelectionClientSide_ServiceOrders(string siteId)
+        public ActionResult _SelectionClientSide_ServiceOrders(string siteId, string process)
         {
             if (siteId != null)
             {
@@ -39,7 +43,7 @@ namespace Coinco.SMS.Controllers
             }
             return View(new GridModel<ServiceOrder>
             {
-                Data = GetServiceOrders(TempData["SiteId"].ToString())
+                Data = GetServiceOrders(TempData["SiteId"].ToString(), process)
                            
             });
         }
@@ -77,11 +81,11 @@ namespace Coinco.SMS.Controllers
         }
 
         //Get ServiceOrders by SiteID
-        private List<ServiceOrder> GetServiceOrders(string siteId)
+        private List<ServiceOrder> GetServiceOrders(string siteId, string process)
         {
             string userName = null;
             userName = User.Identity.Name.ToString().Split('\\')[1];
-            List<ServiceOrder> serviceOrder = (new ServiceOrder()).GetServiceOrders(siteId, "-1", "", userName);
+            List<ServiceOrder> serviceOrder = (new ServiceOrder()).GetServiceOrders(siteId, process, "", userName);
             return serviceOrder;
         }
 
