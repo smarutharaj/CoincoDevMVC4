@@ -57,6 +57,39 @@ namespace Coinco.SMS.Website.Models
             return serviceOrderLineItemList;
 
         }
+
+        public List<ServiceOrderLine> GetSerialNumbersHistory(string serialId, string itemNumber, string custAccount, string userName)
+        {
+            IAXHelper axHelper = ObjectFactory.GetInstance<IAXHelper>();
+            List<ServiceOrderLine> serviceOrderList = new List<ServiceOrderLine>();
+            try
+            {
+                DataTable resultTable = axHelper.GetSerialNumberList(serialId, itemNumber, custAccount, userName);
+
+
+                foreach (DataRow row in resultTable.Rows)
+                {
+                    ServiceOrderLine serviceObject = new ServiceOrderLine();
+                    serviceObject.SerialNumber = row["SerialNumber"].ToString();
+                    serviceObject.PartNumber = row["PartNumber"].ToString();
+                    serviceObject.PartType = row["PartType"].ToString();
+                    serviceObject.Quantity = row["Quantity"].ToString();
+                    serviceObject.Warranty = row["Warranty"].ToString();
+                    serviceObject.RepairType = row["RepairType"].ToString();
+                    serviceObject.CustAccount = row["CustAccount"].ToString();
+                    serviceOrderList.Add(serviceObject);
+
+                }
+            }
+            catch (Exception e)
+            {
+                throw e;
+
+            }
+            return serviceOrderList;
+
+        }
+
        
 }
     

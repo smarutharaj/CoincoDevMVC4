@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Runtime.Serialization;
 
-namespace Coinco.SMS.Models
+namespace Coinco.SMS.Website.Models
 {
     public enum TransactionType : int
     {
