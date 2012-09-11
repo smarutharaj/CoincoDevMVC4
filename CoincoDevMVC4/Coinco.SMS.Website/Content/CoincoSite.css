@@ -141,6 +141,144 @@ margin-left:5px;
     padding-bottom:5px;
 }
 
+/*********************Checkin***************************/
+
+.leftViewClass
+{
+    padding-left: 10px;
+    padding-top:5px;
+    padding-right:10px;
+    max-width: 400px;
+    width:400px;
+    height: 25px;
+    vertical-align:middle;
+   font-family:  Verdana;
+   font-size:8pt;
+    font-weight:normal;
+    float:left;
+}
+.leftAddressViewClass
+{
+   padding-left: 10px;
+   padding-top:5px;
+   padding-right:10px;
+   max-width: 400px;
+   width:400px;
+   height: 40px;
+   font-family:  Verdana;
+   font-size:8pt;
+    font-weight:normal;
+    float:left;
+}
+
+.leftView
+{
+   float:left;
+   width:200px;
+   text-align: left;
+   vertical-align:middle;
+   font-family:  Verdana;
+   font-size:8pt;
+   font-weight:normal;
+}
+
+.leftadjacentView
+{
+   float:right;
+   width:200px;
+   max-width:200px;
+   text-align: left;
+   vertical-align:middle;
+   font-family:  Verdana;
+   font-size:8pt;
+   font-weight:normal;
+}
+
+.fullViewforLargerHeightClass
+{
+    padding-left: 10px;
+    padding-top:5px;
+    padding-right:10px;
+    max-width: 960px;
+    height: 50px;
+    vertical-align:middle;
+     font-weight:normal;
+    
+}
+.fullViewforMediumHeightClass
+{
+    padding-left: 10px;
+    padding-top:5px;
+    padding-right:10px;
+    max-width: 960px;
+    height: 50px;
+    vertical-align:middle;
+     font-weight:normal;
+    
+}
+
+.fullViewforSmallerHeightClass
+{
+    padding-left: 10px;
+    padding-top:5px;
+    padding-right:10px;
+    max-width: 960px;
+    height: 20px;
+    vertical-align:middle;
+     font-weight:normal;
+    
+}
+.rightViewClass
+{
+    float:right;
+    padding-left: 10px;
+    padding-top:5px;
+    padding-right:10px;
+    max-width: 400px;
+    width:400px;
+    height: 25px;
+    vertical-align:middle;
+    font-family:  Verdana;
+    font-size:8pt;
+     font-weight:normal;
+}
+
+.rightAddressViewClass
+{
+    padding-left: 10px;
+    padding-top:5px;
+    padding-right:10px;
+    float:right;
+    max-width: 400px;
+    width:400px;
+    height: 40px;
+    font-family:  Verdana;
+    font-size:8pt;
+    font-weight:normal;
+}
+
+.rightView
+{
+   float:left;
+   width:200px;
+   text-align: left;
+   vertical-align:middle;
+   font-family:  Verdana;
+   font-size:8pt;
+   font-weight:normal;
+    font-weight:normal;
+
+}
+.rightadjacentView
+{
+   float:right;
+   width:200px;
+   text-align: right;
+   vertical-align:middle;
+   font-family:  Verdana;
+   font-size:8pt;
+    font-weight:normal;
+}
 
 /************************************************************/
 
@@ -224,7 +362,8 @@ h1, h2, h3,
 h4, h5, h6 {
     color: #58D3F7;
     margin-bottom: 0;
-    padding-bottom: 0;
+    padding-bottom: 0px;
+    padding-top:0px;
 }
 
 h1 {

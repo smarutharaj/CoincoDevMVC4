@@ -16,6 +16,9 @@ namespace Coinco.SMS.AXWrapper
         DataTable GetCustomers(string userName);
         DataTable GetSalesHistory(string salesSerialNumber, string userName);
         DataTable GetSalesInformation(string salesSerialNumber, string userName);
-
+        DataTable GetWOClassificationList(string userName);
+        DataTable GetTechnicians(string userName);
+        DataTable GetTechniciansPartDetails(string transactionType, string specialityCode, string userName);
+        DataTable GetItemNumbersList(string userName);
     }
 }

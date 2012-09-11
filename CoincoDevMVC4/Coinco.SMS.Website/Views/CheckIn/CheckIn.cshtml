@@ -1,37 +1,196 @@
-﻿@using Telerik.Web.Mvc.UI
-@using Telerik.Web.Mvc
-@model Coinco.SMS.Website.Models.ServiceOrderLine
+﻿@using Telerik.Web.Mvc
+@model Coinco.SMS.Website.Models.ServiceOrder
 
 @{
     ViewBag.Title = "CheckIn";
 }
 
 <div id="ServiceOrderAdditionDiv">
-<h6>Service Orders</h6>
 <div id="ServiceOrderDetailsDiv">
-
-  </div> 
-
-<div id="ServiceOrderGridDiv">
-@{Html.Telerik().Grid((IEnumerable<Coinco.SMS.Website.Models.ServiceOrderLine>)ViewData["ServiceOrder"])
-        .Name("ServiceOrderGrid")
+    <div id="Identification">
+    <h6>Identification</h6>
+        <div id="IdentificationDetails" class="fullViewforSmallerHeightClass">
+    <div id="CustomerAccount" class="leftViewClass"> 
+        <div id="CustomerAccountLabel" class="leftView" >
+            @Html.Label("Customer Account", new { @class = "leftView" } )
+        </div>
+        <div id="CustomerAccountDropDown" class="leftadjacentView">
+             @{
+                 Html.Telerik().DropDownList().Name("customerAccountDropDownList")
+                     .BindTo((SelectList)ViewData["CustomerList"])
+                     .ClientEvents(e => e.OnOpen("oncustomerAccountDropDownOpen"))
+                     .ClientEvents(e => e.OnChange("GetCustomerAddresses"))
+                     .HtmlAttributes(new { @class = "leftadjacentView" })
+                     .DropDownHtmlAttributes(new { style = "font-size: 11pt; font-family: Verdana;" })
+                     .Render();
+            }
+        </div>
+    </div>
+    </div>
+    <br />
+    <div id="Address" class="fullViewforLargerHeightClass">
+        <div id="BillingAddress" class="leftAddressViewClass">
+       @{Html.Telerik().Grid((IEnumerable<Coinco.SMS.Website.Models.Address>)ViewData["BillingAddress"])
+        .Name("BillingAddressGrid")
         .Columns(columns =>
         {
-            columns.Template(o => @Html.ActionLink("Details", "Details", new { id = o.ProductId })).Width(50);(.Title("History").Width(120);
-            columns.Bound(c => c.SerialNumber).Title("Serial Number").Width(100);
-            columns.Bound(c => c.PartNumber).Title("Part Number").Width(200);
+            columns.Bound(c => c.AddressDetails).Title("Billing Address").Width(100);
+        })
+            
+        .Footer(false)
+        .HtmlAttributes(new { style = "font-size: 8pt; font-family: Verdana;" })
+       .Render();
+    
+        }
+    </div>
+
+        <div id="ShippingAddress" class="rightAddressViewClass">
+       @{Html.Telerik().Grid((IEnumerable<Coinco.SMS.Website.Models.Address>)ViewData["ShippingAddress"])
+        .Name("ShippingAddressGrid")
+        .Columns(columns =>
+        {
+            columns.Bound(c => c.AddressDetails).Title("Shipping Address").Width(100);
+        })
+
+           .Footer(false)
+        .HtmlAttributes(new { style = "font-size: 8pt; font-family: Verdana;" })
+       .Render();
+    
+        }
+    </div>
+    </div>
+    </div>
+    <h6>Other Details</h6>
+    <div id="OtherDetails" class="fullViewforMediumHeightClass">
+    <div id="CustomerComments" class="leftViewClass"> 
+        <div id="CustomerCommentLabel" class="leftView" >
+            @Html.Label("Customer Comments", new { @class = "leftView" })
+        </div>
+        <div id="CustomerCommentTextBox" class="leftadjacentView">
+  
+                 @Html.TextArea("customerCommentTextArea", "", new { @class = "leftadjacentView" }) 
+
+        </div>
+    </div>
+
+    <div id="CustomerPO" class="rightViewClass"> 
+        <div id="CustomerPOLabel" class="rightView" >
+            @Html.Label("Customer PO", new { @class = "rightView" })
+        </div>
+        <div id="CustomerPOTextBox" class="rightadjacentView">
+  
+                 @Html.TextBox("customerPOTextBox", "", new { @class = "rightadjacentView" }) 
+
+        </div>
+    </div>
+    <br />
+        <div id="ServiceTechnician" class="rightViewClass"> 
+        <div id="ServiceTechnicianLabel" class="rightView" >
+            @Html.Label("Service Technician", new { @class = "rightView" })
+        </div>
+        <div id="ServiceTechnicianDropDown" class="rightadjacentView">
+  
+                 @{
+                     Html.Telerik().DropDownList().Name("serviceTechnicianDropDownList")
+                     .BindTo((SelectList)ViewData["ServiceTechnicianList"])
+                     .ClientEvents(e => e.OnOpen("onServiceTechnicianDropDownOpen"))
+                     .HtmlAttributes(new { @class = "rightadjacentView" })
+                     .DropDownHtmlAttributes(new { style = "font-size: 11pt; font-family: Verdana;" })
+                     .Render();
+            }
+
+        </div>
+    </div>
+    </div>
+    <div id="WOClassificationDetails" class="fullViewforSmallerHeightClass">
+     <div id="WOClassification" class="leftViewClass"> 
+        <div id="WOClassificationLabel" class="leftView" >
+            @Html.Label("WO Classification", new { @class = "leftView" })
+        </div>
+        <div id="WOClassificationDropDown" class="leftadjacentView">
+             @{
+                 Html.Telerik().DropDownList().Name("woClassificationDropDownList")
+                     .BindTo((SelectList)ViewData["WOClassificationList"])
+                     .ClientEvents(e => e.OnOpen("onwoClassificationDropDownOpen"))
+                     .HtmlAttributes(new { @class = "leftadjacentView" })
+                     .DropDownHtmlAttributes(new { style = "font-size: 11pt; font-family: Verdana;" })
+                     .Render();
+            }
+        </div>
+    </div>
+
+      <div id="ServiceResponsible" class="rightViewClass"> 
+        <div id="ServiceResponsibleLabel" class="rightView" >
+            @Html.Label("Service Responsible", new { @class = "rightView" })
+        </div>
+        <div id="ServiceResponsibleDropDown" class="rightadjacentView">
+  
+                 @{
+                     Html.Telerik().DropDownList().Name("serviceResponsibleDropDownList")
+                     .BindTo((SelectList)ViewData["ServiceResponsibleList"])
+                     .ClientEvents(e => e.OnOpen("onServiceResponsibleDropDownOpen"))
+                     .HtmlAttributes(new { @class = "rightadjacentView" })
+                     .DropDownHtmlAttributes(new { style = "font-size: 11pt; font-family: Verdana;" })
+                     .Render();
+            }
+
+        </div>
+    </div>
+    
+    </div>
+            <h6>Check In Data</h6>
+        <div id="CheckInData" class="fullViewforSmallerHeightClass">
+     <div id="SerialNumber" class="leftViewClass"> 
+        <div id="SerialNumberLabel" class="leftView" >
+            @Html.Label("Serial Number", new { @class = "leftView" })
+        </div>
+        <div id="SerialNumberTextBox" class="leftadjacentView">
+             @{
+                 @Html.TextBox("serialNumberTextBox", "", new { @class = "leftadjacentView" }) 
+            }
+        </div>
+    </div>
+
+       <div id="PartNumber" class="rightViewClass"> 
+        <div id="PartNumberLabel" class="rightView" >
+            @Html.Label("Part Number", new { @class = "rightView" })
+        </div>
+        <div id="PartNumberDropDown" class="rightadjacentView">
+  
+                 @{
+                     Html.Telerik().DropDownList().Name("partNumberDropDownList")
+                     .BindTo((SelectList)ViewData["PartNumberList"])
+                     .ClientEvents(e => e.OnOpen("onPartNumberDropDownOpen"))
+                     .HtmlAttributes(new { @class = "rightadjacentView" })
+                     .DropDownHtmlAttributes(new { style = "font-size: 11pt; font-family: Verdana;" })
+                     .Render();
+            }
+
+        </div>
+    </div>
+    </div>
+  </div> 
+  <br />
+<div id="ServiceOrderGridDiv">
+@{Html.Telerik().Grid((IEnumerable<Coinco.SMS.Website.Models.ServiceOrderLine>)ViewData["ServiceOrder"])
+        .Name("ServiceOrderLineGrid")
+        .Columns(columns =>
+        {
+            columns.Template(c => @Html.ActionLink("WorkOrder", "ServiceOrderHistory", new { id = c.SerialNumber })).Width(50).Title("History").Width(120);
+            columns.Bound(c => c.SerialNumber).Title("Serial Number").Width(130);
+            columns.Bound(c => c.PartNumber).Title("Part Number").Width(120);
             columns.Bound(c => c.PartType).Title("Part Type").Width(100);
             columns.Bound(c => c.Quantity).Title("Quantity").Width(100);
             columns.Bound(c => c.RepairType).Title("Repair Type").Width(120);
             columns.Bound(c => c.Warranty).Title("Warranty").Width(100);
             columns.Bound(c => c.Comments).Title("Comments").Width(100).Format("{0:dd/MM/yyyy}");
         })
-    
+
         .DataBinding(dataBinding =>
-            {
-                dataBinding.Ajax().OperationMode(GridOperationMode.Client).Select("_SelectionClientSide_ServiceOrders", "WorkOrder")
-                    .Enabled(true);
-            }
+        {
+            dataBinding.Ajax().OperationMode(GridOperationMode.Client).Select("_SelectionClientSide_ServiceOrderLines", "CheckIn")
+                .Enabled(true);
+        }
         )
         .HtmlAttributes(new { style = "font-size: 8pt; font-family: Verdana;" })
         .Scrollable()
@@ -39,11 +198,66 @@
         .Sortable()
         .Selectable()
         .Filterable()
-        .ClientEvents(clientEvents => clientEvents.OnDataBinding("onServiceGridDataBinding"))
-        .ClientEvents(events => events.OnRowSelect("onRowSelected"))
-
        .Render();
     
         }
+        
   </div> 
   </div>
+
+  <script type="text/javascript">
+
+
+      $(function GetCustomerAddresses(e) {
+
+
+          var dropDownList = $('#customerAccountDropDownList').data('tDropDownList');
+          if (dropDownList != null) {
+              var customerAccount = dropDownList.value();
+              $.ajax({
+                  url: "/CheckIn/GetCustomerAddresses/",
+                  type: 'GET',
+                  data: { customerAccount: customerAccount },
+                  dataType: 'html',
+                  success: function (result) {
+                      $('#Address').html(result);
+                  }
+
+              });
+
+          }
+          return false;
+      });
+
+
+       oncustomerAccountDropDownOpen = function (e) {
+          $.each($('#customerAccountDropDownList').data('tDropDownList').dropDown.$items, function (idx, item) {
+              $(item).addClass('bold-item');
+          });
+          }
+
+       onwoClassificationDropDownOpen = function (e) {
+           $.each($('#woClassificationDropDownList').data('tDropDownList').dropDown.$items, function (idx, item) {
+              $(item).addClass('bold-item');
+          });
+          }
+
+      onServiceTechnicianDropDownOpen = function (e) {
+          $.each($('#serviceTechnicianDropDownList').data('tDropDownList').dropDown.$items, function (idx, item) {
+              $(item).addClass('bold-item');
+          });
+      }
+
+      onServiceResponsibleDropDownOpen = function (e) {
+          $.each($('#serviceResponsibleDropDownList').data('tDropDownList').dropDown.$items, function (idx, item) {
+              $(item).addClass('bold-item');
+          });
+      }
+
+      onPartNumberDropDownOpen = function (e) {
+          $.each($('#partNumberDropDownList').data('tDropDownList').dropDown.$items, function (idx, item) {
+              $(item).addClass('bold-item');
+          });
+      }
+      
+</script>
