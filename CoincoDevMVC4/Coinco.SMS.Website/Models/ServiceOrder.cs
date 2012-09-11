@@ -18,8 +18,10 @@ namespace Coinco.SMS.Website.Models
         public string Comments { get; set; }
         public Customer Customer { get; set; }
         public ServiceTechnician ServiceTechnician { get; set; }
+        public ServiceTechnician ServiceResponsible { get; set; }
         public WOClassification WOClassification { get; set; }
-        
+        public List<Address> AddressList { get; set; } 
+
         public ServiceOrder()
         {
 
