@@ -30,7 +30,13 @@ namespace Coinco.SMS.Website.Models
         public Location Location { get; set; }
         public WareHouse WareHouse { get; set; }
         public SpecialtyCode SpecialtyCode { get; set; }
+        public ServiceTechnician ServiceResponsible { get; set; }
         public ServiceOrderLine ServiceOrderLine { get; set; }
-       
+        public ServiceOrder ServiceOrders { get; set; }
+        public Address Address { get; set; }
+        public Customer Customer { get; set; }
+
+
+
     }
 }

@@ -209,7 +209,7 @@
         .Name("PartLinesGrid")
         .Columns(columns =>
         {
-            columns.Bound(c => c.SerialNumber).Title("SerialNumber").Width(120);
+            columns.Bound(c => c.TransactionSerialNumber).Title("SerialNumber").Width(120);
             columns.Bound(c => c.ServiceObjectRelation).Title("SO Relation").Width(100);
             columns.Bound(c => c.TransactionType).Width(120);
             columns.Bound(c => c.Description).Width(100);
@@ -219,6 +219,10 @@
             columns.Bound(c => c.Quantity).Width(100);
             columns.Bound(c => c.ServiceTechnician.ServiceTechnicianName).Title("Technician").Width(100);
             columns.Bound(c => c.ServiceComments).Title("Comments").Width(100);
+            columns.Bound(c => c.PartDetails.ItemNumber).Title("ItemNumber").Width(100);
+            columns.Bound(c => c.Site).Width(100);
+            columns.Bound(c => c.WareHouse.WareHouseCode).Title("WareHouse").Width(100);
+            columns.Bound(c => c.Location.LocationId).Title("Location").Width(100);
         })
 
         .DataBinding(dataBinding =>
@@ -247,18 +251,26 @@
    <div class="addLineleftcolumn">
    <label>
         Customer Name:</label>
-        @Html.DisplayFor(x => x.SalesPrice)<br />
+        @Html.DisplayFor(x => x.Customer.CustomerName)<br />
   <label>
         Service Technician:</label>
         @Html.DisplayFor(x => x.ServiceTechnician.ServiceTechnicianName)<br />
     <label>
         Service Responsible:</label>
-        @Html.DisplayFor(x => x.ServiceTechnician.ServiceTechnicianName)<br />
+        @Html.DisplayFor(x => x.ServiceResponsible.ServiceTechnicianName)<br />
     <label>
         Customer PO:</label>
-        @Html.DisplayFor(x => x.ServiceOrder)<br />
+        @Html.DisplayFor(x => x.ServiceOrders.CustomerPO)<br />
    </div>
+    <div class="centercolumn">
+     <label>
+        Billing Address:</label>
+        @Html.DisplayFor(x => x.Address.AddresswithDesc)<br />
   </div>
-
+  <div class="addLineRightcolumn">
+     <label>
+        Shipping Address:</label>
+        @Html.DisplayFor(x => x.Address.AddresswithDesc)<br />
+  </div>
 
 </div>
