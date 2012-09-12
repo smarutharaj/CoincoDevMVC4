@@ -406,46 +406,7 @@ namespace Coinco.SMS.AXWrapper
             return techniciansTable;
         }
 
-        public DataTable GetTechniciansPartDetails(string transactionType, string specialityCode, string userName)
-        {
-
-
-            Axapta ax = null;
-
-            ax = new Axapta();
-            DataTable techniciansTable = new DataTable();
-            techniciansTable.Columns.Add("Name", typeof(String));
-            techniciansTable.Columns.Add("Number", typeof(String));
-            try
-            {
-                ax.LogonAs(userName.Trim(), "", networkCredentials, axCompany, "", "", "");
-                AxaptaRecord axRecord;
-                axRecord = (AxaptaRecord)ax.CallStaticClassMethod("ServiceOrderManagement", "getSMATechniciansParts", transactionType, specialityCode);
-                axRecord.ExecuteStmt("select * from %1");
-
-
-                while (axRecord.Found)
-                {
-                    DataRow row = techniciansTable.NewRow();
-                    row["Name"] = axRecord.get_Field("Name");
-                    row["Number"] = axRecord.get_Field("Number");
-                    techniciansTable.Rows.Add(row);
-                    axRecord.Next();
-
-                }
-            }
-            catch (Exception e)
-            {
-                throw e;
-                // Take other error action as needed.
-            }
-            finally
-            {
-                if (ax != null) ax.Logoff();
-            }
-
-            return techniciansTable;
-        }
+       
 
         public DataTable GetItemNumbersList(string userName)
         {
@@ -491,6 +452,51 @@ namespace Coinco.SMS.AXWrapper
             }
             return resultTable;
         }
+
+        #region "Service Order Process"
+
+        public DataTable GetTechniciansServiceOrderProcess(string transactionType, string specialityCode, string userName)
+        {
+
+
+            Axapta ax = null;
+
+            ax = new Axapta();
+            DataTable techniciansTable = new DataTable();
+            techniciansTable.Columns.Add("Name", typeof(String));
+            techniciansTable.Columns.Add("Number", typeof(String));
+            try
+            {
+                ax.LogonAs(userName.Trim(), "", networkCredentials, axCompany, "", "", "");
+                AxaptaRecord axRecord;
+                axRecord = (AxaptaRecord)ax.CallStaticClassMethod("ServiceOrderManagement", "getSMATechniciansParts", transactionType, specialityCode);
+                axRecord.ExecuteStmt("select * from %1");
+
+
+                while (axRecord.Found)
+                {
+                    DataRow row = techniciansTable.NewRow();
+                    row["Name"] = axRecord.get_Field("Name");
+                    row["Number"] = axRecord.get_Field("Number");
+                    techniciansTable.Rows.Add(row);
+                    axRecord.Next();
+
+                }
+            }
+            catch (Exception e)
+            {
+                throw e;
+                // Take other error action as needed.
+            }
+            finally
+            {
+                if (ax != null) ax.Logoff();
+            }
+
+            return techniciansTable;
+        }
+
+        #endregion
 
         #region "Sales Details"
 
