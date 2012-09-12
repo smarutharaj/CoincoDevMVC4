@@ -32,6 +32,7 @@ namespace Coinco.SMS.Website.Controllers
             partDetails.PartDetailsList = new SelectList(partDetails.GetItemNumbers(User.Identity.Name.ToString().Split('\\')[1]), "ItemNumber", "ProductName", null);
             ViewData["PartNumberList"] = partDetails.PartDetailsList;
             TempData.Keep();
+
             return View();
         }
 
@@ -52,7 +53,7 @@ namespace Coinco.SMS.Website.Controllers
         [GridAction]
         public ActionResult _GetCustomerAddresses(string customerAccount)
         {
-            return View(new GridModel<Address>
+            return PartialView(new GridModel<Address>
             {
                 Data =(new Address()).GetCustomerAddress(customerAccount, User.Identity.Name.ToString().Split('\\')[1])
 
@@ -69,7 +70,7 @@ namespace Coinco.SMS.Website.Controllers
             ViewData["ShippingAddress"] = addressList;
           //  TempData["CustomerAccount"] = customerAccount;
             TempData.Keep();
-            return View("BillingAddress");
+            return View("Address");
         }
 
         private List<ServiceOrderLine> GetSerialNumbersHistory(string siteId)

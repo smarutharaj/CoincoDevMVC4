@@ -459,10 +459,12 @@
     <Content Include="Scripts\2012.2.607\telerik.upload.min.js" />
     <Content Include="Scripts\2012.2.607\telerik.window.min.js" />
     <Content Include="Scripts\jquery-1.7.1-vsdoc.js" />
-    <Content Include="Scripts\jquery-1.7.1.js" />
+    <Content Include="Scripts\jquery-1.8.1.min.js" />
     <Content Include="Scripts\jquery-1.7.1.min.js" />
+    <Content Include="Scripts\jquery-latest.min.js" />
     <Content Include="Scripts\jquery-ui-1.8.20.js" />
     <Content Include="Scripts\jquery-ui-1.8.20.min.js" />
+    <Content Include="Scripts\jquery.min.js" />
     <Content Include="Scripts\jquery.unobtrusive-ajax.js" />
     <Content Include="Scripts\jquery.unobtrusive-ajax.min.js" />
     <Content Include="Scripts\jquery.validate-vsdoc.js" />
@@ -494,7 +496,6 @@
     <Content Include="Views\RepairLines\RepairLines.cshtml" />
     <Content Include="Views\CheckIn\CustomerAccountDropDownList.cshtml" />
     <Content Include="Views\CheckIn\CheckIn.cshtml" />
-    <Content Include="Views\CheckIn\Address2.cshtml" />
     <Content Include="Views\CheckIn\Address.cshtml" />
   </ItemGroup>
   <ItemGroup>
