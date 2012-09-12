@@ -494,9 +494,9 @@
     <Content Include="Views\WorkOrder\ServiceOrderProcess.cshtml" />
     <Content Include="Views\WorkOrder\ServiceOrderWithHistory.cshtml" />
     <Content Include="Views\RepairLines\RepairLines.cshtml" />
-    <Content Include="Views\CheckIn\CustomerAccountDropDownList.cshtml" />
     <Content Include="Views\CheckIn\CheckIn.cshtml" />
     <Content Include="Views\CheckIn\Address.cshtml" />
+    <Content Include="Views\CheckIn\ServiceOrderLine.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

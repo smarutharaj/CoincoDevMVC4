@@ -15,25 +15,31 @@ namespace Coinco.SMS.Website.Controllers
 
         public ActionResult CheckIn()
         {
+            ServiceOrder serviceOrder = new ServiceOrder();
             Customer customer = new Customer();
+
             IEnumerable<Customer> customerCollection = customer.GetCustomers(User.Identity.Name.ToString().Split('\\')[1]);
             customer.CustomerList = new SelectList(customerCollection, "CustomerAccount", "CustomerName", null);
+            serviceOrder.Customer = customer;
             ViewData["CustomerList"] = customer.CustomerList;
             WOClassification woClassification = new WOClassification();
             IEnumerable<WOClassification> woClassificationCollection=woClassification.GetWOClassification(User.Identity.Name.ToString().Split('\\')[1]);
              woClassification.WOClassificationList = new SelectList(woClassificationCollection, "WOClassificationCode", "WOClassificationName", null);
+             serviceOrder.WOClassification = woClassification;
             ViewData["WOClassificationList"] = woClassification.WOClassificationList;
             ServiceTechnician serviceTechnician = new ServiceTechnician();
             serviceTechnician.ServiceTechnicianList = new SelectList(serviceTechnician.GetTechnicians(User.Identity.Name.ToString().Split('\\')[1]), "ServiceTechnicianNo", "ServiceTechnicianName", null);
+            serviceOrder.ServiceTechnician = serviceTechnician;
             ViewData["ServiceTechnicianList"] = serviceTechnician.ServiceTechnicianList;
             ViewData["ServiceResponsibleList"] = serviceTechnician.ServiceTechnicianList;
-
+            serviceOrder.ServiceResponsible = serviceTechnician;
             PartDetails partDetails = new PartDetails();
             partDetails.PartDetailsList = new SelectList(partDetails.GetItemNumbers(User.Identity.Name.ToString().Split('\\')[1]), "ItemNumber", "ProductName", null);
             ViewData["PartNumberList"] = partDetails.PartDetailsList;
+           
             TempData.Keep();
 
-            return View();
+            return View(serviceOrder);
         }
 
         [GridAction]
@@ -45,7 +51,7 @@ namespace Coinco.SMS.Website.Controllers
             }
             return View(new GridModel<ServiceOrderLine>
             {
-                Data = GetSerialNumbersHistory(TempData["SiteId"].ToString())
+                Data = GetServiceOrderLinesBySerialNumberPartNumber(TempData["SiteId"].ToString())
 
             });
         }
@@ -73,11 +79,32 @@ namespace Coinco.SMS.Website.Controllers
             return View("Address");
         }
 
-        private List<ServiceOrderLine> GetSerialNumbersHistory(string siteId)
+        [HttpPost]
+        public ActionResult GetServiceOrderLinesHistoryBySerialNumberPartNumber(ServiceOrder model,string serialNumber, string partNumber)
         {
             string userName = null;
             userName = User.Identity.Name.ToString().Split('\\')[1];
-            List<ServiceOrderLine> serviceOrderLine = (new ServiceOrderLine()).GetSerialNumbersHistory("", "", "", userName);
+            ViewData["ServiceOrderLine"]=GetServiceOrderLinesBySerialNumberPartNumber(partNumber, serialNumber);
+            TempData.Keep();
+            return View("ServiceOrderLine");
+        }
+
+        [HttpGet]
+        public ActionResult GetServiceOrderLinesHistory(string partNumber, string serialNumber)
+        {
+            string userName = null;
+            userName = User.Identity.Name.ToString().Split('\\')[1];
+            ViewData["ServiceOrderLine"] = GetServiceOrderLinesBySerialNumberPartNumber(partNumber,serialNumber);
+
+            TempData.Keep();
+            return View("ServiceOrderLine", ViewData["ServiceOrderLine"]);
+        }
+
+        private List<ServiceOrderLine> GetServiceOrderLinesBySerialNumberPartNumber(string partNumber,string serialNumber)
+        {
+            string userName = null;
+            userName = User.Identity.Name.ToString().Split('\\')[1];
+            List<ServiceOrderLine> serviceOrderLine = (new ServiceOrderLine()).GetServiceOrderLinesBySerialNumberPartNumber("", "", "", userName);
             return serviceOrderLine;
         }
     }
