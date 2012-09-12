@@ -29,8 +29,8 @@ namespace Coinco.SMS.Website.Models
         public LineProperty LineProperty { get; set; }
         public Location Location { get; set; }
         public WareHouse WareHouse { get; set; }
-        
 
+        public ServiceOrderLine ServiceOrderLine { get; set; }
        
     }
 }
