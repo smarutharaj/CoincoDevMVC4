@@ -141,6 +141,134 @@ margin-left:5px;
     padding-bottom:5px;
 }
 
+/*******************Service Order Process**************/
+.leftcolumn
+{
+   
+    width: 300px;
+    float: left;
+    position: absolute;
+}
+
+.centercolumn
+{
+    
+    width: 300px;
+    margin-left: 310px;
+    position: absolute;
+} 
+
+.rightcolumn
+{
+   
+    width: 300px;
+    margin-left: 630px;
+    position: absolute;
+}
+.pageCointainer
+{
+    width:960px;
+    height:850px
+}
+.serviceProcessDiv
+{
+    max-width: 960px;
+    background-color: #800000;
+    height: 150px;
+    float: left;
+  
+}
+.addLinesDiv
+{
+    margin-top: 50px; 
+    max-width: 960px;
+  
+    height: 330px;
+    
+   
+}
+
+.addLineleftcolumn
+{
+   
+    width: 300px;
+    float: left;
+    position: absolute;
+   
+}
+
+.addLinecentercolumn
+{
+   
+    width: 300px;
+    margin-left:310px;
+    position: absolute;
+    margin-top: 55px; 
+  
+}
+
+.addLineRightcolumn
+{
+   
+    width: 300px;
+    margin-left: 630px;
+    position: absolute;
+  
+}
+
+.topDimensioncolumn
+{
+   
+    width: 300px;
+    margin-left: 630px;
+    position: absolute;
+    margin : 0px 0px 0px 0px;
+}
+
+.centerDimensioncolumn
+{
+   
+    width: 300px;
+    margin-left: 630px;
+    position: absolute;
+    margin : 130px 0px 0px 0px;
+}
+
+.bottomDimensioncolumn
+{
+   
+    width: 300px;
+    margin-left: 630px;
+    position: absolute;
+    margin : 180px 0px 0px 0px;
+}
+
+.singleTextBox {
+    width: 12em;
+}
+
+.partLinesDiv
+{
+    
+    margin-top: 50px; 
+    max-width: 960px;
+    height: 250px;
+    
+   
+}
+
+.addressDiv
+{
+    margin-top: 10px; 
+    max-width: 960px;
+    height: 300px;
+       
+}
+
+/*******************end********************/
+
+
+
 /*********************Checkin***************************/
 
 .leftViewClass
@@ -718,9 +846,11 @@ fieldset {
         }
 
 label {
-    display: block;
-    font-size: 1.2em;
+    
+    font-size: 0.8em;
     font-weight: 600;
+    width: 130px;
+    display: inline-block;
 }
 
 label.checkbox {
@@ -731,15 +861,15 @@ input, textarea {
     border: 1px solid #e2e2e2;
     background: #fff;
     color: #333;
-    font-size: 1.2em;
-    margin: 5px 0 6px 0;
-    padding: 5px;
-    width: 300px;
+    font-size: 0.8em;
+    margin: 0px 0 3px 0;
+    width: 145px;
+  
 }
 
 textarea {
     font-family: inherit;
-    width: 500px;
+    width: 145px;
 }
 
     input:focus, textarea:focus {
