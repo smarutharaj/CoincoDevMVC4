@@ -113,7 +113,7 @@ namespace Coinco.SMS.Controllers
             partDetails.PartDetailsList = new SelectList(partDetails.GetItemNumbers(User.Identity.Name.ToString().Split('\\')[1]), "ItemNumber", "ProductName", null);
             ViewData["PartNumberList"] = partDetails.PartDetailsList;
 
-            ViewData["SORelationList"] = new GetServiceObjectRelationServiceOrders(TempData["ServiceOrderId"])
+            
           
             TempData.Keep();
             return View();
