@@ -1,0 +1,27 @@
+﻿ @using Telerik.Web.Mvc.UI
+ 
+ @Html.DropDownList("customerAccountDropDownList", (SelectList)ViewData["CustomerList"], new { @class = "leftadjacentView" })
+
+ <script type="text/javascript">
+ $(function(){
+      $('select#customerAccountDropDownList').change(function () {
+          var customerAccount = $(this).val();
+          //var dropDownList = $('#customerAccountDropDownList').data('tDropDownList');
+          $.ajax({
+              url: "/CheckIn/GetCustomerAddresses",
+              type: 'GET',
+              data: { customerAccount: customerAccount },
+              dataType: 'html',
+              success: function (result) {
+                  alert("true");
+                  $('#Address').html(result);},
+              error: function (result) {
+                  alert(result.responseText);
+              }
+
+          });
+          return false;
+      });
+  });
+
+  </script>
