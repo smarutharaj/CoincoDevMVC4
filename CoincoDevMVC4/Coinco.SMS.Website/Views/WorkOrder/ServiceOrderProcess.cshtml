@@ -1,7 +1,264 @@
-﻿@model Coinco.SMS.Website.Models.ServiceOrderLine
-
+﻿@model Coinco.SMS.Website.Models.SerivceOrderPartLine
+@using Telerik.Web.Mvc.UI
+@using Telerik.Web.Mvc
 @{
     ViewBag.Title = "Order Process";
 }
+<style type="text/css">
+    div
+    {
+        font-weight: normal;
+        font-style: normal;
+        font-size: 1.02em;
+    }
+    .ui-widget
+    {
+        font-family: inherit;
+        font-size: inherit;
+    }
+    
+ 
 
-<h3>Service Order Process:</h3>
+
+</style>
+<div class="pageCointainer">
+<br />
+<div class="serviceProcessDiv">
+    
+    <div class="leftcolumn">
+        <label>
+            Service Order:</label>
+        @Html.DisplayFor(x => x.ServiceOrder)<br />
+        <label>
+            SO Relation:</label>
+        @{Html.Telerik().DropDownList().Name("serviceObjectList")
+             .HtmlAttributes(new { style = "font-size: 8pt; font-family: Calibri; width=50px;" })
+             .DropDownHtmlAttributes(new { style = "font-size: 8pt; font-family: Calibri;" })
+             .Render();
+        }
+    </div>
+
+    <div class="centercolumn">
+        <label>
+            Warranty:</label>
+        @Html.DisplayFor(x => x.ServiceOrderLine.Warranty)<br />
+        <label>
+            Serial Number:</label>
+        @Html.DisplayFor(x => x.ServiceOrderLine.SerialNumber)<br />
+    </div>
+
+    <div class="rightcolumn">
+        <label>
+            Repair Type:</label>
+        @Html.DisplayFor(x => x.ServiceOrderLine.RepairType)<br />
+        <label>
+            Part Number:</label>
+        @Html.DisplayFor(x => x.ServiceOrderLine.PartNumber)<br />
+    </div>
+
+</div>
+
+<div class="addLinesDiv">
+ <div class="addLineleftcolumn">
+ <h6>Add Lines</h6>
+  <label>
+            Transaction Type:</label>
+
+             @{Html.Telerik().DropDownList().Name("tranasctionList")
+             .HtmlAttributes(new { style = "font-size: 8pt; font-family: Calibri; width=50px;" })
+             .DropDownHtmlAttributes(new { style = "font-size: 8pt; font-family: Calibri;" })
+             .Render();
+        }
+        <br />
+        <label>
+           Description:</label>
+           @Html.TextAreaFor(x => x.Description)<br />
+
+     <label>
+            Failure Code:</label>
+            @(Html.Telerik().AutoComplete()
+                              .Name("failureCodeList")
+                              //.ClientEvents(events => events
+                              //.OnDataBinding("onAutoCompleteDataBinding"))
+            )
+        <br />
+    <label>
+            Specialty Code:</label>
+            @(Html.Telerik().AutoComplete()
+                              .Name("specialityList")
+                              //.ClientEvents(events => events
+                              //.OnDataBinding("onAutoCompleteDataBinding"))
+            )
+        <br />
+        <label>
+            Line Property:</label>
+            @(Html.Telerik().AutoComplete()
+                              .Name("linePropertyList")
+                              //.ClientEvents(events => events
+                              //.OnDataBinding("onAutoCompleteDataBinding"))
+            )
+        <br />
+        
+ </div>
+ <div class="addLinecentercolumn">
+ <label>
+            Quantity:</label>
+            @Html.TextBoxFor(x => x.Quantity, new { @class = "singleTextBox" })<br />
+ <label>
+            Technician:</label>
+            @(Html.Telerik().AutoComplete()
+                                      .Name("technicianList")
+                                               .HtmlAttributes(new { style = "width: 145px; " })
+                              //.ClientEvents(events => events
+                              //.OnDataBinding("onAutoCompleteDataBinding"))
+            )
+        <br />
+         <label>
+           Service Comments:</label>
+           @Html.TextAreaFor(x => x.ServiceComments)<br />
+ </div>
+ <div class="addLineRightcolumn">
+ <div class="topDimensioncolumn">
+  <h6>Storage Dimension</h6>
+   <label>
+            Item Number:</label>
+            @(Html.Telerik().AutoComplete()
+                                      .Name("itemNumberList")
+                                               .HtmlAttributes(new { style = "width: 145px; " })
+                              //.ClientEvents(events => events
+                              //.OnDataBinding("onAutoCompleteDataBinding"))
+            )
+       
+         <label>
+            Site:</label>
+            @(Html.Telerik().AutoComplete()
+                                      .Name("siteList")
+                                                       .HtmlAttributes(new { style = "width: 145px; height:16px " })
+                              //.ClientEvents(events => events
+                              //.OnDataBinding("onAutoCompleteDataBinding"))
+            )
+      
+         <label>
+            Warehouse:</label>
+            @(Html.Telerik().AutoComplete()
+                                      .Name("wareHouseList")
+                                               .HtmlAttributes(new { style = "width: 145px; " })
+                              //.ClientEvents(events => events
+                              //.OnDataBinding("onAutoCompleteDataBinding"))
+            )
+       
+         <label>
+            Location:</label>
+            @(Html.Telerik().AutoComplete()
+                                      .Name("locationList")
+                                                       .HtmlAttributes(new { style = "width: 145px; " })
+                              //.ClientEvents(events => events
+                              //.OnDataBinding("onAutoCompleteDataBinding"))
+            )
+ </div> 
+ <div class="centerDimensioncolumn"> 
+    <h6>Tracking Dimension</h6>
+    <label> Serial Number:</label>
+            @(Html.Telerik().AutoComplete()
+                                      .Name("serialNumberList")
+                                               .HtmlAttributes(new { style = "width: 145px; " })
+                              //.ClientEvents(events => events
+                              //.OnDataBinding("onAutoCompleteDataBinding"))
+            )
+  </div>  
+  <div class="bottomDimensioncolumn" >
+     <h6>Product Dimension</h6>
+        <label> Configuration:</label>
+            @(Html.Telerik().AutoComplete()
+                                      .Name("configurationList")
+                                               .HtmlAttributes(new { style = "width: 145px; " })
+                              //.ClientEvents(events => events
+                              //.OnDataBinding("onAutoCompleteDataBinding"))
+            )
+       
+         <label> Size:</label>
+            @(Html.Telerik().AutoComplete()
+                                      .Name("sizeList")
+                                               .HtmlAttributes(new { style = "width: 145px; " })
+                              //.ClientEvents(events => events
+                              //.OnDataBinding("onAutoCompleteDataBinding"))
+            )
+        <br />
+         <label> Color:</label>
+            @(Html.Telerik().AutoComplete()
+                                      .Name("colorList")
+                                               .HtmlAttributes(new { style = "width: 145px; " })
+                              //.ClientEvents(events => events
+                              //.OnDataBinding("onAutoCompleteDataBinding"))
+            )
+   </div>     
+ </div>
+
+</div>
+
+<div class="serviceProcessDiv">
+<div class="centercolumn">
+<button type="button">Add</button>
+<button type="button">Clear</button>
+</div>
+</div>
+
+
+<div class="partLinesDiv">
+@{Html.Telerik().Grid((IEnumerable<Coinco.SMS.Website.Models.SerivceOrderPartLine>)ViewData["ServiceOrder"])
+        .Name("PartLinesGrid")
+        .Columns(columns =>
+        {
+            columns.Bound(c => c.SerialNumber).Title("SerialNumber").Width(120);
+            columns.Bound(c => c.ServiceObjectRelation).Title("SO Relation").Width(100);
+            columns.Bound(c => c.TransactionType).Width(120);
+            columns.Bound(c => c.Description).Width(100);
+            columns.Bound(c => c.SpecialtyCode.SpecialityCodeNo).Title("SpecialtyCode").Width(100);
+            columns.Bound(c => c.FailureCode.FailureCodeNo).Title("FailureCode").Width(100);
+            columns.Bound(c => c.LineProperty.LinePropertyCode).Title("LineProperty").Width(100);
+            columns.Bound(c => c.Quantity).Width(100);
+            columns.Bound(c => c.ServiceTechnician.ServiceTechnicianName).Title("Technician").Width(100);
+            columns.Bound(c => c.ServiceComments).Title("Comments").Width(100);
+        })
+
+        .DataBinding(dataBinding =>
+          {
+              dataBinding.Ajax().OperationMode(GridOperationMode.Client).Select("_SelectionClientSide_ServiceOrders", "PartLinesGrid")
+                  .Enabled(true);
+          }
+      )
+        .HtmlAttributes(new { style = "font-size: 8pt; font-family: Verdana; width:950px" })
+        .Scrollable()
+        .Pageable((pager => pager.PageSize(5)))
+        .Sortable()
+        .Selectable()
+        .Filterable()
+        .Render();
+        
+        //.ClientEvents(clientEvents => clientEvents.OnDataBinding("onServiceGridDataBinding"))
+        //.ClientEvents(events => events.OnRowSelect("onRowSelected"))
+
+       
+    
+        }
+  </div> 
+  <div class="addressDiv">
+  <h6>Address and Contact</h6>
+   <div class="addLineleftcolumn">
+   <label>
+        Customer Name:</label>
+        @Html.DisplayFor(x => x.SalesPrice)<br />
+  <label>
+        Service Technician:</label>
+        @Html.DisplayFor(x => x.ServiceTechnician.ServiceTechnicianName)<br />
+    <label>
+        Service Responsible:</label>
+        @Html.DisplayFor(x => x.ServiceTechnician.ServiceTechnicianName)<br />
+    <label>
+        Customer PO:</label>
+        @Html.DisplayFor(x => x.ServiceOrder)<br />
+   </div>
+  </div>
+
+
+</div>
