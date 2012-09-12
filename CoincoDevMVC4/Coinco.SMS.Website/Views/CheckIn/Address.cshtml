@@ -1,5 +1,5 @@
-﻿     <div id="BillingAddress" class="leftAddressViewClass">
-       @{Html.Telerik().Grid((IEnumerable<Coinco.SMS.Website.Models.Address>)ViewData["BillingAddress"])
+﻿<div id="BillingAddress" class="leftAddressViewClass">
+@{Html.Telerik().Grid((IEnumerable<Coinco.SMS.Website.Models.Address>)ViewData["BillingAddress"])
         .Name("BillingAddressGrid")
         .Columns(columns =>
         {
@@ -17,10 +17,9 @@
        .Render();
     
         }
-    </div>
-
-        <div id="ShippingAddress" class="rightAddressViewClass">
-       @{Html.Telerik().Grid((IEnumerable<Coinco.SMS.Website.Models.Address>)ViewData["ShippingAddress"])
+        </div>
+   <div id="ShippingAddress" class="rightAddressViewClass">
+         @{Html.Telerik().Grid((IEnumerable<Coinco.SMS.Website.Models.Address>)ViewData["ShippingAddress"])
         .Name("ShippingAddressGrid")
         .Columns(columns =>
         {
@@ -38,3 +37,8 @@
     
         }
     </div>
+ 
+ 
+
+
+              
