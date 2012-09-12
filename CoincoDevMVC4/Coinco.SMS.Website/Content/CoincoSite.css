@@ -428,6 +428,62 @@ z-index: 999;
 
 /************************************************************/
 
+/*******************Repair Lines**************/
+
+.centercolumnRL
+{
+    
+    width: 300px;
+    margin-left: 310px;
+    position: absolute;
+} 
+
+.pageCointainerRL
+{
+
+    width:960px;
+    height:580px;
+  
+}
+
+.addLinesDivRL
+{
+    margin-top: 30px; 
+    max-width: 960px;
+    height: 75px;
+    
+   
+}
+
+.addLineleftcolumnRL
+{
+   
+    width: 300px;
+    float: left;
+    position: absolute;
+   
+}
+
+.addLinecentercolumnRL
+{
+   
+    width: 300px;
+    margin-left:310px;
+    position: absolute;
+  
+}
+
+.addLineRightcolumnRL
+{
+   
+    width: 300px;
+    margin-left: 630px;
+    position: absolute;
+  
+}
+
+/*******************end********************/
+
 html {
     background-color: #e2e2e2;
     margin: 0;
