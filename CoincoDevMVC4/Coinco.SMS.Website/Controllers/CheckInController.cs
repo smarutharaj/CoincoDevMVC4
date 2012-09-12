@@ -17,7 +17,7 @@ namespace Coinco.SMS.Website.Controllers
         {
             Customer customer = new Customer();
             IEnumerable<Customer> customerCollection = customer.GetCustomers(User.Identity.Name.ToString().Split('\\')[1]);
-            customer.CustomerList = new SelectList(customerCollection, "CustomerAccount", "CustomerName", customerCollection.First<Customer>().CustomerAccount);
+            customer.CustomerList = new SelectList(customerCollection, "CustomerAccount", "CustomerName", null);
             ViewData["CustomerList"] = customer.CustomerList;
             WOClassification woClassification = new WOClassification();
             IEnumerable<WOClassification> woClassificationCollection=woClassification.GetWOClassification(User.Identity.Name.ToString().Split('\\')[1]);
@@ -49,16 +49,27 @@ namespace Coinco.SMS.Website.Controllers
             });
         }
 
+        [GridAction]
+        public ActionResult _GetCustomerAddresses(string customerAccount)
+        {
+            return View(new GridModel<Address>
+            {
+                Data =(new Address()).GetCustomerAddress(customerAccount, User.Identity.Name.ToString().Split('\\')[1])
+
+            });
+        }
 
         [HttpGet]
-        private ActionResult GetCustomerAddresses(string customerAccount)
+        public ActionResult GetCustomerAddresses(string customerAccount)
         {
             string userName = null;
             userName = User.Identity.Name.ToString().Split('\\')[1];
             List<Address> addressList = (new Address()).GetCustomerAddress(customerAccount, userName);
-            ViewData["BillingAddress"] = addressList.Select(c => c.IsBilling);
-            ViewData["ShippingAddress"] = addressList.Select(c => c.IsShipping);
-            return View();
+            ViewData["BillingAddress"] = addressList;
+            ViewData["ShippingAddress"] = addressList;
+          //  TempData["CustomerAccount"] = customerAccount;
+            TempData.Keep();
+            return View("BillingAddress");
         }
 
         private List<ServiceOrderLine> GetSerialNumbersHistory(string siteId)

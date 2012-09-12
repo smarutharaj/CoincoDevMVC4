@@ -422,6 +422,8 @@
     <Content Include="Images\RefreshIcon.png" />
     <Content Include="Images\RepairLines.png" />
     <Content Include="Images\ServiceOrder.png" />
+    <Content Include="Images\topic_button_hover.png" />
+    <Content Include="Images\topic_button.png" />
     <Content Include="Images\WorkOrder-Closed.png" />
     <Content Include="Images\WorkOrder-Open.png" />
     <Content Include="Images\WorkOrder-Posted.png" />
@@ -490,7 +492,10 @@
     <Content Include="Views\WorkOrder\ServiceOrderProcess.cshtml" />
     <Content Include="Views\WorkOrder\ServiceOrderWithHistory.cshtml" />
     <Content Include="Views\RepairLines\RepairLines.cshtml" />
+    <Content Include="Views\CheckIn\CustomerAccountDropDownList.cshtml" />
     <Content Include="Views\CheckIn\CheckIn.cshtml" />
+    <Content Include="Views\CheckIn\Address2.cshtml" />
+    <Content Include="Views\CheckIn\Address.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
