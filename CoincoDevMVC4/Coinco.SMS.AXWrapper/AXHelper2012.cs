@@ -184,7 +184,7 @@ namespace Coinco.SMS.AXWrapper
             return serialTable;
         }
 
-        public DataTable GetSerialNumberList(string serialId, string itemNumber, string custAccount, string userName)
+        public DataTable GetGetServiceOrderLinesBySerialNumberPartNumber(string serialId, string itemNumber, string custAccount, string userName)
         {
 
             Axapta ax = null;
