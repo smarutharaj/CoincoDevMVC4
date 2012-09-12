@@ -12,7 +12,7 @@
 
 text-align:center;
 width:70px;
-height:auto;
+height:75px;
 float:left;
 
 }
@@ -23,7 +23,7 @@ cursor:pointer;
 text-align:center;
 background-color:#FAE186;
 width:70px;
-height:auto;
+height:65px;
 float:left;
 }
 
@@ -124,7 +124,7 @@ margin-left:5px;
     margin: 0 auto;
     max-width: 960px;
     padding-bottom:0px;
-    height:100px;
+    height:110px;
 }
 .LayoutBody
 {
@@ -139,7 +139,24 @@ margin-left:5px;
     padding-right:5px;
 }
 
+.iqNameTooltip
+{
+cursor: help;
+border-bottom: dotted 1px brown;
+}
 
+.iqTooltip 
+{
+padding-left: 10px;
+padding-right: 10px;
+padding-top: 3px;
+padding-bottom: 3px;
+display: none;
+position: absolute;
+background-color: #ff9;
+/*border: solid 3px #333;*/
+z-index: 999;
+}
 /************************************************************/
 
 html {
