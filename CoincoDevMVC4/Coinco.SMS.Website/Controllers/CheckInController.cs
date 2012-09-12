@@ -38,8 +38,8 @@ namespace Coinco.SMS.Website.Controllers
             ViewData["PartNumberList"] = partDetails.PartDetailsList;
            
             TempData.Keep();
-
-            return View(serviceOrder);
+            ViewData["ServiceOrder"] = serviceOrder;
+            return View();
         }
 
         [GridAction]
@@ -51,7 +51,7 @@ namespace Coinco.SMS.Website.Controllers
             }
             return View(new GridModel<ServiceOrderLine>
             {
-                Data = GetServiceOrderLinesBySerialNumberPartNumber(TempData["SiteId"].ToString())
+                Data = GetServiceOrderLinesBySerialNumberPartNumber("","","")
 
             });
         }
@@ -84,7 +84,7 @@ namespace Coinco.SMS.Website.Controllers
         {
             string userName = null;
             userName = User.Identity.Name.ToString().Split('\\')[1];
-            ViewData["ServiceOrderLine"]=GetServiceOrderLinesBySerialNumberPartNumber(partNumber, serialNumber);
+            ViewData["ServiceOrderLine"] = GetServiceOrderLinesBySerialNumberPartNumber(partNumber, serialNumber, "");
             TempData.Keep();
             return View("ServiceOrderLine");
         }
@@ -94,17 +94,17 @@ namespace Coinco.SMS.Website.Controllers
         {
             string userName = null;
             userName = User.Identity.Name.ToString().Split('\\')[1];
-            ViewData["ServiceOrderLine"] = GetServiceOrderLinesBySerialNumberPartNumber(partNumber,serialNumber);
+            ViewData["ServiceOrderLine"] = GetServiceOrderLinesBySerialNumberPartNumber(partNumber,serialNumber,"");
 
             TempData.Keep();
             return View("ServiceOrderLine", ViewData["ServiceOrderLine"]);
         }
 
-        private List<ServiceOrderLine> GetServiceOrderLinesBySerialNumberPartNumber(string partNumber,string serialNumber)
+        private List<ServiceOrderLine> GetServiceOrderLinesBySerialNumberPartNumber(string partNumber,string serialNumber,string customerAccount)
         {
             string userName = null;
             userName = User.Identity.Name.ToString().Split('\\')[1];
-            List<ServiceOrderLine> serviceOrderLine = (new ServiceOrderLine()).GetServiceOrderLinesBySerialNumberPartNumber("", "", "", userName);
+            List<ServiceOrderLine> serviceOrderLine = (new ServiceOrderLine()).GetServiceOrderLinesBySerialNumberPartNumber(serialNumber, partNumber, customerAccount, userName);
             return serviceOrderLine;
         }
     }

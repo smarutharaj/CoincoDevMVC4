@@ -31,7 +31,7 @@ float:left;
 .ribbonIconBarClass1 {
 
 text-align:center;
-border solid white 1px;
+border: solid white 1px;
 width:50px;
 height:70px;
 float:left;
@@ -397,6 +397,18 @@ z-index: 999;
     
 }
 
+.submitResultClass
+{
+    padding-left: 400px;
+    padding-top:5px;
+    padding-right:400px;
+    max-width: 890px;
+    height: 20px;
+    vertical-align:middle;
+     font-weight:normal;
+    
+}
+
 .textBoxProperties
 {
     margin:0px 0px 0px 0px;
@@ -639,8 +651,6 @@ mark {
     {
         height:32px;
         width:32px;
-        opacity:0.5;
-        filter:alpha(opacity=30);
     }
 
 .hrefValue
