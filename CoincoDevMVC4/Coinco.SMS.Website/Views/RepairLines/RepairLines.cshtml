@@ -1,5 +1,155 @@
-﻿@{
+﻿@model Coinco.SMS.Website.Models.SerivceOrderPartLine
+@using Telerik.Web.Mvc.UI
+@using Telerik.Web.Mvc
+@{
     ViewBag.Title = "RepairLines";
 }
 
-<h2>RepairLines</h2>
+<div class="pageCointainerRL">
+    <div class="addLinesDivRL">
+     <div class="addLineleftcolumnRL">
+     <h6>Identification</h6>
+        <label>Service Order:</label>
+
+                 @{Html.Telerik().DropDownList().Name("tranasctionList")
+                 .HtmlAttributes(new { style = "font-size: 8pt; font-family: Calibri; width=50px;" })
+                 .DropDownHtmlAttributes(new { style = "font-size: 8pt; font-family: Calibri;" })
+                 .Render();
+                }
+         <br />
+         <label> SO Relation:</label>
+               @{Html.Telerik().DropDownList().Name("tranasctionList")
+                 .HtmlAttributes(new { style = "font-size: 8pt; font-family: Calibri; width=50px;" })
+                 .DropDownHtmlAttributes(new { style = "font-size: 8pt; font-family: Calibri;" })
+                 .Render();
+                }
+            <br />
+     </div>
+     <div class="addLinecentercolumnRL">
+      <h6>Symptom</h6>
+            <label>Condition:</label>
+                  @{Html.Telerik().DropDownList().Name("tranasctionList")
+                 .HtmlAttributes(new { style = "font-size: 8pt; font-family: Calibri; width=50px;" })
+                 .DropDownHtmlAttributes(new { style = "font-size: 8pt; font-family: Calibri;" })
+                 .Render();
+                    }
+            <br />
+            <label>Symptom Area:</label>
+                 @{Html.Telerik().DropDownList().Name("tranasctionList")
+                 .HtmlAttributes(new { style = "font-size: 8pt; font-family: Calibri; width=50px;" })
+                 .DropDownHtmlAttributes(new { style = "font-size: 8pt; font-family: Calibri;" })
+                 .Render();
+                    }
+            <br />
+            <label>Symptom Code:</label>
+               @{Html.Telerik().DropDownList().Name("tranasctionList")
+                 .HtmlAttributes(new { style = "font-size: 8pt; font-family: Calibri; width=50px;" })
+                 .DropDownHtmlAttributes(new { style = "font-size: 8pt; font-family: Calibri;" })
+                 .Render();
+                    }
+            <br />
+     </div>
+     <div class="addLineRightcolumnRL">
+     <h6>Execution</h6>
+            <label>Repair Stage:</label>
+               @{Html.Telerik().DropDownList().Name("tranasctionList")
+                 .HtmlAttributes(new { style = "font-size: 8pt; font-family: Calibri; width=50px;" })
+                 .DropDownHtmlAttributes(new { style = "font-size: 8pt; font-family: Calibri;" })
+                 .Render();
+                    }
+            <br />
+       
+            <label>Technician:</label>
+               @{Html.Telerik().DropDownList().Name("tranasctionList")
+                 .HtmlAttributes(new { style = "font-size: 8pt; font-family: Calibri; width=50px;" })
+                 .DropDownHtmlAttributes(new { style = "font-size: 8pt; font-family: Calibri;" })
+                 .Render();
+                    }
+            <br />
+             
+            <label>Comments:</label>
+                @Html.TextAreaFor(x => x.ServiceComments)
+            <br />
+     </div>
+    </div>
+
+    <div class="addLinesDivRL">
+     <div class="addLineleftcolumnRL">
+     <h6>Description</h6>
+        <label>Description:</label>
+                @Html.TextAreaFor(x => x.ServiceComments)
+         <br />
+     </div>
+     <div class="addLinecentercolumnRL">
+      <h6>Diagnosis</h6>
+            <label>Diagnosis Area:</label>
+                  @{Html.Telerik().DropDownList().Name("tranasctionList")
+                 .HtmlAttributes(new { style = "font-size: 8pt; font-family: Calibri; width=50px;" })
+                 .DropDownHtmlAttributes(new { style = "font-size: 8pt; font-family: Calibri;" })
+                 .Render();
+                    }
+            <br />
+            <label>Diagnosis Code:</label>
+                 @{Html.Telerik().DropDownList().Name("tranasctionList")
+                 .HtmlAttributes(new { style = "font-size: 8pt; font-family: Calibri; width=50px;" })
+                 .DropDownHtmlAttributes(new { style = "font-size: 8pt; font-family: Calibri;" })
+                 .Render();
+                    }
+            <br />
+            <label>Resolution:</label>
+               @{Html.Telerik().DropDownList().Name("tranasctionList")
+                 .HtmlAttributes(new { style = "font-size: 8pt; font-family: Calibri; width=50px;" })
+                 .DropDownHtmlAttributes(new { style = "font-size: 8pt; font-family: Calibri;" })
+                 .Render();
+                    }
+            <br />
+     </div>
+    </div>
+  <br />
+  <br />
+  <br />
+
+    <div class="centercolumnRL">
+    <button class="t-button" type="button">Add</button>
+    <button class="t-button" type="button">Clear</button>
+    </div>
+   
+</div>
+
+@*<div class="partLinesDiv">
+@{Html.Telerik().Grid((IEnumerable<Coinco.SMS.Website.Models.SerivceOrderPartLine>)ViewData["ServiceOrder"])
+        .Name("PartLinesGrid")
+        .Columns(columns =>
+        {
+            columns.Bound(c => c.ServiceObjectRelation).Title("SO Relation").Width(100);
+            columns.Bound(c => c.TransactionType).Title("Description").Width(120);
+            columns.Bound(c => c.Description).Title("Condition").Width(100);
+            columns.Bound(c => c.SpecialtyCode.SpecialityCodeNo).Title("Symptom Area").Width(100);
+            columns.Bound(c => c.FailureCode.FailureCodeNo).Title("Symptom Code").Width(100);
+            columns.Bound(c => c.LineProperty.LinePropertyCode).Title("Diagnosis Area").Width(100);
+            columns.Bound(c => c.Quantity).Title("Diagnosis Code").Width(100);
+            columns.Bound(c => c.ServiceTechnician.ServiceTechnicianName).Title("Resolution").Width(100);
+            columns.Bound(c => c.ServiceComments).Title("Repair Stage").Width(100);
+        })
+
+        .DataBinding(dataBinding =>
+          {
+              dataBinding.Ajax().OperationMode(GridOperationMode.Client).Select("_SelectionClientSide_ServiceOrders", "PartLinesGrid")
+                  .Enabled(true);
+          }
+      )
+        .HtmlAttributes(new { style = "font-size: 8pt; font-family: Verdana; width:950px" })
+        .Scrollable()
+        .Pageable((pager => pager.PageSize(5)))
+        .Sortable()
+        .Selectable()
+        .Filterable()
+        .Render();
+        
+        //.ClientEvents(clientEvents => clientEvents.OnDataBinding("onServiceGridDataBinding"))
+        //.ClientEvents(events => events.OnRowSelect("onRowSelected"))
+
+       
+    
+        }
+  </div> *@
