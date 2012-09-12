@@ -5,6 +5,7 @@
     width: 36px;
     height: 36px;
     text-align: justify;
+    border:none;
     
 }
 
@@ -12,7 +13,7 @@
 
 text-align:center;
 width:70px;
-height:75px;
+height:70px;
 float:left;
 
 }
@@ -137,6 +138,7 @@ margin-left:5px;
     background-color: #fff;
     padding-left:5px;
     padding-right:5px;
+    padding-bottom:5px;
 }
 
 .iqNameTooltip
@@ -157,6 +159,331 @@ background-color: #ff9;
 /*border: solid 3px #333;*/
 z-index: 999;
 }
+
+
+/*******************Repair Lines**************/
+
+.centercolumnRL
+{
+    
+    width: 300px;
+    margin-left: 310px;
+    position: absolute;
+} 
+
+.pageCointainerRL
+{
+
+    width:960px;
+    height:580px;
+  
+}
+
+.addLinesDivRL
+{
+    margin-top: 30px; 
+    max-width: 960px;
+    height: 75px;
+    
+   
+}
+
+.addLineleftcolumnRL
+{
+   
+    width: 300px;
+    float: left;
+    position: absolute;
+   
+}
+
+.addLinecentercolumnRL
+{
+   
+    width: 300px;
+    margin-left:310px;
+    position: absolute;
+  
+}
+
+.addLineRightcolumnRL
+{
+   
+    width: 300px;
+    margin-left: 630px;
+    position: absolute;
+  
+}
+
+/*******************end********************/
+
+/*******************Service Order Process**************/
+.leftcolumn
+{
+   
+    width: 300px;
+    float: left;
+    position: absolute;
+}
+
+.centercolumn
+{
+    
+    width: 300px;
+    margin-left: 310px;
+    position: absolute;
+} 
+
+.rightcolumn
+{
+   
+    width: 300px;
+    margin-left: 630px;
+    position: absolute;
+}
+.pageCointainer
+{
+    width:960px;
+    height:850px
+}
+.serviceProcessDiv
+{
+    max-width: 960px;
+    background-color: #800000;
+    height: 150px;
+    float: left;
+  
+}
+.addLinesDiv
+{
+    margin-top: 50px; 
+    max-width: 960px;
+  
+    height: 330px;
+    
+   
+}
+
+.addLineleftcolumn
+{
+   
+    width: 300px;
+    float: left;
+    position: absolute;
+   
+}
+
+.addLinecentercolumn
+{
+   
+    width: 300px;
+    margin-left:310px;
+    position: absolute;
+    margin-top: 55px; 
+  
+}
+
+.addLineRightcolumn
+{
+   
+    width: 300px;
+    margin-left: 630px;
+    position: absolute;
+  
+}
+
+.topDimensioncolumn
+{
+   
+    width: 300px;
+    margin-left: 630px;
+    position: absolute;
+    margin : 0px 0px 0px 0px;
+}
+
+.centerDimensioncolumn
+{
+   
+    width: 300px;
+    margin-left: 630px;
+    position: absolute;
+    margin : 130px 0px 0px 0px;
+}
+
+.bottomDimensioncolumn
+{
+   
+    width: 300px;
+    margin-left: 630px;
+    position: absolute;
+    margin : 180px 0px 0px 0px;
+}
+
+.singleTextBox {
+    width: 12em;
+}
+
+.partLinesDiv
+{
+    
+    margin-top: 50px; 
+    max-width: 960px;
+    height: 250px;
+    
+   
+}
+
+.addressDiv
+{
+    margin-top: 10px; 
+    max-width: 960px;
+    height: 300px;
+       
+}
+
+/*******************end********************/
+
+
+
+/*********************Checkin***************************/
+
+.leftViewClass
+{
+    padding-left: 10px;
+    padding-top:5px;
+    padding-right:10px;
+    max-width: 400px;
+    width:400px;
+    height: 25px;
+    vertical-align:middle;
+   font-family:  Verdana;
+   font-size:8pt;
+    font-weight:normal;
+    float:left;
+}
+.leftAddressViewClass
+{
+   padding-left: 10px;
+   padding-top:5px;
+   padding-right:10px;
+   max-width: 400px;
+   width:400px;
+   height: 40px;
+   font-family:  Verdana;
+   font-size:8pt;
+    font-weight:normal;
+    float:left;
+}
+
+.leftView
+{
+   float:left;
+   width:200px;
+   text-align: left;
+   vertical-align:middle;
+   font-family:  Verdana;
+   font-size:8pt;
+   font-weight:normal;
+}
+
+.leftadjacentView
+{
+   float:right;
+   width:200px;
+   max-width:200px;
+   text-align: left;
+   vertical-align:middle;
+   font-family:  Verdana;
+   font-size:8pt;
+   font-weight:normal;
+}
+
+.fullViewforLargerHeightClass
+{
+    padding-left: 10px;
+    padding-top:5px;
+    padding-right:10px;
+    max-width: 960px;
+    height: 50px;
+    vertical-align:middle;
+     font-weight:normal;
+    
+}
+.fullViewforMediumHeightClass
+{
+    padding-left: 10px;
+    padding-top:5px;
+    padding-right:10px;
+    max-width: 960px;
+    height: 50px;
+    vertical-align:middle;
+     font-weight:normal;
+    
+}
+
+.fullViewforSmallerHeightClass
+{
+    padding-left: 10px;
+    padding-top:5px;
+    padding-right:10px;
+    max-width: 960px;
+    height: 20px;
+    vertical-align:middle;
+     font-weight:normal;
+    
+}
+.rightViewClass
+{
+    float:right;
+    padding-left: 10px;
+    padding-top:5px;
+    padding-right:10px;
+    max-width: 400px;
+    width:400px;
+    height: 25px;
+    vertical-align:middle;
+    font-family:  Verdana;
+    font-size:8pt;
+     font-weight:normal;
+}
+
+.rightAddressViewClass
+{
+    padding-left: 10px;
+    padding-top:5px;
+    padding-right:10px;
+    float:right;
+    max-width: 400px;
+    width:400px;
+    height: 40px;
+    font-family:  Verdana;
+    font-size:8pt;
+    font-weight:normal;
+}
+
+.rightView
+{
+   float:left;
+   width:200px;
+   text-align: left;
+   vertical-align:middle;
+   font-family:  Verdana;
+   font-size:8pt;
+   font-weight:normal;
+    font-weight:normal;
+
+}
+.rightadjacentView
+{
+   float:right;
+   width:200px;
+   text-align: right;
+   vertical-align:middle;
+   font-family:  Verdana;
+   font-size:8pt;
+    font-weight:normal;
+}
+
 /************************************************************/
 
 html {
@@ -239,7 +566,8 @@ h1, h2, h3,
 h4, h5, h6 {
     color: #58D3F7;
     margin-bottom: 0;
-    padding-bottom: 0;
+    padding-bottom: 0px;
+    padding-top:0px;
 }
 
 h1 {
@@ -594,9 +922,11 @@ fieldset {
         }
 
 label {
-    display: block;
-    font-size: 1.2em;
+    
+    font-size: 0.8em;
     font-weight: 600;
+    width: 130px;
+    display: inline-block;
 }
 
 label.checkbox {
@@ -607,15 +937,15 @@ input, textarea {
     border: 1px solid #e2e2e2;
     background: #fff;
     color: #333;
-    font-size: 1.2em;
-    margin: 5px 0 6px 0;
-    padding: 5px;
-    width: 300px;
+    font-size: 0.8em;
+    margin: 0px 0 3px 0;
+    width: 145px;
+  
 }
 
 textarea {
     font-family: inherit;
-    width: 500px;
+    width: 145px;
 }
 
     input:focus, textarea:focus {
