@@ -58,13 +58,13 @@ namespace Coinco.SMS.Website.Models
 
         }
 
-        public List<ServiceOrderLine> GetGetServiceOrderLinesBySerialNumberPartNumber(string serialId, string itemNumber, string custAccount, string userName)
+        public List<ServiceOrderLine> GetServiceOrderLinesBySerialNumberPartNumber(string serialId, string itemNumber, string custAccount, string userName)
         {
             IAXHelper axHelper = ObjectFactory.GetInstance<IAXHelper>();
             List<ServiceOrderLine> serviceOrderList = new List<ServiceOrderLine>();
             try
             {
-                DataTable resultTable = axHelper.GetGetServiceOrderLinesBySerialNumberPartNumber(serialId, itemNumber, custAccount, userName);
+                DataTable resultTable = axHelper.GetServiceOrderLinesBySerialNumberPartNumber(serialId, itemNumber, custAccount, userName);
 
 
                 foreach (DataRow row in resultTable.Rows)
