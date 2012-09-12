@@ -1,5 +1,5 @@
 ﻿@using Telerik.Web.Mvc
-@model Coinco.SMS.Website.Models.ServiceOrder
+@model Coinco.SMS.Website.Models.Address
 
 @{
     ViewBag.Title = "CheckIn";
@@ -14,50 +14,15 @@
         <div id="CustomerAccountLabel" class="leftView" >
             @Html.Label("Customer Account", new { @class = "leftView" } )
         </div>
-        <div id="CustomerAccountDropDown" class="leftadjacentView">
-             @{
-                 Html.Telerik().DropDownList().Name("customerAccountDropDownList")
-                     .BindTo((SelectList)ViewData["CustomerList"])
-                     .ClientEvents(e => e.OnOpen("oncustomerAccountDropDownOpen"))
-                     .ClientEvents(e => e.OnChange("GetCustomerAddresses"))
-                     .HtmlAttributes(new { @class = "leftadjacentView" })
-                     .DropDownHtmlAttributes(new { style = "font-size: 11pt; font-family: Verdana;" })
-                     .Render();
-            }
+        <div id="CustomerAccountDropDown" class="leftadjacentView">          
+                @{Html.RenderPartial("CustomerAccountDropDownList");}
+
         </div>
     </div>
     </div>
     <br />
     <div id="Address" class="fullViewforLargerHeightClass">
-        <div id="BillingAddress" class="leftAddressViewClass">
-       @{Html.Telerik().Grid((IEnumerable<Coinco.SMS.Website.Models.Address>)ViewData["BillingAddress"])
-        .Name("BillingAddressGrid")
-        .Columns(columns =>
-        {
-            columns.Bound(c => c.AddressDetails).Title("Billing Address").Width(100);
-        })
-            
-        .Footer(false)
-        .HtmlAttributes(new { style = "font-size: 8pt; font-family: Verdana;" })
-       .Render();
-    
-        }
-    </div>
-
-        <div id="ShippingAddress" class="rightAddressViewClass">
-       @{Html.Telerik().Grid((IEnumerable<Coinco.SMS.Website.Models.Address>)ViewData["ShippingAddress"])
-        .Name("ShippingAddressGrid")
-        .Columns(columns =>
-        {
-            columns.Bound(c => c.AddressDetails).Title("Shipping Address").Width(100);
-        })
-
-           .Footer(false)
-        .HtmlAttributes(new { style = "font-size: 8pt; font-family: Verdana;" })
-       .Render();
-    
-        }
-    </div>
+        @{Html.RenderPartial("Address");}
     </div>
     </div>
     <h6>Other Details</h6>
@@ -68,7 +33,7 @@
         </div>
         <div id="CustomerCommentTextBox" class="leftadjacentView">
   
-                 @Html.TextArea("customerCommentTextArea", "", new { @class = "leftadjacentView" }) 
+                 @Html.TextArea("customerCommentTextArea", "", new { @class = "textAreaProperties" }) 
 
         </div>
     </div>
@@ -79,7 +44,7 @@
         </div>
         <div id="CustomerPOTextBox" class="rightadjacentView">
   
-                 @Html.TextBox("customerPOTextBox", "", new { @class = "rightadjacentView" }) 
+                 @Html.TextBox("customerPOTextBox", "", new { @class = "textBoxProperties" }) 
 
         </div>
     </div>
@@ -139,19 +104,19 @@
     
     </div>
             <h6>Check In Data</h6>
-        <div id="CheckInData" class="fullViewforSmallerHeightClass">
+        <div id="CheckInData" class="fullViewThreeColumnforSmallerHeightClass">
      <div id="SerialNumber" class="leftViewClass"> 
         <div id="SerialNumberLabel" class="leftView" >
             @Html.Label("Serial Number", new { @class = "leftView" })
         </div>
         <div id="SerialNumberTextBox" class="leftadjacentView">
              @{
-                 @Html.TextBox("serialNumberTextBox", "", new { @class = "leftadjacentView" }) 
+                 @Html.TextBox("serialNumberTextBox", "", new { @class = "textBoxProperties" }) 
             }
         </div>
     </div>
 
-       <div id="PartNumber" class="rightViewClass"> 
+       <div id="PartNumber" class="rightViewClassforThirdColumn"> 
         <div id="PartNumberLabel" class="rightView" >
             @Html.Label("Part Number", new { @class = "rightView" })
         </div>
@@ -165,6 +130,10 @@
                      .DropDownHtmlAttributes(new { style = "font-size: 11pt; font-family: Verdana;" })
                      .Render();
             }
+             
+        </div>
+         <div id="AddButton" class="rightViewforThirdColumn" >
+                    <button class="t-button" type="button" value="Add">Add</button>
 
         </div>
     </div>
@@ -203,44 +172,30 @@
         }
         
   </div> 
+
   </div>
 
   <script type="text/javascript">
 
 
-      $(function GetCustomerAddresses(e) {
 
+      function onDataBinding(e) {
+          var dropDownList = $('#customerAccountDropDownList').data('DropDownList');
+          var customerAccount = dropDownList.value();
+          e.data = $.extend(e.data, { customerAccount: customerAccount });
+      }
 
-          var dropDownList = $('#customerAccountDropDownList').data('tDropDownList');
-          if (dropDownList != null) {
-              var customerAccount = dropDownList.value();
-              $.ajax({
-                  url: "/CheckIn/GetCustomerAddresses/",
-                  type: 'GET',
-                  data: { customerAccount: customerAccount },
-                  dataType: 'html',
-                  success: function (result) {
-                      $('#Address').html(result);
-                  }
-
-              });
-
-          }
-          return false;
-      });
-
-
-       oncustomerAccountDropDownOpen = function (e) {
+      oncustomerAccountDropDownOpen = function (e) {
           $.each($('#customerAccountDropDownList').data('tDropDownList').dropDown.$items, function (idx, item) {
               $(item).addClass('bold-item');
           });
-          }
+      }
 
-       onwoClassificationDropDownOpen = function (e) {
-           $.each($('#woClassificationDropDownList').data('tDropDownList').dropDown.$items, function (idx, item) {
+      onwoClassificationDropDownOpen = function (e) {
+          $.each($('#woClassificationDropDownList').data('tDropDownList').dropDown.$items, function (idx, item) {
               $(item).addClass('bold-item');
           });
-          }
+      }
 
       onServiceTechnicianDropDownOpen = function (e) {
           $.each($('#serviceTechnicianDropDownList').data('tDropDownList').dropDown.$items, function (idx, item) {
