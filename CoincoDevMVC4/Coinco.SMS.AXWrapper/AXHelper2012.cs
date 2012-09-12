@@ -455,6 +455,56 @@ namespace Coinco.SMS.AXWrapper
 
         #region "Service Order Process"
 
+        // get Service Object Relation by Service Order for Service Order Process
+        public DataTable GetServiceObjectRelationByServiceOrder(string serviceOrder, string userName)
+        {
+
+            Axapta ax = null;
+            AxaptaRecord axRecord;
+            DataTable serialTable = new DataTable();
+
+            serialTable.Columns.Add("SORID", typeof(String));
+            serialTable.Columns.Add("SerialNumber", typeof(String));
+
+            try
+            {
+
+                ax = new Axapta();
+                ax.LogonAs(userName.Trim(), "", networkCredentials, axCompany, "", "", "");
+
+                axRecord = (AxaptaRecord)ax.CallStaticClassMethod("ServiceOrderManagement", "getSMASerialNumber", serviceOrder);
+                axRecord.ExecuteStmt("select * from %1");
+
+                while (axRecord.Found)
+                {
+                    DataRow row = serialTable.NewRow();
+                    row["SORID"] = axRecord.get_Field("SORID");
+                    row["SerialNumber"] = axRecord.get_Field("SerialNumber");
+                    serialTable.Rows.Add(row);
+                    axRecord.Next();
+                }
+
+
+
+
+            }
+            catch (Exception e)
+            {
+                throw e;
+                // Take other error action as needed.
+            }
+            finally
+            {
+                if (ax != null) ax.Logoff();
+            }
+            return serialTable;
+        }
+
+
+
+
+        //  Get technicians for service order process
+
         public DataTable GetTechniciansServiceOrderProcess(string transactionType, string specialityCode, string userName)
         {
 
@@ -496,6 +546,50 @@ namespace Coinco.SMS.AXWrapper
             return techniciansTable;
         }
 
+        // get Get Failure Code for service order process
+
+        public DataTable GetFailureCodeList(string userName)
+        {
+            DataTable resultTable = new DataTable();
+            Axapta ax = null;
+            AxaptaRecord axRecord;
+            try
+            {
+                // Login to Microsoft Dynamics AX.
+                ax = new Axapta();
+                ax.LogonAs(userName.Trim(), "", networkCredentials, axCompany, "", "", "");
+                resultTable.Columns.Add("FailureCode", typeof(String));
+                resultTable.Columns.Add("FailureDescription", typeof(String));
+                using (axRecord = ax.CreateAxaptaRecord("SMAServiceTask"))
+                {
+                    // Execute the query on the table.
+                    axRecord.ExecuteStmt("select ServiceTaskID, Description from %1 where %1.DataAreaID=='" + axCompany + "'");
+                    // Loop through the set of retrieved records.
+                    while (axRecord.Found)
+                    {
+
+                        DataRow row = resultTable.NewRow();
+                        row["FailureCode"] = axRecord.get_Field("ServiceTaskID");
+                        row["FailureDescription"] = axRecord.get_Field("Description");
+                        resultTable.Rows.Add(row);
+                        axRecord.Next();
+
+                    }
+
+
+                }
+            }
+            catch (Exception e)
+            {
+                throw e;
+                // Take other error action as needed.
+            }
+            finally
+            {
+                if (ax != null) ax.Logoff();
+            }
+            return resultTable;
+        }
         #endregion
 
         #region "Sales Details"
