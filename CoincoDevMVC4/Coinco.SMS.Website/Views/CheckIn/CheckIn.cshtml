@@ -35,7 +35,7 @@
         </div>
         <div id="CustomerCommentTextBox" class="leftadjacentView">
   
-            @Html.TextAreaFor(Model.Comments, "", new { @class = "textAreaProperties", id = "customerCommentTextArea" }) 
+            @Html.TextAreaFor(p=>p.Comments, new { @class = "textAreaProperties", id = "customerCommentTextArea" }) 
 
         </div>
     </div>
@@ -46,7 +46,7 @@
         </div>
         <div id="CustomerPOTextBox" class="rightadjacentView">
   
-                 @Html.TextBoxFor(Model.CustomerPO, "", new { @class = "textBoxProperties",id="customerPOTextBox" }) 
+                 @Html.TextBoxFor(p=>p.CustomerPO, new { @class = "textBoxProperties",id="customerPOTextBox" }) 
 
         </div>
     </div>
@@ -56,7 +56,7 @@
             @Html.Label("Service Technician", new { @class = "rightView" })
         </div>
         <div id="ServiceTechnicianDropDown" class="rightadjacentView">
-                 @Html.DropDownListFor(Model.ServiceTechnician, (SelectList)ViewData["ServiceTechnicianList"], "<--Select One-->", new { @class = "dropDownProperties", id = "serviceTechnicianDropDownList" })           
+                 @Html.DropDownListFor(p=> p.ServiceTechnician, (SelectList)ViewData["ServiceTechnicianList"], "<--Select One-->", new { @class = "dropDownProperties", id = "serviceTechnicianDropDownList" })           
 
         </div>
     </div>
@@ -68,7 +68,7 @@
         </div>
         <div id="WOClassificationDropDown" class="leftadjacentView">
             
-                @Html.DropDownList(Model.WOClassification, (SelectList)ViewData["WOClassificationList"], "<--Select One-->", new { @class = "dropDownProperties", id = "woClassificationDropDownList" })
+                @Html.DropDownListFor(p => p.WOClassification, (SelectList)ViewData["WOClassificationList"], "<--Select One-->", new { @class = "dropDownProperties", id = "woClassificationDropDownList" })
             
         </div>
     </div>
@@ -79,7 +79,7 @@
         </div>
         <div id="ServiceResponsibleDropDown" class="rightadjacentView">
   
-               @Html.DropDownListFor(Model.ServiceResponsible, (SelectList)ViewData["ServiceResponsibleList"], "<--Select One-->", new { @class = "dropDownProperties", id = "serviceResponsibleDropDownList" })
+               @Html.DropDownListFor(p => p.ServiceResponsible, (SelectList)ViewData["ServiceResponsibleList"], "<--Select One-->", new { @class = "dropDownProperties", id = "serviceResponsibleDropDownList" })
 
         </div>
     </div>
@@ -92,9 +92,8 @@
             @Html.Label("Serial Number", new { @class = "leftView" })
         </div>
         <div id="SerialNumberTextBox" class="leftadjacentView">
-             @{
-                 @Html.TextBoxFor("serialNumberTextBox", "", new { @class = "textBoxProperties" }) 
-            }
+
+                 @Html.TextBox("serialNumberTextBox","",  new { @class = "textBoxProperties" }) 
         </div>
     </div>
 
@@ -115,11 +114,19 @@
     </div>
   </div> 
   <br />
-<div id="ServiceOrderGridDiv">
-    @Html.RenderAction("GetServiceOrderLinesHistory");
+    <div id="ServiceOrderGridDiv">
+        GetServiceOrderLinesHistory();
         
   </div> 
+  <br />
+  <div id="SubmitResult" class="submitResultClass"> 
+                     <button class="t-button" type="button" id="Create" value="Create">Create</button>
+                      
+                    <button class="t-button" type="button" id="Clear" value="Clear">Clear</button>
 
+
+  </div>
+                      <br />
   </div>
 
   <script type="text/javascript">
@@ -144,11 +151,11 @@
           var partNumber = $('#partNumberDropDownList').val();
           var serialNumber = $('#serialNumberTextBox').val();
           jQuery.ajax({
-              url: "/CheckIn/GetServiceOrderLinesHistory",
+              url: "/CheckIn/GetServiceOrderLinesHistoryBySerialNumberPartNumber",
               type: 'POST',
               data: { partNumber: partNumber,serialNumber: serialNumber },
               success: function (result) {
-                  jQuery('#Address').html(result);
+                  jQuery('#ServiceOrderGridDiv').html(result);
               },
               error: function (result) {
                   alert(result.responseText);
@@ -168,6 +175,25 @@
                   data: { customerAccount: customerAccount },
                   success: function (result) {
                       jQuery('#Address').html(result);
+                  },
+                  error: function (result) {
+                      alert(result.responseText);
+                  }
+
+              });
+              return false;
+          });
+
+          jQuery(function GetServiceOrderLinesHistory() {
+
+              var customerAccount = null;
+              //var dropDownList = $('#customerAccountDropDownList').data('tDropDownList');
+              jQuery.ajax({
+                  url: "/CheckIn/GetServiceOrderLinesHistory",
+                  type: 'GET',
+                  data: { partNumber: "",serialNumber:"" },
+                  success: function (result) {
+                      jQuery('#ServiceOrderGridDiv').html(result);
                   },
                   error: function (result) {
                       alert(result.responseText);
