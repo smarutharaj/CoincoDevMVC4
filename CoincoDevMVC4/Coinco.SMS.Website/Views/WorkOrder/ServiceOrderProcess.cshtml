@@ -31,11 +31,11 @@
         @Html.DisplayFor(x => x.ServiceOrder)<br />
         <label>
             SO Relation:</label>
-        @{Html.Telerik().DropDownList().Name("serviceObjectList")
-             .HtmlAttributes(new { style = "font-size: 8pt; font-family: Calibri; width=50px;" })
-             .DropDownHtmlAttributes(new { style = "font-size: 8pt; font-family: Calibri;" })
+        @{Html.Telerik().DropDownList().Name("soRelationList")
+             .HtmlAttributes(new { style = "font-size: 8pt; font-family: verdana; width=50px;" })
+             .DropDownHtmlAttributes(new { style = "font-size: 8pt; font-family: verdana;" })
              .Render();
-        }
+        }<br />
     </div>
 
     <div class="centercolumn">
@@ -63,10 +63,9 @@
  <h6>Add Lines</h6>
   <label>
             Transaction Type:</label>
-
              @{Html.Telerik().DropDownList().Name("tranasctionList")
-             .HtmlAttributes(new { style = "font-size: 8pt; font-family: Calibri; width=50px;" })
-             .DropDownHtmlAttributes(new { style = "font-size: 8pt; font-family: Calibri;" })
+             .HtmlAttributes(new { style = "font-size: 8pt; font-family: verdana; width=50px;" })
+             .DropDownHtmlAttributes(new { style = "font-size: 8pt; font-family: verdana;" })
              .Render();
         }
         <br />
@@ -76,27 +75,27 @@
 
      <label>
             Failure Code:</label>
-            @(Html.Telerik().AutoComplete()
-                              .Name("failureCodeList")
-                              //.ClientEvents(events => events
-                              //.OnDataBinding("onAutoCompleteDataBinding"))
-            )
+            @{Html.Telerik().DropDownList().Name("failureCodeList")
+             .HtmlAttributes(new { style = "font-size: 8pt; font-family: verdana; width=50px;" })
+             .DropDownHtmlAttributes(new { style = "font-size: 8pt; font-family: verdana;" })
+             .Render();
+        }
         <br />
     <label>
             Specialty Code:</label>
-            @(Html.Telerik().AutoComplete()
-                              .Name("specialityList")
-                              //.ClientEvents(events => events
-                              //.OnDataBinding("onAutoCompleteDataBinding"))
-            )
+           @{Html.Telerik().DropDownList().Name("specailtyCodeList")
+             .HtmlAttributes(new { style = "font-size: 8pt; font-family: verdana; width=50px;" })
+             .DropDownHtmlAttributes(new { style = "font-size: 8pt; font-family: verdana;" })
+             .Render();
+             }
         <br />
         <label>
             Line Property:</label>
-            @(Html.Telerik().AutoComplete()
-                              .Name("linePropertyList")
-                              //.ClientEvents(events => events
-                              //.OnDataBinding("onAutoCompleteDataBinding"))
-            )
+             @{Html.Telerik().DropDownList().Name("linePropertyList")
+             .HtmlAttributes(new { style = "font-size: 8pt; font-family: Calibri; width=50px;" })
+             .DropDownHtmlAttributes(new { style = "font-size: 8pt; font-family: Calibri;" })
+             .Render();
+             }
         <br />
         
  </div>
@@ -106,12 +105,11 @@
             @Html.TextBoxFor(x => x.Quantity, new { @class = "singleTextBox" })<br />
  <label>
             Technician:</label>
-            @(Html.Telerik().AutoComplete()
-                                      .Name("technicianList")
-                                               .HtmlAttributes(new { style = "width: 145px; " })
-                              //.ClientEvents(events => events
-                              //.OnDataBinding("onAutoCompleteDataBinding"))
-            )
+            @{Html.Telerik().DropDownList().Name("technicianList")
+             .HtmlAttributes(new { style = "font-size: 8pt; font-family: Calibri; width=50px;" })
+             .DropDownHtmlAttributes(new { style = "font-size: 8pt; font-family: Calibri;" })
+             .Render();
+             }
         <br />
          <label>
            Service Comments:</label>
@@ -125,8 +123,8 @@
             @(Html.Telerik().AutoComplete()
                                       .Name("itemNumberList")
                                                .HtmlAttributes(new { style = "width: 145px; " })
-                              //.ClientEvents(events => events
-                              //.OnDataBinding("onAutoCompleteDataBinding"))
+                    //.ClientEvents(events => events
+                    //.OnDataBinding("onAutoCompleteDataBinding"))
             )
        
          <label>
@@ -134,8 +132,8 @@
             @(Html.Telerik().AutoComplete()
                                       .Name("siteList")
                                                        .HtmlAttributes(new { style = "width: 145px; height:16px " })
-                              //.ClientEvents(events => events
-                              //.OnDataBinding("onAutoCompleteDataBinding"))
+                    //.ClientEvents(events => events
+                    //.OnDataBinding("onAutoCompleteDataBinding"))
             )
       
          <label>
@@ -143,8 +141,8 @@
             @(Html.Telerik().AutoComplete()
                                       .Name("wareHouseList")
                                                .HtmlAttributes(new { style = "width: 145px; " })
-                              //.ClientEvents(events => events
-                              //.OnDataBinding("onAutoCompleteDataBinding"))
+                    //.ClientEvents(events => events
+                    //.OnDataBinding("onAutoCompleteDataBinding"))
             )
        
          <label>
@@ -152,8 +150,8 @@
             @(Html.Telerik().AutoComplete()
                                       .Name("locationList")
                                                        .HtmlAttributes(new { style = "width: 145px; " })
-                              //.ClientEvents(events => events
-                              //.OnDataBinding("onAutoCompleteDataBinding"))
+                    //.ClientEvents(events => events
+                    //.OnDataBinding("onAutoCompleteDataBinding"))
             )
  </div> 
  <div class="centerDimensioncolumn"> 
@@ -162,8 +160,8 @@
             @(Html.Telerik().AutoComplete()
                                       .Name("serialNumberList")
                                                .HtmlAttributes(new { style = "width: 145px; " })
-                              //.ClientEvents(events => events
-                              //.OnDataBinding("onAutoCompleteDataBinding"))
+                    //.ClientEvents(events => events
+                    //.OnDataBinding("onAutoCompleteDataBinding"))
             )
   </div>  
   <div class="bottomDimensioncolumn" >
@@ -172,24 +170,24 @@
             @(Html.Telerik().AutoComplete()
                                       .Name("configurationList")
                                                .HtmlAttributes(new { style = "width: 145px; " })
-                              //.ClientEvents(events => events
-                              //.OnDataBinding("onAutoCompleteDataBinding"))
+                    //.ClientEvents(events => events
+                    //.OnDataBinding("onAutoCompleteDataBinding"))
             )
        
          <label> Size:</label>
             @(Html.Telerik().AutoComplete()
                                       .Name("sizeList")
                                                .HtmlAttributes(new { style = "width: 145px; " })
-                              //.ClientEvents(events => events
-                              //.OnDataBinding("onAutoCompleteDataBinding"))
+                    //.ClientEvents(events => events
+                    //.OnDataBinding("onAutoCompleteDataBinding"))
             )
         <br />
          <label> Color:</label>
             @(Html.Telerik().AutoComplete()
                                       .Name("colorList")
                                                .HtmlAttributes(new { style = "width: 145px; " })
-                              //.ClientEvents(events => events
-                              //.OnDataBinding("onAutoCompleteDataBinding"))
+                    //.ClientEvents(events => events
+                    //.OnDataBinding("onAutoCompleteDataBinding"))
             )
    </div>     
  </div>
@@ -226,10 +224,10 @@
         })
 
         .DataBinding(dataBinding =>
-          {
-              dataBinding.Ajax().OperationMode(GridOperationMode.Client).Select("_SelectionClientSide_ServiceOrders", "PartLinesGrid")
-                  .Enabled(true);
-          }
+        {
+            dataBinding.Ajax().OperationMode(GridOperationMode.Client).Select("_SelectionClientSide_ServiceOrders", "PartLinesGrid")
+                .Enabled(true);
+        }
       )
         .HtmlAttributes(new { style = "font-size: 8pt; font-family: Verdana; width:950px" })
         .Scrollable()
@@ -238,9 +236,9 @@
         .Selectable()
         .Filterable()
         .Render();
-        
-        //.ClientEvents(clientEvents => clientEvents.OnDataBinding("onServiceGridDataBinding"))
-        //.ClientEvents(events => events.OnRowSelect("onRowSelected"))
+
+            //.ClientEvents(clientEvents => clientEvents.OnDataBinding("onServiceGridDataBinding"))
+            //.ClientEvents(events => events.OnRowSelect("onRowSelected"))
 
        
     
@@ -274,3 +272,5 @@
   </div>
 
 </div>
+</div>
+       
