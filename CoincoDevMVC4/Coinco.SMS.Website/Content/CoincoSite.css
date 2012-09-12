@@ -147,6 +147,15 @@ cursor: help;
 border-bottom: dotted 1px brown;
 }
 
+.siteLabel {
+    
+    font-size: 0.8em;
+    font-weight: 600;
+    width: 30px;
+    display: inline-block;
+    vertical-align:top;
+}
+
 .iqTooltip 
 {
 padding-left: 10px;
@@ -829,9 +838,10 @@ aside {
             padding: 2px 0 2px 20px;
         }
 
-.label {
+/*.label {
     font-weight: 700;
-}
+    vertical-align:top;
+}*/
 
 /* login page */
 #loginForm {
@@ -925,6 +935,7 @@ label {
     font-weight: 600;
     width: 130px;
     display: inline-block;
+    vertical-align:top;
 }
 
 label.checkbox {
