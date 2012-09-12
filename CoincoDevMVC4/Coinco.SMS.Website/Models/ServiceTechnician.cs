@@ -64,7 +64,7 @@ namespace Coinco.SMS.Website.Models
             List<ServiceTechnician> techniciansList = new List<ServiceTechnician>();
             try
             {
-                DataTable resultTable = axHelper.GetTechniciansPartDetails(transactionType, specialityCode, userName);
+                DataTable resultTable = axHelper.GetTechniciansServiceOrderProcess(transactionType, specialityCode, userName);
 
 
                 foreach (DataRow row in resultTable.Rows)
