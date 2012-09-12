@@ -15,15 +15,17 @@
             @Html.Label("Customer Account", new { @class = "leftView" } )
         </div>
         <div id="CustomerAccountDropDown" class="leftadjacentView">          
-                @{Html.RenderPartial("CustomerAccountDropDownList");}
+               @Html.DropDownList("customerAccountDropDownList", (SelectList)ViewData["CustomerList"], "<--Select One-->", new { @class = "leftadjacentView" })
+            
+            
 
         </div>
     </div>
     </div>
     <br />
     <div id="Address" class="fullViewforLargerHeightClass">
-         @{Html.("Address");}
-       
+
+        GetCustomerAddress();
     </div>
     </div>
     <h6>Other Details</h6>
@@ -34,7 +36,7 @@
         </div>
         <div id="CustomerCommentTextBox" class="leftadjacentView">
   
-                 @Html.TextArea("customerCommentTextArea", "", new { @class = "textAreaProperties" }) 
+            @Html.TextArea("customerCommentTextArea", "", new { @class = "textAreaProperties" }) 
 
         </div>
     </div>
@@ -57,11 +59,9 @@
         <div id="ServiceTechnicianDropDown" class="rightadjacentView">
   
                  @{
-                     Html.Telerik().DropDownList().Name("serviceTechnicianDropDownList")
+                     Html.Telerik().ComboBox().Name("serviceTechnicianDropDownList")
                      .BindTo((SelectList)ViewData["ServiceTechnicianList"])
-                     .ClientEvents(e => e.OnOpen("onServiceTechnicianDropDownOpen"))
                      .HtmlAttributes(new { @class = "rightadjacentView" })
-                     .DropDownHtmlAttributes(new { style = "font-size: 11pt; font-family: Verdana;" })
                      .Render();
             }
 
@@ -75,11 +75,9 @@
         </div>
         <div id="WOClassificationDropDown" class="leftadjacentView">
              @{
-                 Html.Telerik().DropDownList().Name("woClassificationDropDownList")
+                 Html.Telerik().ComboBox().Name("woClassificationDropDownList")
                      .BindTo((SelectList)ViewData["WOClassificationList"])
-                     .ClientEvents(e => e.OnOpen("onwoClassificationDropDownOpen"))
                      .HtmlAttributes(new { @class = "leftadjacentView" })
-                     .DropDownHtmlAttributes(new { style = "font-size: 11pt; font-family: Verdana;" })
                      .Render();
             }
         </div>
@@ -92,11 +90,9 @@
         <div id="ServiceResponsibleDropDown" class="rightadjacentView">
   
                  @{
-                     Html.Telerik().DropDownList().Name("serviceResponsibleDropDownList")
+                     Html.Telerik().ComboBox().Name("serviceResponsibleDropDownList")
                      .BindTo((SelectList)ViewData["ServiceResponsibleList"])
-                     .ClientEvents(e => e.OnOpen("onServiceResponsibleDropDownOpen"))
                      .HtmlAttributes(new { @class = "rightadjacentView" })
-                     .DropDownHtmlAttributes(new { style = "font-size: 11pt; font-family: Verdana;" })
                      .Render();
             }
 
@@ -124,11 +120,9 @@
         <div id="PartNumberDropDown" class="rightadjacentView">
   
                  @{
-                     Html.Telerik().DropDownList().Name("partNumberDropDownList")
+                     Html.Telerik().ComboBox().Name("partNumberDropDownList")
                      .BindTo((SelectList)ViewData["PartNumberList"])
-                     .ClientEvents(e => e.OnOpen("onPartNumberDropDownOpen"))
                      .HtmlAttributes(new { @class = "rightadjacentView" })
-                     .DropDownHtmlAttributes(new { style = "font-size: 11pt; font-family: Verdana;" })
                      .Render();
             }
              
@@ -177,43 +171,49 @@
   </div>
 
   <script type="text/javascript">
+      jQuery('#customerAccountDropDownList').change(function () {
+          var customerAccount = $(this).val();
+          jQuery.ajax({
+              url: "/CheckIn/GetCustomerAddresses",
+              type: 'GET',
+              data: { customerAccount: customerAccount },
+              success: function (result) {
+                  jQuery('#Address').html(result);
+              },
+              error: function (result) {
+                  alert(result.responseText);
+              }
 
+          });
+          return false;
+      });
 
+      
+          jQuery(function GetCustomerAddress(e) {
+
+              var customerAccount = null;
+              //var dropDownList = $('#customerAccountDropDownList').data('tDropDownList');
+              jQuery.ajax({
+                  url: "/CheckIn/GetCustomerAddresses",
+                  type: 'GET',
+                  data: { customerAccount: customerAccount },
+                  success: function (result) {
+                      jQuery('#Address').html(result);
+                  },
+                  error: function (result) {
+                      alert(result.responseText);
+                  }
+
+              });
+              return false;
+          });
 
       function onDataBinding(e) {
-          var dropDownList = $('#customerAccountDropDownList').data('DropDownList');
+          var dropDownList = jQuery('#customerAccountDropDownList').data('DropDownList');
           var customerAccount = dropDownList.value();
-          e.data = $.extend(e.data, { customerAccount: customerAccount });
+          e.data = jQuery.extend(e.data, { customerAccount: customerAccount });
       }
 
-      oncustomerAccountDropDownOpen = function (e) {
-          $.each($('#customerAccountDropDownList').data('tDropDownList').dropDown.$items, function (idx, item) {
-              $(item).addClass('bold-item');
-          });
-      }
-
-      onwoClassificationDropDownOpen = function (e) {
-          $.each($('#woClassificationDropDownList').data('tDropDownList').dropDown.$items, function (idx, item) {
-              $(item).addClass('bold-item');
-          });
-      }
-
-      onServiceTechnicianDropDownOpen = function (e) {
-          $.each($('#serviceTechnicianDropDownList').data('tDropDownList').dropDown.$items, function (idx, item) {
-              $(item).addClass('bold-item');
-          });
-      }
-
-      onServiceResponsibleDropDownOpen = function (e) {
-          $.each($('#serviceResponsibleDropDownList').data('tDropDownList').dropDown.$items, function (idx, item) {
-              $(item).addClass('bold-item');
-          });
-      }
-
-      onPartNumberDropDownOpen = function (e) {
-          $.each($('#partNumberDropDownList').data('tDropDownList').dropDown.$items, function (idx, item) {
-              $(item).addClass('bold-item');
-          });
-      }
+     
       
 </script>
