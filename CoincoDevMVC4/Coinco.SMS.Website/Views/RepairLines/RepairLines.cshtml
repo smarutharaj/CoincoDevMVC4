@@ -9,16 +9,17 @@
     <div class="addLinesDivRL">
      <div class="addLineleftcolumnRL">
      <h6>Identification</h6>
+     <br />
         <label>Service Order:</label>
 
-                 @{Html.Telerik().DropDownList().Name("tranasctionList")
+                 @{Html.Telerik().ComboBox().Name("seriveOrderList")
                  .HtmlAttributes(new { style = "font-size: 8pt; font-family: Calibri; width=50px;" })
                  .DropDownHtmlAttributes(new { style = "font-size: 8pt; font-family: Calibri;" })
                  .Render();
                 }
          <br />
          <label> SO Relation:</label>
-               @{Html.Telerik().DropDownList().Name("tranasctionList")
+               @{Html.Telerik().ComboBox().Name("soRelationList")
                  .HtmlAttributes(new { style = "font-size: 8pt; font-family: Calibri; width=50px;" })
                  .DropDownHtmlAttributes(new { style = "font-size: 8pt; font-family: Calibri;" })
                  .Render();
@@ -27,22 +28,23 @@
      </div>
      <div class="addLinecentercolumnRL">
       <h6>Symptom</h6>
+      <br />
             <label>Condition:</label>
-                  @{Html.Telerik().DropDownList().Name("tranasctionList")
+                  @{Html.Telerik().ComboBox().Name("conditionList")
                  .HtmlAttributes(new { style = "font-size: 8pt; font-family: Calibri; width=50px;" })
                  .DropDownHtmlAttributes(new { style = "font-size: 8pt; font-family: Calibri;" })
                  .Render();
                     }
             <br />
             <label>Symptom Area:</label>
-                 @{Html.Telerik().DropDownList().Name("tranasctionList")
+                 @{Html.Telerik().ComboBox().Name("symptomAreaList")
                  .HtmlAttributes(new { style = "font-size: 8pt; font-family: Calibri; width=50px;" })
                  .DropDownHtmlAttributes(new { style = "font-size: 8pt; font-family: Calibri;" })
                  .Render();
                     }
             <br />
             <label>Symptom Code:</label>
-               @{Html.Telerik().DropDownList().Name("tranasctionList")
+               @{Html.Telerik().ComboBox().Name("symptomCodeList")
                  .HtmlAttributes(new { style = "font-size: 8pt; font-family: Calibri; width=50px;" })
                  .DropDownHtmlAttributes(new { style = "font-size: 8pt; font-family: Calibri;" })
                  .Render();
@@ -51,8 +53,9 @@
      </div>
      <div class="addLineRightcolumnRL">
      <h6>Execution</h6>
+     <br />
             <label>Repair Stage:</label>
-               @{Html.Telerik().DropDownList().Name("tranasctionList")
+               @{Html.Telerik().ComboBox().Name("repairStageList")
                  .HtmlAttributes(new { style = "font-size: 8pt; font-family: Calibri; width=50px;" })
                  .DropDownHtmlAttributes(new { style = "font-size: 8pt; font-family: Calibri;" })
                  .Render();
@@ -60,7 +63,7 @@
             <br />
        
             <label>Technician:</label>
-               @{Html.Telerik().DropDownList().Name("tranasctionList")
+               @{Html.Telerik().ComboBox().Name("technicianList")
                  .HtmlAttributes(new { style = "font-size: 8pt; font-family: Calibri; width=50px;" })
                  .DropDownHtmlAttributes(new { style = "font-size: 8pt; font-family: Calibri;" })
                  .Render();
@@ -75,29 +78,33 @@
 
     <div class="addLinesDivRL">
      <div class="addLineleftcolumnRL">
+     <br />
      <h6>Description</h6>
+     <br />
         <label>Description:</label>
                 @Html.TextAreaFor(x => x.ServiceComments)
          <br />
      </div>
      <div class="addLinecentercolumnRL">
+     <br />
       <h6>Diagnosis</h6>
+      <br />
             <label>Diagnosis Area:</label>
-                  @{Html.Telerik().DropDownList().Name("tranasctionList")
+                  @{Html.Telerik().ComboBox().Name("diagnosisAreaList")
                  .HtmlAttributes(new { style = "font-size: 8pt; font-family: Calibri; width=50px;" })
                  .DropDownHtmlAttributes(new { style = "font-size: 8pt; font-family: Calibri;" })
                  .Render();
                     }
             <br />
             <label>Diagnosis Code:</label>
-                 @{Html.Telerik().DropDownList().Name("tranasctionList")
+                 @{Html.Telerik().ComboBox().Name("diagnosisCodeList")
                  .HtmlAttributes(new { style = "font-size: 8pt; font-family: Calibri; width=50px;" })
                  .DropDownHtmlAttributes(new { style = "font-size: 8pt; font-family: Calibri;" })
                  .Render();
                     }
             <br />
             <label>Resolution:</label>
-               @{Html.Telerik().DropDownList().Name("tranasctionList")
+               @{Html.Telerik().ComboBox().Name("resolutionList")
                  .HtmlAttributes(new { style = "font-size: 8pt; font-family: Calibri; width=50px;" })
                  .DropDownHtmlAttributes(new { style = "font-size: 8pt; font-family: Calibri;" })
                  .Render();
@@ -108,10 +115,12 @@
   <br />
   <br />
   <br />
+  <br />
+  <br />
 
     <div class="centercolumnRL">
-    <button class="t-button" type="button">Add</button>
-    <button class="t-button" type="button">Clear</button>
+        <button class="t-button" type="button">Add</button>
+        <button class="t-button" type="button">Clear</button>
     </div>
    
 </div>
