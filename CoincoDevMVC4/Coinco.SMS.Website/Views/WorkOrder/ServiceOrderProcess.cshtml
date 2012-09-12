@@ -28,14 +28,16 @@
     <div class="leftcolumn">
         <label>
             Service Order:</label>
-        @Html.DisplayFor(x => x.ServiceOrder)<br />
+        @Html.DisplayFor(x => TempData["ServiceOrderId"])<br />
         <label>
             SO Relation:</label>
-        @{Html.Telerik().DropDownList().Name("soRelationList")
+             @Html.DropDownListFor(x => x.ServiceObjectRelation, ViewData["FailureCodeList"])
+       @* @Html.DropDownListFor(x => x.ServiceObjectRelation, (IEnumerable<SelectListItem>)ViewData["AspectTypes"])*@
+      @*  @{Html.Telerik().ComboBox().Name("soRelationList")
              .HtmlAttributes(new { style = "font-size: 8pt; font-family: verdana; width=50px;" })
              .DropDownHtmlAttributes(new { style = "font-size: 8pt; font-family: verdana;" })
              .Render();
-        }<br />
+        }*@<br />
     </div>
 
     <div class="centercolumn">
@@ -63,7 +65,7 @@
  <h6>Add Lines</h6>
   <label>
             Transaction Type:</label>
-             @{Html.Telerik().DropDownList().Name("tranasctionList")
+             @{Html.Telerik().ComboBox().Name("tranasctionList")
              .HtmlAttributes(new { style = "font-size: 8pt; font-family: verdana; width=50px;" })
              .DropDownHtmlAttributes(new { style = "font-size: 8pt; font-family: verdana;" })
              .Render();
@@ -75,15 +77,17 @@
 
      <label>
             Failure Code:</label>
-            @{Html.Telerik().DropDownList().Name("failureCodeList")
+             @Html.DropDownListFor(x => x.FailureCode.FailureCodeNo, (IEnumerable<SelectListItem>)ViewData["FailureCodeList"])
+           @* @{Html.Telerik().ComboBox().Name("failureCodeList")
+
              .HtmlAttributes(new { style = "font-size: 8pt; font-family: verdana; width=50px;" })
              .DropDownHtmlAttributes(new { style = "font-size: 8pt; font-family: verdana;" })
              .Render();
-        }
+        }*@
         <br />
     <label>
             Specialty Code:</label>
-           @{Html.Telerik().DropDownList().Name("specailtyCodeList")
+           @{Html.Telerik().ComboBox().Name("specailtyCodeList")
              .HtmlAttributes(new { style = "font-size: 8pt; font-family: verdana; width=50px;" })
              .DropDownHtmlAttributes(new { style = "font-size: 8pt; font-family: verdana;" })
              .Render();
@@ -91,7 +95,7 @@
         <br />
         <label>
             Line Property:</label>
-             @{Html.Telerik().DropDownList().Name("linePropertyList")
+             @{Html.Telerik().ComboBox().Name("linePropertyList")
              .HtmlAttributes(new { style = "font-size: 8pt; font-family: Calibri; width=50px;" })
              .DropDownHtmlAttributes(new { style = "font-size: 8pt; font-family: Calibri;" })
              .Render();
@@ -105,7 +109,7 @@
             @Html.TextBoxFor(x => x.Quantity, new { @class = "singleTextBox" })<br />
  <label>
             Technician:</label>
-            @{Html.Telerik().DropDownList().Name("technicianList")
+            @{Html.Telerik().ComboBox().Name("technicianList")
              .HtmlAttributes(new { style = "font-size: 8pt; font-family: Calibri; width=50px;" })
              .DropDownHtmlAttributes(new { style = "font-size: 8pt; font-family: Calibri;" })
              .Render();
@@ -120,75 +124,67 @@
   <h6>Storage Dimension</h6>
    <label>
             Item Number:</label>
-            @(Html.Telerik().AutoComplete()
-                                      .Name("itemNumberList")
-                                               .HtmlAttributes(new { style = "width: 145px; " })
-                    //.ClientEvents(events => events
-                    //.OnDataBinding("onAutoCompleteDataBinding"))
-            )
+             @{Html.Telerik().ComboBox().Name("itemNumberList")
+             .HtmlAttributes(new { style = "font-size: 8pt; font-family: Calibri; width=50px;" })
+             .DropDownHtmlAttributes(new { style = "font-size: 8pt; font-family: Calibri;" })
+             .Render();
+             }
        
          <label>
             Site:</label>
-            @(Html.Telerik().AutoComplete()
-                                      .Name("siteList")
-                                                       .HtmlAttributes(new { style = "width: 145px; height:16px " })
-                    //.ClientEvents(events => events
-                    //.OnDataBinding("onAutoCompleteDataBinding"))
-            )
+             @{Html.Telerik().ComboBox().Name("siteList")
+             .HtmlAttributes(new { style = "font-size: 8pt; font-family: Calibri; width=50px;" })
+             .DropDownHtmlAttributes(new { style = "font-size: 8pt; font-family: Calibri;" })
+             .Render();
+             }
       
          <label>
             Warehouse:</label>
-            @(Html.Telerik().AutoComplete()
-                                      .Name("wareHouseList")
-                                               .HtmlAttributes(new { style = "width: 145px; " })
-                    //.ClientEvents(events => events
-                    //.OnDataBinding("onAutoCompleteDataBinding"))
-            )
+             @{Html.Telerik().ComboBox().Name("warehouseList")
+             .HtmlAttributes(new { style = "font-size: 8pt; font-family: Calibri; width=50px;" })
+             .DropDownHtmlAttributes(new { style = "font-size: 8pt; font-family: Calibri;" })
+             .Render();
+             }
        
          <label>
             Location:</label>
-            @(Html.Telerik().AutoComplete()
-                                      .Name("locationList")
-                                                       .HtmlAttributes(new { style = "width: 145px; " })
-                    //.ClientEvents(events => events
-                    //.OnDataBinding("onAutoCompleteDataBinding"))
-            )
+             @{Html.Telerik().ComboBox().Name("locationList")
+             .HtmlAttributes(new { style = "font-size: 8pt; font-family: Calibri; width=50px;" })
+             .DropDownHtmlAttributes(new { style = "font-size: 8pt; font-family: Calibri;" })
+             .Render();
+             }
  </div> 
  <div class="centerDimensioncolumn"> 
     <h6>Tracking Dimension</h6>
     <label> Serial Number:</label>
-            @(Html.Telerik().AutoComplete()
-                                      .Name("serialNumberList")
-                                               .HtmlAttributes(new { style = "width: 145px; " })
-                    //.ClientEvents(events => events
-                    //.OnDataBinding("onAutoCompleteDataBinding"))
-            )
+             @{Html.Telerik().ComboBox().Name("serailNumberList")
+             .HtmlAttributes(new { style = "font-size: 8pt; font-family: Calibri; width=50px;" })
+             .DropDownHtmlAttributes(new { style = "font-size: 8pt; font-family: Calibri;" })
+             .Render();
+             }
   </div>  
   <div class="bottomDimensioncolumn" >
      <h6>Product Dimension</h6>
         <label> Configuration:</label>
-            @(Html.Telerik().AutoComplete()
-                                      .Name("configurationList")
-                                               .HtmlAttributes(new { style = "width: 145px; " })
-                    //.ClientEvents(events => events
-                    //.OnDataBinding("onAutoCompleteDataBinding"))
-            )
+             @{Html.Telerik().ComboBox().Name("configurationList")
+             .HtmlAttributes(new { style = "font-size: 8pt; font-family: Calibri; width=50px;" })
+             .DropDownHtmlAttributes(new { style = "font-size: 8pt; font-family: Calibri;" })
+             .Render();
+             }
        
          <label> Size:</label>
-            @(Html.Telerik().AutoComplete()
-                                      .Name("sizeList")
-                                               .HtmlAttributes(new { style = "width: 145px; " })
-                    //.ClientEvents(events => events
-                    //.OnDataBinding("onAutoCompleteDataBinding"))
-            )
+              @{Html.Telerik().ComboBox().Name("sizeList")
+             .HtmlAttributes(new { style = "font-size: 8pt; font-family: Calibri; width=50px;" })
+             .DropDownHtmlAttributes(new { style = "font-size: 8pt; font-family: Calibri;" })
+             .Render();
+             }
         <br />
          <label> Color:</label>
-            @(Html.Telerik().AutoComplete()
-                                      .Name("colorList")
-                                               .HtmlAttributes(new { style = "width: 145px; " })
-                    //.ClientEvents(events => events
-                    //.OnDataBinding("onAutoCompleteDataBinding"))
-            )
+              @{Html.Telerik().ComboBox().Name("colorList")
+             .HtmlAttributes(new { style = "font-size: 8pt; font-family: Calibri; width=50px;" })
+             .DropDownHtmlAttributes(new { style = "font-size: 8pt; font-family: Calibri;" })
+             .Render();
+             }
    </div>     
  </div>
 

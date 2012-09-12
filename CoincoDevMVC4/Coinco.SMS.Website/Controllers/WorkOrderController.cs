@@ -54,6 +54,8 @@ namespace Coinco.SMS.Controllers
         {
             //serviceOrderId = serviceOrderId ?? "";
             Session["SID"] = serviceOrderId;
+            TempData["ServiceOrderId"] = serviceOrderId;
+            TempData.Keep();
             return View(new GridModel<ServiceOrderLine>
             {
                 Data = GetServiceOrderLinesByServiceOrderID(serviceOrderId)
@@ -93,6 +95,7 @@ namespace Coinco.SMS.Controllers
         //Get Service Order Lines by Selected Service Order
         private List<ServiceOrderLine> GetServiceOrderLinesByServiceOrderID(string serviceOrderId)
         {
+           
             List<ServiceOrderLine> serviceOrderLine = (new ServiceOrderLine()).GetServiceOrdersLinesByServiceOrder(serviceOrderId, "vvinothkum");
             return serviceOrderLine;
         }
@@ -101,8 +104,27 @@ namespace Coinco.SMS.Controllers
         // GET: /ServiceOrderProcess/
         public ActionResult ServiceOrderProcess()
         {
+
+            FailureCode failureCodeObject = new FailureCode();
+            IEnumerable<FailureCode> failureCodeCollection = failureCodeObject.GetFailureCode(User.Identity.Name.ToString().Split('\\')[1]);
+            failureCodeObject.FailureCodeList = new SelectList(failureCodeCollection, "FailureCodeNo", "FailureDescription", null);
+            ViewData["FailureCodeList"] = failureCodeObject.FailureCodeList;
+            PartDetails partDetails = new PartDetails();
+            partDetails.PartDetailsList = new SelectList(partDetails.GetItemNumbers(User.Identity.Name.ToString().Split('\\')[1]), "ItemNumber", "ProductName", null);
+            ViewData["PartNumberList"] = partDetails.PartDetailsList;
+
+            ViewData["SORelationList"] = new GetServiceObjectRelationServiceOrders(TempData["ServiceOrderId"])
+          
             TempData.Keep();
             return View();
+        }
+
+        private List<SerivceOrderPartLine> GetServiceObjectRelationServiceOrders(string serviceOrder)
+        {
+            string userName = null;
+            userName = User.Identity.Name.ToString().Split('\\')[1];
+            List<SerivceOrderPartLine> serviceOrderPartLine = (new SerivceOrderPartLine()).GetServiceObjectRelationByServiceOrder(serviceOrder, userName);
+            return serviceOrderPartLine;
         }
     }
 }

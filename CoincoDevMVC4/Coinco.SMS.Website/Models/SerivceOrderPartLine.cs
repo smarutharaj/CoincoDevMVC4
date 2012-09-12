@@ -2,6 +2,10 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using System.Data;
+using System.Web.Mvc;
+using Coinco.SMS.AXWrapper;
+using StructureMap;
 
 namespace Coinco.SMS.Website.Models
 {
@@ -37,6 +41,44 @@ namespace Coinco.SMS.Website.Models
         public Customer Customer { get; set; }
 
 
+        public List<SerivceOrderPartLine> GetServiceObjectRelationByServiceOrder(string serviceOrderID, string userName)
+        {
+
+            IAXHelper axHelper = ObjectFactory.GetInstance<IAXHelper>();
+            List<SerivceOrderPartLine> serialList = new List<SerivceOrderPartLine>();
+            string serialNumbers = ""; ;
+            try
+            {
+                DataTable resultTable = axHelper.GetServiceObjectRelationByServiceOrder(serviceOrderID, userName);
+
+
+                foreach (DataRow row in resultTable.Rows)
+                {
+                    SerivceOrderPartLine serviceOrderPartObject = new SerivceOrderPartLine();
+                    serviceOrderPartObject.ServiceObjectRelation = row["SORID"].ToString();
+                    serialNumbers = row["SerialNumber"].ToString();
+                    if (serialNumbers != "")
+                    {
+                        serviceOrderPartObject.SerialNumber = row["SerialNumber"].ToString();
+                    }
+                    else
+                    {
+                        serviceOrderPartObject.SerialNumber = "-";
+
+                    }
+
+
+                    serialList.Add(serviceOrderPartObject);
+
+                }
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            return serialList;
+
+        }
 
     }
 }
