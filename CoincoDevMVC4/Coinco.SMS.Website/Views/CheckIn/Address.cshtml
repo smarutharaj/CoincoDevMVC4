@@ -11,7 +11,7 @@
                         .Enabled(true);
                 }
         )
-        
+
         .Footer(false)
         .HtmlAttributes(new { style = "font-size: 8pt; font-family: Verdana;" })
        .Render();
@@ -23,6 +23,12 @@
         .Name("ShippingAddressGrid")
         .Columns(columns =>
         {
+            columns.Template(
+                @<text>
+                    <input name="checkedRecords" type="checkbox"  title="checkedRecords"                      
+                    />
+                </text>)
+                .Title("").Width(36).HtmlAttributes(new { style = "text-align:center" });
             columns.Bound(c => c.AddressDetails).Title("Shipping Address").Width(100);
         })
                         .DataBinding(dataBinding =>
