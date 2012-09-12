@@ -7,7 +7,6 @@
     ViewBag.Title = "Service Orders With History";
 }
 
-
 <div id="SOWH">
 <h6>Service Orders</h6>
 <div id="SODiv">
@@ -17,11 +16,11 @@
         {
             columns.Bound(c => c.ServiceOrderId).Title("Service Order").Width(120);
             columns.Bound(c => c.Customer.CustomerAccount).Title("Customer").Width(100);
-            columns.Bound(c => c.Customer.CustomerName).Width(200);
-            columns.Bound(c => c.Comments).Width(100);
+            columns.Bound(c => c.Customer.CustomerName).Width(200).HtmlAttributes(new { @class = "ihover iqNameTooltip" });
+            columns.Bound(c => c.Comments).Width(100).HtmlAttributes(new { @class = "ihover iqNameTooltip" });
             columns.Bound(c => c.Status).Width(100);
             columns.Bound(c => c.WOClassification.WOClassificationName).Title("Classification").Width(100);
-            columns.Bound(c => c.ServiceTechnician.ServiceTechnicianName).Title("Technician").Width(100);
+            columns.Bound(c => c.ServiceTechnician.ServiceTechnicianName).Title("Technician").Width(100).HtmlAttributes(new { @class = "ihover iqNameTooltip" });
             columns.Bound(c => c.ServiceOrderDate).Title("Order Date").Width(100).Format("{0:dd/MM/yyyy}");
         })
     
@@ -39,7 +38,7 @@
         .Filterable()
         .ClientEvents(clientEvents => clientEvents.OnDataBinding("onServiceGridDataBinding"))
         .ClientEvents(events => events.OnRowSelect("onRowSelected"))
-
+        
        .Render();
     
         }
@@ -96,4 +95,41 @@
     function refreshGrid() {
         $("ServiceOrderGrid .t-grid .t-refresh").trigger('click');
     }
+
+
+    // *****   ToolTip Begin    *****
+
+    $(".iqNameTooltip").live("mouseover",
+    function () {
+        var fieldValue = $(this).context.innerText;
+        $('<div class="iqTooltip t-group" />')
+                .html(fieldValue)
+                .appendTo(this)
+                .css({
+                    left: $(this).position().left + 30,
+                    top: $(this).position().top + $(this).height()
+                    })
+                .fadeIn(500);
+    })
+        .live('mouseout', function () {
+            $('.iqTooltip').remove();
+        });
+
+//    $(".iqNameTooltip").live("mouseover",
+//    function () {
+
+//        var fieldValue = $(this).context.innerText;
+
+//        $(this).append('<div class="iqTooltip t-group">' + fieldValue + '</div>');
+//        $(this).find('.iqTooltip ').css("left", $(this).position().left + 30);
+//        $(this).find('.iqTooltip ').css("top", $(this).position().top + $(this).height());
+//        $(".iqTooltip ").fadeIn(500);
+//         });
+
+//        $(".iqNameTooltip").live("mouseout", function () {
+//            $('.iqTooltip').remove();
+//        });
+    // *****    END Tooltip     *****
 </script>
+
+
