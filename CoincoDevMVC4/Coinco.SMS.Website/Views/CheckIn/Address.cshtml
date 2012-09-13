@@ -19,14 +19,20 @@
         }
         </div>
    <div id="ShippingAddress" class="rightAddressViewClass">
-         @{Html.Telerik().Grid((IEnumerable<Coinco.SMS.Website.Models.Address>)ViewData["ShippingAddress"])
+         @{
+             string[] checkedRecords = (string[])ViewData["checkedRecords"];    
+             Html.Telerik().Grid((IEnumerable<Coinco.SMS.Website.Models.Address>)ViewData["ShippingAddress"])
         .Name("ShippingAddressGrid")
         .Columns(columns =>
         {
             columns.Template(
-                @<text>
-                    <input name="checkedRecords" type="checkbox"  title="checkedRecords"                      
+                 @<text>
+                    <input name="checkedRecords" type="checkbox" value="@item.AddressId" title="checkedRecords"                      
                     />
+                    @if (checkedRecords.Contains(item.AddressId))
+                        {
+                            <text>checked="checked"</text>
+                        }
                 </text>)
                 .Title("").Width(36).HtmlAttributes(new { style = "text-align:center" });
             columns.Bound(c => c.AddressDetails).Title("Shipping Address").Width(100);

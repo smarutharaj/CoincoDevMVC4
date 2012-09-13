@@ -3,7 +3,7 @@
         .Name("ServiceOrderLineGrid")
         .Columns(columns =>
         {
-            columns.Template(c => @Html.ActionLink("WorkOrder", "ServiceOrderHistory", new { id = c.SerialNumber })).Width(50).Title("History").Width(120);
+            columns.Template(c => @Html.ActionLink("History", "ServiceOrderHistory", new { id = c.SerialNumber })).Width(50).Title("History").Width(120);
             columns.Bound(c => c.SerialNumber).Title("Serial Number").Width(130);
             columns.Bound(c => c.PartNumber).Title("Part Number").Width(120);
             columns.Bound(c => c.PartType).Title("Part Type").Width(100);
