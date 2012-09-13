@@ -607,7 +607,7 @@ namespace Coinco.SMS.AXWrapper
             serviceOrderLineTable.Columns.Add("Description", typeof(String));
             serviceOrderLineTable.Columns.Add("SpecialityCode", typeof(String));
             serviceOrderLineTable.Columns.Add("FailureCode", typeof(String));
-            serviceOrderLineTable.Columns.Add("ServiceType", typeof(String));
+            serviceOrderLineTable.Columns.Add("LineProperty", typeof(String));
             serviceOrderLineTable.Columns.Add("Qty", typeof(String));
             serviceOrderLineTable.Columns.Add("SalesPrice", typeof(String));
             serviceOrderLineTable.Columns.Add("Worker", typeof(String));
@@ -647,7 +647,7 @@ namespace Coinco.SMS.AXWrapper
                     row["Description"] = axRecord.get_Field("Description");
                     row["SpecialityCode"] = axRecord.get_Field("ProjCategoryId");
                     row["FailureCode"] = axRecord.get_Field("SMAFailureCode");
-                    row["ServiceType"] = axRecord.get_Field("ProjLinePropertyId");
+                    row["LineProperty"] = axRecord.get_Field("ProjLinePropertyId");
                     row["Qty"] = axRecord.get_Field("Qty");
                     row["SalesPrice"] = axRecord.get_Field("ProjSalesPrice");
                     row["Worker"] = axRecord.get_Field("WorkerName");
