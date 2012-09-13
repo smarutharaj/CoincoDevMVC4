@@ -24,8 +24,14 @@
          @{
              Html.Telerik().Grid((IEnumerable<Coinco.SMS.Website.Models.Address>)ViewData["ShippingAddress"])
         .Name("ShippingAddressGrid")
+        .DataKeys(dataKeys => dataKeys.Add(c => c.AddressId))
         .Columns(columns =>
         {
+            columns.Bound(o => o.AddressId)
+                   .ClientTemplate("<input type='CheckBox' name='checkedRecords' value='' />")
+                   .Title("")
+                   .Width(36)
+                   .HtmlAttributes(new { style = "text-align:center" });
             columns.Bound(c => c.AddressId).Title("Address Id").Width(0);
             columns.Bound(c => c.AddressDetails).Title("Shipping Address").Width(180);
         })
@@ -36,7 +42,7 @@
                         }
         )
         .ClientEvents(events => events.OnRowSelect("onRowSelected"))
-        
+       
          .Footer(false)
          .Selectable()
          .Scrollable(c => c.Height("40px"))
@@ -47,6 +53,19 @@
     </div>
  
  <script type="text/javascript">
+     
+     function displayCheckedOrders() {
+            var $checkedRecords = $(':checked');
+            
+            if ($checkedRecords.length < 1) {
+                alert('Check a few grid rows first.');
+                return;
+            }                         
+            
+//            $('#result').load('<%= Url.Action("DisplayCheckedOrders", "Grid")
+//                %>', $checkedRecords);
+        }
+
      function onRowSelected(e) {
          var ordersGrid = $('#ShippingAddressGrid').data('tGrid');
          var addressId = e.row.cells[0].innerHTML; 
@@ -64,8 +83,9 @@
          return false;
      }
 
-    
+
      function onDataBinding(e) {
+         SomethingGroupGrid_RowSelect(e);
          e.data = $.extend(e.data, { addressId: addressId });
      }
 </script>

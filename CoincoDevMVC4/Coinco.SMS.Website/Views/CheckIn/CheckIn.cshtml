@@ -16,8 +16,18 @@
             @Html.Label("Customer Account", new { @class = "leftView" })
         </div>
         <div id="CustomerAccountDropDown" class="leftadjacentView">          
-               @Html.DropDownListFor(model=> model.Customer, (SelectList)ViewData["CustomerList"], "<--Select One-->", new { @class = "dropDownProperties", id = "customerAccountDropDownList" })
-            
+@*               @Html.DropDownListFor(model=> model.Customer, (SelectList)ViewData["CustomerList"], "<--Select One-->", new { @class = "dropDownProperties", id = "customerAccountDropDownList" })
+*@             
+@{
+    Html.Telerik().ComboBox().Name("customerAccountDropDownList")
+        .BindTo((SelectList)ViewData["CustomerList"])
+        //.ClientEvents(e => e.OnOpen("onOpen"))
+        .ClientEvents(e => e.OnChange("onCustomerAccountDropDownListChange"))
+        .HtmlAttributes(new { style = "font-size: 8pt; font-family: Verdana; width:200px"})
+        .DropDownHtmlAttributes(new { style = "font-size: 8pt; font-family: Verdana;" })     
+        .Render();
+        }
+
             
 
         </div>
@@ -25,99 +35,17 @@
     </div>
     <br />
     <div id="Address" class="fullViewforLargerHeightClass">
-        
-           GetCustomerAddress();
+         @*  GetCustomerAddress();*@
     </div>
     </div>
     <h6>Other Details</h6>
-    <div id="OtherDetails" class="fullViewforMediumHeightClass">
-    <div id="CustomerComments" class="leftViewClass"> 
-        <div id="CustomerCommentLabel" class="leftView" >
-            @Html.Label("Customer Comments", new { @class = "leftView" })
-        </div>
-        <div id="CustomerCommentTextBox" class="leftadjacentView">
-  
-            @Html.TextAreaFor(p => p.Comments, new { @class = "textAreaProperties", id = "customerCommentTextArea" }) 
+    <div id="OtherDetailsView" class="combinedViewForOtherDetailsCheckInDataClass" >
 
-        </div>
-    </div>
-
-    <div id="CustomerPO" class="rightViewClass"> 
-        <div id="CustomerPOLabel" class="rightView" >
-            @Html.Label("Customer PO", new { @class = "rightView" })
-        </div>
-        <div id="CustomerPOTextBox" class="rightadjacentView">
-  
-                 @Html.TextBoxFor(p => p.CustomerPO, new { @class = "textBoxProperties", id = "customerPOTextBox" }) 
-
-        </div>
-    </div>
-    <br />
-        <div id="ServiceTechnician" class="rightViewClass"> 
-        <div id="ServiceTechnicianLabel" class="rightView" >
-            @Html.Label("Service Technician", new { @class = "rightView" })
-        </div>
-        <div id="ServiceTechnicianDropDown" class="rightadjacentView">
-                 @Html.DropDownListFor(p => p.ServiceTechnician, (SelectList)ViewData["ServiceTechnicianList"], "<--Select One-->", new { @class = "dropDownProperties", id = "serviceTechnicianDropDownList" })           
-
-        </div>
-    </div>
-    </div>
-    <div id="WOClassificationDetails" class="fullViewforSmallerHeightClass">
-     <div id="WOClassification" class="leftViewClass"> 
-        <div id="WOClassificationLabel" class="leftView" >
-            @Html.Label("WO Classification", new { @class = "leftView" })
-        </div>
-        <div id="WOClassificationDropDown" class="leftadjacentView">
-            
-                @Html.DropDownListFor(p => p.WOClassification, (SelectList)ViewData["WOClassificationList"], "<--Select One-->", new { @class = "dropDownProperties", id = "woClassificationDropDownList" })
-            
-        </div>
-    </div>
-
-      <div id="ServiceResponsible" class="rightViewClass"> 
-        <div id="ServiceResponsibleLabel" class="rightView" >
-            @Html.Label("Service Responsible", new { @class = "rightView" })
-        </div>
-        <div id="ServiceResponsibleDropDown" class="rightadjacentView">
-  
-               @Html.DropDownListFor(p => p.ServiceResponsible, (SelectList)ViewData["ServiceResponsibleList"], "<--Select One-->", new { @class = "dropDownProperties", id = "serviceResponsibleDropDownList" })
-
-        </div>
-    </div>
-    
-    </div>
-            <h6>Check In Data</h6>
-        <div id="CheckInData" class="fullViewThreeColumnforSmallerHeightClass">
-     <div id="SerialNumber" class="leftViewClass"> 
-        <div id="SerialNumberLabel" class="leftView" >
-            @Html.Label("Serial Number", new { @class = "leftView" })
-        </div>
-        <div id="SerialNumberTextBox" class="leftadjacentView">
-
-                 @Html.TextBox("serialNumberTextBox", "", new { @class = "textBoxProperties" }) 
-        </div>
-    </div>
-
-       <div id="PartNumber" class="rightViewClassforThirdColumn"> 
-        <div id="PartNumberLabel" class="rightView" >
-            @Html.Label("Part Number", new { @class = "rightView" })
-        </div>
-        <div id="PartNumberDropDown" class="rightadjacentView">
-  
-               @Html.DropDownList("partNumberDropDownList", (SelectList)ViewData["PartNumberList"], "<--Select One-->", new { @class = "dropDownProperties" })
-             
-        </div>
-         <div id="AddButton" class="rightViewforThirdColumn" >
-                    <button class="t-button" type="button" id="Add" value="Add">Add</button>
-
-        </div>
-    </div>
     </div>
   </div> 
   <br />
     <div id="ServiceOrderGridDiv">
-        GetServiceOrderLinesHistory();
+
         
   </div> 
   <br />
@@ -132,40 +60,41 @@
   </div>
 }
   <script type="text/javascript">
-      jQuery('#customerAccountDropDownList').change(function () {
-          var customerAccount = $(this).val();
-          jQuery.ajax({
-              url: "/CheckIn/GetCustomerAddresses",
-              type: 'GET',
-              data: { customerAccount: customerAccount },
-              success: function (result) {
-                  jQuery('#Address').html(result);
-              },
-              error: function (result) {
-                  alert(result.responseText);
-              }
+      function onCustomerAccountDropDownListChange(e) {
+          if (e != null) {
+              var customerAccount = e.currentTarget.value;
+              jQuery.ajax({
+                  url: "/CheckIn/GetCustomerAddresses",
+                  type: 'GET',
+                  data: { customerAccount: customerAccount },
+                  success: function (result) {
+                      jQuery('#Address').html(result);
+                      jQuery.ajax({
+                          url: "/CheckIn/GetOtherDetails",
+                          type: 'GET',
+                          data: { customerAccount: customerAccount },
+                          success: function (result) {
+                              jQuery('#OtherDetailsView').html(result);
 
-          });
-          return false;
-      });
+                          },
+                          error: function (result) {
+                              alert(result.responseText);
+                          }
 
-      jQuery('#Add').click(function () {
-          var partNumber = $('#partNumberDropDownList').val();
-          var serialNumber = $('#serialNumberTextBox').val();
-          jQuery.ajax({
-              url: "/CheckIn/GetServiceOrderLinesHistoryBySerialNumberPartNumber",
-              type: 'POST',
-              data: { partNumber: partNumber,serialNumber: serialNumber },
-              success: function (result) {
-                  jQuery('#ServiceOrderGridDiv').html(result);
-              },
-              error: function (result) {
-                  alert(result.responseText);
-              }
+                      });
+                       },
+                  error: function (result) {
+                      alert(result.responseText);
+                  }
 
-          });
-          return false;
-      });
+              });
+
+              
+             return false;
+          }
+      }
+
+      
 
       jQuery('#Create').click(function () {
           var customerAccount = $('#customerAccountDropDownList').val();
@@ -174,7 +103,12 @@
           var responsibleNo = $('#serviceResponsibleDropDownList').val();
           var woClassification = $('#woClassificationDropDownList').val();
           var customerComments = $('#customerCommentTextArea').val();
+          var $checkedRecords = $(':checked');
 
+          if ($checkedRecords.length < 1) {
+              alert('Check a few grid rows first.');
+              return;
+          }                    
           jQuery.ajax({
               url: "/CheckIn/CreateServiceOrder",
               type: 'POST',
@@ -182,14 +116,14 @@
               data: { customerAccount: customerAccount, customerPo: customerPo, technicinanNo: technicinanNo, responsibleNo: responsibleNo, woClassification: woClassification, customerComments: customerComments },
               success: function (result) {
                   jQuery('#ServiceOrderGridDiv').html(result);
-                  window.location = "/WorkOrder/ServiceOrderWithHistory" + "?Process=0";
-                  //                      alert('Service Order Created Successfully');
-                  //                      $('#customerAccountDropDownList').val('-1');
-                  //                      $('#customerPOTextBox').val('');
-                  //                      $('#serviceTechnicianDropDownList').val('-1');
-                  //                      $('#serviceResponsibleDropDownList').val('-1');
-                  //                      $('#woClassificationDropDownList').val('-1');
-                  //                      $('#customerCommentTextArea').val('');
+                  
+                                      alert('Service Order Created Successfully');
+                                        $('#customerAccountDropDownList').val('-1');
+                                        $('#customerPOTextBox').val('');
+                                        $('#serviceTechnicianDropDownList').val('-1');
+                                        $('#serviceResponsibleDropDownList').val('-1');
+                                        $('#woClassificationDropDownList').val('-1');
+                                        $('#customerCommentTextArea').val('');
               },
               error: function (result) {
                   alert(result.responseText);
@@ -237,6 +171,25 @@
               return false;
           });
 
+
+          jQuery(function GetOtherDetails() {
+
+              var customerAccount = null;
+              //var dropDownList = $('#customerAccountDropDownList').data('tDropDownList');
+              jQuery.ajax({
+                  url: "/CheckIn/GetOtherDetails",
+                  type: 'GET',
+                  data: { partNumber: "", serialNumber: "" },
+                  success: function (result) {
+                      jQuery('#OtherDetailsView').html(result);
+                  },
+                  error: function (result) {
+                      alert(result.responseText);
+                  }
+
+              });
+              return false;
+          });
       function onDataBinding(e) {
           var dropDownList = jQuery('#customerAccountDropDownList').data('DropDownList');
           var customerAccount = dropDownList.value();
