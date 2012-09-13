@@ -593,6 +593,93 @@ namespace Coinco.SMS.AXWrapper
             return serialTable;
         }
 
+        // Get Service Order Part lines by service order for service order process
+
+        public DataTable GetServiceOrderPartLineByServiceOrder(string serviceOrderId, string userName)
+        {
+
+            Axapta ax = null;
+            AxaptaRecord axRecord;
+            DataTable serviceOrderLineTable = new DataTable();
+            serviceOrderLineTable.Columns.Add("SerialNumber", typeof(String));
+            serviceOrderLineTable.Columns.Add("SORelationID", typeof(String));
+            serviceOrderLineTable.Columns.Add("TransactionType", typeof(String));
+            serviceOrderLineTable.Columns.Add("Description", typeof(String));
+            serviceOrderLineTable.Columns.Add("SpecialityCode", typeof(String));
+            serviceOrderLineTable.Columns.Add("FailureCode", typeof(String));
+            serviceOrderLineTable.Columns.Add("ServiceType", typeof(String));
+            serviceOrderLineTable.Columns.Add("Qty", typeof(String));
+            serviceOrderLineTable.Columns.Add("SalesPrice", typeof(String));
+            serviceOrderLineTable.Columns.Add("Worker", typeof(String));
+            serviceOrderLineTable.Columns.Add("ServiceComments", typeof(String));
+            serviceOrderLineTable.Columns.Add("UniqueId", typeof(String));
+            serviceOrderLineTable.Columns.Add("ItemNumber", typeof(String));
+            serviceOrderLineTable.Columns.Add("Status", typeof(String));
+            serviceOrderLineTable.Columns.Add("Site", typeof(String));
+            serviceOrderLineTable.Columns.Add("WareHouse", typeof(String));
+            serviceOrderLineTable.Columns.Add("Size", typeof(String));
+            serviceOrderLineTable.Columns.Add("Color", typeof(String));
+            serviceOrderLineTable.Columns.Add("Config", typeof(String));
+            serviceOrderLineTable.Columns.Add("LocationId", typeof(String));
+            serviceOrderLineTable.Columns.Add("TransSerialNumber", typeof(String));
+
+
+
+
+
+
+
+            try
+            {
+
+                ax = new Axapta();
+                ax.LogonAs(userName.Trim(), "", networkCredentials, axCompany, "", "", "");
+
+                axRecord = (AxaptaRecord)ax.CallStaticClassMethod("ServiceOrderManagement", "getSMASOLineDetails", serviceOrderId);
+                axRecord.ExecuteStmt("select * from %1 order by %1.UniqueID desc");
+
+                while (axRecord.Found)
+                {
+                    DataRow row = serviceOrderLineTable.NewRow();
+                    row["SerialNumber"] = axRecord.get_Field("SerialNumber");
+                    row["SORelationID"] = axRecord.get_Field("ServiceObjectRelationId");
+                    row["TransactionType"] = axRecord.get_Field("TransactionType");
+                    row["Description"] = axRecord.get_Field("Description");
+                    row["SpecialityCode"] = axRecord.get_Field("ProjCategoryId");
+                    row["FailureCode"] = axRecord.get_Field("SMAFailureCode");
+                    row["ServiceType"] = axRecord.get_Field("ProjLinePropertyId");
+                    row["Qty"] = axRecord.get_Field("Qty");
+                    row["SalesPrice"] = axRecord.get_Field("ProjSalesPrice");
+                    row["Worker"] = axRecord.get_Field("WorkerName");
+                    row["ServiceComments"] = axRecord.get_Field("DescriptionService");
+                    row["ItemNumber"] = axRecord.get_Field("ItemId");
+                    row["Status"] = axRecord.get_Field("ServiceOrderStatus");
+                    row["UniqueId"] = axRecord.get_Field("UniqueID");
+                    row["Site"] = axRecord.get_Field("InventSiteId");
+                    row["WareHouse"] = axRecord.get_Field("InventLocationId");
+                    row["Size"] = axRecord.get_Field("InventSizeId");
+                    row["Color"] = axRecord.get_Field("InventColorId");
+                    row["Config"] = axRecord.get_Field("configId");
+                    row["LocationId"] = axRecord.get_Field("WMSLocationid");
+                    row["TransSerialNumber"] = axRecord.get_Field("InventSerialId");
+
+                    serviceOrderLineTable.Rows.Add(row);
+                    axRecord.Next();
+                }
+
+            }
+
+            catch (Exception e)
+            {
+                throw e;
+                // Take other error action as needed.
+            }
+            finally
+            {
+                if (ax != null) ax.Logoff();
+            }
+            return serviceOrderLineTable;
+        }
 
 
 
