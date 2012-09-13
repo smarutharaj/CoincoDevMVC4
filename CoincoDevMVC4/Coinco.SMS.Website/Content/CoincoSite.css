@@ -606,6 +606,20 @@ z-index: 999;
   
 }
 
+.centercolumnSubmitRL
+{
+    
+    padding-left: 400px;
+    padding-top:5px;
+    padding-right:400px;
+    max-width: 890px;
+    height: 20px;
+    vertical-align:middle;
+    font-weight:normal;
+   font-family:  Verdana;
+   font-size:8pt;
+}
+
 /*******************end********************/
 
 html {
@@ -1027,7 +1041,7 @@ fieldset
 {
     border: thin solid #C0C0C0;
     margin: 0;
-    padding: 0;
+    padding-left: 4px;
 }
 
     fieldset legend
