@@ -1012,15 +1012,19 @@ aside {
 }
 
 /* forms */
-fieldset {
-    border: none;
+fieldset
+{
+    border: thin solid #C0C0C0;
     margin: 0;
     padding: 0;
 }
 
-    fieldset legend {
-        display: none;
-    }
+    fieldset legend
+{
+    color: #58D3F7;
+    font-size: 1em;
+    font-weight: bold;
+}
 
     fieldset ol {
         padding: 0;
