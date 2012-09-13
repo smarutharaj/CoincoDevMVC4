@@ -453,6 +453,99 @@ namespace Coinco.SMS.AXWrapper
             return resultTable;
         }
 
+        public string CreateServiceOrder(string siteId, string customerAccount, string AddressId, string CustomerPO, string ServiceTechnicianNo, string responsibleNo, string woClassification, string customerComments, string userName)
+        {
+           
+            Axapta ax = null;
+            object[] param = new object[8];
+            string serviceOrderId;
+            try
+            {
+                ax = new Axapta();
+                ax.LogonAs(userName.Trim(), "", networkCredentials, axCompany, "", "", "");
+
+                param[0] = siteId;
+                param[1] = customerAccount;
+                param[2] = AddressId;
+                param[3] = CustomerPO;
+                param[4] = ServiceTechnicianNo;
+                param[5] = responsibleNo;
+                param[6] = woClassification;
+                param[7] = customerComments;
+                serviceOrderId = ax.CallStaticClassMethod("ServiceOrderManagement", "createSMAServiceOrder", param).ToString();
+
+                if (serviceOrderId == "")
+                {
+                    string parameterString = "";
+                    for (int i = 0; i < param.Length; i++)
+                    {
+                        parameterString += "param[" + i + "]" + param[i].ToString() + "; ";
+                    }
+
+                    throw new Exception(String.Format("AX Failure:- Method='{0}' Parameters:Values = {1} - ", "createSMAServiceOrder", parameterString));
+                }
+            }
+            catch (Exception e)
+            {
+                throw e;
+                // Take other error action as needed.
+            }
+            finally
+            {
+                if (ax != null) ax.Logoff();
+            }
+            return serviceOrderId;
+        }
+
+        public bool CreateServiceOrderLinesList(string serviceOrderNo, string serialNumber, string partNumber, string partType, string quantity, string repairType, string warranty, string comments, string userName)
+        {
+
+
+            bool isSuccess = false;
+            Axapta ax = null;
+
+            object retval;
+            try
+            {
+                ax = new Axapta();
+                ax.LogonAs(userName.Trim(), "", networkCredentials, axCompany, "", "", "");
+                bool flagValue;
+                object[] param = new object[4];
+
+                param[0] = serviceOrderNo;
+                param[1] = partNumber;
+                param[2] = serialNumber;
+                param[3] = comments;
+
+                retval = ax.CallStaticClassMethod("ServiceOrderManagement", "createSMAServiceObjectRelation", param).ToString();
+
+                if (bool.TryParse(retval.ToString(), out flagValue))
+                {
+                    isSuccess = flagValue;
+                }
+
+                if (!isSuccess)
+                {
+                    string parameterString = "";
+                    for (int i = 0; i < param.Length; i++)
+                    {
+                        parameterString += "param[" + i + "]" + param[i].ToString() + "; ";
+                    }
+
+                    throw new Exception(String.Format("AX Failure:- Method='{0}' Parameters:Values = {1} - ", "createSMAServiceObjectRelation", parameterString));
+                }
+
+            }
+            catch (Exception e)
+            {
+                throw e;
+            }
+            finally
+            {
+                if (ax != null) ax.Logoff();
+            }
+            return isSuccess;
+        }
         #region "Service Order Process"
 
         // get Service Object Relation by Service Order for Service Order Process
