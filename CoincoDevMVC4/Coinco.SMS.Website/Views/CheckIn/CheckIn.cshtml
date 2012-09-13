@@ -25,6 +25,7 @@
     </div>
     <br />
     <div id="Address" class="fullViewforLargerHeightClass">
+        
            GetCustomerAddress();
     </div>
     </div>
@@ -168,17 +169,17 @@
 
       jQuery('#Create').click(function () {
           var customerAccount = $('#customerAccountDropDownList').val();
-          var customerPo = $('#customerPoTextBox').val();
+          var customerPo = $('#customerPOTextBox').val();
           var technicinanNo = $('#serviceTechnicianDropDownList').val();
           var responsibleNo = $('#serviceResponsibleDropDownList').val();
           var woClassification = $('#woClassificationDropDownList').val();
-          var customerComments = $('#customerCommentsTextArea').val();
-          var customerPo = $('#customerPoTextBox').val();
+          var customerComments = $('#customerCommentTextArea').val();
 
           jQuery.ajax({
               url: "/CheckIn/CreateServiceOrder",
               type: 'POST',
-              data: { partNumber: partNumber, serialNumber: serialNumber },
+
+              data: { customerAccount: customerAccount, customerPo: customerPo, technicinanNo: technicinanNo, responsibleNo: responsibleNo, woClassification: woClassification, customerComments: customerComments },
               success: function (result) {
                   jQuery('#ServiceOrderGridDiv').html(result);
               },
