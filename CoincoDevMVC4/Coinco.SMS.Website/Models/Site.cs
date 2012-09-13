@@ -21,6 +21,15 @@ namespace Coinco.SMS.Website.Models
         {
         }
 
+
+        public Site(string userName, string siteID, string siteName, string isDefault)
+        {
+            this.Username = userName;
+            this.SiteID = siteID;
+            this.SiteName = siteName;
+            this.IsDefault = isDefault;
+        }
+
         //- To get the GetSites  for sites and Service Order Process Page 
 
         public IEnumerable<Site> GetSitesListByUsername(string userName)

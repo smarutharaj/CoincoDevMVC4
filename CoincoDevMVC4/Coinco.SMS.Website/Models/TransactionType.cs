@@ -18,4 +18,7 @@ namespace Coinco.SMS.Website.Models
             [Description("Fee")]
             Fee = 4
     }
+
+    
+      
 }
