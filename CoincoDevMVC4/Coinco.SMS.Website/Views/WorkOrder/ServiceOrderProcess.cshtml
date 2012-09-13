@@ -28,9 +28,9 @@
     
     <div class="leftcolumn">
       @Html.Label("Service Order:", new { @class = "labelHeaderView", id = "serviceOrderLabel" })
-      <div class="labelViewSO">
+  
         @Html.DisplayFor(x => TempData["ServiceOrderId"], new { @class = "labelViewSO", id = "serviceOrderViewlabel" })
-    </div>
+    
         <br />
         @Html.Label("SO Relation:", new { @class = "labelHeaderView", id = "sOLabel" })
         @Html.DropDownListFor(x => x.ServiceObjectRelation, (SelectList)ViewData["SORelationList"], "<--Select One-->", new { @class = "dropDownPropertiesSP", id = "SORelationDropDownList" })
@@ -83,7 +83,7 @@
         <br />
     <label>
             Specialty Code:</label>
-          @Html.DropDownListFor(x => x.LineProperty.LinePropertyCode, (SelectList)ViewData["LinePropertyList"], "<--Select One-->", new { @class = "dropDownPropertiesSP", id = "LinePropertyDropDownList" })
+          @Html.DropDownListFor(x => x.SpecialtyCode.SpecialityCodeNo, new SelectList(""), "<--Select One-->", new { @class = "dropDownPropertiesSP", id = "specialtyCodeDropDownList" })
           
         <label>
             Line Property:</label>
@@ -97,7 +97,7 @@
             @Html.TextBoxFor(x => x.Quantity, new { @class = "singleTextBox" })<br />
  <label>
             Technician:</label>
-       @Html.DropDownListFor(x => x.LineProperty.LinePropertyCode, (SelectList)ViewData["LinePropertyList"], "<--Select One-->", new { @class = "dropDownPropertiesSP", id = "LinePropertyDropDownList" })
+       @Html.DropDownListFor(x => x.ServiceTechnician.ServiceTechnicianName, (SelectList)ViewData["ServiceTechnicianList"], "<--Select One-->", new { @class = "dropDownPropertiesSP", id = "LinePropertyDropDownList" })
         <br />
          <label>
            Service Comments:</label>
@@ -112,30 +112,30 @@
        
          <label>
             Site:</label>
-    @Html.DropDownListFor(x => x.LineProperty.LinePropertyCode, (SelectList)ViewData["LinePropertyList"], "<--Select One-->", new { @class = "dropDownPropertiesSP", id = "LinePropertyDropDownList" })
+    @Html.DropDownListFor(x => x.Site.SiteID, new SelectList(""), "<--Select One-->", new { @class = "dropDownPropertiesSP", id = "LinePropertyDropDownList" })
       
          <label>
             Warehouse:</label>
-    @Html.DropDownListFor(x => x.LineProperty.LinePropertyCode, (SelectList)ViewData["LinePropertyList"], "<--Select One-->", new { @class = "dropDownPropertiesSP", id = "LinePropertyDropDownList" })
+    @Html.DropDownListFor(x => x.WareHouse.WareHouseCode, new SelectList(""), "<--Select One-->", new { @class = "dropDownPropertiesSP", id = "LinePropertyDropDownList" })
          <label>
             Location:</label>
-           @Html.DropDownListFor(x => x.LineProperty.LinePropertyCode, (SelectList)ViewData["LinePropertyList"], "<--Select One-->", new { @class = "dropDownPropertiesSP", id = "LinePropertyDropDownList" })
+           @Html.DropDownListFor(x => x.Location.LocationId, new SelectList(""), "<--Select One-->", new { @class = "dropDownPropertiesSP", id = "LinePropertyDropDownList" })
  </div> 
  <div class="centerDimensioncolumn"> 
     <h6>Tracking Dimension</h6>
     <label> Serial Number:</label>
-      @Html.DropDownListFor(x => x.LineProperty.LinePropertyCode, (SelectList)ViewData["LinePropertyList"], "<--Select One-->", new { @class = "dropDownPropertiesSP", id = "LinePropertyDropDownList" })
+      @Html.DropDownListFor(x => x.TransactionSerialNumber, new SelectList(""), "<--Select One-->", new { @class = "dropDownPropertiesSP", id = "LinePropertyDropDownList" })
   </div>  
   <div class="bottomDimensioncolumn" >
      <h6>Product Dimension</h6>
         <label> Configuration:</label>
-     @Html.DropDownListFor(x => x.LineProperty.LinePropertyCode, (SelectList)ViewData["LinePropertyList"], "<--Select One-->", new { @class = "dropDownPropertiesSP", id = "LinePropertyDropDownList" })
+     @Html.DropDownListFor(x => x.ConfigType, new SelectList(""), "<--Select One-->", new { @class = "dropDownPropertiesSP", id = "LinePropertyDropDownList" })
        
          <label> Size:</label>
-       @Html.DropDownListFor(x => x.LineProperty.LinePropertyCode, (SelectList)ViewData["LinePropertyList"], "<--Select One-->", new { @class = "dropDownPropertiesSP", id = "LinePropertyDropDownList" })
+       @Html.DropDownListFor(x => x.SizeType, new SelectList(""), "<--Select One-->", new { @class = "dropDownPropertiesSP", id = "LinePropertyDropDownList" })
         <br />
          <label> Color:</label>
-        @Html.DropDownListFor(x => x.LineProperty.LinePropertyCode, (SelectList)ViewData["LinePropertyList"], "<--Select One-->", new { @class = "dropDownPropertiesSP", id = "LinePropertyDropDownList" })
+        @Html.DropDownListFor(x => x.ColorType, new SelectList(""), "<--Select One-->", new { @class = "dropDownPropertiesSP", id = "LinePropertyDropDownList" })
    </div>     
  </div>
 
