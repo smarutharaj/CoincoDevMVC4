@@ -11,12 +11,7 @@
      <h6>Identification</h6>
      <br />
         <label>Service Order:</label>
-
-                 @{Html.Telerik().ComboBox().Name("seriveOrderList")
-                 .HtmlAttributes(new { style = "font-size: 8pt; font-family: Calibri; width=50px;" })
-                 .DropDownHtmlAttributes(new { style = "font-size: 8pt; font-family: Calibri;" })
-                 .Render();
-                }
+               @Html.DisplayFor(x => TempData["ServiceOrderId"])
          <br />
          <label> SO Relation:</label>
                @{Html.Telerik().ComboBox().Name("soRelationList")
