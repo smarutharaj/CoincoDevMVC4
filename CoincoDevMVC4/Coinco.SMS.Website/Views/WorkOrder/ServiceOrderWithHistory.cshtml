@@ -16,11 +16,11 @@
         {
             columns.Bound(c => c.ServiceOrderId).Title("Service Order").Width(120);
             columns.Bound(c => c.Customer.CustomerAccount).Title("Customer").Width(100);
-            columns.Bound(c => c.Customer.CustomerName).Width(200).HtmlAttributes(new { @class = "ihover iqNameTooltip" });
-            columns.Bound(c => c.Comments).Width(100).HtmlAttributes(new { @class = "ihover iqNameTooltip" });
+            columns.Bound(c => c.Customer.CustomerName).Width(200).HtmlAttributes(new { @class = "iqNameTooltip" });
+            columns.Bound(c => c.Comments).Width(100).HtmlAttributes(new { @class = "iqNameTooltip" });
             columns.Bound(c => c.Status).Width(100);
             columns.Bound(c => c.WOClassification.WOClassificationName).Title("Classification").Width(100);
-            columns.Bound(c => c.ServiceTechnician.ServiceTechnicianName).Title("Technician").Width(100).HtmlAttributes(new { @class = "ihover iqNameTooltip" });
+            columns.Bound(c => c.ServiceTechnician.ServiceTechnicianName).Title("Technician").Width(100).HtmlAttributes(new { @class = "iqNameTooltip" });
             columns.Bound(c => c.ServiceOrderDate).Title("Order Date").Width(100).Format("{0:dd/MM/yyyy}");
         })
     
@@ -99,16 +99,19 @@
 
     // *****   ToolTip Begin    *****
 
+
     $(".iqNameTooltip").live("mouseover",
     function () {
-        var fieldValue = $(this).context.innerText;
+    var fieldValue = null;
+    fieldValue = $(this).context.firstChild.nodeValue
+//         fieldValue = $(this).context.innerText;
         $('<div class="iqTooltip t-group" />')
                 .html(fieldValue)
                 .appendTo(this)
                 .css({
                     left: $(this).position().left + 30,
                     top: $(this).position().top + $(this).height()
-                    })
+                })
                 .fadeIn(500);
     })
         .live('mouseout', function () {
