@@ -27,5 +27,6 @@ namespace Coinco.SMS.AXWrapper
         DataTable GetServiceObjectRelationByServiceOrder(string serviceOrder, string userName);
         DataTable GetLinePropertyList(string userName);
         DataTable GetSpecialityCodeList(string userName, string transactionId);
+        DataTable GetServiceOrderPartLineByServiceOrder(string serviceOrderId, string userName)
     }
 }
