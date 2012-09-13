@@ -590,6 +590,97 @@ namespace Coinco.SMS.AXWrapper
             }
             return resultTable;
         }
+
+        public DataTable GetLinePropertyList(string userName)
+        {
+            DataTable resultTable = new DataTable();
+            Axapta ax = null;
+            AxaptaRecord axRecord;
+            try
+            {
+                // Login to Microsoft Dynamics AX.
+                ax = new Axapta();
+                ax.LogonAs(userName.Trim(), "", networkCredentials, axCompany, "", "", "");
+                resultTable.Columns.Add("LinePropertyCode", typeof(String));
+                resultTable.Columns.Add("LinePropertyName", typeof(String));
+                using (axRecord = ax.CreateAxaptaRecord("ProjLineProperty"))
+                {
+                    // Execute the query on the table.
+                    axRecord.ExecuteStmt("select LinePropertyID, Name from %1 where %1.DataAreaID=='" + axCompany + "'");
+                    // Loop through the set of retrieved records.
+                    while (axRecord.Found)
+                    {
+
+                        DataRow row = resultTable.NewRow();
+                        row["LinePropertyCode"] = axRecord.get_Field("LinePropertyID");
+                        row["LinePropertyName"] = axRecord.get_Field("Name");
+                        resultTable.Rows.Add(row);
+                        axRecord.Next();
+
+                    }
+
+
+                }
+            }
+            catch (Exception e)
+            {
+                throw e;
+                // Take other error action as needed.
+            }
+            finally
+            {
+                if (ax != null) ax.Logoff();
+            }
+            return resultTable;
+        }
+
+
+        public DataTable GetSpecialityCodeList(string userName, string transactionId)
+        {
+            DataTable resultTable = new DataTable();
+            Axapta ax = null;
+            AxaptaRecord axRecord;
+            try
+            {
+                // Login to Microsoft Dynamics AX.
+                ax = new Axapta();
+                ax.LogonAs(userName.Trim(), "", networkCredentials, axCompany, "", "", "");
+                resultTable.Columns.Add("SpecialityCode", typeof(String));
+                resultTable.Columns.Add("SpecialityDescription", typeof(String));
+                using (axRecord = ax.CreateAxaptaRecord("CategoryTable"))
+                {
+                    // Execute the query on the table.e
+                    //axRecord.ExecuteStmt("select CategoryID, CategoryName from %1 where %1.DataAreaID=='" + axCompany + "'");
+                    axRecord = (AxaptaRecord)ax.CallStaticClassMethod("ServiceOrderManagement", "getSMACategoryTable", transactionId);
+                    axRecord.ExecuteStmt("select * from %1");
+
+
+                    // Loop through the set of retrieved records.
+                    while (axRecord.Found)
+                    {
+
+                        DataRow row = resultTable.NewRow();
+                        row["SpecialityCode"] = axRecord.get_Field("CategoryId");
+                        row["SpecialityDescription"] = axRecord.get_Field("CategoryName");
+                        resultTable.Rows.Add(row);
+                        axRecord.Next();
+
+                    }
+
+
+                }
+            }
+            catch (Exception e)
+            {
+                throw e;
+                // Take other error action as needed.
+            }
+            finally
+            {
+                if (ax != null) ax.Logoff();
+            }
+            return resultTable;
+        }
         #endregion
 
         #region "Sales Details"

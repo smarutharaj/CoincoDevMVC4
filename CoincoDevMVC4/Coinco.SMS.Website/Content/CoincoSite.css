@@ -200,7 +200,6 @@ z-index: 999;
 .serviceProcessDiv
 {
     max-width: 960px;
-    background-color: #800000;
     height: 150px;
     float: left;
   
@@ -282,6 +281,18 @@ z-index: 999;
     height: 250px;
     
    
+}
+
+.dropDownPropertiesSP
+{
+    margin:0px 0px 0px 0px;
+    max-width: 150px;
+    width:150px;
+    height: 20px; 
+    vertical-align:middle;
+    font-weight:normal;
+    font-family:  Verdana;
+   font-size:8pt;
 }
 
 .addressDiv
