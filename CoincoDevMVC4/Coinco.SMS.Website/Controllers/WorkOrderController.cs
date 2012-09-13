@@ -95,8 +95,9 @@ namespace Coinco.SMS.Controllers
         //Get Service Order Lines by Selected Service Order
         private List<ServiceOrderLine> GetServiceOrderLinesByServiceOrderID(string serviceOrderId)
         {
-           
-            List<ServiceOrderLine> serviceOrderLine = (new ServiceOrderLine()).GetServiceOrdersLinesByServiceOrder(serviceOrderId, "vvinothkum");
+            string userName = null;
+            userName = User.Identity.Name.ToString().Split('\\')[1];
+            List<ServiceOrderLine> serviceOrderLine = (new ServiceOrderLine()).GetServiceOrdersLinesByServiceOrder(serviceOrderId, userName);
             return serviceOrderLine;
         }
 
@@ -127,14 +128,33 @@ namespace Coinco.SMS.Controllers
             ViewData["SORelationList"] = serivceOrderPartLineObject.ServiceOrderPartLineList;
             ViewData["SerialNumberList"] =  serivceOrderPartLineObject.ServiceOrderPartLineList;
 
-          
+            ViewData["ServiceOrderPartLines"] = GetServiceOrderPartLinesByServiceOrderID(TempData["ServiceOrderId"].ToString());
           
 
             TempData.Keep();
             return View();
         }
 
-       
+        [GridAction]
+        public ActionResult _SelectionClientSide_serviceOrderPartLines(string serviceOrderId)
+        {
+            //serviceOrderId = serviceOrderId ?? "";
+            Session["SID"] = serviceOrderId;
+            TempData["ServiceOrderId"] = serviceOrderId;
+            TempData.Keep();
+            return View(new GridModel<SerivceOrderPartLine>
+            {
+                Data = GetServiceOrderPartLinesByServiceOrderID(serviceOrderId)
+            });
+        }
+
+        private List<SerivceOrderPartLine> GetServiceOrderPartLinesByServiceOrderID(string serviceOrderId)
+        {
+            string userName = null;
+            userName = User.Identity.Name.ToString().Split('\\')[1];
+            List<SerivceOrderPartLine> serviceOrderLine = (new SerivceOrderPartLine()).GetServiceOrderPartLineByServiceOrder(serviceOrderId, userName);
+            return serviceOrderLine;
+        }
 
     }
 }
