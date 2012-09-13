@@ -4,7 +4,8 @@
         .Name("BillingAddressGrid")
         .Columns(columns =>
         {
-            columns.Bound(c => c.AddressDetails).Title("Billing Address").Width(100);
+            columns.Bound(c => c.AddressId).Title("Address Id").Width(0);
+            columns.Bound(c => c.AddressDetails).Title("Billing Address").Width(180);
         })
                 .DataBinding(dataBinding =>
                 {
@@ -12,7 +13,7 @@
                         .Enabled(true);
                 }
         )
-
+                 .Scrollable(c => c.Height("40px"))
         .Footer(false)
         .HtmlAttributes(new { style = "font-size: 8pt; font-family: Verdana;" })
        .Render();
@@ -25,8 +26,8 @@
         .Name("ShippingAddressGrid")
         .Columns(columns =>
         {
-            columns.Bound(c => c.AddressId).Title("Address Id").Width(30);
-            columns.Bound(c => c.AddressDetails).Title("Shipping Address").Width(100);
+            columns.Bound(c => c.AddressId).Title("Address Id").Width(0);
+            columns.Bound(c => c.AddressDetails).Title("Shipping Address").Width(180);
         })
                         .DataBinding(dataBinding =>
                         {
@@ -35,9 +36,10 @@
                         }
         )
         .ClientEvents(events => events.OnRowSelect("onRowSelected"))
+        
          .Footer(false)
-           .Selectable()
-           .Scrollable()
+         .Selectable()
+         .Scrollable(c => c.Height("40px"))
         .HtmlAttributes(new { style = "font-size: 8pt; font-family: Verdana;" })
        .Render();
     
