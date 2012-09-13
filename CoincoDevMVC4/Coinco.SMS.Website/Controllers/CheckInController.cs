@@ -39,7 +39,21 @@ namespace Coinco.SMS.Website.Controllers
            
             TempData.Keep();
             ViewData["ServiceOrder"] = serviceOrder;
-            return View();
+            return View(serviceOrder);
+        }
+
+        public ActionResult CheckBoxesServerSide(string[] checkedRecords,string customerAccount)
+        {
+            string userName = null;
+            userName = User.Identity.Name.ToString().Split('\\')[1];
+            checkedRecords = checkedRecords ?? new string[] { };
+            ViewData["checkedRecords"] = checkedRecords;
+
+            if (checkedRecords.Any())
+            {
+                ViewData["checkedOrders"] = (new Address()).GetCustomerAddress(customerAccount,userName).Where(o => checkedRecords.Contains(o.AddressId));
+            }
+            return View(GetCustomerAddresses(customerAccount));
         }
 
         [GridAction]
@@ -72,8 +86,14 @@ namespace Coinco.SMS.Website.Controllers
             string userName = null;
             userName = User.Identity.Name.ToString().Split('\\')[1];
             List<Address> addressList = (new Address()).GetCustomerAddress(customerAccount, userName);
-            ViewData["BillingAddress"] = addressList;
-            ViewData["ShippingAddress"] = addressList;
+            List<Address> addressShipping = (from item1 in addressList
+                                 where item1.IsShipping == "1"
+                                 select item1).ToList<Address>();
+            List<Address> addressBilling = (from item1 in addressList
+                                             where item1.IsBilling == "1"
+                                             select item1).ToList<Address>();
+            ViewData["BillingAddress"] = addressBilling;
+            ViewData["ShippingAddress"] = addressShipping;
           //  TempData["CustomerAccount"] = customerAccount;
             TempData.Keep();
             return View("Address");
@@ -84,8 +104,37 @@ namespace Coinco.SMS.Website.Controllers
         {
             string userName = null;
             userName = User.Identity.Name.ToString().Split('\\')[1];
-            ViewData["ServiceOrderLine"] = GetServiceOrderLinesBySerialNumberPartNumber(partNumber, serialNumber, "");
+            if (TempData["ServiceOrderLine"] == null)
+            {
+                ViewData["ServiceOrderLine"] = GetServiceOrderLinesBySerialNumberPartNumber(partNumber, serialNumber, "");
+            }
+            else
+            {
+                List<ServiceOrderLine> serviceOrderLineExistingList = TempData["ServiceOrderLine"] as List<ServiceOrderLine>;
+                List<ServiceOrderLine> serviceOrderLineNewList = GetServiceOrderLinesBySerialNumberPartNumber(partNumber, serialNumber, "");
+                serviceOrderLineExistingList.Add(serviceOrderLineNewList.First());
+                ViewData["ServiceOrderLine"] = serviceOrderLineExistingList;
+            }
+            TempData["ServiceOrderLine"]=ViewData["ServiceOrderLine"];
             TempData.Keep();
+            return View("ServiceOrderLine");
+        }
+
+        [HttpPost]
+        public ActionResult CreateServiceOrder(ServiceOrder model, string customerAccount, string addressId, string customerPo, string technicinanNo, string responsibleNo, string woClassification, string customerComments)
+        {
+            string userName = null;
+            string newSerivceOrder = null;
+            bool isSuccess = false;
+            userName = User.Identity.Name.ToString().Split('\\')[1];
+            ServiceOrder serviceOrder = new ServiceOrder();
+            ServiceOrderLine serviceOrderLine = new ServiceOrderLine();
+            isSuccess=  serviceOrder.CreateServiceOrder(TempData["SiteId"].ToString(), customerAccount, addressId, customerPo, technicinanNo, responsibleNo, woClassification, customerComments, out newSerivceOrder, userName);
+            if (isSuccess)
+            {
+                isSuccess = serviceOrderLine.CreateServiceOrderLinesItem(newSerivceOrder, (List<ServiceOrderLine>)TempData["ServiceOrderLine"], userName);
+            }
+            ViewData["ServiceOrderLine"] = TempData["ServiceOrderLine"];
             return View("ServiceOrderLine");
         }
 

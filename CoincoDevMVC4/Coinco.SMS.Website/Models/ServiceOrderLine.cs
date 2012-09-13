@@ -90,7 +90,43 @@ namespace Coinco.SMS.Website.Models
 
         }
 
-       
+        public bool CreateServiceOrderLinesItem(string newSerivceOrder, List<ServiceOrderLine> serviceOrderLinesList, string userName)
+        {
+            bool isSuccess = false;
+            string serialNumber;
+            string partNumber;
+            string partType;
+            string quantity;
+            string repairType;
+            string warranty;
+            string comments;
+            //object newSerivceOrderobject;
+            IAXHelper axHelper = ObjectFactory.GetInstance<IAXHelper>();
+            try
+            {
+                foreach (ServiceOrderLine serviceorderlineItem in serviceOrderLinesList)
+                {
+                    serialNumber = serviceorderlineItem.SerialNumber;
+                    partNumber = serviceorderlineItem.PartNumber;
+                    partType = serviceorderlineItem.PartType;
+                    quantity = serviceorderlineItem.Quantity;
+                    repairType = serviceorderlineItem.RepairType;
+                    warranty = serviceorderlineItem.Warranty;
+                    comments = serviceorderlineItem.Comments;
+                    isSuccess = axHelper.CreateServiceOrderLinesList(newSerivceOrder, serialNumber, partNumber, partType, quantity, repairType, warranty, comments, userName);
+                }
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
+
+
+
+            return isSuccess;
+
+        }
 }
     
 }

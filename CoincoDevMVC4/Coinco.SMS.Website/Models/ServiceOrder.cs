@@ -77,12 +77,29 @@ namespace Coinco.SMS.Website.Models
         }
 
 
-     
 
 
+        public bool CreateServiceOrder(string sitesId, string customerAccount, string addressId, string customerPo, string technicinanNo, string responsibleNo, string woClassification, string customerComments, out string newSerivceOrder, string userName)
+        {
+            bool isSuccess = false;
+            object newSerivceOrderobject;
+            IAXHelper axHelper = ObjectFactory.GetInstance<IAXHelper>();
+            try
+            {
+                newSerivceOrderobject = axHelper.CreateServiceOrder(sitesId, customerAccount, addressId, customerPo, technicinanNo, responsibleNo, woClassification, customerComments, userName);
+                newSerivceOrder = (string)newSerivceOrderobject;
+                isSuccess = true;
+            }
+            catch (Exception ex)
+            {
 
-     
+                throw ex;
+            }
+            return isSuccess;
 
+        }
+
+    
         
     }
 }

@@ -1,10 +1,11 @@
 ﻿@using Telerik.Web.Mvc
 @model Coinco.SMS.Website.Models.ServiceOrder
 
+
 @{
     ViewBag.Title = "CheckIn";
 }
-
+@using (Html.BeginForm()){
 <div id="ServiceOrderAdditionDiv">
 <div id="ServiceOrderDetailsDiv">
     <div id="Identification">
@@ -12,10 +13,10 @@
         <div id="IdentificationDetails" class="fullViewforSmallerHeightClass">
     <div id="CustomerAccount" class="leftViewClass"> 
         <div id="CustomerAccountLabel" class="leftView" >
-            @Html.Label("Customer Account", new { @class = "leftView" } )
+            @Html.Label("Customer Account", new { @class = "leftView" })
         </div>
         <div id="CustomerAccountDropDown" class="leftadjacentView">          
-               @Html.DropDownListFor(p => p.Customer, (SelectList)ViewData["CustomerList"], "<--Select One-->", new { @class = "dropDownProperties", id = "customerAccountDropDownList"})
+               @Html.DropDownListFor(model=> model.Customer, (SelectList)ViewData["CustomerList"], "<--Select One-->", new { @class = "dropDownProperties", id = "customerAccountDropDownList" })
             
             
 
@@ -35,7 +36,7 @@
         </div>
         <div id="CustomerCommentTextBox" class="leftadjacentView">
   
-            @Html.TextAreaFor(p=>p.Comments, new { @class = "textAreaProperties", id = "customerCommentTextArea" }) 
+            @Html.TextAreaFor(p => p.Comments, new { @class = "textAreaProperties", id = "customerCommentTextArea" }) 
 
         </div>
     </div>
@@ -46,7 +47,7 @@
         </div>
         <div id="CustomerPOTextBox" class="rightadjacentView">
   
-                 @Html.TextBoxFor(p=>p.CustomerPO, new { @class = "textBoxProperties",id="customerPOTextBox" }) 
+                 @Html.TextBoxFor(p => p.CustomerPO, new { @class = "textBoxProperties", id = "customerPOTextBox" }) 
 
         </div>
     </div>
@@ -56,7 +57,7 @@
             @Html.Label("Service Technician", new { @class = "rightView" })
         </div>
         <div id="ServiceTechnicianDropDown" class="rightadjacentView">
-                 @Html.DropDownListFor(p=> p.ServiceTechnician, (SelectList)ViewData["ServiceTechnicianList"], "<--Select One-->", new { @class = "dropDownProperties", id = "serviceTechnicianDropDownList" })           
+                 @Html.DropDownListFor(p => p.ServiceTechnician, (SelectList)ViewData["ServiceTechnicianList"], "<--Select One-->", new { @class = "dropDownProperties", id = "serviceTechnicianDropDownList" })           
 
         </div>
     </div>
@@ -93,7 +94,7 @@
         </div>
         <div id="SerialNumberTextBox" class="leftadjacentView">
 
-                 @Html.TextBox("serialNumberTextBox","",  new { @class = "textBoxProperties" }) 
+                 @Html.TextBox("serialNumberTextBox", "", new { @class = "textBoxProperties" }) 
         </div>
     </div>
 
@@ -128,7 +129,7 @@
   </div>
                       <br />
   </div>
-
+}
   <script type="text/javascript">
       jQuery('#customerAccountDropDownList').change(function () {
           var customerAccount = $(this).val();
@@ -164,7 +165,31 @@
           });
           return false;
       });
-      
+
+      jQuery('#Create').click(function () {
+          var customerAccount = $('#customerAccountDropDownList').val();
+          var customerPo = $('#customerPoTextBox').val();
+          var technicinanNo = $('#serviceTechnicianDropDownList').val();
+          var responsibleNo = $('#serviceResponsibleDropDownList').val();
+          var woClassification = $('#woClassificationDropDownList').val();
+          var customerComments = $('#customerCommentsTextArea').val();
+          var customerPo = $('#customerPoTextBox').val();
+
+          jQuery.ajax({
+              url: "/CheckIn/CreateServiceOrder",
+              type: 'POST',
+              data: { partNumber: partNumber, serialNumber: serialNumber },
+              success: function (result) {
+                  jQuery('#ServiceOrderGridDiv').html(result);
+              },
+              error: function (result) {
+                  alert(result.responseText);
+              }
+
+          });
+          return false;
+      });
+
           jQuery(function GetCustomerAddress(e) {
 
               var customerAccount = null;
