@@ -195,7 +195,7 @@ z-index: 999;
 .pageCointainer
 {
     width:960px;
-    height:850px
+    height:860px
 }
 .serviceProcessDiv
 {
@@ -285,22 +285,47 @@ z-index: 999;
 
 .dropDownPropertiesSP
 {
-    margin:0px 0px 0px 0px;
+    margin:5px 0px 5px 0px;
     max-width: 150px;
     width:150px;
     height: 20px; 
     vertical-align:middle;
     font-weight:normal;
     font-family:  Verdana;
-   font-size:8pt;
+    font-size:8pt;
 }
 
 .addressDiv
 {
-    margin-top: 10px; 
+    margin-top: 5px; 
     max-width: 960px;
     height: 300px;
        
+}
+
+.labelHeaderView
+{
+   margin : 5px 0 0 0;
+   float:left;
+   width:135px;
+   text-align: left;
+   vertical-align:top;
+   font-family:  Verdana;
+   font-size:8pt;
+   font-weight:bold;
+
+
+}
+
+.labelViewSO
+{
+    float: left;
+    width: 150px;
+    text-align: left;
+    vertical-align:bottom;
+    font-family: Verdana;
+    font-size: 8pt;
+    font-weight: normal;
 }
 
 /*******************end********************/
@@ -1062,6 +1087,7 @@ fieldset
 
 label {
     
+    margin : 5px 0 0px 0;
     font-size: 0.8em;
     font-weight: 600;
     width: 130px;
@@ -1078,7 +1104,7 @@ input, textarea {
     background: #fff;
     color: #333;
     font-size: 0.8em;
-    margin: 0px 0 3px 0;
+    margin:10px 0px 0 3px 0;
     width: 145px;
   
 }
