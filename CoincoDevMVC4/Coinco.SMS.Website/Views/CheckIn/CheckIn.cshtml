@@ -182,6 +182,14 @@
               data: { customerAccount: customerAccount, customerPo: customerPo, technicinanNo: technicinanNo, responsibleNo: responsibleNo, woClassification: woClassification, customerComments: customerComments },
               success: function (result) {
                   jQuery('#ServiceOrderGridDiv').html(result);
+                  window.location = "/WorkOrder/ServiceOrderWithHistory" + "?Process=0";
+                  //                      alert('Service Order Created Successfully');
+                  //                      $('#customerAccountDropDownList').val('-1');
+                  //                      $('#customerPOTextBox').val('');
+                  //                      $('#serviceTechnicianDropDownList').val('-1');
+                  //                      $('#serviceResponsibleDropDownList').val('-1');
+                  //                      $('#woClassificationDropDownList').val('-1');
+                  //                      $('#customerCommentTextArea').val('');
               },
               error: function (result) {
                   alert(result.responseText);
