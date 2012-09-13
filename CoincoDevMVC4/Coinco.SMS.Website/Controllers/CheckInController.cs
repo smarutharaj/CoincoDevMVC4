@@ -42,18 +42,11 @@ namespace Coinco.SMS.Website.Controllers
             return View(serviceOrder);
         }
 
-        public ActionResult CheckBoxesServerSide(string[] checkedRecords,string customerAccount)
+        [HttpPost]
+        public ActionResult SelectionServerSide(string addressId)
         {
-            string userName = null;
-            userName = User.Identity.Name.ToString().Split('\\')[1];
-            checkedRecords = checkedRecords ?? new string[] { };
-            ViewData["checkedRecords"] = checkedRecords;
-
-            if (checkedRecords.Any())
-            {
-                ViewData["checkedOrders"] = (new Address()).GetCustomerAddress(customerAccount,userName).Where(o => checkedRecords.Contains(o.AddressId));
-            }
-            return View(GetCustomerAddresses(customerAccount));
+            TempData["AddressId"] = addressId;
+            return View();
         }
 
         [GridAction]
@@ -73,9 +66,10 @@ namespace Coinco.SMS.Website.Controllers
         [GridAction]
         public ActionResult _GetCustomerAddresses(string customerAccount)
         {
-            return PartialView(new GridModel<Address>
+          
+            return View(new GridModel<Address>
             {
-                Data =(new Address()).GetCustomerAddress(customerAccount, User.Identity.Name.ToString().Split('\\')[1])
+                Data = (new Address()).GetCustomerAddress(customerAccount, User.Identity.Name.ToString().Split('\\')[1])
 
             });
         }
@@ -94,7 +88,7 @@ namespace Coinco.SMS.Website.Controllers
                                              select item1).ToList<Address>();
             ViewData["BillingAddress"] = addressBilling;
             ViewData["ShippingAddress"] = addressShipping;
-          //  TempData["CustomerAccount"] = customerAccount;
+            TempData["CustomerAccount"] = customerAccount;
             TempData.Keep();
             return View("Address");
         }
@@ -121,7 +115,7 @@ namespace Coinco.SMS.Website.Controllers
         }
 
         [HttpPost]
-        public ActionResult CreateServiceOrder(ServiceOrder model, string customerAccount, string addressId, string customerPo, string technicinanNo, string responsibleNo, string woClassification, string customerComments)
+        public ActionResult CreateServiceOrder( string customerAccount, string customerPo, string technicinanNo, string responsibleNo, string woClassification, string customerComments)
         {
             string userName = null;
             string newSerivceOrder = null;
@@ -129,7 +123,7 @@ namespace Coinco.SMS.Website.Controllers
             userName = User.Identity.Name.ToString().Split('\\')[1];
             ServiceOrder serviceOrder = new ServiceOrder();
             ServiceOrderLine serviceOrderLine = new ServiceOrderLine();
-            isSuccess=  serviceOrder.CreateServiceOrder(TempData["SiteId"].ToString(), customerAccount, addressId, customerPo, technicinanNo, responsibleNo, woClassification, customerComments, out newSerivceOrder, userName);
+            isSuccess = serviceOrder.CreateServiceOrder(TempData["SiteId"].ToString(), customerAccount, TempData["AddressId"].ToString(), customerPo, technicinanNo, responsibleNo, woClassification, customerComments, out newSerivceOrder, userName);
             if (isSuccess)
             {
                 isSuccess = serviceOrderLine.CreateServiceOrderLinesItem(newSerivceOrder, (List<ServiceOrderLine>)TempData["ServiceOrderLine"], userName);
