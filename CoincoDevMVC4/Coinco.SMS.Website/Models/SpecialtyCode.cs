@@ -2,6 +2,10 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using System.Data;
+using System.Web.Mvc;
+using Coinco.SMS.AXWrapper;
+using StructureMap;
 
 namespace Coinco.SMS.Website.Models
 {
@@ -9,7 +13,7 @@ namespace Coinco.SMS.Website.Models
     {
         public string SpecialityCodeNo { get; set; }
         public string SpecialityDescription { get; set; }
-        public List<SpecialtyCode> FailureCodeList { get; set; } 
+        public SelectList SpecialityCodeList { get; set; } 
 
         public SpecialtyCode()
         {
@@ -20,6 +24,34 @@ namespace Coinco.SMS.Website.Models
         {
             this.SpecialityCodeNo = specialityCodeNo;
             this.SpecialityDescription = specialityDescription;
+        }
+
+        public IEnumerable<SpecialtyCode> GetSpecialCode(string userName, string TransactionId)
+        {
+            IAXHelper axHelper = ObjectFactory.GetInstance<IAXHelper>();
+            List<SpecialtyCode> SpecialtyCodeList = new List<SpecialtyCode>();
+            try
+            {
+                DataTable resultTable = axHelper.GetLinePropertyList(userName);
+
+
+                foreach (DataRow row in resultTable.Rows)
+                {
+                    SpecialtyCode SpecialtyCodeObject = new SpecialtyCode();
+                    SpecialtyCodeObject.SpecialityCodeNo = row["SpecialityCode"].ToString();
+                    SpecialtyCodeObject.SpecialityDescription = row["SpecialityDescription"].ToString();
+
+                    SpecialtyCodeList.Add(SpecialtyCodeObject);
+
+                }
+            }
+            catch (Exception e)
+            {
+                throw e;
+
+            }
+            return SpecialtyCodeList.AsEnumerable<SpecialtyCode>();
+
         }
     }
 }

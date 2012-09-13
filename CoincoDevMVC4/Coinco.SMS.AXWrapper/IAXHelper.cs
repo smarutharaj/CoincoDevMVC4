@@ -23,5 +23,7 @@ namespace Coinco.SMS.AXWrapper
 
         DataTable GetFailureCodeList(string userName);
         DataTable GetServiceObjectRelationByServiceOrder(string serviceOrder, string userName);
+        DataTable GetLinePropertyList(string userName);
+        DataTable GetSpecialityCodeList(string userName, string transactionId);
     }
 }
