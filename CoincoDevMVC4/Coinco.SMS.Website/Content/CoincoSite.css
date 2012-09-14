@@ -28,7 +28,7 @@ height:65px;
 float:left;
 }
 
-.ribbonIconBarClass1 {
+/*.ribbonIconBarClass1 {
 
 text-align:center;
 border: solid white 1px;
@@ -52,13 +52,24 @@ float:left;
 margin-left:5px;
 
 }
+*/
+
+.LayoutHeader
+{
+    margin: 0 auto;
+    max-width: 960px;
+    padding-bottom:0px;
+    height:140px;
+    background-color: #fff;
+    padding-left:0;
+    padding-right:5px;
+}
 
 .headerImageClass
 {
     margin: 0 auto;
     max-width: 960px;
     height: 50px;
-    width: auto;
 
 }
 .siteuserClass
@@ -68,47 +79,39 @@ margin-left:5px;
     height: 25px;
     vertical-align:middle;
     background: #084B8A;
-    
-    overflow:hidden;
-    position:relative;
+    padding-left: 20px;
+    padding-right: 10px;
+    color: #FFFFFF;
+    font-weight:bold;
+   /* overflow:hidden;
+    position:relative;*/
 
 
 }
 .siteView
 {
     float: left;
-    color: #FFFFFF;
-    vertical-align:middle;
-    padding-left: 20px;
-    
-    position:absolute;
-    top:10%;
-
+  /*  position:absolute;
+    top:10%;*/
 }
 .userDetail
 {
    float:right;
-   color:#FFFFFF;
-   padding-right: 10px;
-   text-align: center;
-   vertical-align:middle;
-   font-weight:bold;
 }
 .smsMenuHeader
 {
     margin: 2px auto;
     max-width: 960px;
-    height: 75px;
-    width: auto;
+    height: 62px;
     background-image: url('../Images/Border.png');
     background-repeat: repeat-x;
 }
-.smsMenu
+/*.smsMenu
 {
     float:left;
     padding-left: 20px;
 }
-
+*/
 .imgTitle
 {
     font-size: 0.650em;
@@ -116,25 +119,27 @@ margin-left:5px;
     font-weight: bold;
 }
 
-.headerfeatured {
-    background-color: #fff;
-}
 
-.LayoutHeader
+
+/*.LayoutBody
 {
     margin: 0 auto;
     max-width: 960px;
-    padding-bottom:0px;
-    height:110px;
-}
-.LayoutBody
-{
-    margin: 0 auto;
-    max-width: 960px;
-    padding-top:0px;
+    background-color: #fff;
+    padding-left:5px;
+    padding-right:5px;
+    padding-bottom:5px;
     
-}
-.featured {
+}*/
+
+body {
+    background-color: #e2e2e2;
+    border-top: solid 0px #000;
+    color: #333;
+    font-size: .85em;
+    font-family: "Segoe UI", Verdana, Helvetica, Sans-Serif;
+    margin: 0 auto;
+    max-width: 960px;
     background-color: #fff;
     padding-left:5px;
     padding-right:5px;
@@ -168,6 +173,30 @@ background-color: #fff;
 /*border: solid 3px #333;*/
 z-index: 999;
 }
+
+label {
+    
+    margin : 5px 0 0px 0;
+    font-size: 0.8em;
+    font-weight: 600;
+    width: 130px;
+    display: inline-block;
+    vertical-align:top;
+}
+
+footer 
+{
+    max-width: 960px;
+    clear: both;
+    font-size: .8em;
+    height: 10px;
+}
+
+.float-right {
+    float: right;
+   
+}
+
 /*******************Service Order Process**************/
 .leftcolumn
 {
@@ -195,10 +224,11 @@ z-index: 999;
 .pageCointainer
 {
     width:960px;
-    height:860px
+    height:810px
 }
 .serviceProcessDiv
 {
+    margin-top: 30px;
     max-width: 960px;
     height: 150px;
     float: left;
@@ -209,7 +239,7 @@ z-index: 999;
     margin-top: 50px; 
     max-width: 960px;
   
-    height: 330px;
+    height: 280px;
     
    
 }
@@ -267,6 +297,7 @@ z-index: 999;
     margin-left: 630px;
     position: absolute;
     margin : 180px 0px 0px 0px;
+    display:none;
 }
 
 .singleTextBox {
@@ -654,15 +685,7 @@ html {
     padding: 0;
 }
 
-body {
-    background-color: #e2e2e2;
-    border-top: solid 0px #000;
-    color: #333;
-    font-size: .85em;
-    font-family: "Segoe UI", Verdana, Helvetica, Sans-Serif;
-    margin: 0;
-    padding: 0;
-}
+
 
 a {
     color: #333;
@@ -709,10 +732,10 @@ mark {
     background-color:transparent;
 }
 
-.float-right {
+/*.float-right {
     float: right;
    
-}
+}*/
 
 .clear-fix:after {
     content: ".";
@@ -764,13 +787,13 @@ h5, h6 {
     max-width: 960px;
     
 }
-
+/*
 #body {
      background: #ffff;
     clear: both;
     padding-bottom: 5px;
 }
-
+*/
     .main-content {
         background: url("../Images/accent.png") no-repeat;
         padding-left: 10px;
@@ -785,12 +808,12 @@ header .content-wrapper {
     
 }
 
-footer {
+/*footer {
     clear: both;
     font-size: .8em;
     height: 10px;
 }
-
+*/
 
 /* site title
 ----------------------------------------------------------*/
@@ -1086,7 +1109,7 @@ fieldset
             padding-bottom: 5px;
         }
 
-label {
+/*label {
     
     margin : 5px 0 0px 0;
     font-size: 0.8em;
@@ -1095,7 +1118,7 @@ label {
     display: inline-block;
     vertical-align:top;
 }
-
+*/
 label.checkbox {
     display: inline;
 }
@@ -1353,7 +1376,7 @@ input[type="checkbox"].input-validation-error {
 
 
     /* footer
-    ----------------------------------------------------------*/
+    ----------------------------------------------------------
     footer .float-left,
     footer .float-right {
         float: none;
@@ -1367,5 +1390,5 @@ input[type="checkbox"].input-validation-error {
 
         footer p {
             margin: 0;
-        }
+        }*/
 }
