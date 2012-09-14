@@ -3,7 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Data;
+using System.Web.Mvc;
 using Coinco.SMS.AXWrapper;
+using StructureMap;
 
 namespace Coinco.SMS.Website.Models
 {
@@ -22,59 +24,74 @@ namespace Coinco.SMS.Website.Models
 
         public string SymptomAreaId { get; set; }
         public string SymptomAreaName { get; set; }
+
+        public List<RepairType> SysmptomAreaList { get; set; }
+
         public string SymptomCodeId { get; set; }
         public string SymptomCodeName { get; set; }
+
+        public List<RepairType> SymptomCodeList { get; set; }
 
         public string DiagonsisAreaId { get; set; }
         public string DiagonsisAreaName { get; set; }
 
+        public List<RepairType> DiagnosisAreaList { get; set; }
+
         public string DiagonsisCodeId { get; set; }
         public string DiagonsisCodeName { get; set; }
+
+        public List<RepairType> DiagnosisCodeList { get; set; }
 
         public string ResolutionId { get; set; }
         public string ResolutionName { get; set; }
 
+        public List<RepairType> ResolutionList { get; set; }
+
         public string RepairStageId { get; set; }
         public string RepairStageName { get; set; }
 
+        public List<RepairType> RepairStageList { get; set; }
+
         public ServiceTechnician Technician { get; set; }
+
         public string Comments { get; set; }
+
         public string UniqueId { get; set; }
         public string ServiceObjectRelation { get; set; }
 
         //public List<ServiceOrderProcess> ServiceOrderProcess { get; set; }
 
-        public List<RepairType> GetRepairServiceOrders(string inventid, string processid, string userName)
-        {
+        //public List<RepairType> GetRepairServiceOrders(string inventid, string processid, string userName)
+        //{
 
-            Coinco.SMS.AXWrapper.AXHelper axHelper = new AXWrapper.AXHelper();
-            List<RepairType> repairList = new List<RepairType>();
-            try
-            {
-                DataTable resultTable = axHelper.GetRepairServiceOrders(inventid, processid, userName);
+        //    IAXHelper axHelper = ObjectFactory.GetInstance<IAXHelper>();
+        //    List<RepairType> repairList = new List<RepairType>();
+        //    try
+        //    {
+        //        DataTable resultTable = axHelper.GetRepairServiceOrders(inventid, processid, userName);
 
 
-                foreach (DataRow row in resultTable.Rows)
-                {
-                    RepairType repairObject = new RepairType();
-                    repairObject.RepServiceOrder = row["ServiceorderId"].ToString();
-                    repairList.Add(repairObject);
+        //        foreach (DataRow row in resultTable.Rows)
+        //        {
+        //            RepairType repairObject = new RepairType();
+        //            repairObject.RepServiceOrder = row["ServiceorderId"].ToString();
+        //            repairList.Add(repairObject);
 
-                }
-            }
-            catch (Exception e)
-            {
-                throw e;
+        //        }
+        //    }
+        //    catch (Exception e)
+        //    {
+        //        throw e;
 
-            }
-            return repairList;
+        //    }
+        //    return repairList;
 
-        }
+        //}
 
 
         public List<RepairType> GetCondtions(string userName)
         {
-            Coinco.SMS.AXWrapper.AXHelper axHelper = new AXWrapper.AXHelper();
+            IAXHelper axHelper = ObjectFactory.GetInstance<IAXHelper>();
             List<RepairType> repairList = new List<RepairType>();
             try
             {
@@ -100,7 +117,7 @@ namespace Coinco.SMS.Website.Models
 
         public List<RepairType> GetSymptomArea(string userName)
         {
-            Coinco.SMS.AXWrapper.AXHelper axHelper = new AXWrapper.AXHelper();
+            IAXHelper axHelper = ObjectFactory.GetInstance<IAXHelper>();
             List<RepairType> repairList = new List<RepairType>();
 
             try
@@ -126,7 +143,7 @@ namespace Coinco.SMS.Website.Models
 
         public List<RepairType> GetSymptomCode(string symptomArea, string userName)
         {
-            Coinco.SMS.AXWrapper.AXHelper axHelper = new AXWrapper.AXHelper();
+            IAXHelper axHelper = ObjectFactory.GetInstance<IAXHelper>();
             List<RepairType> repairList = new List<RepairType>();
             try
             {
@@ -154,7 +171,7 @@ namespace Coinco.SMS.Website.Models
 
         public List<RepairType> GetDiagnosisArea(string userName)
         {
-            Coinco.SMS.AXWrapper.AXHelper axHelper = new AXWrapper.AXHelper();
+            IAXHelper axHelper = ObjectFactory.GetInstance<IAXHelper>();
             List<RepairType> repairList = new List<RepairType>();
             try
             {
@@ -181,7 +198,7 @@ namespace Coinco.SMS.Website.Models
 
         public List<RepairType> GetDiagnosisCode(string diagnosisArea, string userName)
         {
-            Coinco.SMS.AXWrapper.AXHelper axHelper = new AXWrapper.AXHelper();
+            IAXHelper axHelper = ObjectFactory.GetInstance<IAXHelper>();
             List<RepairType> repairList = new List<RepairType>();
             try
             {
@@ -211,7 +228,7 @@ namespace Coinco.SMS.Website.Models
 
         public List<RepairType> GetResolution(string userName)
         {
-            Coinco.SMS.AXWrapper.AXHelper axHelper = new AXWrapper.AXHelper();
+            IAXHelper axHelper = ObjectFactory.GetInstance<IAXHelper>();
             List<RepairType> repairList = new List<RepairType>();
             try
             {
@@ -238,7 +255,7 @@ namespace Coinco.SMS.Website.Models
 
         public List<RepairType> GetRepairStages(string userName)
         {
-            Coinco.SMS.AXWrapper.AXHelper axHelper = new AXWrapper.AXHelper();
+            IAXHelper axHelper = ObjectFactory.GetInstance<IAXHelper>();
             List<RepairType> repairList = new List<RepairType>();
             try
             {
@@ -265,7 +282,7 @@ namespace Coinco.SMS.Website.Models
 
         public List<RepairType> GetRepairLineDetails(string serviceorderId, string userName)
         {
-            Coinco.SMS.AXWrapper.AXHelper axHelper = new AXWrapper.AXHelper();
+            IAXHelper axHelper = ObjectFactory.GetInstance<IAXHelper>();
             List<RepairType> repairList = new List<RepairType>();
             try
             {
@@ -286,7 +303,7 @@ namespace Coinco.SMS.Website.Models
                     repairObject.DiagonsisCodeId = row["DiagnosisCodeId"].ToString();
                     repairObject.ResolutionId = row["ResolutionId"].ToString();
                     repairObject.RepairStageId = row["RepairStageId"].ToString();
-                    repairObject.Technician = row["Technician"].ToString();
+                    //repairObject.Technician = row["Technician"].ToString();
                     repairObject.Comments = row["ServiceComments"].ToString();
 
 
@@ -302,63 +319,63 @@ namespace Coinco.SMS.Website.Models
 
         }
 
-        public bool CreateRepairLineItems(string serviceOrderNo, string serviceOrderRelation, string conditionId, string symptomAreaId, string symptomCodeId, string diagonsisAreaId, string diagonsisCodeId, string resolutionId, string repairStageId, string technicianNo, string description, string serviceComments, string userName)
-        {
-            bool isSuccess = false;
+        //public bool CreateRepairLineItems(string serviceOrderNo, string serviceOrderRelation, string conditionId, string symptomAreaId, string symptomCodeId, string diagonsisAreaId, string diagonsisCodeId, string resolutionId, string repairStageId, string technicianNo, string description, string serviceComments, string userName)
+        //{
+        //    bool isSuccess = false;
 
-            Coinco.SMS.AXWrapper.AXHelper axHelper = new AXWrapper.AXHelper();
-            try
-            {
-                isSuccess = axHelper.CreateRepairLines(serviceOrderNo, serviceOrderRelation, conditionId, symptomAreaId, symptomCodeId, diagonsisAreaId, diagonsisCodeId, resolutionId, repairStageId, technicianNo, description, serviceComments, userName);
+        //    IAXHelper axHelper = ObjectFactory.GetInstance<IAXHelper>();
+        //    try
+        //    {
+        //        isSuccess = axHelper.CreateRepairLines(serviceOrderNo, serviceOrderRelation, conditionId, symptomAreaId, symptomCodeId, diagonsisAreaId, diagonsisCodeId, resolutionId, repairStageId, technicianNo, description, serviceComments, userName);
 
-            }
-            catch (Exception ex)
-            {
+        //    }
+        //    catch (Exception ex)
+        //    {
 
-                throw ex;
-            }
-            return isSuccess;
+        //        throw ex;
+        //    }
+        //    return isSuccess;
 
-        }
+        //}
 
 
-        public bool UpdateRepairLineItems(string uniqueId, string serviceOrderNo, string serviceOrderRelation, string conditionId, string symptomAreaId, string symptomCodeId, string diagonsisAreaId, string diagonsisCodeId, string resolutionId, string repairStageId, string technicianNo, string description, string serviceComments, string userName)
-        {
-            bool isSuccess = false;
+        //public bool UpdateRepairLineItems(string uniqueId, string serviceOrderNo, string serviceOrderRelation, string conditionId, string symptomAreaId, string symptomCodeId, string diagonsisAreaId, string diagonsisCodeId, string resolutionId, string repairStageId, string technicianNo, string description, string serviceComments, string userName)
+        //{
+        //    bool isSuccess = false;
 
-            Coinco.SMS.AXWrapper.AXHelper axHelper = new AXWrapper.AXHelper();
-            try
-            {
-                isSuccess = axHelper.UpdateRepairLines(uniqueId, serviceOrderNo, serviceOrderRelation, conditionId, symptomAreaId, symptomCodeId, diagonsisAreaId, diagonsisCodeId, resolutionId, repairStageId, technicianNo, description, serviceComments, userName);
+        //    IAXHelper axHelper = ObjectFactory.GetInstance<IAXHelper>();
+        //    try
+        //    {
+        //        isSuccess = axHelper.UpdateRepairLines(uniqueId, serviceOrderNo, serviceOrderRelation, conditionId, symptomAreaId, symptomCodeId, diagonsisAreaId, diagonsisCodeId, resolutionId, repairStageId, technicianNo, description, serviceComments, userName);
 
-            }
-            catch (Exception ex)
-            {
+        //    }
+        //    catch (Exception ex)
+        //    {
 
-                throw ex;
-            }
-            return isSuccess;
+        //        throw ex;
+        //    }
+        //    return isSuccess;
 
-        }
+        //}
 
-        public bool DeleteRepairLineItems(string uniqueId, string userName)
-        {
-            bool isSuccess = false;
+        //public bool DeleteRepairLineItems(string uniqueId, string userName)
+        //{
+        //    bool isSuccess = false;
 
-            Coinco.SMS.AXWrapper.AXHelper axHelper = new AXWrapper.AXHelper();
-            try
-            {
-                isSuccess = axHelper.DeleteRepairLines(uniqueId, userName);
+        //   IAXHelper axHelper = ObjectFactory.GetInstance<IAXHelper>();
+        //    try
+        //    {
+        //        isSuccess = axHelper.DeleteRepairLines(uniqueId, userName);
 
-            }
-            catch (Exception ex)
-            {
+        //    }
+        //    catch (Exception ex)
+        //    {
 
-                throw ex;
-            }
-            return isSuccess;
+        //        throw ex;
+        //    }
+        //    return isSuccess;
 
-        }
+        //}
 
     }
 
