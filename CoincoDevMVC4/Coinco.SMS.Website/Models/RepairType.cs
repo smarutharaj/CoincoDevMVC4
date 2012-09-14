@@ -5,7 +5,7 @@ using System.Web;
 using System.Data;
 using Coinco.SMS.AXWrapper;
 
-namespace Coinco.SMS.BLL
+namespace Coinco.SMS.Website.Models
 {
     public class RepairType
     {
@@ -17,6 +17,8 @@ namespace Coinco.SMS.BLL
 
         public string ConditionId { get; set; }
         public string ConditionName { get; set; }
+
+        public List<RepairType> ConditionList { get; set; }
 
         public string SymptomAreaId { get; set; }
         public string SymptomAreaName { get; set; }
@@ -35,7 +37,7 @@ namespace Coinco.SMS.BLL
         public string RepairStageId { get; set; }
         public string RepairStageName { get; set; }
 
-        public string Technician { get; set; }
+        public ServiceTechnician Technician { get; set; }
         public string Comments { get; set; }
         public string UniqueId { get; set; }
         public string ServiceObjectRelation { get; set; }
