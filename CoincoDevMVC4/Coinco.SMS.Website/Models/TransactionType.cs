@@ -19,6 +19,6 @@ namespace Coinco.SMS.Website.Models
             Fee = 4
     }
 
-    
-      
+     
 }
+      

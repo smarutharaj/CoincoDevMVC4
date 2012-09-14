@@ -26,7 +26,7 @@ namespace Coinco.SMS.Website.Models
             this.SpecialityDescription = specialityDescription;
         }
 
-        public IEnumerable<SpecialtyCode> GetSpecialCode(string userName, string TransactionId)
+        public IQueryable<SpecialtyCode> GetSpecialCode(string userName, string TransactionId)
         {
             IAXHelper axHelper = ObjectFactory.GetInstance<IAXHelper>();
             List<SpecialtyCode> SpecialtyCodeList = new List<SpecialtyCode>();
@@ -50,7 +50,7 @@ namespace Coinco.SMS.Website.Models
                 throw e;
 
             }
-            return SpecialtyCodeList.AsEnumerable<SpecialtyCode>();
+            return SpecialtyCodeList.AsQueryable<SpecialtyCode>();
 
         }
     }
