@@ -12,6 +12,8 @@ namespace Coinco.SMS.AXWrapper
         DataTable GetServiceOrders(string inventSiteId, string orderStatus, string userName);
         DataTable GetServiceOrderLinesByServiceOrderId(string serviceOrderId, string userName);
         DataTable GetServiceOrderLinesBySerialNumberPartNumber(string serialId, string itemNumber, string custAccount, string userName);
+
+
         DataTable GetCustomerAddressList(string customerAccount, string userName);
         DataTable GetCustomers(string userName);
         DataTable GetSalesHistory(string salesSerialNumber, string userName);
@@ -23,11 +25,16 @@ namespace Coinco.SMS.AXWrapper
         string CreateServiceOrder(string siteId, string customerAccount, string AddressId, string CustomerPO, string ServiceTechnicianNo, string responsibleNo, string woClassification, string customerComments, string userName);
         bool CreateServiceOrderLinesList(string serviceOrderNo, string serialNumber, string partNumber, string partType, string quantity, string repairType, string warranty, string comments, string userName);
 
+
+         // - Functions for Service Order Process
+
         DataTable GetFailureCodeList(string userName);
         DataTable GetSerialNumberByServiceOrder(string serviceOrder, string userName);
         DataTable GetLinePropertyList(string userName);
         DataTable GetSpecialityCodeList(string userName, string transactionId);
         DataTable GetServiceOrderPartLineByServiceOrder(string serviceOrderId, string userName);
+        DataTable GetServiceOrderLinesDetailsBySerialNumber(string serialId, string itemNumber, string userName)
+
 
         DataTable GetConditionList(string userName);
         DataTable GetSymptomAreaList(string userName);
