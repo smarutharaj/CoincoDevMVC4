@@ -38,9 +38,9 @@ namespace Coinco.SMS.AXWrapper
 
         DataTable GetConditionList(string userName);
         DataTable GetSymptomAreaList(string userName);
-        DataTable GetSymptomCodeList(string userName);
+        DataTable GetSymptomCodeList(string symptomArea, string userName);
         DataTable GetDiagnosisAreaList(string userName);
-        DataTable GetDiagnosisCodeList(string userName);
+        DataTable GetDiagnosisCodeList(string diagnosisArea, string userName);
         DataTable GetResolutionList(string userName);
         DataTable GetRespairStageList(string userName);
         DataTable GetRepairLines(string serviceOrderId, string userName);
