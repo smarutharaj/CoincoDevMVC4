@@ -41,16 +41,14 @@
                        .BindTo((SelectList)ViewData["SymptomArea"])
                  .HtmlAttributes(new { style = "font-size: 8pt; font-family: Calibri; width=50px;" })
                  .DropDownHtmlAttributes(new { style = "font-size: 8pt; font-family: Calibri;" })
-                 .ClientEvents(events => events.OnChange("SymptomArea"))
+                 //.ClientEvents(events => events.OnChange("SymptomArea"))
                  .Render();
                     }
             <br />
             <label>Symptom Code:</label>
-               @{Html.Telerik().ComboBox().Name("symptomCodeList")
-                 .HtmlAttributes(new { style = "font-size: 8pt; font-family: Calibri; width=50px;" })
-                 .DropDownHtmlAttributes(new { style = "font-size: 8pt; font-family: Calibri;" })
-                 .Render();
-                    }
+            <div id ="symptomCodeList"> 
+                @{Html.RenderPartial("SymptomsCode",Model);}
+            </div>
             <br />
      </div>
      <div class="addLineRightcolumnRL">
@@ -170,21 +168,24 @@
         }
   </div> *@
 <script type="text/javascript">
+    function onSymptomAreaListChange(e) {
+        if (e != null) {
+            var symptomArea = e.currentTarget.value;
+            jQuery.ajax({
+                url: "/RepairLines/GetSymptomCode",
+                type: 'GET',
+                data: { symptomArea: symptomArea },
+                success: function (result) {
+                    jQuery('#symptomCodeList').html(result);
+                },
+                error: function (result) {
+                    alert(result.responseText);
+                }
 
-      /*function onChange(e) {
-          var siteId = e.currentTarget.value;
-          if (siteId != null) {
-              $.ajax({
-                  url: "/RepairLines/ServiceOrderWithHistory",
-                  type: 'GET',
-                  data: { siteId: siteId, process: -1 },
-                  dataType: 'html',
-                  success: function (result) {
-                      $('#SOWH').html(result);
-                  }
+            });
 
-              });
-          }
-          return false;
-      }*/
+
+            return false;
+        }
+    }
 </script>
