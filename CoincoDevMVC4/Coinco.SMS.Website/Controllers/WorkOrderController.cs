@@ -120,8 +120,7 @@ namespace Coinco.SMS.Controllers
             LinePropertyObject.LinePropertyList = new SelectList(LinePropertyCollection, "LinePropertyCode", "LinePropertyDescription", null);
             ViewData["LinePropertyList"] = LinePropertyObject.LinePropertyList;
 
-            if (TempData["ServiceOrderId"] != null)
-            {
+           
                 SerivceOrderPartLine serivceOrderPartLineObject = new SerivceOrderPartLine();
                 IEnumerable<SerivceOrderPartLine> serviceOrderPartLineCollection = null;
                 serviceOrderPartLineCollection = serivceOrderPartLineObject.GetSerialNumberByServiceOrder(TempData["ServiceOrderId"].ToString(), User.Identity.Name.ToString().Split('\\')[1]);
@@ -131,7 +130,8 @@ namespace Coinco.SMS.Controllers
                 ViewData["SORelationList"] = serivceOrderPartLineObject.ServiceOrderPartLineList;
                 ViewData["SerialNumberList"] = serivceOrderPartLineObject.ServiceOrderPartLineList;
                 ViewData["ServiceOrderPartLines"] = GetServiceOrderPartLinesByServiceOrderID(TempData["ServiceOrderId"].ToString());
-            }
+       
+          
             ServiceTechnician serviceTechnician = new ServiceTechnician();
             serviceTechnician.ServiceTechnicianList = new SelectList(serviceTechnician.GetTechnicians(User.Identity.Name.ToString().Split('\\')[1]), "ServiceTechnicianNo", "ServiceTechnicianName", null);
             ViewData["ServiceTechnicianList"] = serviceTechnician.ServiceTechnicianList;
