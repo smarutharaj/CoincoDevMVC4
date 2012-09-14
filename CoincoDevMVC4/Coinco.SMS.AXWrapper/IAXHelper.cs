@@ -24,7 +24,7 @@ namespace Coinco.SMS.AXWrapper
         bool CreateServiceOrderLinesList(string serviceOrderNo, string serialNumber, string partNumber, string partType, string quantity, string repairType, string warranty, string comments, string userName);
 
         DataTable GetFailureCodeList(string userName);
-        DataTable GetServiceObjectRelationByServiceOrder(string serviceOrder, string userName);
+        DataTable GetSerialNumberByServiceOrder(string serviceOrder, string userName);
         DataTable GetLinePropertyList(string userName);
         DataTable GetSpecialityCodeList(string userName, string transactionId);
         DataTable GetServiceOrderPartLineByServiceOrder(string serviceOrderId, string userName);
