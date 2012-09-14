@@ -1,24 +1,43 @@
-﻿
-@{Html.Telerik().Grid((IEnumerable<Coinco.SMS.Website.Models.ServiceOrderLine>)ViewData["ServiceOrderLine"])
+﻿@{
+   IEnumerable<Coinco.SMS.Website.Models.ServiceOrderLine> serviceOrderCollection= (IEnumerable<Coinco.SMS.Website.Models.ServiceOrderLine>)ViewData["ServiceOrderLine"];
+   Html.Telerik().Grid<Coinco.SMS.Website.Models.ServiceOrderLine>((IEnumerable<Coinco.SMS.Website.Models.ServiceOrderLine>)ViewData["ServiceOrderLine"])
         .Name("ServiceOrderLineGrid")
+        .DataKeys(keys =>
+        {
+            keys.Add(c => c.SerialNumber);
+        })
         .Columns(columns =>
         {
-            columns.Template(c => @Html.ActionLink("History", "ServiceOrderHistory", new { id = c.SerialNumber })).Width(50).Title("History").Width(120);
-            columns.Bound(c => c.SerialNumber).Title("Serial Number").Width(130);
-            columns.Bound(c => c.PartNumber).Title("Part Number").Width(120);
-            columns.Bound(c => c.PartType).Title("Part Type").Width(100);
-            columns.Bound(c => c.Quantity).Title("Quantity").Width(100);
-            columns.Bound(c => c.RepairType).Title("Repair Type").Width(120);
-            columns.Bound(c => c.Warranty).Title("Warranty").Width(100);
-            columns.Bound(c => c.Comments).Title("Comments").Width(100).Format("{0:dd/MM/yyyy}");
+            columns.Template(@<text> @(Html.ActionLink("History", "ServiceOrderHistory", new { id = @item.SerialNumber }))</text>).Width(50).Title("History").Width(60).ClientTemplate(@"<a href=""/WorkOrder/ServiceOrderHistory/<#= SerialNumber #>"">History</a>");
+            columns.Bound(c => c.SerialNumber).Title("Serial Number").Width(1).Hidden();                                                                                                                                
+            columns.Bound(c => c.SerialNumber).Title("Serial Number").Width(130).ReadOnly();
+            columns.Bound(c => c.PartNumber).Title("Part Number").Width(120).ReadOnly();
+            columns.Bound(c => c.PartType).Title("Part Type").Width(100).ReadOnly();
+            columns.Bound(c => c.Quantity).Title("Quantity").Width(80).ReadOnly();
+            columns.Bound(c => c.RepairType).Title("Repair Type").Width(120).ReadOnly();
+            columns.Bound(c => c.Warranty).Title("Warranty").Width(100).ReadOnly();
+            columns.Bound(c => c.Comments).Title("Comments").Width(120);
+
+            columns.Command(commands =>
+            {
+                commands.Edit().ButtonType(GridButtonType.Image);
+                commands.Delete().ButtonType(GridButtonType.Image);
+            }).Width(80).Title("Commands") ;
+
+
         })
 
         .DataBinding(dataBinding =>
         {
             dataBinding.Ajax().OperationMode(GridOperationMode.Client).Select("_SelectionClientSide_ServiceOrderLines", "CheckIn")
+                .Update("_UpdateServiceOrderLine", "CheckIn")
+                .Delete("_DeleteServiceOrderLine", "CheckIn",new { id=)
                 .Enabled(true);
         }
         )
+        .ClientEvents(events => events
+            .OnSave("onSave"))
+        
         .HtmlAttributes(new { style = "font-size: 8pt; font-family: Verdana;" })
         .Scrollable()
         .Pageable((pager => pager.PageSize(10)))
@@ -28,3 +47,10 @@
        .Render();
     
         }
+
+        <script type="text/javascript">
+
+            function onSave(e) {
+                e.Data = e.values;
+                           }
+        </script>
