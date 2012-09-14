@@ -44,12 +44,33 @@ namespace Coinco.SMS.Website.Controllers
             ServiceTechnician serviceTechnician = new ServiceTechnician();
             serviceTechnician.ServiceTechnicianList = new SelectList(serviceTechnician.GetTechnicians(userName), "ServiceTechnicianNo", "ServiceTechnicianName", null);
             ViewData["ServiceTechnicianList"] = serviceTechnician.ServiceTechnicianList;
-
+            List<RepairType> SymptomCodeCollection = new List<RepairType>();
+            repairTypeObj.SymptomCodeList = new SelectList(SymptomCodeCollection.AsEnumerable<RepairType>(), "SymptomCodeId", "SymptomCodeName", null);
             TempData.Keep();
-            return View();
+            return View(repairTypeObj);
             //return View("RepailLines", repairType);
         }
 
+        [HttpGet]
+        public ActionResult GetSymptomCode(string symptomArea)
+        {
+            RepairType repairTypeObject = new RepairType();
+            if (symptomArea == null)
+            {
+                List<RepairType> SymptomCodeCollection = new List<RepairType>();
+                repairTypeObject.SymptomCodeList = new SelectList(SymptomCodeCollection.AsEnumerable<RepairType>(), "SymptomCodeId", "SymptomCodeName", null);
+                ViewData["SymptomCode"] = repairTypeObject.SymptomCodeList;
+            }
+            else
+            {
+                string userName = null;
+                userName = User.Identity.Name.ToString().Split('\\')[1];
+                repairTypeObject.SymptomCodeList = new SelectList(repairTypeObject.GetSymptomCode(symptomArea, userName), "SymptomCodeId", "SymptomCodeName", null);
+                ViewData["SymptomCode"] = repairTypeObject.SymptomCodeList;
+            }
+            TempData.Keep();
+            return View("SymptomsCode");
+        }
 
     }
 }
