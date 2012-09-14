@@ -494,7 +494,6 @@
     <Content Include="Views\WorkOrder\ServiceOrderWithHistory.cshtml" />
     <Content Include="Views\RepairLines\RepairLines.cshtml" />
     <Content Include="Views\CheckIn\CheckIn.cshtml" />
-    <Content Include="Views\CheckIn\Address.cshtml" />
     <Content Include="Views\CheckIn\ServiceOrderLine.cshtml" />
     <Content Include="Views\CheckIn\OtherDetails.cshtml" />
     <Content Include="Views\RepairLines\SymptomsCode.cshtml" />
