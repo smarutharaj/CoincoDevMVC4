@@ -26,7 +26,10 @@
         .Name("ShippingAddressGrid")
         .Columns(columns =>
         {
-            columns.Bound(c => c.IsShipping)
+            columns.Template(@<text>
+                    <input name="checkedRecords" type="checkbox" value="@item.IsShipping" title="checkedRecords"           
+                    />
+                </text>)
                    .ClientTemplate("<input type='checkbox' name='checkedRecords' value='<#= IsShipping #>' />")
                    .Title("")
                    .Width(36)

@@ -5,7 +5,8 @@
 @{
     ViewBag.Title = "CheckIn";
 }
-@using (Html.BeginForm()){
+@using (Html.BeginForm())
+{
 <div id="ServiceOrderAdditionDiv">
 <div id="ServiceOrderDetailsDiv">
     <div id="Identification">
@@ -23,8 +24,8 @@
         .BindTo((SelectList)ViewData["CustomerList"])
         //.ClientEvents(e => e.OnOpen("onOpen"))
         .ClientEvents(e => e.OnChange("onCustomerAccountDropDownListChange"))
-        .HtmlAttributes(new { style = "font-size: 8pt; font-family: Verdana; width:200px"})
-        .DropDownHtmlAttributes(new { style = "font-size: 8pt; font-family: Verdana;" })     
+        .HtmlAttributes(new { style = "font-size: 8pt; font-family: Verdana; width:200px" })
+        .DropDownHtmlAttributes(new { style = "font-size: 8pt; font-family: Verdana;" })
         .Render();
         }
 
@@ -33,18 +34,15 @@
     </div>
     </div>
     <br />
-    <div id="Address" class="fullViewforLargerHeightClass">
-         @*  GetCustomerAddress();*@
-    </div>
-    </div>
-    <h6>Other Details</h6>
-    <div id="OtherDetailsView" class="combinedViewForOtherDetailsCheckInDataClass" >
-
-    </div>
+      </div>
+          <div id="OtherDetailsView" class="combinedViewForOtherDetailsCheckInDataClass" >
+    
+                @{Html.RenderPartial("OtherDetails");}
+           </div>
   </div> 
   <br />
     <div id="ServiceOrderGridDiv">
-
+         @{Html.RenderPartial("ServiceOrderLine");}
         
   </div> 
   <br />
@@ -63,25 +61,13 @@
           if (e != null) {
               var customerAccount = e.currentTarget.value;
               jQuery.ajax({
-                  url: "/CheckIn/GetCustomerAddresses",
+                  url: "/CheckIn/GetOtherDetails",
                   type: 'GET',
                   data: { customerAccount: customerAccount },
                   success: function (result) {
-                      jQuery('#Address').html(result);
-                      jQuery.ajax({
-                          url: "/CheckIn/GetOtherDetails",
-                          type: 'GET',
-                          data: { customerAccount: customerAccount },
-                          success: function (result) {
-                              jQuery('#OtherDetailsView').html(result);
+                      jQuery('#OtherDetailsView').html(result);
 
-                          },
-                          error: function (result) {
-                              alert(result.responseText);
-                          }
-
-                      });
-                       },
+                  },
                   error: function (result) {
                       alert(result.responseText);
                   }
@@ -103,7 +89,7 @@
           var woClassification = $('#woClassificationDropDownList').val();
           var customerComments = $('#customerCommentTextArea').val();
           var $checkedRecords = $(':checked');
-
+        
           if ($checkedRecords.length < 1) {
               alert('Please select atleast one shipping address.');
               return;
@@ -141,63 +127,7 @@
           $('#customerCommentTextArea').val('');
       });
 
-          jQuery(function GetCustomerAddress(e) {
 
-              var customerAccount = null;
-              //var dropDownList = $('#customerAccountDropDownList').data('tDropDownList');
-              jQuery.ajax({
-                  url: "/CheckIn/GetCustomerAddresses",
-                  type: 'GET',
-                  data: { customerAccount: customerAccount },
-                  success: function (result) {
-                      jQuery('#Address').html(result);
-                  },
-                  error: function (result) {
-                      alert(result.responseText);
-                  }
-
-              });
-              return false;
-          });
-
-          jQuery(function GetServiceOrderLinesHistory() {
-
-              var customerAccount = null;
-              //var dropDownList = $('#customerAccountDropDownList').data('tDropDownList');
-              jQuery.ajax({
-                  url: "/CheckIn/GetServiceOrderLinesHistory",
-                  type: 'GET',
-                  data: { partNumber: "",serialNumber:"" },
-                  success: function (result) {
-                      jQuery('#ServiceOrderGridDiv').html(result);
-                  },
-                  error: function (result) {
-                      alert(result.responseText);
-                  }
-
-              });
-              return false;
-          });
-
-
-          jQuery(function GetOtherDetails() {
-
-              var customerAccount = null;
-              //var dropDownList = $('#customerAccountDropDownList').data('tDropDownList');
-              jQuery.ajax({
-                  url: "/CheckIn/GetOtherDetails",
-                  type: 'GET',
-                  data: { partNumber: "", serialNumber: "" },
-                  success: function (result) {
-                      jQuery('#OtherDetailsView').html(result);
-                  },
-                  error: function (result) {
-                      alert(result.responseText);
-                  }
-
-              });
-              return false;
-          });
       function onDataBinding(e) {
           var dropDownList = jQuery('#customerAccountDropDownList').data('DropDownList');
           var customerAccount = dropDownList.value();

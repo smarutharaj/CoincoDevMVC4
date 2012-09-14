@@ -1,5 +1,5 @@
 ﻿@{
-   IEnumerable<Coinco.SMS.Website.Models.ServiceOrderLine> serviceOrderCollection= (IEnumerable<Coinco.SMS.Website.Models.ServiceOrderLine>)ViewData["ServiceOrderLine"];
+    
    Html.Telerik().Grid<Coinco.SMS.Website.Models.ServiceOrderLine>((IEnumerable<Coinco.SMS.Website.Models.ServiceOrderLine>)ViewData["ServiceOrderLine"])
         .Name("ServiceOrderLineGrid")
         .DataKeys(keys =>
@@ -31,7 +31,7 @@
         {
             dataBinding.Ajax().OperationMode(GridOperationMode.Client).Select("_SelectionClientSide_ServiceOrderLines", "CheckIn")
                 .Update("_UpdateServiceOrderLine", "CheckIn")
-                .Delete("_DeleteServiceOrderLine", "CheckIn",new { id=)
+                .Delete("_DeleteServiceOrderLine", "CheckIn")
                 .Enabled(true);
         }
         )
