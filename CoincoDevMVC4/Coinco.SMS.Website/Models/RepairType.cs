@@ -20,37 +20,37 @@ namespace Coinco.SMS.Website.Models
         public string ConditionId { get; set; }
         public string ConditionName { get; set; }
 
-        public List<RepairType> ConditionList { get; set; }
+        public SelectList ConditionList { get; set; }
 
         public string SymptomAreaId { get; set; }
         public string SymptomAreaName { get; set; }
 
-        public List<RepairType> SysmptomAreaList { get; set; }
+        public SelectList SysmptomAreaList { get; set; }
 
         public string SymptomCodeId { get; set; }
         public string SymptomCodeName { get; set; }
 
-        public List<RepairType> SymptomCodeList { get; set; }
+        public SelectList SymptomCodeList { get; set; }
 
         public string DiagonsisAreaId { get; set; }
         public string DiagonsisAreaName { get; set; }
 
-        public List<RepairType> DiagnosisAreaList { get; set; }
+        public SelectList DiagnosisAreaList { get; set; }
 
         public string DiagonsisCodeId { get; set; }
         public string DiagonsisCodeName { get; set; }
 
-        public List<RepairType> DiagnosisCodeList { get; set; }
+        public SelectList DiagnosisCodeList { get; set; }
 
         public string ResolutionId { get; set; }
         public string ResolutionName { get; set; }
 
-        public List<RepairType> ResolutionList { get; set; }
+        public SelectList ResolutionList { get; set; }
 
         public string RepairStageId { get; set; }
         public string RepairStageName { get; set; }
 
-        public List<RepairType> RepairStageList { get; set; }
+        public SelectList RepairStageList { get; set; }
 
         public ServiceTechnician Technician { get; set; }
 
@@ -89,7 +89,7 @@ namespace Coinco.SMS.Website.Models
         //}
 
 
-        public List<RepairType> GetCondtions(string userName)
+        public IEnumerable<RepairType> GetCondtions(string userName)
         {
             IAXHelper axHelper = ObjectFactory.GetInstance<IAXHelper>();
             List<RepairType> repairList = new List<RepairType>();
@@ -111,11 +111,11 @@ namespace Coinco.SMS.Website.Models
             {
                 throw e;
             }
-            return repairList;
+            return repairList.AsEnumerable<RepairType>();
 
         }
 
-        public List<RepairType> GetSymptomArea(string userName)
+        public IEnumerable<RepairType> GetSymptomArea(string userName)
         {
             IAXHelper axHelper = ObjectFactory.GetInstance<IAXHelper>();
             List<RepairType> repairList = new List<RepairType>();
@@ -137,7 +137,7 @@ namespace Coinco.SMS.Website.Models
             {
                 throw e;
             }
-            return repairList;
+            return repairList.AsEnumerable<RepairType>();
 
         }
 
