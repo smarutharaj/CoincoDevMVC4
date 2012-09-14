@@ -32,30 +32,35 @@
         @Html.DisplayFor(x => TempData["ServiceOrderId"], new { @class = "labelViewSO", id = "serviceOrderViewlabel" })
     
         <br />
-        @Html.Label("SO Relation:", new { @class = "labelHeaderView", id = "sOLabel" })
-        @Html.DropDownListFor(x => x.ServiceObjectRelation, (SelectList)ViewData["SORelationList"], "<--Select One-->", new { @class = "dropDownPropertiesSP", id = "SORelationDropDownList" })
+        @Html.Label("Serial Number:", new { @class = "labelHeaderView", id = "serialNumberLabel" })
+        
+        @{Html.Telerik().ComboBox().Name("serialNumberDropDownList")
+        .BindTo((SelectList)ViewData["SerialNumberList"])
+        .ClientEvents(e => e.OnChange("onserialNumberDropDownChange"))
+        .HtmlAttributes(new { style = "font-size: 8pt; font-family: Verdana; width:150px"})
+        .DropDownHtmlAttributes(new { style = "font-size: 8pt; font-family: Verdana;" })
+        .Placeholder("Select Serial Number...")
+        .Render();
+        }
+        @*@Html.DropDownListFor(x => x.ServiceObjectRelation, (SelectList)ViewData["SORelationList"], "<--Select One-->", new { @class = "dropDownPropertiesSP", id = "SORelationDropDownList" })*@
         <br />
     </div>
 
     <div class="centercolumn">
         @Html.Label("Warranty:", new { @class = "labelHeaderView", id = "warrantyHeadLabel" })
         <div class="labelViewSO">   
-        @Html.DisplayFor(x => x.ServiceOrderLine.Warranty, new { @class = "labelViewSO", id = "serviceOrderViewlabel" })
+        @Html.DisplayFor(x => x.WareHouse, new { @class = "labelViewSO", id = "serviceOrderViewlabel" })
         </div>
         <br />
-        @Html.Label("Serial Number:", new { @class = "labelHeaderView", id = "serailNoHeadLabel" })
-        <div class="labelViewSO">    
-        @Html.DisplayFor(x => x.SerialNumber, (SelectList)ViewData["SerialNumberList"])
-        </div>
-        <br />
-    </div>
-
-    <div class="rightcolumn">
         @Html.Label("Repair Type:", new { @class = "labelHeaderView", id = "repairHeadLabel" })
         <div class="labelViewSO">
         @Html.DisplayFor(x => x.ServiceOrderLine.RepairType)
         </div>
-        <br />
+      
+    </div>
+
+    <div class="rightcolumn">
+  
         @Html.Label("Part Number:", new { @class = "labelHeaderView", id = "partNoHeadLabel" })
         <div class="labelViewSO">
         @Html.DisplayFor(x => x.ServiceOrderLine.PartNumber)<br />
@@ -126,7 +131,7 @@
     <label> Serial Number:</label>
       @Html.DropDownListFor(x => x.TransactionSerialNumber, new SelectList(""), "<--Select One-->", new { @class = "dropDownPropertiesSP", id = "LinePropertyDropDownList" })
   </div>  
-  <div class="bottomDimensioncolumn" >
+  <div class="bottomDimensioncolumn"  >
      <h6>Product Dimension</h6>
         <label> Configuration:</label>
      @Html.DropDownListFor(x => x.ConfigType, new SelectList(""), "<--Select One-->", new { @class = "dropDownPropertiesSP", id = "LinePropertyDropDownList" })
@@ -223,6 +228,32 @@
 
 </div>
 </div>
+
+<script type="text/javascript">
+
+debugger
+function onserialNumberDropDownChange(e) {
+        var serialNumberId = e.currentTarget.value;
+        if (serialNumberId != null)
+        {
+            jQuery.ajax({
+                url: "/WorkOrder/GetServiceOrderLineBySerialNumberOrderProcess",
+                type: 'GET',
+                data: { serialNumberId: serialNumberId },
+                dataType: 'html',
+                success: function (result) {
+                    jQuery('#serviceProcessDiv').html(result);
+                },
+                 error: function (result) {
+                              alert(result.responseText);
+                          }
+
+                      });
+
+        }
+        return false;
+    }
+</script>
     
     
     

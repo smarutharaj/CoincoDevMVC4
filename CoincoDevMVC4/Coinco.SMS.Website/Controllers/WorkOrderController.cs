@@ -122,8 +122,8 @@ namespace Coinco.SMS.Controllers
 
             SerivceOrderPartLine serivceOrderPartLineObject = new SerivceOrderPartLine();
             IEnumerable<SerivceOrderPartLine> serviceOrderPartLineCollection = null;
-            serviceOrderPartLineCollection = serivceOrderPartLineObject.GetServiceObjectRelationByServiceOrder(TempData["ServiceOrderId"].ToString(), User.Identity.Name.ToString().Split('\\')[1]);
-            serivceOrderPartLineObject.ServiceOrderPartLineList = new SelectList(serviceOrderPartLineCollection, "ServiceObjectRelation", "ServiceObjectRelation", serviceOrderPartLineCollection.First<SerivceOrderPartLine>().ServiceObjectRelation);
+            serviceOrderPartLineCollection = serivceOrderPartLineObject.GetSerialNumberByServiceOrder(TempData["ServiceOrderId"].ToString(), User.Identity.Name.ToString().Split('\\')[1]);
+            serivceOrderPartLineObject.ServiceOrderPartLineList = new SelectList(serviceOrderPartLineCollection, "ServiceObjectRelation", "SerialNumber", serviceOrderPartLineCollection.First<SerivceOrderPartLine>().ServiceObjectRelation);
            
             ViewData["SORelationList"] = serivceOrderPartLineObject.ServiceOrderPartLineList;
             ViewData["SerialNumberList"] =  serivceOrderPartLineObject.ServiceOrderPartLineList;
@@ -145,7 +145,6 @@ namespace Coinco.SMS.Controllers
         [GridAction]
         public ActionResult _SelectionClientSide_serviceOrderPartLines(string serviceOrderId)
         {
-            //serviceOrderId = serviceOrderId ?? "";
             Session["SID"] = serviceOrderId;
             TempData["ServiceOrderId"] = serviceOrderId;
             TempData.Keep();
@@ -155,11 +154,29 @@ namespace Coinco.SMS.Controllers
             });
         }
 
+        [HttpPost]
+        public ActionResult GetServiceOrderLineBySerialNumberOrderProcess(string serialNumber)
+        {
+            string userName = null;
+            userName = User.Identity.Name.ToString().Split('\\')[1];
+            ViewData["ServiceOrderLineinProcess"] = GetServiceOrderLineBySerialNumber(serialNumber);
+            TempData.Keep();
+            return View();
+        }
+
         private List<SerivceOrderPartLine> GetServiceOrderPartLinesByServiceOrderID(string serviceOrderId)
         {
             string userName = null;
             userName = User.Identity.Name.ToString().Split('\\')[1];
-            List<SerivceOrderPartLine> serviceOrderLine = (new SerivceOrderPartLine()).GetServiceOrderPartLineByServiceOrder(serviceOrderId, userName);
+            List<SerivceOrderPartLine> serviceOrderPartLine = (new SerivceOrderPartLine()).GetServiceOrderPartLineByServiceOrder(serviceOrderId, userName);
+            return serviceOrderPartLine;
+        }
+
+        private List<ServiceOrderLine> GetServiceOrderLineBySerialNumber(string serialNumber)
+        {
+            string userName = null;
+            userName = User.Identity.Name.ToString().Split('\\')[1];
+            List<ServiceOrderLine> serviceOrderLine = (new ServiceOrderLine()).GetServiceOrderLinesDetailsBySerialNumber(serialNumber, "", userName);
             return serviceOrderLine;
         }
 
