@@ -976,5 +976,407 @@ namespace Coinco.SMS.AXWrapper
         }
 
         #endregion
+
+        #region "Repair Type"
+
+        public DataTable GetConditionList(string userName)
+        {
+            DataTable resultTable = new DataTable();
+            Axapta ax = null;
+            AxaptaRecord axRecord;
+            try
+            {
+                // Login to Microsoft Dynamics AX.
+                ax = new Axapta();
+                ax.LogonAs(userName.Trim(), "", networkCredentials, axCompany, "", "", "");
+                resultTable.Columns.Add("ConditionId", typeof(String));
+                resultTable.Columns.Add("Name", typeof(String));
+                using (axRecord = ax.CreateAxaptaRecord("SMAConditionTable"))
+                {
+                    // Execute the query on the table.
+                    axRecord.ExecuteStmt("select ConditionId, Name from %1 where %1.dataAreaID=='" + axCompany + "'");
+                    // Loop through the set of retrieved records.
+                    while (axRecord.Found)
+                    {
+
+                        DataRow row = resultTable.NewRow();
+                        row["ConditionId"] = axRecord.get_Field("ConditionId");
+                        row["Name"] = axRecord.get_Field("Name");
+                        resultTable.Rows.Add(row);
+                        axRecord.Next();
+
+                    }
+
+
+                }
+            }
+            catch (Exception e)
+            {
+                throw e;
+                // Take other error action as needed.
+            }
+            finally
+            {
+                if (ax != null) ax.Logoff();
+            }
+            return resultTable;
+        }
+
+
+        public DataTable GetSymptomAreaList(string userName)
+        {
+            DataTable resultTable = new DataTable();
+            Axapta ax = null;
+            AxaptaRecord axRecord;
+            try
+            {
+                // Login to Microsoft Dynamics AX.
+                ax = new Axapta();
+                ax.LogonAs(userName.Trim(), "", networkCredentials, axCompany, "", "", "");
+                resultTable.Columns.Add("Name", typeof(String));
+                resultTable.Columns.Add("SymptomAreaId", typeof(String));
+                using (axRecord = ax.CreateAxaptaRecord("SMASymptomArea"))
+                {
+                    // Execute the query on the table.
+                    axRecord.ExecuteStmt("select Name, SymptomAreaId from %1 where %1.DataAreaID=='" + axCompany + "'");
+                    // Loop through the set of retrieved records.
+                    while (axRecord.Found)
+                    {
+
+                        DataRow row = resultTable.NewRow();
+                        row["Name"] = axRecord.get_Field("Name");
+                        row["SymptomAreaId"] = axRecord.get_Field("SymptomAreaId");
+                        resultTable.Rows.Add(row);
+                        axRecord.Next();
+
+                    }
+
+
+                }
+            }
+            catch (Exception e)
+            {
+                throw e;
+                // Take other error action as needed.
+            }
+            finally
+            {
+                if (ax != null) ax.Logoff();
+            }
+            return resultTable;
+        }
+
+
+
+        public DataTable GetSymptomCodeList(string userName)
+        {
+            DataTable resultTable = new DataTable();
+            Axapta ax = null;
+            AxaptaRecord axRecord;
+            try
+            {
+                // Login to Microsoft Dynamics AX.
+                ax = new Axapta();
+                ax.LogonAs(userName.Trim(), "", networkCredentials, axCompany, "", "", "");
+                resultTable.Columns.Add("Name", typeof(String));
+                resultTable.Columns.Add("SMASymptomAreaId", typeof(String));
+                resultTable.Columns.Add("SMASymptomCodeId", typeof(String));
+                using (axRecord = ax.CreateAxaptaRecord("SMASymptomCode"))
+                {
+                    // Execute the query on the table.
+                    axRecord.ExecuteStmt("select Name, SMASymptomAreaId, SMASymptomCodeId from %1 where %1.DataAreaID=='" + axCompany + "'");
+                    // Loop through the set of retrieved records.
+                    while (axRecord.Found)
+                    {
+
+                        DataRow row = resultTable.NewRow();
+                        row["Name"] = axRecord.get_Field("Name");
+                        row["SMASymptomAreaId"] = axRecord.get_Field("SMASymptomAreaId");
+                        row["SMASymptomCodeId"] = axRecord.get_Field("SMASymptomCodeId");
+                        resultTable.Rows.Add(row);
+                        axRecord.Next();
+
+                    }
+
+
+                }
+            }
+            catch (Exception e)
+            {
+                throw e;
+                // Take other error action as needed.
+            }
+            finally
+            {
+                if (ax != null) ax.Logoff();
+            }
+            return resultTable;
+        }
+
+
+        public DataTable GetDiagnosisAreaList(string userName)
+        {
+            DataTable resultTable = new DataTable();
+            Axapta ax = null;
+            AxaptaRecord axRecord;
+            try
+            {
+                // Login to Microsoft Dynamics AX.
+                ax = new Axapta();
+                ax.LogonAs(userName.Trim(), "", networkCredentials, axCompany, "", "", "");
+                resultTable.Columns.Add("Name", typeof(String));
+                resultTable.Columns.Add("DiagnosisAreaId", typeof(String));
+
+                using (axRecord = ax.CreateAxaptaRecord("SMADiagnosisArea"))
+                {
+                    // Execute the query on the table.
+                    axRecord.ExecuteStmt("select DiagnosisAreaId, Name from %1 where %1.DataAreaID=='" + axCompany + "'");
+                    // Loop through the set of retrieved records.
+                    while (axRecord.Found)
+                    {
+
+                        DataRow row = resultTable.NewRow();
+
+                        row["DiagnosisAreaId"] = axRecord.get_Field("DiagnosisAreaId");
+                        row["Name"] = axRecord.get_Field("Name");
+
+                        resultTable.Rows.Add(row);
+                        axRecord.Next();
+
+                    }
+
+
+                }
+            }
+            catch (Exception e)
+            {
+                throw e;
+                // Take other error action as needed.
+            }
+            finally
+            {
+                if (ax != null) ax.Logoff();
+            }
+            return resultTable;
+        }
+
+        public DataTable GetDiagnosisCodeList(string userName)
+        {
+            DataTable resultTable = new DataTable();
+            Axapta ax = null;
+            AxaptaRecord axRecord;
+            try
+            {
+                // Login to Microsoft Dynamics AX.
+                ax = new Axapta();
+                ax.LogonAs(userName.Trim(), "", networkCredentials, axCompany, "", "", "");
+                resultTable.Columns.Add("Name", typeof(String));
+                resultTable.Columns.Add("DiagnosisAreaId", typeof(String));
+                resultTable.Columns.Add("DiagnosisCodeId", typeof(String));
+                using (axRecord = ax.CreateAxaptaRecord("SMADiagnosisCode"))
+                {
+                    // Execute the query on the table.
+                    axRecord.ExecuteStmt("select Name, DiagnosisCodeId, DiagnosisAreaId from %1 where %1.DataAreaID=='" + axCompany + "'");
+                    // Loop through the set of retrieved records.
+                    while (axRecord.Found)
+                    {
+
+                        DataRow row = resultTable.NewRow();
+                        row["Name"] = axRecord.get_Field("Name");
+                        row["DiagnosisCodeId"] = axRecord.get_Field("DiagnosisCodeId");
+                        row["DiagnosisAreaId"] = axRecord.get_Field("DiagnosisAreaId");
+                        resultTable.Rows.Add(row);
+                        axRecord.Next();
+
+                    }
+
+
+                }
+            }
+            catch (Exception e)
+            {
+                throw e;
+                // Take other error action as needed.
+            }
+            finally
+            {
+                if (ax != null) ax.Logoff();
+            }
+            return resultTable;
+        }
+
+
+        public DataTable GetResolutionList(string userName)
+        {
+            DataTable resultTable = new DataTable();
+            Axapta ax = null;
+            AxaptaRecord axRecord;
+            try
+            {
+                // Login to Microsoft Dynamics AX.
+                ax = new Axapta();
+                ax.LogonAs(userName.Trim(), "", networkCredentials, axCompany, "", "", "");
+                resultTable.Columns.Add("Name", typeof(String));
+                resultTable.Columns.Add("ResolutionId", typeof(String));
+
+                using (axRecord = ax.CreateAxaptaRecord("SMAResolutionTable"))
+                {
+                    // Execute the query on the table.
+                    axRecord.ExecuteStmt("select ResolutionId, Name from %1 where %1.DataAreaID=='" + axCompany + "'");
+                    // Loop through the set of retrieved records.
+                    while (axRecord.Found)
+                    {
+
+                        DataRow row = resultTable.NewRow();
+
+                        row["ResolutionId"] = axRecord.get_Field("ResolutionId");
+                        row["Name"] = axRecord.get_Field("Name");
+
+                        resultTable.Rows.Add(row);
+                        axRecord.Next();
+
+                    }
+
+
+                }
+            }
+            catch (Exception e)
+            {
+                throw e;
+                // Take other error action as needed.
+            }
+            finally
+            {
+                if (ax != null) ax.Logoff();
+            }
+            return resultTable;
+        }
+
+
+        public DataTable GetRespairStageList(string userName)
+        {
+            DataTable resultTable = new DataTable();
+            Axapta ax = null;
+            AxaptaRecord axRecord;
+            try
+            {
+                // Login to Microsoft Dynamics AX.
+                ax = new Axapta();
+                ax.LogonAs(userName.Trim(), "", networkCredentials, axCompany, "", "", "");
+                resultTable.Columns.Add("Name", typeof(String));
+                resultTable.Columns.Add("RepairStageId", typeof(String));
+
+                using (axRecord = ax.CreateAxaptaRecord("SMARepairStage"))
+                {
+                    // Execute the query on the table.
+                    axRecord.ExecuteStmt("select RepairStageId, Name from %1 where %1.DataAreaID=='" + axCompany + "'");
+                    // Loop through the set of retrieved records.
+                    while (axRecord.Found)
+                    {
+
+                        DataRow row = resultTable.NewRow();
+                        row["Name"] = axRecord.get_Field("Name");
+                        row["RepairStageId"] = axRecord.get_Field("RepairStageId");
+
+
+                        resultTable.Rows.Add(row);
+                        axRecord.Next();
+
+                    }
+
+
+                }
+            }
+            catch (Exception e)
+            {
+                throw e;
+                // Take other error action as needed.
+            }
+            finally
+            {
+                if (ax != null) ax.Logoff();
+            }
+            return resultTable;
+        }
+
+        public DataTable GetRepairLines(string serviceOrderId, string userName)
+        {
+
+            Axapta ax = null;
+            AxaptaRecord axRecord;
+            DataTable repairLineTable = new DataTable();
+
+            repairLineTable.Columns.Add("RepServiceOrder", typeof(String));
+            repairLineTable.Columns.Add("UniqueId", typeof(String));
+            repairLineTable.Columns.Add("SORelationID", typeof(String));
+            repairLineTable.Columns.Add("Description", typeof(String));
+            repairLineTable.Columns.Add("ConditionId", typeof(String));
+            repairLineTable.Columns.Add("SymptomAreaId", typeof(String));
+            repairLineTable.Columns.Add("SymptomCodeId", typeof(String));
+            repairLineTable.Columns.Add("DiagnosisAreaId", typeof(String));
+            repairLineTable.Columns.Add("DiagnosisCodeId", typeof(String));
+
+
+            repairLineTable.Columns.Add("ResolutionId", typeof(String));
+            repairLineTable.Columns.Add("RepairStageId", typeof(String));
+            repairLineTable.Columns.Add("Technician", typeof(String));
+            repairLineTable.Columns.Add("ServiceComments", typeof(String));
+
+
+
+
+
+
+
+
+            try
+            {
+
+                ax = new Axapta();
+                ax.LogonAs(userName.Trim(), "", networkCredentials, axCompany, "", "", "");
+
+                axRecord = (AxaptaRecord)ax.CallStaticClassMethod("ServiceOrderManagement", "getSMARepairLine", serviceOrderId);
+                axRecord.ExecuteStmt("select * from %1");
+
+                while (axRecord.Found)
+                {
+                    DataRow row = repairLineTable.NewRow();
+                    row["RepServiceOrder"] = axRecord.get_Field("ServiceOrderId");
+                    row["UniqueId"] = axRecord.get_Field("UniqueID");
+                    row["SORelationID"] = axRecord.get_Field("ServiceObjectRelationId");
+
+                    row["Description"] = axRecord.get_Field("Description");
+                    row["ConditionId"] = axRecord.get_Field("ConditionId");
+                    row["SymptomAreaId"] = axRecord.get_Field("SymptomAreaId");
+                    row["SymptomCodeId"] = axRecord.get_Field("SymptomCodeId");
+                    row["DiagnosisAreaId"] = axRecord.get_Field("DiagnosisAreaId");
+                    row["DiagnosisCodeId"] = axRecord.get_Field("DiagnosisCodeId");
+                    row["ResolutionId"] = axRecord.get_Field("ResolutionId");
+                    row["RepairStageId"] = axRecord.get_Field("RepairStageId");
+                    row["Technician"] = axRecord.get_Field("WorkerName");
+                    row["ServiceComments"] = axRecord.get_Field("Name");
+
+
+
+                    repairLineTable.Rows.Add(row);
+                    axRecord.Next();
+                }
+
+            }
+
+            catch (Exception e)
+            {
+                throw e;
+                // Take other error action as needed.
+            }
+            finally
+            {
+                if (ax != null) ax.Logoff();
+            }
+            return repairLineTable;
+        }
+
+        #endregion
+
     }
 }

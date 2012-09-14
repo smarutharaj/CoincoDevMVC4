@@ -28,5 +28,14 @@ namespace Coinco.SMS.AXWrapper
         DataTable GetLinePropertyList(string userName);
         DataTable GetSpecialityCodeList(string userName, string transactionId);
         DataTable GetServiceOrderPartLineByServiceOrder(string serviceOrderId, string userName);
+
+        DataTable GetConditionList(string userName);
+        DataTable GetSymptomAreaList(string userName);
+        DataTable GetSymptomCodeList(string userName);
+        DataTable GetDiagnosisAreaList(string userName);
+        DataTable GetDiagnosisCodeList(string userName);
+        DataTable GetResolutionList(string userName);
+        DataTable GetRespairStageList(string userName);
+        DataTable GetRepairLines(string serviceOrderId, string userName);
     }
 }
