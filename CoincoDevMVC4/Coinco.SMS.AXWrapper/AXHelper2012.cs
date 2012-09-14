@@ -549,7 +549,7 @@ namespace Coinco.SMS.AXWrapper
         #region "Service Order Process"
 
         // get Service Object Relation by Service Order for Service Order Process
-        public DataTable GetServiceObjectRelationByServiceOrder(string serviceOrder, string userName)
+        public DataTable GetSerialNumberByServiceOrder(string serviceOrder, string userName)
         {
 
             Axapta ax = null;
