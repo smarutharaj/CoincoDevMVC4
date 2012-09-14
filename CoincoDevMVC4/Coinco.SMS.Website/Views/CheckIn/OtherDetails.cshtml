@@ -5,7 +5,6 @@
         .Name("BillingAddressGrid")
         .Columns(columns =>
         {
-            columns.Bound(c => c.AddressId).Title("Address Id").Width(0);
             columns.Bound(c => c.AddressDetails).Title("Billing Address").Width(180);
         })
                 .DataBinding(dataBinding =>
