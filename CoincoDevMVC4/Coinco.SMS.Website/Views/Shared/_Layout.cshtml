@@ -22,7 +22,6 @@
 <body>
     <header>
     <div class = "LayoutHeader">
-            @* <div class ="headerfeatured">*@
                 <div class ="headerImageClass">
                     <img src="../../Images/Coinco - Logo.png" alt="Coinco - Logo" />
                 </div>
@@ -75,7 +74,6 @@
                         
                         </div>
                 </div>
-            @*</div>*@
     </div>
     </header>
     <div id="body" >
@@ -86,8 +84,6 @@
                 <p>Developed by Barry-Wehmiller International Pvt Ltd. www.bwir.com</p>
             </div>
     </footer>
-    @Scripts.Render("~/bundles/jquery")
-    @RenderSection("scripts", required: false)
    @{Html.Telerik().ScriptRegistrar().DefaultGroup(group => group.Combined(false)
                                                          .CacheDurationInDays(5)
                                                          .Compress(false))
