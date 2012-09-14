@@ -1,4 +1,16 @@
-﻿
+﻿html {
+    background-color: #e2e2e2;
+    margin: 0;
+    padding: 0;
+}
+
+.page
+{
+    max-width: 960px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
 .imgClass
 {
     padding: 10;
@@ -13,7 +25,7 @@
 
 text-align:center;
 width:70px;
-height:70px;
+height:auto;
 float:left;
 
 }
@@ -70,7 +82,7 @@ margin-left:5px;
     margin: 0 auto;
     max-width: 960px;
     height: 50px;
-
+    /*width: auto;*/
 }
 .siteuserClass
 {
@@ -105,6 +117,7 @@ margin-left:5px;
     height: 62px;
     background-image: url('../Images/Border.png');
     background-repeat: repeat-x;
+   /* width: auto;*/
 }
 /*.smsMenu
 {
@@ -132,8 +145,8 @@ margin-left:5px;
     
 }*/
 
-body {
-    background-color: #e2e2e2;
+body 
+{
     border-top: solid 0px #000;
     color: #333;
     font-size: .85em;
@@ -144,6 +157,16 @@ body {
     padding-left:5px;
     padding-right:5px;
     padding-bottom:5px;
+}
+
+#main
+{
+    max-width: 960px;
+    background: #fff;
+    position:relative;
+    padding: 1px 10px 10px 10px;
+    margin-bottom: 30px;
+    _height: 1px; /* only IE6 applies CSS properties starting with an underscore */
 }
 
 .iqNameTooltip
@@ -679,11 +702,6 @@ footer
 
 /*******************end********************/
 
-html {
-    background-color: #e2e2e2;
-    margin: 0;
-    padding: 0;
-}
 
 
 
