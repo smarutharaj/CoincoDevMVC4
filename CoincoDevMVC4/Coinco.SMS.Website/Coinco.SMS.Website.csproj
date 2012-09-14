@@ -146,6 +146,7 @@
     <Compile Include="Models\LineProperty.cs" />
     <Compile Include="Models\Location.cs" />
     <Compile Include="Models\PartDetails.cs" />
+    <Compile Include="Models\RepairType.cs" />
     <Compile Include="Models\SalesHistory.cs" />
     <Compile Include="Models\SerivceOrderPartLine.cs" />
     <Compile Include="Models\ServiceOrder.cs" />
