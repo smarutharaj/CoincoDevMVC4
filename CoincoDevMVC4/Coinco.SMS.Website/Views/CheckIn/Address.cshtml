@@ -24,21 +24,21 @@
          @{
              Html.Telerik().Grid((IEnumerable<Coinco.SMS.Website.Models.Address>)ViewData["ShippingAddress"])
         .Name("ShippingAddressGrid")
-        .DataKeys(dataKeys => dataKeys.Add(c => c.AddressId))
         .Columns(columns =>
         {
-            columns.Bound(o => o.AddressId)
-                   .ClientTemplate("<input type='CheckBox' name='checkedRecords' value='' />")
+            columns.Bound(c => c.IsShipping)
+                   .ClientTemplate("<input type='checkbox' name='checkedRecords' value='<#= IsShipping #>' />")
                    .Title("")
                    .Width(36)
                    .HtmlAttributes(new { style = "text-align:center" });
-            columns.Bound(c => c.AddressId).Title("Address Id").Width(0);
+
             columns.Bound(c => c.AddressDetails).Title("Shipping Address").Width(180);
         })
                         .DataBinding(dataBinding =>
                         {
                             dataBinding.Ajax().OperationMode(GridOperationMode.Client).Select("_GetCustomerAddresses", "CheckIn")
-                                .Enabled(true);
+                                                            .Enabled(true);
+                            
                         }
         )
         .ClientEvents(events => events.OnRowSelect("onRowSelected"))

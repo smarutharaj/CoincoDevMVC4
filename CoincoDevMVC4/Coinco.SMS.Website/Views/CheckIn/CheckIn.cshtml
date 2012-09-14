@@ -29,7 +29,6 @@
         }
 
             
-
         </div>
     </div>
     </div>
@@ -106,7 +105,7 @@
           var $checkedRecords = $(':checked');
 
           if ($checkedRecords.length < 1) {
-              alert('Check a few grid rows first.');
+              alert('Please select atleast one shipping address.');
               return;
           }                    
           jQuery.ajax({
@@ -131,6 +130,15 @@
 
           });
           return false;
+      });
+
+      jQuery('#Clear').click(function () {
+          $('#customerAccountDropDownList').val('-1');
+          $('#customerPOTextBox').val('');
+          $('#serviceTechnicianDropDownList').val('-1');
+          $('#serviceResponsibleDropDownList').val('-1');
+          $('#woClassificationDropDownList').val('-1');
+          $('#customerCommentTextArea').val('');
       });
 
           jQuery(function GetCustomerAddress(e) {

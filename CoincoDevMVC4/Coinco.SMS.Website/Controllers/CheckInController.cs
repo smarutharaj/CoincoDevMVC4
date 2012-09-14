@@ -4,8 +4,8 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using Coinco.SMS.Website.Models;
+using Telerik.Web.Mvc.UI;
 using Telerik.Web.Mvc;
-
 namespace Coinco.SMS.Website.Controllers
 {
     public class CheckInController : Controller
@@ -50,7 +50,51 @@ namespace Coinco.SMS.Website.Controllers
 
             });
         }
+        [AcceptVerbs(HttpVerbs.Post)]
+        [GridAction]
+        public ActionResult _UpdateServiceOrderLine(string serialNumber)
+       
+        {
+            List<ServiceOrderLine> serviceOrderLineExistingList = TempData["ServiceOrderLine"] as List<ServiceOrderLine>;
+            ServiceOrderLine serviceOrderLineExisting = (from item in serviceOrderLineExistingList
+                                                         where item.SerialNumber == serialNumber
+                                                         select item).First();
 
+            TryUpdateModel(serviceOrderLineExisting);
+            TempData["ServiceOrderLine"] = serviceOrderLineExistingList;
+
+            return View(new GridModel(serviceOrderLineExistingList));
+
+        }
+        [AcceptVerbs(HttpVerbs.Post)]
+        [GridAction]
+        public ActionResult _DeleteServiceOrderLine(string serialNumber)
+        {
+            string userName = null;
+            userName = User.Identity.Name.ToString().Split('\\')[1];
+            if (TempData["ServiceOrderLine"] != null)
+            {
+                
+                List<ServiceOrderLine> serviceOrderLineExistingList = TempData["ServiceOrderLine"] as List<ServiceOrderLine>;
+                ServiceOrderLine serviceOrderLine = (from item in serviceOrderLineExistingList
+                                                     where item.SerialNumber == serialNumber
+                                                     select item).FirstOrDefault();
+                if (serviceOrderLine != null)
+                {
+                    //Delete the record
+                    serviceOrderLineExistingList.Remove(serviceOrderLine);
+                }
+             
+                ViewData["ServiceOrderLine"] = serviceOrderLineExistingList;
+            }
+            TempData["ServiceOrderLine"] = ViewData["ServiceOrderLine"];
+            TempData.Keep();
+            return View(new GridModel<ServiceOrderLine>
+            {
+                Data = TempData["ServiceOrderLine"] as List<ServiceOrderLine>
+
+            });
+        }
         [GridAction]
         public ActionResult _GetCustomerAddresses(string customerAccount)
         {
