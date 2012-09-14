@@ -120,14 +120,18 @@ namespace Coinco.SMS.Controllers
             LinePropertyObject.LinePropertyList = new SelectList(LinePropertyCollection, "LinePropertyCode", "LinePropertyDescription", null);
             ViewData["LinePropertyList"] = LinePropertyObject.LinePropertyList;
 
-            SerivceOrderPartLine serivceOrderPartLineObject = new SerivceOrderPartLine();
-            IEnumerable<SerivceOrderPartLine> serviceOrderPartLineCollection = null;
-            serviceOrderPartLineCollection = serivceOrderPartLineObject.GetSerialNumberByServiceOrder(TempData["ServiceOrderId"].ToString(), User.Identity.Name.ToString().Split('\\')[1]);
-            serivceOrderPartLineObject.ServiceOrderPartLineList = new SelectList(serviceOrderPartLineCollection, "ServiceObjectRelation", "SerialNumber", serviceOrderPartLineCollection.First<SerivceOrderPartLine>().ServiceObjectRelation);
-           
-            ViewData["SORelationList"] = serivceOrderPartLineObject.ServiceOrderPartLineList;
-            ViewData["SerialNumberList"] =  serivceOrderPartLineObject.ServiceOrderPartLineList;
-            
+            if (TempData["ServiceOrderId"] != null)
+            {
+                SerivceOrderPartLine serivceOrderPartLineObject = new SerivceOrderPartLine();
+                IEnumerable<SerivceOrderPartLine> serviceOrderPartLineCollection = null;
+                serviceOrderPartLineCollection = serivceOrderPartLineObject.GetSerialNumberByServiceOrder(TempData["ServiceOrderId"].ToString(), User.Identity.Name.ToString().Split('\\')[1]);
+                serivceOrderPartLineObject.ServiceOrderPartLineList = new SelectList(serviceOrderPartLineCollection, "ServiceObjectRelation", "SerialNumber", serviceOrderPartLineCollection.First<SerivceOrderPartLine>().ServiceObjectRelation);
+
+
+                ViewData["SORelationList"] = serivceOrderPartLineObject.ServiceOrderPartLineList;
+                ViewData["SerialNumberList"] = serivceOrderPartLineObject.ServiceOrderPartLineList;
+                ViewData["ServiceOrderPartLines"] = GetServiceOrderPartLinesByServiceOrderID(TempData["ServiceOrderId"].ToString());
+            }
             ServiceTechnician serviceTechnician = new ServiceTechnician();
             serviceTechnician.ServiceTechnicianList = new SelectList(serviceTechnician.GetTechnicians(User.Identity.Name.ToString().Split('\\')[1]), "ServiceTechnicianNo", "ServiceTechnicianName", null);
             ViewData["ServiceTechnicianList"] = serviceTechnician.ServiceTechnicianList;
@@ -135,7 +139,7 @@ namespace Coinco.SMS.Controllers
             ViewData["SpecialityCodeList"] = "";
             ViewData["ConfigList"] = "";
 
-            ViewData["ServiceOrderPartLines"] = GetServiceOrderPartLinesByServiceOrderID(TempData["ServiceOrderId"].ToString());
+            
             
 
             TempData.Keep();
