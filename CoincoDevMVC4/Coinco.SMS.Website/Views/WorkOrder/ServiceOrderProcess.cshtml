@@ -36,7 +36,7 @@
         
         @{Html.Telerik().ComboBox().Name("serialNumberDropDownList")
             .BindTo((SelectList)ViewData["SerialNumberList"])
-          
+            .ClientEvents(e => e.OnChange("onserialNumberDropDownChange"))
             .Placeholder("-- Select --")
             .HtmlAttributes(new { style = "font-size: 8pt; font-family: Verdana; width:150px; marign:5px;" })
             .DropDownHtmlAttributes(new { style = "font-size: 8pt; font-family: Verdana;" })
@@ -81,9 +81,14 @@
  <h6>Add Lines</h6>
 
   <label>
+
+
             Transaction Type:</label>
             @{Html.Telerik().ComboBox().Name("transactionTypeDropDownList")
+                  
             .BindTo(new SelectList(Enum.GetValues(typeof(Coinco.SMS.Website.Models.TransactionType))))
+            //Enum.GetValues(typeof(enumtype)).Cast<enumtype>().Select(x => new SelectListItem { Text = x.ToString(), Value = ((int)x).ToString() })
+            .ClientEvents(e => e.OnChange("ontransactionHide"))
             .HtmlAttributes(new { style = "font-size: 8pt; font-family: Verdana; width:150px" })
             .DropDownHtmlAttributes(new { style = "font-size: 8pt; font-family: Verdana;" })
             .SelectedIndex(0)
@@ -111,7 +116,7 @@
     <label>
             Specialty Code:</label>
             @{Html.Telerik().ComboBox().Name("specialtyCodeDropDownList")
-            .BindTo((SelectList)ViewData["SerialNumberList"])
+            //.DataBinding(binding => binding.Ajax().Select("_GetDropDownListProducts", "ComboBox"))
             .HtmlAttributes(new { style = "font-size: 8pt; font-family: Verdana; width:150px" })
             .DropDownHtmlAttributes(new { style = "font-size: 8pt; font-family: Verdana;" })
             .SelectedIndex(0)
@@ -140,7 +145,7 @@
             @Html.TextBoxFor(x => x.Quantity, new { @class = "singleTextBox" })<br />
  <label>
             Technician:</label>
-            @{Html.Telerik().ComboBox().Name("LinePropertyDropDownList")
+            @{Html.Telerik().ComboBox().Name("techniacianDropDownList")
             .BindTo((SelectList)ViewData["ServiceTechnicianList"])
             .HtmlAttributes(new { style = "font-size: 8pt; font-family: Verdana; width:150px" })
             .DropDownHtmlAttributes(new { style = "font-size: 8pt; font-family: Verdana;" })
@@ -154,7 +159,7 @@
            Service Comments:</label>
            @Html.TextAreaFor(x => x.ServiceComments)<br />
  </div>
- <div class="addLineRightcolumn">
+ <div class="addLineRightcolumn" id="addLineRightcolumn">
  <div class="topDimensioncolumn">
   <h6>Storage Dimension</h6>
    <label>
@@ -172,7 +177,7 @@
          <label>
             Site:</label>
              @{Html.Telerik().ComboBox().Name("siteDropDownList")
-           
+            .BindTo((SelectList)ViewData["siteList"])
             .HtmlAttributes(new { style = "font-size: 8pt; font-family: Verdana; width:150px" })
             .DropDownHtmlAttributes(new { style = "font-size: 8pt; font-family: Verdana;" })
             .SelectedIndex(0)
@@ -318,7 +323,8 @@
 <script type="text/javascript">
 
 
-function onserialNumberDropDownChange(e) {
+    function onserialNumberDropDownChange(e) {
+debugger
         var serialNumberId = e.currentTarget.value;
         if (serialNumberId != null)
         {
@@ -339,6 +345,31 @@ function onserialNumberDropDownChange(e) {
         }
         return false;
     }
+
+
+
+    function ontransactionHide(e) {
+    
+        var transactionType = e.currentTarget.value;
+        if (transactionType == "Hour")
+        {
+            $('#addLineRightcolumn').hide();
+        }
+        else if (transactionType == "Fee") {
+            $('#addLineRightcolumn').hide();
+        }
+        else if (transactionType == "Expense") {
+            $('#addLineRightcolumn').hide();
+        }
+        else if (transactionType == "Item") {
+            $('#addLineRightcolumn').show();
+        }
+       };
+        
+       
+        
+    
+
 </script>
     
     
