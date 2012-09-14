@@ -1,4 +1,62 @@
 ﻿@model Coinco.SMS.Website.Models.ServiceOrder
+<div id="Address" class="fullViewforLargerHeightClass">  
+  <div id="BillingAddress" class="leftAddressViewClass">
+@{Html.Telerik().Grid((IEnumerable<Coinco.SMS.Website.Models.Address>)ViewData["BillingAddress"])
+        .Name("BillingAddressGrid")
+        .Columns(columns =>
+        {
+            columns.Bound(c => c.AddressId).Title("Address Id").Width(0);
+            columns.Bound(c => c.AddressDetails).Title("Billing Address").Width(180);
+        })
+                .DataBinding(dataBinding =>
+                {
+                    dataBinding.Ajax().OperationMode(GridOperationMode.Client).Select("_GetCustomerAddresses", "CheckIn")
+                        .Enabled(true);
+                }
+        )
+                 .Scrollable(c => c.Height("40px"))
+        .Footer(false)
+        .HtmlAttributes(new { style = "font-size: 8pt; font-family: Verdana;" })
+       .Render();
+    
+        }
+        </div>
+   <div id="ShippingAddress" class="rightAddressViewClass">
+         @{
+             Html.Telerik().Grid((IEnumerable<Coinco.SMS.Website.Models.Address>)ViewData["ShippingAddress"])
+        .Name("ShippingAddressGrid")
+        .Columns(columns =>
+        {
+            columns.Template(@<text>
+                    <input name="checkedRecords" type="checkbox" value="@item.IsShipping" title="checkedRecords"           
+                    />
+                </text>)
+                   .ClientTemplate("<input type='checkbox' name='checkedRecords' value='<#= IsShipping #>' />")
+                   .Title("")
+                   .Width(36)
+                   .HtmlAttributes(new { style = "text-align:center" });
+
+            columns.Bound(c => c.AddressDetails).Title("Shipping Address").Width(180);
+        })
+                        .DataBinding(dataBinding =>
+                        {
+                            dataBinding.Ajax().OperationMode(GridOperationMode.Client).Select("_GetCustomerAddresses", "CheckIn")
+                                                            .Enabled(true);
+                            
+                        }
+        )
+        .ClientEvents(events => events.OnRowSelect("onRowSelected"))
+       
+         .Footer(false)
+         .Selectable()
+         .Scrollable(c => c.Height("40px"))
+        .HtmlAttributes(new { style = "font-size: 8pt; font-family: Verdana;" })
+       .Render();
+    
+        }
+    </div>
+ </div>
+    <h6>Other Details</h6>
 
     <div id="OtherDetails" class="fullViewforMediumHeightClass">
     <div id="CustomerComments" class="leftViewClass"> 
@@ -8,8 +66,7 @@
         <div id="CustomerCommentTextBox" class="leftadjacentView">
   
             @Html.TextAreaFor(p => p.Comments, new { @class = "textAreaProperties", id = "customerCommentTextArea" }) 
-
-        </div>
+         </div>
     </div>
 
     <div id="CustomerPO" class="rightViewClass"> 
@@ -83,10 +140,12 @@
      <div id="SerialNumber" class="leftViewClass"> 
         <div id="SerialNumberLabel" class="leftView" >
             @Html.Label("Serial Number", new { @class = "leftView" })
+          
         </div>
         <div id="SerialNumberTextBox" class="leftadjacentView">
 
                  @Html.TextBox("serialNumberTextBox", "", new { @class = "textBoxProperties" }) 
+           
         </div>
     </div>
 
@@ -101,7 +160,7 @@
     Html.Telerik().ComboBox().Name("partNumberDropDownList")
         .BindTo((SelectList)ViewData["PartNumberList"])
         //.ClientEvents(e => e.OnOpen("onOpen"))
-        .HtmlAttributes(new { style = "font-size: 8pt; font-family: Verdana;" })
+        .HtmlAttributes(new { style = "font-size: 8pt; font-family: Verdana;width:200px" })
         .DropDownHtmlAttributes(new { style = "font-size: 8pt; font-family: Verdana;" })     
         .Render();
         }
@@ -117,6 +176,12 @@
         jQuery('#Add').click(function () {
             var partNumber = $('#partNumberDropDownList').val();
             var serialNumber = $('#serialNumberTextBox').val();
+            if (($.trim(serialNumber) == '') || (serialNumber == null)) {
+                alert('Please enter the serial number before adding a line.');
+                $('#serialNumberTextBox').addClass("input-validation-error");
+                $('#serialNumberTextBox').focus();
+                return;
+            }
             jQuery.ajax({
                 url: "/CheckIn/GetServiceOrderLinesHistoryBySerialNumberPartNumber",
                 type: 'POST',
@@ -131,4 +196,41 @@
             });
             return false;
         });
+
+        function displayCheckedOrders() {
+            var $checkedRecords = $(':checked');
+
+            if ($checkedRecords.length < 1) {
+                alert('Check a few grid rows first.');
+                return;
+            }
+
+            //            $('#result').load('<%= Url.Action("DisplayCheckedOrders", "Grid")
+            //                %>', $checkedRecords);
+        }
+
+        function onRowSelected(e) {
+            var ordersGrid = $('#ShippingAddressGrid').data('tGrid');
+            var addressId = e.row.cells[0].innerHTML;
+            jQuery.ajax({
+                url: "/CheckIn/SelectionServerSide",
+                type: 'POST',
+                data: { addressId: addressId },
+                success: function (result) {
+                    jQuery('#Address').html(result);
+                },
+                error: function (result) {
+                }
+
+            });
+            return false;
+        }
+        jQuery('#serialNumberTextBox').keyup(function () {
+            $('#serialNumberTextBox').removeClass("input-validation-error");
+        });
+
+        function onDataBinding(e) {
+            SomethingGroupGrid_RowSelect(e);
+            e.data = $.extend(e.data, { addressId: addressId });
+        }
     </script>
