@@ -1126,7 +1126,7 @@ namespace Coinco.SMS.AXWrapper
 
 
 
-        public DataTable GetSymptomCodeList(string userName)
+        public DataTable GetSymptomCodeList(string symptomArea, string userName)
         {
             DataTable resultTable = new DataTable();
             Axapta ax = null;
@@ -1218,7 +1218,7 @@ namespace Coinco.SMS.AXWrapper
             return resultTable;
         }
 
-        public DataTable GetDiagnosisCodeList(string userName)
+        public DataTable GetDiagnosisCodeList(string diagnosisArea, string userName)
         {
             DataTable resultTable = new DataTable();
             Axapta ax = null;
