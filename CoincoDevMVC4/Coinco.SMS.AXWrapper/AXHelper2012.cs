@@ -681,6 +681,64 @@ namespace Coinco.SMS.AXWrapper
             return serviceOrderLineTable;
         }
 
+        //- Get the Service Order Line Details by Serial Number or Item Number in Service Order Process
+
+        public DataTable GetServiceOrderLinesDetailsBySerialNumber(string serialId, string itemNumber, string userName)
+        {
+
+            Axapta ax = null;
+            AxaptaRecord axRecord;
+            DataTable serialTable = new DataTable();
+            serialTable.Columns.Add("SerialNumber", typeof(String));
+            serialTable.Columns.Add("PartNumber", typeof(String));
+            serialTable.Columns.Add("PartType", typeof(String));
+            serialTable.Columns.Add("Quantity", typeof(String));
+            serialTable.Columns.Add("Warranty", typeof(String));
+            serialTable.Columns.Add("RepairType", typeof(String));
+            serialTable.Columns.Add("LineProperty", typeof(String));
+            object[] param = new object[2];
+            try
+            {
+
+                ax = new Axapta();
+                ax.LogonAs(userName.Trim(), "", networkCredentials, axCompany, "", "", "");
+                param[0] = serialId;
+                param[1] = itemNumber;
+
+                axRecord = (AxaptaRecord)ax.CallStaticClassMethod("ServiceOrderManagement", "getSMASerialNumberDetails", param);
+                axRecord.ExecuteStmt("select * from %1");
+
+                while (axRecord.Found)
+                {
+                    DataRow row = serialTable.NewRow();
+                    row["SerialNumber"] = axRecord.get_Field("SerialNumber");
+                    row["PartNumber"] = axRecord.get_Field("ItemID");
+                    row["PartType"] = axRecord.get_Field("ItemGroup");
+                    row["Quantity"] = axRecord.get_Field("Quantity");
+                    row["Warranty"] = axRecord.get_Field("Warranty");
+                    row["RepairType"] = axRecord.get_Field("RepairType");
+                    row["LineProperty"] = axRecord.get_Field("LineProperty");
+                    serialTable.Rows.Add(row);
+                    axRecord.Next();
+                }
+
+
+
+
+            }
+            catch (Exception e)
+            {
+                throw e;
+                // Take other error action as needed.
+            }
+            finally
+            {
+                if (ax != null) ax.Logoff();
+            }
+            return serialTable;
+        }
+
+
 
 
         //  Get technicians for service order process
