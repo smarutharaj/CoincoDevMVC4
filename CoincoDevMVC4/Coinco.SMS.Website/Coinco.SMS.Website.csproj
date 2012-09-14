@@ -495,6 +495,7 @@
     <Content Include="Views\CheckIn\CheckIn.cshtml" />
     <Content Include="Views\CheckIn\Address.cshtml" />
     <Content Include="Views\CheckIn\ServiceOrderLine.cshtml" />
+    <Content Include="Views\CheckIn\OtherDetails.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
