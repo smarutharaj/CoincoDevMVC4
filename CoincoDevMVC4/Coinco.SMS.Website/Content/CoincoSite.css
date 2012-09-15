@@ -512,7 +512,7 @@ footer
     padding-top:5px;
     padding-right:10px;
     max-width: 960px;
-    height: 385px;
+    height: 365px;
     vertical-align:middle;
      font-weight:normal;
     
@@ -810,7 +810,7 @@ mark {
 
 h1, h2, h3,
 h4, h5, h6 {
-    color: #8BA0BC;
+    color: #6B70AB;
     margin-bottom: 0;
     padding-bottom: 0px;
     padding-top:0px;
