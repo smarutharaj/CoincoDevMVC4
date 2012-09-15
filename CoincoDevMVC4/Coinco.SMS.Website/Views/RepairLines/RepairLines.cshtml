@@ -19,11 +19,20 @@
                      .Placeholder("--select--")
                  .HtmlAttributes(new { style = "font-size: 8pt; font-family: Calibri; width=50px;" })
                  .DropDownHtmlAttributes(new { style = "font-size: 8pt; font-family: Calibri;" })
+                 .CascadeTo("PartList")
                  .SelectedIndex(0)
                  .Render();
                 }
             <br />
          <label>Part Number:</label>
+         @{Html.Telerik().ComboBox().Name("PartList")
+                        .DataBinding(binding => binding.Ajax().Select("_GetPartNumberList", "RepairLines"))
+                 .HtmlAttributes(new { style = "font-size: 8pt; font-family: Calibri; width=50px;" })
+                 .DropDownHtmlAttributes(new { style = "font-size: 8pt; font-family: Calibri;" })
+                 .SelectedIndex(0)
+                 .Enable(false)
+                 .Render();
+                    }
               @* @Html.DisplayFor(x => TempData["ServiceOrderId"])*@
          <br />
      </div>
