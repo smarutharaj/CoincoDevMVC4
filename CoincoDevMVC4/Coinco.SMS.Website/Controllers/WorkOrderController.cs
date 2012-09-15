@@ -251,19 +251,25 @@ namespace Coinco.SMS.Controllers
             {
 
                 userName = User.Identity.Name.ToString().Split('\\')[1];
-                if (serviceOrderNo!=null)
+                if (serviceOrderNo == null)
                 {
                     serviceOrderNo = Session["SID"].ToString();
                 }
-                SerivceOrderPartLine serviceOrderPaerLine = new SerivceOrderPartLine();
-                isSuccess = serviceOrderPaerLine.CreateServiceOrderItemLines(serviceOrderNo, transactionType, serviceTechnicianCode , quantity, specialityCode, failureCode, serviceType, serviceOrderRelation="", description, serviceComments, itemNumber, site, wareHouse, transSerialCodeNo,  colorId="", sizeId="", configId="", locationId, userName);
-                
+                SerivceOrderPartLine serviceOrderPartLine = new SerivceOrderPartLine();
+                isSuccess = serviceOrderPartLine.CreateServiceOrderItemLines(serviceOrderNo, transactionType, serviceTechnicianCode , quantity, specialityCode, failureCode, serviceType, serviceOrderRelation="", description, serviceComments, itemNumber, site, wareHouse, transSerialCodeNo,  colorId="", sizeId="", configId="", locationId, userName);
+                if (isSuccess)
+                {
+
+                }
+                ViewData["ServiceOrderPartLines"] = GetServiceOrderPartLinesByServiceOrderID(TempData["ServiceOrderId"].ToString());
+
+
             }
             catch (Exception ex)
             {
                 throw ex;
             }
-            return View("ServiceOrderProcess");
+            return View("ServiceOrderPartLinesView");
         }
 
 

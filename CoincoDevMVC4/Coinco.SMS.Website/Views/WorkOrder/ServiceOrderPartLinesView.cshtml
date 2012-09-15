@@ -1,1 +1,40 @@
-﻿
+﻿@using Telerik.Web.Mvc.UI
+@model Coinco.SMS.Website.Models.SerivceOrderPartLine
+
+ @{Html.Telerik().Grid((IEnumerable<Coinco.SMS.Website.Models.SerivceOrderPartLine>)ViewData["ServiceOrderPartLines"])
+        .Name("PartLinesGrid")
+        .Columns(columns =>
+        {
+            columns.Bound(c => c.TransactionSerialNumber).Title("SerialNumber").Width(120);
+            columns.Bound(c => c.ServiceObjectRelation).Title("SO Relation").Width(100);
+            columns.Bound(c => c.TransactionType.TransactionTypeName).Title("Transaction").Width(100);
+            columns.Bound(c => c.Description).Width(100);
+            columns.Bound(c => c.SpecialtyCode.SpecialityCodeNo).Title("SpecialtyCode").Width(120);
+            columns.Bound(c => c.FailureCode.FailureCodeNo).Title("FailureCode").Width(100);
+            columns.Bound(c => c.LineProperty.LinePropertyCode).Title("LineProperty").Width(100);
+            columns.Bound(c => c.Quantity).Width(100);
+            columns.Bound(c => c.ServiceTechnician.ServiceTechnicianName).Title("Technician").Width(100);
+            columns.Bound(c => c.ServiceComments).Title("Comments").Width(100);
+            columns.Bound(c => c.PartDetails.ItemNumber).Title("ItemNumber").Width(100);
+            columns.Bound(c => c.Site.SiteID).Title("Site").Width(50);
+            columns.Bound(c => c.WareHouse.WareHouseCode).Title("WareHouse").Width(100);
+            columns.Bound(c => c.Location.LocationId).Title("Location").Width(100);
+            columns.Bound(c => c.UniqueId).Width(100).Hidden();
+
+        })
+
+        .DataBinding(dataBinding =>
+        {
+            dataBinding.Ajax().OperationMode(GridOperationMode.Client).Select("_SelectionClientSide_serviceOrderPartLines", "WorkOrder")
+                .Enabled(true);
+        }
+      )
+        .HtmlAttributes(new { style = "font-size: 8pt; font-family: Verdana; width:950px" })
+        .Scrollable()
+        .Pageable((pager => pager.PageSize(5)))
+        .Sortable()
+        .Selectable()
+        .Filterable()
+        .Render();
+        
+        }

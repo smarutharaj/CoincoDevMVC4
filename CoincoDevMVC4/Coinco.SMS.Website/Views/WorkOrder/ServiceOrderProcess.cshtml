@@ -122,7 +122,7 @@
                     Storage Dimension</h6>
                 <label>
                     Item Number:</label>
-                @{Html.Telerik().ComboBox().Name("partNumberDropDownList")
+                @{Html.Telerik().ComboBox().Name("itemNumberDropDownList")
             .BindTo((SelectList)ViewData["PartNumberList"])
             .Placeholder("-- Select --")
             .HtmlAttributes(new { style = "font-size: 8pt; font-family: Verdana; width:150px" })
@@ -206,47 +206,11 @@
             Clear</button>
     </div>
     <div class="partLinesDiv" id="ServicepartLines">
-        @{Html.Telerik().Grid((IEnumerable<Coinco.SMS.Website.Models.SerivceOrderPartLine>)ViewData["ServiceOrderPartLines"])
-        .Name("PartLinesGrid")
-        .Columns(columns =>
-        {
-            columns.Bound(c => c.TransactionSerialNumber).Title("SerialNumber").Width(120);
-            columns.Bound(c => c.ServiceObjectRelation).Title("SO Relation").Width(100);
-            columns.Bound(c => c.TransactionType.TransactionTypeName).Title("Transaction").Width(100);
-            columns.Bound(c => c.Description).Width(100);
-            columns.Bound(c => c.SpecialtyCode.SpecialityCodeNo).Title("SpecialtyCode").Width(120);
-            columns.Bound(c => c.FailureCode.FailureCodeNo).Title("FailureCode").Width(100);
-            columns.Bound(c => c.LineProperty.LinePropertyCode).Title("LineProperty").Width(100);
-            columns.Bound(c => c.Quantity).Width(100);
-            columns.Bound(c => c.ServiceTechnician.ServiceTechnicianName).Title("Technician").Width(100);
-            columns.Bound(c => c.ServiceComments).Title("Comments").Width(100);
-            columns.Bound(c => c.PartDetails.ItemNumber).Title("ItemNumber").Width(100);
-            columns.Bound(c => c.Site.SiteID).Title("Site").Width(50);
-            columns.Bound(c => c.WareHouse.WareHouseCode).Title("WareHouse").Width(100);
-            columns.Bound(c => c.Location.LocationId).Title("Location").Width(100);
+              @{Html.RenderPartial("ServiceOrderPartLinesView");}
 
-        })
-
-        .DataBinding(dataBinding =>
-        {
-            dataBinding.Ajax().OperationMode(GridOperationMode.Client).Select("_SelectionClientSide_serviceOrderPartLines", "WorkOrder")
-                .Enabled(true);
-        }
-      )
-        .HtmlAttributes(new { style = "font-size: 8pt; font-family: Verdana; width:950px" })
-        .Scrollable()
-        .Pageable((pager => pager.PageSize(5)))
-        .Sortable()
-        .Selectable()
-        .Filterable()
-        .Render();
-
-                //.ClientEvents(clientEvents => clientEvents.OnDataBinding("onServiceGridDataBinding"))
-                //.ClientEvents(events => events.OnRowSelect("onRowSelected"))
-
-       
+                     
     
-        }
+        
     </div>
     <div class="addressDiv">
         <h6>
@@ -334,7 +298,7 @@
            var lineProperty = $('#LinePropertyDropDownList').val();
            var description = $('#descriptionText').val();
            var serviceComments = $('#commentsText').val();
-           var itemNumber = $('#partNumberDropDownList').val();
+           var itemNumber = $('#itemNumberDropDownList').val();
            var site = $('#siteComboBox').val();
            var wareHouse = $('#wareHouseDropDownList').val();
            var transSerialCodeNo = $('#locationDropDownList').val();
