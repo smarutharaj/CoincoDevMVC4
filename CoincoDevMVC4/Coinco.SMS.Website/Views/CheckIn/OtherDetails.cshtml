@@ -13,7 +13,7 @@
                         .Enabled(true);
                 }
         )
-                 .Scrollable(c => c.Height("40px"))
+                 .Scrollable(c => c.Height("150px"))
         .Footer(false)
         .HtmlAttributes(new { style = "font-size: 8pt; font-family: Verdana;" })
        .Render();
@@ -46,19 +46,18 @@
                             
                         }
         )
-        .ClientEvents(events => events.OnRowSelect("onRowSelected"))
         .ClientEvents(events=> events.OnLoad("onLoad"))
          .Footer(false)
          .Selectable()
-         .Scrollable(c => c.Height("40px"))
+         .Scrollable(c => c.Height("150px"))
         .HtmlAttributes(new { style = "font-size: 8pt; font-family: Verdana;" })
+        
        .Render();
-    
+        
         }
     </div>
  </div>
-    <h6>Other Details</h6>
-
+     <h6>Other Details</h6>
     <div id="OtherDetails" class="fullViewforMediumHeightClass">
     <div id="CustomerComments" class="leftViewClass"> 
         <div id="CustomerCommentLabel" class="leftView" >
@@ -80,37 +79,34 @@
 
         </div>
     </div>
-    <br />
+
         <div id="ServiceTechnician" class="rightViewClass"> 
         <div id="ServiceTechnicianLabel" class="rightView" >
             @Html.Label("Service Technician", new { @class = "rightView" })
         </div>
         <div id="ServiceTechnicianDropDown" class="rightadjacentView">
-@*                 @Html.DropDownListFor(p => p.ServiceTechnician, (SelectList)ViewData["ServiceTechnicianList"], "<--Select One-->", new { @class = "dropDownProperties", id = "serviceTechnicianDropDownList" })           
-*@                 @{
+                @{
     Html.Telerik().ComboBox().Name("serviceTechnicianDropDownList")
         .BindTo((SelectList)ViewData["ServiceTechnicianList"])
         //.ClientEvents(e => e.OnOpen("onOpen"))
-        .HtmlAttributes(new { style = "font-size: 8pt; font-family: Verdana;width:200px" })
+        .HtmlAttributes(new { style = "font-size: 8pt; font-family: Verdana;width:205px" })
         .DropDownHtmlAttributes(new { style = "font-size: 8pt; font-family: Verdana;" })
         .Render();
         }
         </div>
     </div>
-    </div>
-    <div id="WOClassificationDetails" class="fullViewforSmallerHeightClass">
+
      <div id="WOClassification" class="leftViewClass"> 
         <div id="WOClassificationLabel" class="leftView" >
             @Html.Label("WO Classification", new { @class = "leftView" })
         </div>
         <div id="WOClassificationDropDown" class="leftadjacentView">
             
-@*                @Html.DropDownListFor(p => p.WOClassification, (SelectList)ViewData["WOClassificationList"], "<--Select One-->", new { @class = "dropDownProperties", id = "woClassificationDropDownList" })
-*@              @{
+             @{
     Html.Telerik().ComboBox().Name("woClassificationDropDownList")
         .BindTo((SelectList)ViewData["WOClassificationList"])
         //.ClientEvents(e => e.OnOpen("onOpen"))
-        .HtmlAttributes(new { style = "font-size: 8pt; font-family: Verdana;width:200px" })
+        .HtmlAttributes(new { style = "font-size: 8pt; font-family: Verdana;width:205px" })
         .DropDownHtmlAttributes(new { style = "font-size: 8pt; font-family: Verdana;" })
         .Render();
         }
@@ -123,12 +119,11 @@
         </div>
         <div id="ServiceResponsibleDropDown" class="rightadjacentView">
   
-@*               @Html.DropDownListFor(p => p.ServiceResponsible, (SelectList)ViewData["ServiceResponsibleList"], "<--Select One-->", new { @class = "dropDownProperties", id = "serviceResponsibleDropDownList" })
-*@                @{
+             @{
     Html.Telerik().ComboBox().Name("serviceResponsibleDropDownList")
         .BindTo((SelectList)ViewData["ServiceResponsibleList"])
         //.ClientEvents(e => e.OnOpen("onOpen"))
-        .HtmlAttributes(new { style = "font-size: 8pt; font-family: Verdana;width:200px" })
+        .HtmlAttributes(new { style = "font-size: 8pt; font-family: Verdana;width:205px" })
         .DropDownHtmlAttributes(new { style = "font-size: 8pt; font-family: Verdana;" })
         .Render();
         }
@@ -136,9 +131,9 @@
     </div>
     
     </div>
-            <h6>Check In Data</h6>
+     <h6>Check In Data</h6>
         <div id="CheckInData" class="fullViewThreeColumnforSmallerHeightClass">
-     <div id="SerialNumber" class="leftViewClass"> 
+     <div id="SerialNumber" class="leftViewClassforThirdColumn"> 
         <div id="SerialNumberLabel" class="leftView" >
             @Html.Label("Serial Number", new { @class = "leftView" })
           
@@ -156,12 +151,11 @@
         </div>
         <div id="PartNumberDropDown" class="rightadjacentView">
   
-@*               @Html.DropDownList("partNumberDropDownList", (SelectList)ViewData["PartNumberList"], "<--Select One-->", new { @class = "dropDownProperties" })
-*@             @{
+       @{
     Html.Telerik().ComboBox().Name("partNumberDropDownList")
         .BindTo((SelectList)ViewData["PartNumberList"])
         //.ClientEvents(e => e.OnOpen("onOpen"))
-        .HtmlAttributes(new { style = "font-size: 8pt; font-family: Verdana;width:200px" })
+        .HtmlAttributes(new { style = "font-size: 8pt; font-family: Verdana;width:205px" })
         .DropDownHtmlAttributes(new { style = "font-size: 8pt; font-family: Verdana;" })     
         .Render();
         }
@@ -191,7 +185,51 @@
             })
         }
 
+        $(function () {
+            $('#serialNumberTextBox').keydown(function (e) {
+                if (e.keyCode == 13) {
+                    var isSerialNumberExist = false;
+                    var partNumber = $('#partNumberDropDownList').val();
+                    var serialNumber = $('#serialNumberTextBox').val();
+                    if (($.trim(serialNumber) == '') || (serialNumber == null)) {
+                        alert('Please enter the serial number before adding a line.');
+                        $('#serialNumberTextBox').addClass("input-validation-error");
+                        $('#serialNumberTextBox').focus();
+                        return;
+                    }
 
+                    $("#ServiceOrderLineGrid .t-grid-content tbody > tr").each(function () {
+                        var tr = this;
+                        var cells = tr.cells;
+                        if (cells[2] != null) {
+                            var firstCell = cells[2].innerHTML;
+                            if (firstCell == serialNumber) {
+                                alert('The entered serial number is already availble in the lines table. Please enter a different serial number.');
+                                $('#serialNumberTextBox').focus();
+                                isSerialNumberExist = true;
+                                return;
+                            }
+                        }
+                    });
+                    if (isSerialNumberExist) {
+                        return;
+                    }
+                    jQuery.ajax({
+                        url: "/CheckIn/GetServiceOrderLinesHistoryBySerialNumberPartNumber",
+                        type: 'POST',
+                        data: { partNumber: partNumber, serialNumber: serialNumber },
+                        success: function (result) {
+                            jQuery('#ServiceOrderGridDiv').html(result);
+                        },
+                        error: function (result) {
+                            alert(result.responseText);
+                        }
+
+                    });
+                    return false;
+                }
+            });
+        });
         jQuery('#Add').click(function () {
             var isSerialNumberExist = false;
             var partNumber = $('#partNumberDropDownList').val();
@@ -247,22 +285,7 @@
             //                %>', $checkedRecords);
         }
 
-        function onRowSelected(e) {
-            var ordersGrid = $('#ShippingAddressGrid').data('tGrid');
-            var addressId = e.row.cells[0].innerHTML;
-            jQuery.ajax({
-                url: "/CheckIn/SelectionServerSide",
-                type: 'POST',
-                data: { addressId: addressId },
-                success: function (result) {
-                    jQuery('#Address').html(result);
-                },
-                error: function (result) {
-                }
-
-            });
-            return false;
-        }
+        
         jQuery('#serialNumberTextBox').keyup(function () {
             $('#serialNumberTextBox').removeClass("input-validation-error");
         });

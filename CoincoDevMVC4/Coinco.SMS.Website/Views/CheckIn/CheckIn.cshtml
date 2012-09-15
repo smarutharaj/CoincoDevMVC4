@@ -33,7 +33,6 @@
         </div>
     </div>
     </div>
-    <br />
       </div>
           <div id="OtherDetailsView" class="combinedViewForOtherDetailsCheckInDataClass" >
     
@@ -41,11 +40,11 @@
            </div>
   </div> 
   <br />
-    <div id="ServiceOrderGridDiv">
+    <div id="ServiceOrderGridDiv" class="serviceOrderLineGridClass" >
          @{Html.RenderPartial("ServiceOrderLine");}
         
   </div> 
-  <br />
+
   <div id="SubmitResult" class="submitResultClass"> 
                      <button class="t-button" type="button" id="Create" value="Create">Create</button>
                       
@@ -53,7 +52,6 @@
 
 
   </div>
-                      <br />
   </div>
 }
   <script type="text/javascript">
