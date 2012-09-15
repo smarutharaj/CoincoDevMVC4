@@ -60,7 +60,6 @@ namespace Coinco.SMS.Website.Models
 
         public string Comments { get; set; }
 
-        //public SelectList RepairLineList { get; set; }
 
         public string UniqueId { get; set; }
         public string ServiceObjectRelation { get; set; }
@@ -352,65 +351,65 @@ namespace Coinco.SMS.Website.Models
 
         }
 
-             
-
-        //public bool CreateRepairLineItems(string serviceOrderNo, string serviceOrderRelation, string conditionId, string symptomAreaId, string symptomCodeId, string diagonsisAreaId, string diagonsisCodeId, string resolutionId, string repairStageId, string technicianNo, string description, string serviceComments, string userName)
-        //{
-        //    bool isSuccess = false;
-
-        //    IAXHelper axHelper = ObjectFactory.GetInstance<IAXHelper>();
-        //    try
-        //    {
-        //        isSuccess = axHelper.CreateRepairLines(serviceOrderNo, serviceOrderRelation, conditionId, symptomAreaId, symptomCodeId, diagonsisAreaId, diagonsisCodeId, resolutionId, repairStageId, technicianNo, description, serviceComments, userName);
-
-        //    }
-        //    catch (Exception ex)
-        //    {
-
-        //        throw ex;
-        //    }
-        //    return isSuccess;
-
-        //}
 
 
-        //public bool UpdateRepairLineItems(string uniqueId, string serviceOrderNo, string serviceOrderRelation, string conditionId, string symptomAreaId, string symptomCodeId, string diagonsisAreaId, string diagonsisCodeId, string resolutionId, string repairStageId, string technicianNo, string description, string serviceComments, string userName)
-        //{
-        //    bool isSuccess = false;
+        public bool CreateRepairLineItems(string serviceOrderNo, string serviceOrderRelation, string conditionId, string symptomAreaId, string symptomCodeId, string diagonsisAreaId, string diagonsisCodeId, string resolutionId, string repairStageId, string technicianNo, string description, string serviceComments, string userName)
+        {
+            bool isSuccess = false;
 
-        //    IAXHelper axHelper = ObjectFactory.GetInstance<IAXHelper>();
-        //    try
-        //    {
-        //        isSuccess = axHelper.UpdateRepairLines(uniqueId, serviceOrderNo, serviceOrderRelation, conditionId, symptomAreaId, symptomCodeId, diagonsisAreaId, diagonsisCodeId, resolutionId, repairStageId, technicianNo, description, serviceComments, userName);
+            IAXHelper axHelper = ObjectFactory.GetInstance<IAXHelper>();
+            try
+            {
+                isSuccess = axHelper.CreateRepairLines(serviceOrderNo, serviceOrderRelation, conditionId, symptomAreaId, symptomCodeId, diagonsisAreaId, diagonsisCodeId, resolutionId, repairStageId, technicianNo, description, serviceComments, userName);
 
-        //    }
-        //    catch (Exception ex)
-        //    {
+            }
+            catch (Exception ex)
+            {
 
-        //        throw ex;
-        //    }
-        //    return isSuccess;
+                throw ex;
+            }
+            return isSuccess;
 
-        //}
+        }
 
-        //public bool DeleteRepairLineItems(string uniqueId, string userName)
-        //{
-        //    bool isSuccess = false;
 
-        //   IAXHelper axHelper = ObjectFactory.GetInstance<IAXHelper>();
-        //    try
-        //    {
-        //        isSuccess = axHelper.DeleteRepairLines(uniqueId, userName);
+        public bool UpdateRepairLineItems(string uniqueId, string serviceOrderNo, string serviceOrderRelation, string conditionId, string symptomAreaId, string symptomCodeId, string diagonsisAreaId, string diagonsisCodeId, string resolutionId, string repairStageId, string technicianNo, string description, string serviceComments, string userName)
+        {
+            bool isSuccess = false;
 
-        //    }
-        //    catch (Exception ex)
-        //    {
+            IAXHelper axHelper = ObjectFactory.GetInstance<IAXHelper>();
+            try
+            {
+                isSuccess = axHelper.UpdateRepairLines(uniqueId, serviceOrderNo, serviceOrderRelation, conditionId, symptomAreaId, symptomCodeId, diagonsisAreaId, diagonsisCodeId, resolutionId, repairStageId, technicianNo, description, serviceComments, userName);
 
-        //        throw ex;
-        //    }
-        //    return isSuccess;
+            }
+            catch (Exception ex)
+            {
 
-        //}
+                throw ex;
+            }
+            return isSuccess;
+
+        }
+
+        public bool DeleteRepairLineItems(string uniqueId, string userName)
+        {
+            bool isSuccess = false;
+
+            IAXHelper axHelper = ObjectFactory.GetInstance<IAXHelper>();
+            try
+            {
+                isSuccess = axHelper.DeleteRepairLines(uniqueId, userName);
+
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
+            return isSuccess;
+
+        }
 
     }
 

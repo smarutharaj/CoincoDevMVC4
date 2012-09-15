@@ -54,14 +54,14 @@ namespace Coinco.SMS.Website.Controllers
             return View();
         }
 
-        //[HttpGet]
-        //public ActionResult grid_RepairLinesDetails()
-        //{
-        //    TempData["ServiceOrderId"] = TempData["ServiceOrderId"].ToString();
-        //    ViewData["RepairLinesList"] = GetRepairLinesDetails(TempData["ServiceOrderId"].ToString());
-        //    TempData.Keep();
-        //    return View("RepairLineDetails");
-        //}
+        [HttpGet]
+        public ActionResult grid_RepairLinesDetails()
+        {
+            TempData["ServiceOrderId"] = TempData["ServiceOrderId"].ToString();
+            ViewData["RepairLinesList"] = GetRepairLinesDetails(TempData["ServiceOrderId"].ToString());
+            TempData.Keep();
+            return View("RepairLineDetails");
+        }
 
         [GridAction]
         public ActionResult _Selection_RepairLines()
@@ -132,16 +132,31 @@ namespace Coinco.SMS.Website.Controllers
 
         }
 
-        //[HttpPost]
-        //public ActionResult CreateRepairLineItems(string serviceOrderNo, string serviceOrderRelation, string conditionId, string symptomAreaId, string symptomCodeId, string diagonsisAreaId, string diagonsisCodeId, string resolutionId, string repairStageId, string technicianNo, string description, string serviceComments, string userName)
-        //{
-        //    string userName = null;
-        //    string newSerivceOrder = null;
-        //    bool isSuccess = false;
-        //    userName = User.Identity.Name.ToString().Split('\\')[1];
+        [HttpPost]
+        public ActionResult CreateRepairLineItems(string serviceOrderRelation, string conditionId, string symptomAreaId, string symptomCodeId, string diagonsisAreaId, string diagonsisCodeId, string resolutionId, string repairStageId, string technicianNo, string description, string serviceComments)
+        {
+            string userName = null;
+            bool isSuccess = false;
+            try
+            {
 
-        //    return ()
-        //}
+                userName = User.Identity.Name.ToString().Split('\\')[1];
+                RepairType repairType = new RepairType();
+                isSuccess = repairType.CreateRepairLineItems(Session["SID"].ToString(), "", conditionId, symptomAreaId, symptomCodeId, diagonsisAreaId, diagonsisCodeId, resolutionId, repairStageId, technicianNo, description, serviceComments, userName);
+
+                if (isSuccess)
+                {
+                    TempData["ServiceOrderId"] = Session["SID"].ToString();
+                  
+                }
+                ViewData["RepairLinesList"] = GetRepairLinesDetails(TempData["ServiceOrderId"].ToString());
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+                return View("RepairLineDetails");
+        }
 
         ///* Binding PartList...*/
 
