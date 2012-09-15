@@ -391,7 +391,7 @@ footer
 .leftViewClass
 {
     padding-left: 5px;
-    padding-top:5px;
+    padding-top:0px;
     padding-right:10px;
     max-width: 380px;
     width:380px;
@@ -405,7 +405,7 @@ footer
 .leftAddressViewClass
 {
    padding-left: 5px;
-   padding-top:5px;
+   padding-top:0px;
    padding-right:10px;
    max-width: 380px;
    width:380px;
@@ -493,7 +493,7 @@ footer
     padding-top:5px;
     padding-right:10px;
     max-width: 890px;
-    height: 150px;
+    height: 250px;
     vertical-align:middle;
      font-weight:normal;
     
@@ -521,6 +521,7 @@ footer
     font-weight:normal;
     font-family:  Verdana;
    font-size:8pt;
+   border-color:#8ba0bc;
 }
 
 .dropDownProperties
@@ -563,7 +564,7 @@ footer
 {
     float:right;
     padding-left: 10px;
-    padding-top:5px;
+    padding-top:0px;
     padding-right:10px;
     max-width: 380px;
     width:380px;
@@ -577,7 +578,7 @@ footer
 .rightAddressViewClass
 {
     padding-left: 10px;
-    padding-top:5px;
+    padding-top:0px;
     padding-right:10px;
     float:right;
     max-width: 380px;
@@ -616,7 +617,7 @@ footer
 {
     float:right;
     padding-left: 10px;
-    padding-top:5px;
+    padding-top:0px;
     padding-right:10px;
     max-width: 420px;
     width:420px;
@@ -1236,7 +1237,8 @@ textarea {
 }
 
 input.input-validation-error {
-    border: 1px solid #e80c4d;
+    border: 2px solid #e80c4d;
+    background-color:Orange;
 }
 
 input[type="checkbox"].input-validation-error {
