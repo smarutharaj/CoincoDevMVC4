@@ -498,6 +498,7 @@
     <Content Include="Views\CheckIn\OtherDetails.cshtml" />
     <Content Include="Views\RepairLines\PartNumber.cshtml" />
     <Content Include="Views\WorkOrder\PartDetailsView.cshtml" />
+    <Content Include="Views\RepairLines\RepairLineDetails.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -410,7 +410,7 @@ footer
    padding-right:10px;
    max-width: 380px;
    width:380px;
-   height: 40px;
+   height: 160px;
    font-family:  Verdana;
    font-size:8pt;
     font-weight:normal;
@@ -481,7 +481,7 @@ footer
 
 .fullViewforSmallerHeightClass
 {
-    padding-left: 5px;
+    padding-left: 10px;
     padding-top:5px;
     padding-right:10px;
     padding-bottom:5px;
@@ -586,7 +586,7 @@ footer
     margin:0px 0px 0px 0px;
     max-width: 200px;
     width: 200px;
-    height: 35px; 
+    height: 45px; 
     vertical-align:middle;
     font-weight:normal;
     font-family:  Verdana;
@@ -616,8 +616,8 @@ footer
     float:right;
     max-width: 380px;
     width:380px;
-    max-height: 150px;
-    height: 150px;
+    max-height: 160px;
+    height: 160px;
     font-family:  Verdana;
     font-size:8pt;
     font-weight:normal;
@@ -673,7 +673,6 @@ footer
    font-size:8pt;
     font-weight:normal;
 }
-
 
 
 /************************************************************/
@@ -811,10 +810,11 @@ mark {
 
 h1, h2, h3,
 h4, h5, h6 {
-    color: #58D3F7;
+    color: #8BA0BC;
     margin-bottom: 0;
     padding-bottom: 0px;
     padding-top:0px;
+    font-family:Verdana;
 }
 
 h1 {
@@ -834,7 +834,7 @@ h4 {
 }
 
 h5, h6 {
-    font-size: 1em;
+    font-size: 0.90em;
 }
 
     h5 a:link, h5 a:visited, h5 a:active {
@@ -1173,7 +1173,7 @@ fieldset
             padding-bottom: 5px;
         }
 
-/*label {
+label {
     
     margin : 5px 0 0px 0;
     font-size: 0.8em;
@@ -1181,8 +1181,9 @@ fieldset
     width: 130px;
     display: inline-block;
     vertical-align:top;
+    font-family:Verdana;
 }
-*/
+
 label.checkbox {
     display: inline;
 }
