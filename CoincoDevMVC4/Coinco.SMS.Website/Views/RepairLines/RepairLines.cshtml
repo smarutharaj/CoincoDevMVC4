@@ -53,9 +53,6 @@
                  .DropDownHtmlAttributes(new { style = "font-size: 8pt; font-family: Calibri;" })
                  .Render();
                     }
-            @*<div id ="symptomCodeList"> 
-                @{Html.RenderPartial("SymptomsCode",Model);}
-            </div>*@
             <br />
      </div>
      <div class="addLineRightcolumnRL">
@@ -103,12 +100,13 @@
                        .BindTo((SelectList)ViewData["DiagnosisArea"]) 
                  .HtmlAttributes(new { style = "font-size: 8pt; font-family: Calibri; width=50px;" })
                  .DropDownHtmlAttributes(new { style = "font-size: 8pt; font-family: Calibri;" })
+                 .CascadeTo("diagnosisCodeList")
                  .Render();
                     }
             <br />
             <label>Diagnosis Code:</label>
                  @{Html.Telerik().ComboBox().Name("diagnosisCodeList")
-                       
+                       .DataBinding(binding => binding.Ajax().Select("_GetDropDownDiagnosisCode", "RepairLines"))
                  .HtmlAttributes(new { style = "font-size: 8pt; font-family: Calibri; width=50px;" })
                  .DropDownHtmlAttributes(new { style = "font-size: 8pt; font-family: Calibri;" })
                  .Render();

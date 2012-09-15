@@ -196,7 +196,7 @@ namespace Coinco.SMS.Website.Models
 
         }
 
-        public List<RepairType> GetDiagnosisCode(string diagnosisArea, string userName)
+        public IQueryable<RepairType> GetDiagnosisCode(string diagnosisArea, string userName)
         {
             IAXHelper axHelper = ObjectFactory.GetInstance<IAXHelper>();
             List<RepairType> repairList = new List<RepairType>();
@@ -221,7 +221,7 @@ namespace Coinco.SMS.Website.Models
             {
                 throw e;
             }
-            return repairList;
+            return repairList.AsQueryable<RepairType>();
 
         }
 

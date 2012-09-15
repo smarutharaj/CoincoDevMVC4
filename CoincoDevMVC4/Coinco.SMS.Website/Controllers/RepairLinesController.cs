@@ -44,60 +44,39 @@ namespace Coinco.SMS.Website.Controllers
             ServiceTechnician serviceTechnician = new ServiceTechnician();
             serviceTechnician.ServiceTechnicianList = new SelectList(serviceTechnician.GetTechnicians(userName), "ServiceTechnicianNo", "ServiceTechnicianName", null);
             ViewData["ServiceTechnicianList"] = serviceTechnician.ServiceTechnicianList;
-
-            //List<RepairType> SymptomCodeCollection = new List<RepairType>();
-            //repairTypeObj.SymptomCodeList = new SelectList(SymptomCodeCollection.AsEnumerable<RepairType>(), "SymptomCodeId", "SymptomCodeName", null);
-            //TempData.Keep();
-
             return View(repairTypeObj);
-            //return View("RepailLines", repairType);
         }
+
+        /* Binding Symptom Code...*/
         [HttpPost]
         public JsonResult _GetDropDownSymptomCode(string symptomAreaList) 
         {
             return _GetSymptomCodeval(symptomAreaList); 
+
         }
 
         private JsonResult _GetSymptomCodeval(string SymptomAreaId) 
         {
             string userName = User.Identity.Name.ToString().Split('\\')[1];
-            string symptomArea = SymptomAreaId;
             RepairType repairTypeObj = new RepairType();
-            IEnumerable<RepairType> repairTypeCollection = null;
-            repairTypeCollection = repairTypeObj.GetSymptomCode(symptomArea, userName);
-            //repairTypeObj.SysmptomAreaList = new SelectList(repairTypeObj.GetSymptomCode(SymptomAreaId, userName), "SymptomAreaId", "SymptomAreaName", null);
-            //ViewData["SymptomArea"] = repairTypeObj.SysmptomAreaList;
-            return Json(new SelectList(repairTypeCollection, "SymptomAreaId", "SymptomAreaName"), JsonRequestBehavior.AllowGet); 
-            
-            //IQueryable<Product> products = nw.Products.AsQueryable<Product>(); 
-            //if (CategoryID.HasValue) 
-            //{ 
-            //    products = products.Where(p => p.CategoryID == CategoryID.Value); 
-            //} 
-            
-            //return Json(new SelectList(products, "ProductID", "ProductName"), JsonRequestBehavior.AllowGet); 
+            return Json(new SelectList(repairTypeObj.GetSymptomCode(SymptomAreaId, userName), "SymptomCodeId", "SymptomCodeName"), JsonRequestBehavior.AllowGet); 
+
         }
 
-        //[HttpGet]
-        //public ActionResult GetSymptomCode(string symptomArea)
-        //{
-        //    RepairType repairTypeObject = new RepairType();
-        //    if (symptomArea == null)
-        //    {
-        //        List<RepairType> SymptomCodeCollection = new List<RepairType>();
-        //        repairTypeObject.SymptomCodeList = new SelectList(SymptomCodeCollection.AsEnumerable<RepairType>(), "SymptomCodeId", "SymptomCodeName", null);
-        //        ViewData["SymptomCode"] = repairTypeObject.SymptomCodeList;
-        //    }
-        //    else
-        //    {
-        //        string userName = null;
-        //        userName = User.Identity.Name.ToString().Split('\\')[1];
-        //        repairTypeObject.SymptomCodeList = new SelectList(repairTypeObject.GetSymptomCode(symptomArea, userName), "SymptomCodeId", "SymptomCodeName", null);
-        //        ViewData["SymptomCode"] = repairTypeObject.SymptomCodeList;
-        //    }
-        //    TempData.Keep();
-        //    return View("SymptomsCode");
-        //}
+        /* Binding Diagnosis Code...*/
+        [HttpPost]
+        public JsonResult _GetDropDownDiagnosisCode(string diagnosisAreaList)
+        {
+            return _GetDiagnosisCodeval(diagnosisAreaList);
 
+        }
+
+        private JsonResult _GetDiagnosisCodeval(string DiagonsisAreaId)
+        {
+            string userName = User.Identity.Name.ToString().Split('\\')[1];
+            RepairType repairTypeObj = new RepairType();
+            return Json(new SelectList(repairTypeObj.GetDiagnosisCode(DiagonsisAreaId, userName), "DiagonsisCodeId", "DiagonsisCodeName"), JsonRequestBehavior.AllowGet);
+
+        }
     }
 }
