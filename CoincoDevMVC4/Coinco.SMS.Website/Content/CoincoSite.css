@@ -535,7 +535,7 @@ footer
     padding-left: 400px;
     padding-top:5px;
     padding-right:400px;
-    padding-bottom:10px;
+    padding-bottom:5px;
     max-width: 950px;
     height: 20px;
     vertical-align:middle;
@@ -587,6 +587,7 @@ footer
     max-width: 200px;
     width: 200px;
     height: 45px; 
+    max-height:45px;
     vertical-align:middle;
     font-weight:normal;
     font-family:  Verdana;
@@ -834,7 +835,7 @@ h4 {
 }
 
 h5, h6 {
-    font-size: 0.90em;
+    font-size: 0.88em;
 }
 
     h5 a:link, h5 a:visited, h5 a:active {

@@ -1,57 +1,50 @@
 ﻿@using Telerik.Web.Mvc
 @model Coinco.SMS.Website.Models.ServiceOrder
 
-
 @{
     ViewBag.Title = "CheckIn";
 }
 @using (Html.BeginForm())
 {
 <div id="ServiceOrderAdditionDiv">
-<div id="ServiceOrderDetailsDiv">
-    <div id="Identification">
-    <h5>Identification</h5>
-        <div id="IdentificationDetails" class="fullViewforSmallerHeightClass">
-    <div id="CustomerAccount" class="leftViewClass"> 
-        <div id="CustomerAccountLabel" class="leftView" >
-            @Html.Label("Customer Account", new { @class = "leftView" })
+    <div id="ServiceOrderDetailsDiv">
+        <div id="Identification">
+            <h6>Identification</h6>
+            <div id="IdentificationDetails" class="fullViewforSmallerHeightClass">
+                <div id="CustomerAccount" class="leftViewClass"> 
+                    <div id="CustomerAccountLabel" class="leftView" >
+                        @Html.Label("Customer Account", new { @class = "leftView" })
+                    </div>
+                    <div id="CustomerAccountDropDown" class="leftadjacentView">                  
+                        @{
+                            Html.Telerik().ComboBox().Name("customerAccountDropDownList")
+                                .BindTo((SelectList)ViewData["CustomerList"])
+                                //.ClientEvents(e => e.OnOpen("onOpen"))
+                                .ClientEvents(e => e.OnChange("onCustomerAccountDropDownListChange"))
+                                .HtmlAttributes(new { style = "font-size: 8pt; font-family: Verdana; width:200px" })
+                                .DropDownHtmlAttributes(new { style = "font-size: 8pt; font-family: Verdana;" })
+                                .Render();
+                                }
+           
+                    </div>
+                </div>
+            </div>
         </div>
-        <div id="CustomerAccountDropDown" class="leftadjacentView">          
-@*               @Html.DropDownListFor(model=> model.Customer, (SelectList)ViewData["CustomerList"], "<--Select One-->", new { @class = "dropDownProperties", id = "customerAccountDropDownList" })
-*@             
-@{
-    Html.Telerik().ComboBox().Name("customerAccountDropDownList")
-        .BindTo((SelectList)ViewData["CustomerList"])
-        //.ClientEvents(e => e.OnOpen("onOpen"))
-        .ClientEvents(e => e.OnChange("onCustomerAccountDropDownListChange"))
-        .HtmlAttributes(new { style = "font-size: 8pt; font-family: Verdana; width:200px" })
-        .DropDownHtmlAttributes(new { style = "font-size: 8pt; font-family: Verdana;" })
-        .Render();
-        }
-
-            
-        </div>
-    </div>
-    </div>
-      </div>
-          <div id="OtherDetailsView" class="combinedViewForOtherDetailsCheckInDataClass" >
-    
-                @{Html.RenderPartial("OtherDetails");}
-           </div>
-  </div> 
-    <div id="ServiceOrderGridDiv" class="serviceOrderLineGridClass" >
-         @{Html.RenderPartial("ServiceOrderLine");}
         
+        <div id="OtherDetailsView" class="combinedViewForOtherDetailsCheckInDataClass" >
+                @{Html.RenderPartial("OtherDetails");}
+        </div>
+    </div> 
+    
+    <div id="ServiceOrderGridDiv" class="serviceOrderLineGridClass" >
+         @{Html.RenderPartial("ServiceOrderLine");}        
   </div> 
 
-  <div id="SubmitResult" class="submitResultClass"> 
-                     <button class="t-button" type="button" id="Create" value="Create">Create</button>
-                      
-                    <button class="t-button" type="button" id="Clear" value="Clear">Clear</button>
-
-
-  </div>
-  </div>
+    <div id="SubmitResult" class="submitResultClass"> 
+        <button class="t-button" type="button" id="Create" value="Create">Create</button>                     
+        <button class="t-button" type="button" id="Clear" value="Clear">Clear</button>
+    </div>
+</div>
 }
   <script type="text/javascript">
       function onCustomerAccountDropDownListChange(e) {
@@ -63,7 +56,18 @@
                   data: { customerAccount: customerAccount },
                   success: function (result) {
                       jQuery('#OtherDetailsView').html(result);
+                      jQuery.ajax({
+                          url: "/CheckIn/ClearServiceOrderLines",
+                          type: 'POST',
+                          success: function (result) {
+                              jQuery('#ServiceOrderGridDiv').html(result);
 
+                          },
+                          error: function (result) {
+                              alert(result.responseText);
+                          }
+
+                      });
                   },
                   error: function (result) {
                       alert(result.responseText);
@@ -75,7 +79,6 @@
              return false;
           }
       }
-
 
 
       jQuery('#Create').click(function () {
@@ -129,6 +132,18 @@
           $('#serviceResponsibleDropDownList').val('-1');
           $('#woClassificationDropDownList').val('-1');
           $('#customerCommentTextArea').val('');
+          jQuery.ajax({
+              url: "/CheckIn/ClearServiceOrderLines",
+              type: 'POST',
+              success: function (result) {
+                  jQuery('#ServiceOrderGridDiv').html(result);
+
+              },
+              error: function (result) {
+                  alert(result.responseText);
+              }
+
+          });
       });
 
 

@@ -1,26 +1,27 @@
 ﻿@model Coinco.SMS.Website.Models.ServiceOrder
 <div id="Address" class="fullViewforLargerHeightClass">  
-  <div id="BillingAddress" class="leftAddressViewClass">
-@{Html.Telerik().Grid((IEnumerable<Coinco.SMS.Website.Models.Address>)ViewData["BillingAddress"])
-        .Name("BillingAddressGrid")
-        .Columns(columns =>
-        {
-            columns.Bound(c => c.AddressDetails).Title("Billing Address").Width(180);
-        })
-                .DataBinding(dataBinding =>
+    <div id="BillingAddress" class="leftAddressViewClass">
+        @{Html.Telerik().Grid((IEnumerable<Coinco.SMS.Website.Models.Address>)ViewData["BillingAddress"])
+                .Name("BillingAddressGrid")
+                .Columns(columns =>
                 {
-                    dataBinding.Ajax().OperationMode(GridOperationMode.Client).Select("_GetCustomerAddresses", "CheckIn")
-                        .Enabled(true);
-                }
-        )
-                 .Scrollable(c => c.Height("130px"))
-        .Footer(false)
-        .HtmlAttributes(new { style = "font-size: 8pt; font-family: Verdana;" })
-       .Render();
+                    columns.Bound(c => c.AddressDetails).Title("Billing Address").Width(180);
+                })
+                        .DataBinding(dataBinding =>
+                        {
+                            dataBinding.Ajax().OperationMode(GridOperationMode.Client).Select("_GetCustomerAddresses", "CheckIn")
+                                .Enabled(true);
+                        }
+                )
+                         .Scrollable(c => c.Height("130px"))
+                .Footer(false)
+                .HtmlAttributes(new { style = "font-size: 8pt; font-family: Verdana;" })
+               .Render();
     
-        }
-        </div>
-   <div id="ShippingAddress" class="rightAddressViewClass">
+                }
+    </div>
+
+    <div id="ShippingAddress" class="rightAddressViewClass">
          @{
              Html.Telerik().Grid((IEnumerable<Coinco.SMS.Website.Models.Address>)ViewData["ShippingAddress"])
         .Name("ShippingAddressGrid")
@@ -47,24 +48,26 @@
                         }
         )
         .ClientEvents(events=> events.OnLoad("onLoad"))
-         .Footer(false)
-         .Selectable()
-         .Scrollable(c => c.Height("130px"))
-        .HtmlAttributes(new { style = "font-size: 8pt; font-family: Verdana;" })
-        
-       .Render();
+        .Footer(false)
+        .Selectable()
+        .Scrollable(c => c.Height("130px"))
+        .HtmlAttributes(new { style = "font-size: 8pt; font-family: Verdana;" })      
+        .Render();
         
         }
     </div>
- </div>
-     <h5>Other Details</h5>
-    <div id="OtherDetails" class="fullViewforMediumHeightClass">
+</div>
+
+<h6>Other Details</h6>
+
+<div id="OtherDetails" class="fullViewforMediumHeightClass">
+
     <div id="CustomerComments" class="leftViewClass"> 
         <div id="CustomerCommentLabel" class="leftView" >
             @Html.Label("Customer Comments", new { @class = "leftView" })
         </div>
+
         <div id="CustomerCommentTextBox" class="leftadjacentView">
-  
             @Html.TextAreaFor(p => p.Comments, new { @class = "textAreaProperties", id = "customerCommentTextArea" }) 
          </div>
     </div>
@@ -80,89 +83,90 @@
         </div>
     </div>
 
-        <div id="ServiceTechnician" class="rightViewClass"> 
+    <div id="ServiceTechnician" class="rightViewClass"> 
         <div id="ServiceTechnicianLabel" class="rightView" >
             @Html.Label("Service Technician", new { @class = "rightView" })
         </div>
+
         <div id="ServiceTechnicianDropDown" class="rightadjacentView">
-                @{
-    Html.Telerik().ComboBox().Name("serviceTechnicianDropDownList")
-        .BindTo((SelectList)ViewData["ServiceTechnicianList"])
-        //.ClientEvents(e => e.OnOpen("onOpen"))
-        .HtmlAttributes(new { style = "font-size: 8pt; font-family: Verdana;width:205px" })
-        .DropDownHtmlAttributes(new { style = "font-size: 8pt; font-family: Verdana;" })
-        .Render();
-        }
+            @{
+                Html.Telerik().ComboBox().Name("serviceTechnicianDropDownList")
+                .BindTo((SelectList)ViewData["ServiceTechnicianList"])
+                //.ClientEvents(e => e.OnOpen("onOpen"))
+                .HtmlAttributes(new { style = "font-size: 8pt; font-family: Verdana;width:205px" })
+                .DropDownHtmlAttributes(new { style = "font-size: 8pt; font-family: Verdana;" })
+                .Render();
+            }
         </div>
     </div>
 
-     <div id="WOClassification" class="leftViewClass"> 
+    <div id="WOClassification" class="leftViewClass"> 
         <div id="WOClassificationLabel" class="leftView" >
             @Html.Label("WO Classification", new { @class = "leftView" })
         </div>
+
         <div id="WOClassificationDropDown" class="leftadjacentView">
-            
-             @{
-    Html.Telerik().ComboBox().Name("woClassificationDropDownList")
-        .BindTo((SelectList)ViewData["WOClassificationList"])
-        //.ClientEvents(e => e.OnOpen("onOpen"))
-        .HtmlAttributes(new { style = "font-size: 8pt; font-family: Verdana;width:205px" })
-        .DropDownHtmlAttributes(new { style = "font-size: 8pt; font-family: Verdana;" })
-        .Render();
-        }
+            @{
+                Html.Telerik().ComboBox().Name("woClassificationDropDownList")
+                .BindTo((SelectList)ViewData["WOClassificationList"])
+                //.ClientEvents(e => e.OnOpen("onOpen"))
+                .HtmlAttributes(new { style = "font-size: 8pt; font-family: Verdana;width:205px" })
+                .DropDownHtmlAttributes(new { style = "font-size: 8pt; font-family: Verdana;" })
+                .Render();
+            }
         </div>
     </div>
 
-      <div id="ServiceResponsible" class="rightViewClass"> 
+    <div id="ServiceResponsible" class="rightViewClass"> 
         <div id="ServiceResponsibleLabel" class="rightView" >
             @Html.Label("Service Responsible", new { @class = "rightView" })
         </div>
+        
         <div id="ServiceResponsibleDropDown" class="rightadjacentView">
-  
-             @{
-    Html.Telerik().ComboBox().Name("serviceResponsibleDropDownList")
-        .BindTo((SelectList)ViewData["ServiceResponsibleList"])
-        //.ClientEvents(e => e.OnOpen("onOpen"))
-        .HtmlAttributes(new { style = "font-size: 8pt; font-family: Verdana;width:205px" })
-        .DropDownHtmlAttributes(new { style = "font-size: 8pt; font-family: Verdana;" })
-        .Render();
-        }
+            @{
+                Html.Telerik().ComboBox().Name("serviceResponsibleDropDownList")
+                .BindTo((SelectList)ViewData["ServiceResponsibleList"])
+                //.ClientEvents(e => e.OnOpen("onOpen"))
+                .HtmlAttributes(new { style = "font-size: 8pt; font-family: Verdana;width:205px" })
+                .DropDownHtmlAttributes(new { style = "font-size: 8pt; font-family: Verdana;" })
+                .Render();
+            }
         </div>
     </div>
     
-    </div>
-     <h5> Check In Data</h5>
-        <div id="CheckInData" class="fullViewThreeColumnforSmallerHeightClass">
-     <div id="SerialNumber" class="leftViewClassforThirdColumn"> 
+</div>
+
+<h6> Check In Data</h6>
+
+<div id="CheckInData" class="fullViewThreeColumnforSmallerHeightClass">
+    <div id="SerialNumber" class="leftViewClassforThirdColumn"> 
         <div id="SerialNumberLabel" class="leftView" >
             @Html.Label("Serial Number", new { @class = "leftView" })
-          
         </div>
-        <div id="SerialNumberTextBox" class="leftadjacentView">
 
+        <div id="SerialNumberTextBox" class="leftadjacentView">
                  @Html.TextBox("serialNumberTextBox", "", new { @class = "textBoxProperties" }) 
-           
         </div>
     </div>
 
-       <div id="PartNumber" class="rightViewClassforThirdColumn"> 
+    <div id="PartNumber" class="rightViewClassforThirdColumn"> 
         <div id="PartNumberLabel" class="rightView" >
             @Html.Label("Part Number", new { @class = "rightView" })
         </div>
-        <div id="PartNumberDropDown" class="rightadjacentView">
-  
-       @{
-    Html.Telerik().ComboBox().Name("partNumberDropDownList")
-        .BindTo((SelectList)ViewData["PartNumberList"])
-        //.ClientEvents(e => e.OnOpen("onOpen"))
-        .HtmlAttributes(new { style = "font-size: 8pt; font-family: Verdana;width:205px" })
-        .DropDownHtmlAttributes(new { style = "font-size: 8pt; font-family: Verdana;" })     
-        .Render();
-        }
-        </div>
-         <div id="AddButton" class="rightViewforThirdColumn" >
-                    <button class="t-button" type="button" id="Add" value="Add">Add</button>
 
+        <div id="PartNumberDropDown" class="rightadjacentView">
+           @{
+                Html.Telerik().ComboBox().Name("partNumberDropDownList")
+                .BindTo((SelectList)ViewData["PartNumberList"])
+                //.ClientEvents(e => e.OnOpen("onOpen"))
+                .HtmlAttributes(new { style = "font-size: 8pt; font-family: Verdana;width:205px" })
+                .DropDownHtmlAttributes(new { style = "font-size: 8pt; font-family: Verdana;" })     
+                .Render();
+            }
+        </div>
+        
+        <div id="AddButton" class="rightViewforThirdColumn" >
+            <button class="t-button" type="button" id="Add" value="Add">Add</button>
         </div>
     </div>
     </div>
