@@ -34,9 +34,9 @@
         <br />
         @Html.Label("Serial Number:", new { @class = "labelHeaderView", id = "serialNumberLabel" })
         
-        @{Html.Telerik().ComboBox().Name("serialNumberDropDownList")
+        @{Html.Telerik().ComboBox().Name("slNumberDropDownList")
             .BindTo((SelectList)ViewData["SerialNumberList"])
-            .ClientEvents(e => e.OnChange("onserialNumberDropDownChange"))
+            //.ClientEvents(e => e.OnChange("onserialNumberDropDownChange"))
             .Placeholder("-- Select --")
             .HtmlAttributes(new { style = "font-size: 8pt; font-family: Verdana; width:150px; marign:5px;" })
             .DropDownHtmlAttributes(new { style = "font-size: 8pt; font-family: Verdana;" })
@@ -86,10 +86,10 @@
             Transaction Type:</label>
             @{Html.Telerik().ComboBox().Name("transactionTypeDropDownList")
             .DataBinding(binding => binding.Ajax().Select("_GetTransactionTypes", "WorkOrder"))
+             .SelectedIndex(0)
             .ClientEvents(e => e.OnChange("ontransactionHide"))
             .HtmlAttributes(new { style = "font-size: 8pt; font-family: Verdana; width:150px" })
             .DropDownHtmlAttributes(new { style = "font-size: 8pt; font-family: Verdana;" })
-            .SelectedIndex(0)
             .CascadeTo("specialtyCodeDropDownList")
             .Render();
         }
@@ -103,10 +103,11 @@
             Failure Code:</label>
             @{Html.Telerik().ComboBox().Name("failureCodeDropDownList")
             .BindTo((SelectList)ViewData["FailureCodeList"])
+            .Placeholder("-- Select --")
             .HtmlAttributes(new { style = "font-size: 8pt; font-family: Verdana; width:150px" })
             .DropDownHtmlAttributes(new { style = "font-size: 8pt; font-family: Verdana;" })
             .SelectedIndex(0)
-            .Placeholder("-- Select --")
+
             .Render();
         }
            
@@ -115,10 +116,12 @@
             Specialty Code:</label>
             @{Html.Telerik().ComboBox().Name("specialtyCodeDropDownList")
             .DataBinding(binding => binding.Ajax().Select("_GetDropDownListSpecialtyCode", "WorkOrder"))
+            .Placeholder("-- Select --")
             .HtmlAttributes(new { style = "font-size: 8pt; font-family: Verdana; width:150px" })
             .DropDownHtmlAttributes(new { style = "font-size: 8pt; font-family: Verdana;" })
             .SelectedIndex(0)
-            .Placeholder("-- Select --")
+            //.CascadeTo("techniacianDropDownList")
+           
             .Render();
         }
           
@@ -127,10 +130,10 @@
             Line Property:</label>
             @{Html.Telerik().ComboBox().Name("LinePropertyDropDownList")
             .BindTo((SelectList)ViewData["LinePropertyList"])
+            .Placeholder("-- Select --")
             .HtmlAttributes(new { style = "font-size: 8pt; font-family: Verdana; width:150px" })
             .DropDownHtmlAttributes(new { style = "font-size: 8pt; font-family: Verdana;" })
             .SelectedIndex(0)
-            .Placeholder("-- Select --")
             .Render();
         }
           
@@ -145,17 +148,19 @@
             Technician:</label>
             @{Html.Telerik().ComboBox().Name("techniacianDropDownList")
             .BindTo((SelectList)ViewData["ServiceTechnicianList"])
+            .Placeholder("-- Select --")
             .HtmlAttributes(new { style = "font-size: 8pt; font-family: Verdana; width:150px" })
             .DropDownHtmlAttributes(new { style = "font-size: 8pt; font-family: Verdana;" })
             .SelectedIndex(0)
-            .Placeholder("-- Select --")
+           
             .Render();
         }
       
         <br />
          <label>
            Service Comments:</label>
-           @Html.TextAreaFor(x => x.ServiceComments)<br />
+           @Html.TextAreaFor(x => x.ServiceComments)
+           <br />
  </div>
  <div class="addLineRightcolumn" id="addLineRightcolumn">
  <div class="topDimensioncolumn">
@@ -164,22 +169,24 @@
             Item Number:</label>
            @{Html.Telerik().ComboBox().Name("partNumberDropDownList")
             .BindTo((SelectList)ViewData["PartNumberList"])
+            .Placeholder("-- Select --")
             .HtmlAttributes(new { style = "font-size: 8pt; font-family: Verdana; width:150px" })
             .DropDownHtmlAttributes(new { style = "font-size: 8pt; font-family: Verdana;" })
             .SelectedIndex(0)
-            .Placeholder("-- Select --")
+            .ClientEvents(e => e.OnChange("OnItemChange"))
             .Render();
         }
           @*  @Html.DropDownList("partNumberDropDownList", (SelectList)ViewData["PartNumberList"], "<--Select One-->", new { @class = "dropDownPropertiesSP" })*@
        
          <label>
             Site:</label>
-             @{Html.Telerik().ComboBox().Name("siteDropDownList")
+             @{Html.Telerik().ComboBox().Name("siteComboBox")
             .BindTo((SelectList)ViewData["siteList"])
+            .Placeholder("-- Select --")
             .HtmlAttributes(new { style = "font-size: 8pt; font-family: Verdana; width:150px" })
             .DropDownHtmlAttributes(new { style = "font-size: 8pt; font-family: Verdana;" })
             .SelectedIndex(0)
-            .Placeholder("-- Select --")
+            .CascadeTo("wareHouseDropDownList")
             .Render();
         }
     @*@Html.DropDownListFor(x => x.Site.SiteID, new SelectList(""), "<--Select One-->", new { @class = "dropDownPropertiesSP", id = "LinePropertyDropDownList" })*@
@@ -187,22 +194,23 @@
          <label>
             Warehouse:</label>
              @{Html.Telerik().ComboBox().Name("wareHouseDropDownList")
-
+            .DataBinding(binding => binding.Ajax().Select("_GetDropDownWareHouse", "WorkOrder"))
+            .Placeholder("-- Select --")
             .HtmlAttributes(new { style = "font-size: 8pt; font-family: Verdana; width:150px" })
             .DropDownHtmlAttributes(new { style = "font-size: 8pt; font-family: Verdana;" })
             .SelectedIndex(0)
-            .Placeholder("-- Select --")
+          
             .Render();
         }
     @*@Html.DropDownListFor(x => x.WareHouse.WareHouseCode, new SelectList(""), "<--Select One-->", new { @class = "dropDownPropertiesSP", id = "LinePropertyDropDownList" })*@
          <label>
             Location:</label>
              @{Html.Telerik().ComboBox().Name("locationDropDownList")
-
+             .Placeholder("-- Select --")
             .HtmlAttributes(new { style = "font-size: 8pt; font-family: Verdana; width:150px" })
             .DropDownHtmlAttributes(new { style = "font-size: 8pt; font-family: Verdana;" })
             .SelectedIndex(0)
-            .Placeholder("-- Select --")
+            
             .Render();
             }
            @*@Html.DropDownListFor(x => x.Location.LocationId, new SelectList(""), "<--Select One-->", new { @class = "dropDownPropertiesSP", id = "LinePropertyDropDownList" })*@
@@ -211,11 +219,11 @@
     <h6>Tracking Dimension</h6>
     <label> Serial Number:</label>
      @{Html.Telerik().ComboBox().Name("trackingSerialNoDropDownList")
-
+             .Placeholder("-- Select --")
             .HtmlAttributes(new { style = "font-size: 8pt; font-family: Verdana; width:150px" })
             .DropDownHtmlAttributes(new { style = "font-size: 8pt; font-family: Verdana;" })
             .SelectedIndex(0)
-            .Placeholder("-- Select --")
+            
             .Render();
             }
      @* @Html.DropDownListFor(x => x.TransactionSerialNumber, new SelectList(""), "<--Select One-->", new { @class = "dropDownPropertiesSP", id = "LinePropertyDropDownList" })*@
@@ -343,7 +351,11 @@ debugger
         return false;
     }
 
-
+    function OnItemChange(e) {
+        
+        var selectedItemNumber = e.currentTarget.value;
+        
+    }
 
     function ontransactionHide(e) {
      
