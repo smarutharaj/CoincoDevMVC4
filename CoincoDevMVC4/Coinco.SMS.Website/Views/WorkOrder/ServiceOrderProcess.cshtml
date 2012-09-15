@@ -346,19 +346,19 @@ debugger
 
 
     function ontransactionHide(e) {
-    
+     
         var transactionType = e.currentTarget.value;
-        if (transactionType == "Hour")
+        if (transactionType == "1")
         {
             $('#addLineRightcolumn').hide();
         }
-        else if (transactionType == "Fee") {
+        else if (transactionType == "2") {
             $('#addLineRightcolumn').hide();
         }
-        else if (transactionType == "Expense") {
+        else if (transactionType == "4") {
             $('#addLineRightcolumn').hide();
         }
-        else if (transactionType == "Item") {
+        else if (transactionType == "3") {
             $('#addLineRightcolumn').show();
         }
        };
