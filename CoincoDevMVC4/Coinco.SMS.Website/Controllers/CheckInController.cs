@@ -15,6 +15,14 @@ namespace Coinco.SMS.Website.Controllers
         {
             ServiceOrder serviceOrder = new ServiceOrder();
             Customer customer = new Customer();
+            WOClassification woClassification = new WOClassification();
+            List<WOClassification> woClassificationCollection = new List<WOClassification>();
+            ServiceTechnician serviceTechnician = new ServiceTechnician();
+            List<ServiceTechnician> serviceTechnicianCollection = new List<ServiceTechnician>();
+            PartDetails partDetails = new PartDetails();
+            List<PartDetails> partDetailsCollection = new List<PartDetails>();
+            List<ServiceOrderLine> serviceOrderLineList = new List<ServiceOrderLine>();
+            List<Address> addressList = new List<Address>();
             try
             {
                 IEnumerable<Customer> customerCollection = customer.GetCustomers(User.Identity.Name.ToString().Split('\\')[1]);
@@ -22,27 +30,19 @@ namespace Coinco.SMS.Website.Controllers
                 serviceOrder.Customer = customer;
                 ViewData["CustomerList"] = customer.CustomerList;
 
-                WOClassification woClassification = new WOClassification();
-                List<WOClassification> woClassificationCollection = new List<WOClassification>();
                 woClassification.WOClassificationList = new SelectList(woClassificationCollection.AsEnumerable<WOClassification>(), "WOClassificationCode", "WOClassificationName", null);
                 ViewData["WOClassificationList"] = woClassification.WOClassificationList;
                 
-                ServiceTechnician serviceTechnician = new ServiceTechnician();
-                List<ServiceTechnician> serviceTechnicianCollection = new List<ServiceTechnician>();
                 serviceTechnician.ServiceTechnicianList = new SelectList(serviceTechnicianCollection.AsEnumerable<ServiceTechnician>(), "ServiceTechnicianNo", "ServiceTechnicianName", null);
                 ViewData["ServiceTechnicianList"] = serviceTechnician.ServiceTechnicianList;
                 ViewData["ServiceResponsibleList"] = serviceTechnician.ServiceTechnicianList;
 
-                PartDetails partDetails = new PartDetails();
-                List<PartDetails> partDetailsCollection = new List<PartDetails>();
                 partDetails.PartDetailsList = new SelectList(partDetailsCollection.AsEnumerable<PartDetails>(), "ItemNumber", "ProductName", null);
                 ViewData["PartNumberList"] = partDetails.PartDetailsList;
       
-                List<ServiceOrderLine> serviceOrderLineList = new List<ServiceOrderLine>();
                 ViewData["ServiceOrderLine"] = serviceOrderLineList;
                 TempData["ServiceOrderLine"] = serviceOrderLineList;
 
-                List<Address> addressList = new List<Address>();
                 ViewData["BillingAddress"] = addressList;
                 ViewData["ShippingAddress"] = addressList;
 
@@ -57,7 +57,8 @@ namespace Coinco.SMS.Website.Controllers
             return View(serviceOrder);
         }
 
-       
+        #region "Service Order Line Grid Actions"
+
         [GridAction]
         public ActionResult _SelectionClientSide_ServiceOrderLines(string siteId)
         {
@@ -80,6 +81,7 @@ namespace Coinco.SMS.Website.Controllers
 
             });
         }
+       
         [AcceptVerbs(HttpVerbs.Post)]
         [GridAction]
         public ActionResult _UpdateServiceOrderLine(string serialNumber)
@@ -103,6 +105,7 @@ namespace Coinco.SMS.Website.Controllers
             }
             return View(new GridModel(serviceOrderLineExistingList));
         }
+
         [AcceptVerbs(HttpVerbs.Post)]
         [GridAction]
         public ActionResult _DeleteServiceOrderLine(string serialNumber)
@@ -139,6 +142,11 @@ namespace Coinco.SMS.Website.Controllers
 
             });
         }
+
+        #endregion
+
+        #region "Customer Address Grid Actions"
+
         [GridAction]
         public ActionResult _GetCustomerAddresses(string customerAccount)
         {
@@ -149,15 +157,19 @@ namespace Coinco.SMS.Website.Controllers
                 Data = addressList
             });
         }
+        
+        #endregion
 
+        #region "Other Details Get Actions"
 
         [HttpGet]
         public ActionResult GetOtherDetails(string customerAccount)
         {
             WOClassification woClassification = new WOClassification();
+            ServiceTechnician serviceTechnician = new ServiceTechnician();
+            PartDetails partDetails = new PartDetails();
             try
             {
-
                 if (customerAccount != null)
                 {
                     string userName = null;
@@ -179,15 +191,13 @@ namespace Coinco.SMS.Website.Controllers
 
                     IEnumerable<WOClassification> woClassificationCollection = woClassification.GetWOClassification(User.Identity.Name.ToString().Split('\\')[1]);
                     woClassification.WOClassificationList = new SelectList(woClassificationCollection, "WOClassificationCode", "WOClassificationName", null);
-                    ViewData["WOClassificationList"] = woClassification.WOClassificationList;
-                  
-                    ServiceTechnician serviceTechnician = new ServiceTechnician();
+                    ViewData["WOClassificationList"] = woClassification.WOClassificationList;               
+
                     IEnumerable<ServiceTechnician> serviceTechnicianCollection = serviceTechnician.GetTechnicians(User.Identity.Name.ToString().Split('\\')[1]);
                     serviceTechnician.ServiceTechnicianList = new SelectList(serviceTechnicianCollection, "ServiceTechnicianNo", "ServiceTechnicianName", null);
                     ViewData["ServiceTechnicianList"] = serviceTechnician.ServiceTechnicianList;
                     ViewData["ServiceResponsibleList"] = serviceTechnician.ServiceTechnicianList;
 
-                    PartDetails partDetails = new PartDetails();
                     IEnumerable<PartDetails> partDetailsCollection = partDetails.GetItemNumbers(User.Identity.Name.ToString().Split('\\')[1]);
                     partDetails.PartDetailsList = new SelectList(partDetailsCollection, "ItemNumber", "ProductName", null);
                     ViewData["PartNumberList"] = partDetails.PartDetailsList;
@@ -201,6 +211,10 @@ namespace Coinco.SMS.Website.Controllers
             }
             return View("OtherDetails");
         }
+
+        #endregion
+
+        #region "Service Order Line Grid Post Actions"
 
         [HttpPost]
         public ActionResult ClearServiceOrderLines()
@@ -219,6 +233,7 @@ namespace Coinco.SMS.Website.Controllers
             }
             return View("ServiceOrderLine");
         }
+        
         [HttpPost]
         public ActionResult GetServiceOrderLinesHistoryBySerialNumberPartNumber(ServiceOrder model,string serialNumber, string partNumber)
         {
@@ -256,12 +271,12 @@ namespace Coinco.SMS.Website.Controllers
             string userName = null;
             string newSerivceOrder = null;
             bool isSuccess = false;
+            ServiceOrder serviceOrder = new ServiceOrder();
+            ServiceOrderLine serviceOrderLine = new ServiceOrderLine();
             try
             {
-
                 userName = User.Identity.Name.ToString().Split('\\')[1];
-                ServiceOrder serviceOrder = new ServiceOrder();
-                ServiceOrderLine serviceOrderLine = new ServiceOrderLine();
+
                 isSuccess = serviceOrder.CreateServiceOrder(TempData["SiteId"].ToString(), customerAccount, addressId == null ? null : addressId.ToString(), customerPo, technicinanNo, responsibleNo, woClassification, customerComments, out newSerivceOrder, userName);
                 if (isSuccess)
                 {
@@ -286,6 +301,10 @@ namespace Coinco.SMS.Website.Controllers
             return View("ServiceOrderLine");
         }
 
+        #endregion
+
+        #region "Methods"
+
         private List<ServiceOrderLine> GetServiceOrderLinesBySerialNumberPartNumber(string partNumber,string serialNumber,string customerAccount)
         {
             List<ServiceOrderLine> serviceOrderLine = new List<ServiceOrderLine>();
@@ -301,5 +320,8 @@ namespace Coinco.SMS.Website.Controllers
             }   
             return serviceOrderLine;
         }
+
+        #endregion
     }
+
 }
