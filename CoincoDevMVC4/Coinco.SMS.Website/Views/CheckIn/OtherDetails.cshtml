@@ -27,10 +27,12 @@
         .Columns(columns =>
         {
             columns.Template(@<text>
-                    <input name="checkedRecords" type="checkbox" value="@item.IsShipping" title="checkedRecords"           
-                    />
+
+
+                    <input name="checkedRecords" type="checkbox"  checked="@item.IsSelected" value="@item.AddressId" title="checkedRecords"           
+                     />
                 </text>)
-                   .ClientTemplate("<input type='checkbox' name='checkedRecords' value='<#= IsShipping #>' />")
+                   .ClientTemplate("<input type='checkbox' name='checkedRecords' value='<#= AddressId #>'  checked='<#= IsSelected #>' />")
                    .Title("")
                    .Width(36)
                    .HtmlAttributes(new { style = "text-align:center" });
@@ -45,7 +47,7 @@
                         }
         )
         .ClientEvents(events => events.OnRowSelect("onRowSelected"))
-       
+        .ClientEvents(events=> events.OnLoad("onLoad"))
          .Footer(false)
          .Selectable()
          .Scrollable(c => c.Height("40px"))
@@ -172,7 +174,26 @@
     </div>
 
     <script type="text/javascript">
+        function onLoad() {
+            $(this).find(':checkbox').click(function (e) {
+
+                var $checkedRecords = $(':checked');
+                $checkedRecords.each(function (index, domEle) {
+                    // domEle == this
+                    if ($checkedRecords[index].value != e.currentTarget.value) {
+                        $checkedRecords[index].checked = false;
+                    }
+
+                });
+
+                
+                //handle the click event
+            })
+        }
+
+
         jQuery('#Add').click(function () {
+            debugger
             var partNumber = $('#partNumberDropDownList').val();
             var serialNumber = $('#serialNumberTextBox').val();
             if (($.trim(serialNumber) == '') || (serialNumber == null)) {
@@ -181,6 +202,18 @@
                 $('#serialNumberTextBox').focus();
                 return;
             }
+
+            $("#ServiceOrderLineGrid .t-grid-content tbody > tr").each(function () {
+                var tr = this;
+                var cells = tr.cells;
+                var firstCell = cells[1].innerHTML;
+                if (firstCell == serialNumber) {
+                    alert('The entered serial number is already availble in the lines table. Please enter a different serial number.');
+                    $('#serialNumberTextBox').focus();
+                    return;
+                }
+            });
+
             jQuery.ajax({
                 url: "/CheckIn/GetServiceOrderLinesHistoryBySerialNumberPartNumber",
                 type: 'POST',

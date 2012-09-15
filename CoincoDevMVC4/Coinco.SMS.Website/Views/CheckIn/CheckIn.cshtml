@@ -79,7 +79,7 @@
           }
       }
 
-      
+
 
       jQuery('#Create').click(function () {
           var customerAccount = $('#customerAccountDropDownList').val();
@@ -89,26 +89,33 @@
           var woClassification = $('#woClassificationDropDownList').val();
           var customerComments = $('#customerCommentTextArea').val();
           var $checkedRecords = $(':checked');
-        
+          var addressId;
           if ($checkedRecords.length < 1) {
               alert('Please select atleast one shipping address.');
               return;
-          }                    
+          }
+          $checkedRecords.each(function (index, domEle) {
+              // domEle == this
+              if ($checkedRecords[index].checked = true) {
+                  addressId = $checkedRecords[index].value;
+              }
+
+          });
           jQuery.ajax({
               url: "/CheckIn/CreateServiceOrder",
               type: 'POST',
 
-              data: { customerAccount: customerAccount, customerPo: customerPo, technicinanNo: technicinanNo, responsibleNo: responsibleNo, woClassification: woClassification, customerComments: customerComments },
+              data: { customerAccount: customerAccount, customerPo: customerPo,addressId:addressId, technicinanNo: technicinanNo, responsibleNo: responsibleNo, woClassification: woClassification, customerComments: customerComments },
               success: function (result) {
                   jQuery('#ServiceOrderGridDiv').html(result);
-                  
-                                      alert('Service Order Created Successfully');
-                                        $('#customerAccountDropDownList').val('-1');
-                                        $('#customerPOTextBox').val('');
-                                        $('#serviceTechnicianDropDownList').val('-1');
-                                        $('#serviceResponsibleDropDownList').val('-1');
-                                        $('#woClassificationDropDownList').val('-1');
-                                        $('#customerCommentTextArea').val('');
+
+                  alert('Service Order Created Successfully');
+                  $('#customerAccountDropDownList').val('-1');
+                  $('#customerPOTextBox').val('');
+                  $('#serviceTechnicianDropDownList').val('-1');
+                  $('#serviceResponsibleDropDownList').val('-1');
+                  $('#woClassificationDropDownList').val('-1');
+                  $('#customerCommentTextArea').val('');
               },
               error: function (result) {
                   alert(result.responseText);
