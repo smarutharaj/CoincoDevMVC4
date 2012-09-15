@@ -45,7 +45,7 @@ namespace Coinco.SMS.Controllers
             return View(new GridModel<ServiceOrder>
             {
                 Data = GetServiceOrders(TempData["SiteId"].ToString(), process)
-                           
+
             });
         }
 
@@ -78,6 +78,7 @@ namespace Coinco.SMS.Controllers
             }
             TempData["SiteId"] = siteCollection.First<Site>().SiteID;
             TempData["FeaturedSites"] = site.SiteList;
+            
             TempData.Keep();
 
             return siteCollection.First<Site>().SiteID;
@@ -105,7 +106,11 @@ namespace Coinco.SMS.Controllers
         // GET: /ServiceOrderProcess/
         public ActionResult ServiceOrderProcess()
         {
-            
+            var GenreLst = new List<TransactionType>();
+            ViewData["tranasactionType"] = new SelectList(GenreLst);
+
+
+
             FailureCode failureCodeObject = new FailureCode();
             IEnumerable<FailureCode> failureCodeCollection = failureCodeObject.GetFailureCode(User.Identity.Name.ToString().Split('\\')[1]);
             failureCodeObject.FailureCodeList = new SelectList(failureCodeCollection, "FailureCodeNo", "FailureDescription", null);
@@ -120,29 +125,27 @@ namespace Coinco.SMS.Controllers
             LinePropertyObject.LinePropertyList = new SelectList(LinePropertyCollection, "LinePropertyCode", "LinePropertyDescription", null);
             ViewData["LinePropertyList"] = LinePropertyObject.LinePropertyList;
 
-           
-                SerivceOrderPartLine serivceOrderPartLineObject = new SerivceOrderPartLine();
-                IEnumerable<SerivceOrderPartLine> serviceOrderPartLineCollection = null;
-                serviceOrderPartLineCollection = serivceOrderPartLineObject.GetSerialNumberByServiceOrder(TempData["ServiceOrderId"].ToString(), User.Identity.Name.ToString().Split('\\')[1]);
-                serivceOrderPartLineObject.ServiceOrderPartLineList = new SelectList(serviceOrderPartLineCollection, "ServiceObjectRelation", "SerialNumber", serviceOrderPartLineCollection.First<SerivceOrderPartLine>().ServiceObjectRelation);
+
+            SerivceOrderPartLine serivceOrderPartLineObject = new SerivceOrderPartLine();
+            IEnumerable<SerivceOrderPartLine> serviceOrderPartLineCollection = null;
+            serviceOrderPartLineCollection = serivceOrderPartLineObject.GetSerialNumberByServiceOrder(TempData["ServiceOrderId"].ToString(), User.Identity.Name.ToString().Split('\\')[1]);
+            serivceOrderPartLineObject.ServiceOrderPartLineList = new SelectList(serviceOrderPartLineCollection, "ServiceObjectRelation", "SerialNumber", serviceOrderPartLineCollection.First<SerivceOrderPartLine>().ServiceObjectRelation);
 
 
-                ViewData["SORelationList"] = serivceOrderPartLineObject.ServiceOrderPartLineList;
-                ViewData["SerialNumberList"] = serivceOrderPartLineObject.ServiceOrderPartLineList;
-                ViewData["ServiceOrderPartLines"] = GetServiceOrderPartLinesByServiceOrderID(TempData["ServiceOrderId"].ToString());
-       
-          
+            ViewData["SORelationList"] = serivceOrderPartLineObject.ServiceOrderPartLineList;
+            ViewData["SerialNumberList"] = serivceOrderPartLineObject.ServiceOrderPartLineList;
+            ViewData["ServiceOrderPartLines"] = GetServiceOrderPartLinesByServiceOrderID(TempData["ServiceOrderId"].ToString());
+
+
             ServiceTechnician serviceTechnician = new ServiceTechnician();
             serviceTechnician.ServiceTechnicianList = new SelectList(serviceTechnician.GetTechnicians(User.Identity.Name.ToString().Split('\\')[1]), "ServiceTechnicianNo", "ServiceTechnicianName", null);
             ViewData["ServiceTechnicianList"] = serviceTechnician.ServiceTechnicianList;
 
-            ViewData["SpecialityCodeList"] = "";
-            ViewData["ConfigList"] = "";
-
-            
-            
+            GetSites();
+            ViewData["siteList"] = TempData["FeaturedSites"];
 
             TempData.Keep();
+            ViewData["TranasactionTypes"] = TransactionType.GetTransactionTypes();
             return View();
         }
 
@@ -183,6 +186,48 @@ namespace Coinco.SMS.Controllers
             List<ServiceOrderLine> serviceOrderLine = (new ServiceOrderLine()).GetServiceOrderLinesDetailsBySerialNumber(serialNumber, "", userName);
             return serviceOrderLine;
         }
+
+        [HttpPost]
+        public JsonResult _GetTransactionTypes()
+        {
+            return Json(new SelectList(TransactionType.GetTransactionTypes(), "TransactionTypeID", "TransactionTypeName"), JsonRequestBehavior.AllowGet);
+        }
+
+        [HttpPost]
+        public JsonResult _GetDropDownListSpecialtyCode(int? transactionTypeDropDownList)
+        {
+
+            return _GetSpecialtyCode(transactionTypeDropDownList.Value);
+        }
+
+        private JsonResult _GetSpecialtyCode(int TransactionTypeID)
+        {
+            
+            List<SpecialtyCode> specialtyCodeList = new List<SpecialtyCode> { };
+            
+            string userName = "";
+            userName = User.Identity.Name.ToString().Split('\\')[1];
+            
+
+                string _transactionTypeId = TransactionTypeID.ToString();
+                specialtyCodeList = (new SpecialtyCode()).GetSpecialCodes(userName, _transactionTypeId);
+
+            //specialtyCodeList.Add(new SpecialtyCode { SpecialityCodeNo = "Car Audio", SpecialityDescription = "Car Audio" });
+            //specialtyCodeList.Add(new SpecialtyCode { SpecialityCodeNo = "Bus Audio", SpecialityDescription = "Bus Audio" });
+            //specialtyCodeList.Add(new SpecialtyCode { SpecialityCodeNo = "Van Audio", SpecialityDescription = "Van Audio" });
+
+            return Json(new SelectList(specialtyCodeList, "SpecialityCodeNo", "SpecialityDescription"), JsonRequestBehavior.AllowGet);
+            
+        }
+
+        //public static SelectList ToSelectList<TEnum>(this TEnum enumObj)
+        //{
+        //    var values = from TEnum e in Enum.GetValues(typeof(TEnum))
+        //                 select new { Id = e, Name = e.ToString() };
+
+        //    return new SelectList(values, "Id", "Name", enumObj);
+        //} 
+
 
     }
 }

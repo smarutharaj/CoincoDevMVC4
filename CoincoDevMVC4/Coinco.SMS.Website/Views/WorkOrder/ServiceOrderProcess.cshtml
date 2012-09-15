@@ -81,13 +81,11 @@
  <h6>Add Lines</h6>
 
   <label>
-
+     
 
             Transaction Type:</label>
             @{Html.Telerik().ComboBox().Name("transactionTypeDropDownList")
-                  
-            .BindTo(new SelectList(Enum.GetValues(typeof(Coinco.SMS.Website.Models.TransactionType))))
-            //Enum.GetValues(typeof(enumtype)).Cast<enumtype>().Select(x => new SelectListItem { Text = x.ToString(), Value = ((int)x).ToString() })
+            .DataBinding(binding => binding.Ajax().Select("_GetTransactionTypes", "WorkOrder"))
             .ClientEvents(e => e.OnChange("ontransactionHide"))
             .HtmlAttributes(new { style = "font-size: 8pt; font-family: Verdana; width:150px" })
             .DropDownHtmlAttributes(new { style = "font-size: 8pt; font-family: Verdana;" })
@@ -116,7 +114,7 @@
     <label>
             Specialty Code:</label>
             @{Html.Telerik().ComboBox().Name("specialtyCodeDropDownList")
-            //.DataBinding(binding => binding.Ajax().Select("_GetDropDownListProducts", "ComboBox"))
+            .DataBinding(binding => binding.Ajax().Select("_GetDropDownListSpecialtyCode", "WorkOrder"))
             .HtmlAttributes(new { style = "font-size: 8pt; font-family: Verdana; width:150px" })
             .DropDownHtmlAttributes(new { style = "font-size: 8pt; font-family: Verdana;" })
             .SelectedIndex(0)
@@ -189,7 +187,7 @@
          <label>
             Warehouse:</label>
              @{Html.Telerik().ComboBox().Name("wareHouseDropDownList")
-           
+
             .HtmlAttributes(new { style = "font-size: 8pt; font-family: Verdana; width:150px" })
             .DropDownHtmlAttributes(new { style = "font-size: 8pt; font-family: Verdana;" })
             .SelectedIndex(0)
@@ -200,7 +198,7 @@
          <label>
             Location:</label>
              @{Html.Telerik().ComboBox().Name("locationDropDownList")
-           
+
             .HtmlAttributes(new { style = "font-size: 8pt; font-family: Verdana; width:150px" })
             .DropDownHtmlAttributes(new { style = "font-size: 8pt; font-family: Verdana;" })
             .SelectedIndex(0)
@@ -213,7 +211,7 @@
     <h6>Tracking Dimension</h6>
     <label> Serial Number:</label>
      @{Html.Telerik().ComboBox().Name("trackingSerialNoDropDownList")
-           
+
             .HtmlAttributes(new { style = "font-size: 8pt; font-family: Verdana; width:150px" })
             .DropDownHtmlAttributes(new { style = "font-size: 8pt; font-family: Verdana;" })
             .SelectedIndex(0)
@@ -254,7 +252,6 @@
         {
             columns.Bound(c => c.TransactionSerialNumber).Title("SerialNumber").Width(120);
             columns.Bound(c => c.ServiceObjectRelation).Title("SO Relation").Width(100);
-            columns.Bound(c => c.TransactionType).Width(120);
             columns.Bound(c => c.Description).Width(100);
             columns.Bound(c => c.SpecialtyCode.SpecialityCodeNo).Title("SpecialtyCode").Width(120);
             columns.Bound(c => c.FailureCode.FailureCodeNo).Title("FailureCode").Width(100);
