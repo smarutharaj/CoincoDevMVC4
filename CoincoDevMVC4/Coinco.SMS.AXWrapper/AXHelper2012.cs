@@ -1668,6 +1668,158 @@ namespace Coinco.SMS.AXWrapper
             return repairLineTable;
         }
 
+        public bool CreateRepairLines(string serviceOrderNo, string serviceOrderRelation, string conditionId, string symptomAreaId, string symptomCodeId, string diagonsisAreaId, string diagonsisCodeId, string resolutionId, string repairStageId, string technicianNo, string description, string serviceComments, string userName)
+        {
+
+            Axapta ax = null;
+            object[] param = new object[12];
+            object axObject;
+            bool flagValue;
+            bool isSuccess = false;
+            try
+            {
+                ax = new Axapta();
+                ax.LogonAs(userName.Trim(), "", networkCredentials, axCompany, "", "", "");
+
+                param[0] = serviceOrderNo;
+                param[1] = serviceOrderRelation;
+                param[2] = conditionId;
+                param[3] = symptomAreaId;
+                param[4] = symptomCodeId;
+                param[5] = diagonsisAreaId;
+                param[6] = diagonsisCodeId;
+                param[7] = resolutionId;
+                param[8] = repairStageId;
+                param[9] = technicianNo;
+                param[10] = description;
+                param[11] = serviceComments;
+
+                axObject = ax.CallStaticClassMethod("ServiceOrderManagement", "createSMARepairLine", param).ToString();
+                if (bool.TryParse(axObject.ToString(), out flagValue))
+                {
+                    isSuccess = flagValue;
+                }
+
+                if (!isSuccess)
+                {
+                    string parameterString = "";
+                    for (int i = 0; i < param.Length; i++)
+                    {
+                        parameterString += "param[" + i + "]" + param[i].ToString() + "; ";
+                    }
+
+                    throw new Exception(String.Format("AX Failure:- Method='{0}' Parameters:Values = {1} - ", "createSMARepairLine", parameterString));
+                }
+            }
+            catch (Exception e)
+            {
+                throw e;
+                // Take other error action as needed.
+            }
+            finally
+            {
+                if (ax != null) ax.Logoff();
+            }
+            return isSuccess;
+        }
+
+
+        public bool UpdateRepairLines(string uniqueId, string serviceOrderNo, string serviceOrderRelation, string conditionId, string symptomAreaId, string symptomCodeId, string diagonsisAreaId, string diagonsisCodeId, string resolutionId, string repairStageId, string technicianNo, string description, string serviceComments, string userName)
+        {
+
+            Axapta ax = null;
+            object[] param = new object[13];
+            object axObject;
+            bool flagValue;
+            bool isSuccess = false;
+            try
+            {
+                ax = new Axapta();
+                ax.LogonAs(userName.Trim(), "", networkCredentials, axCompany, "", "", "");
+                param[0] = uniqueId;
+                param[1] = serviceOrderNo;
+                param[2] = serviceOrderRelation;
+                param[3] = conditionId;
+                param[4] = symptomAreaId;
+                param[5] = symptomCodeId;
+                param[6] = diagonsisAreaId;
+                param[7] = diagonsisCodeId;
+                param[8] = resolutionId;
+                param[9] = repairStageId;
+                param[10] = technicianNo;
+                param[11] = description;
+                param[12] = serviceComments;
+
+                axObject = ax.CallStaticClassMethod("ServiceOrderManagement", "updateSMARepairLine", param).ToString();
+                if (bool.TryParse(axObject.ToString(), out flagValue))
+                {
+                    isSuccess = flagValue;
+                }
+                if (!isSuccess)
+                {
+                    string parameterString = "";
+                    for (int i = 0; i < param.Length; i++)
+                    {
+                        parameterString += "param[" + i + "]" + param[i].ToString() + "; ";
+                    }
+
+                    throw new Exception(String.Format("AX Failure:- Method='{0}' Parameters:Values = {1} - ", "updateSMARepairLine", parameterString));
+                }
+
+            }
+            catch (Exception e)
+            {
+                throw e;
+                // Take other error action as needed.
+            }
+            finally
+            {
+                if (ax != null) ax.Logoff();
+            }
+            return isSuccess;
+        }
+
+        public bool DeleteRepairLines(string uniqueId, string userName)
+        {
+
+            Axapta ax = null;
+            object[] param = new object[1];
+            object axObject;
+            bool flagValue;
+            bool isSuccess = false;
+            try
+            {
+                ax = new Axapta();
+                ax.LogonAs(userName.Trim(), "", networkCredentials, axCompany, "", "", "");
+                param[0] = uniqueId;
+                axObject = ax.CallStaticClassMethod("ServiceOrderManagement", "deleteSMARepairLine", param).ToString();
+                if (bool.TryParse(axObject.ToString(), out flagValue))
+                {
+                    isSuccess = flagValue;
+                }
+                if (!isSuccess)
+                {
+                    string parameterString = "";
+                    for (int i = 0; i < param.Length; i++)
+                    {
+                        parameterString += "param[" + i + "]" + param[i].ToString() + "; ";
+                    }
+
+                    throw new Exception(String.Format("AX Failure:- Method='{0}' Parameters:Values = {1} - ", "deleteSMARepairLine", parameterString));
+                }
+
+            }
+            catch (Exception e)
+            {
+                throw e;
+                // Take other error action as needed.
+            }
+            finally
+            {
+                if (ax != null) ax.Logoff();
+            }
+            return isSuccess;
+        }
 
       
         #endregion
