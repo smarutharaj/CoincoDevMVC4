@@ -15,7 +15,7 @@ namespace Coinco.SMS.Website.Models
         public string LocationName { get; set; }
         public string LocationQty { get; set; }
 
-        public List<Location> LocationList { get; set; } 
+        public SelectList LocationList { get; set; } 
 
         public Location()
         {
