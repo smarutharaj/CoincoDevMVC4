@@ -152,6 +152,7 @@ namespace Coinco.SMS.Website.Controllers
                 List<Address> addressBilling = (from item1 in addressList
                                                 where item1.IsBilling == "1"
                                                 select item1).ToList<Address>();
+                addressShipping[0].IsSelected = "checked";
                 ViewData["BillingAddress"] = addressBilling;
                 ViewData["ShippingAddress"] = addressShipping;
                 TempData["CustomerAccount"] = customerAccount;
@@ -220,7 +221,7 @@ namespace Coinco.SMS.Website.Controllers
         }
 
         [HttpPost]
-        public ActionResult CreateServiceOrder( string customerAccount, string customerPo, string technicinanNo, string responsibleNo, string woClassification, string customerComments)
+        public ActionResult CreateServiceOrder( string customerAccount, string customerPo,string addressId, string technicinanNo, string responsibleNo, string woClassification, string customerComments)
         {
             string userName = null;
             string newSerivceOrder = null;
@@ -228,7 +229,7 @@ namespace Coinco.SMS.Website.Controllers
             userName = User.Identity.Name.ToString().Split('\\')[1];
             ServiceOrder serviceOrder = new ServiceOrder();
             ServiceOrderLine serviceOrderLine = new ServiceOrderLine();
-            isSuccess = serviceOrder.CreateServiceOrder(TempData["SiteId"].ToString(), customerAccount, TempData["AddressId"] == null ? null : TempData["AddressId"].ToString(), customerPo, technicinanNo, responsibleNo, woClassification, customerComments, out newSerivceOrder, userName);
+            isSuccess = serviceOrder.CreateServiceOrder(TempData["SiteId"].ToString(), customerAccount, addressId == null ? null : addressId.ToString(), customerPo, technicinanNo, responsibleNo, woClassification, customerComments, out newSerivceOrder, userName);
             if (isSuccess)
             {
                 isSuccess = serviceOrderLine.CreateServiceOrderLinesItem(newSerivceOrder, (List<ServiceOrderLine>)TempData["ServiceOrderLine"], userName);
@@ -241,6 +242,7 @@ namespace Coinco.SMS.Website.Controllers
             {
                 List<ServiceOrderLine> emptyList = new List<ServiceOrderLine>();
                 ViewData["ServiceOrderLine"] = emptyList;
+                TempData["ServiceOrderLine"] = emptyList;
             }
 
 

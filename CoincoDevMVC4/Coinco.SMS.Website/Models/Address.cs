@@ -16,7 +16,7 @@ namespace Coinco.SMS.Website.Models
         public string AddresswithDesc { get; set; }
         public string IsBilling { get; set; }
         public string IsShipping { get; set; }
-
+        public string IsSelected { get; set; }
         public List<Address> AddressList { get; set; }
 
         public Address()

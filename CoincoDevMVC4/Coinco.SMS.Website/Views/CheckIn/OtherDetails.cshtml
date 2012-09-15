@@ -193,7 +193,7 @@
 
 
         jQuery('#Add').click(function () {
-            debugger
+            var isSerialNumberExist = false;
             var partNumber = $('#partNumberDropDownList').val();
             var serialNumber = $('#serialNumberTextBox').val();
             if (($.trim(serialNumber) == '') || (serialNumber == null)) {
@@ -206,14 +206,20 @@
             $("#ServiceOrderLineGrid .t-grid-content tbody > tr").each(function () {
                 var tr = this;
                 var cells = tr.cells;
-                var firstCell = cells[1].innerHTML;
-                if (firstCell == serialNumber) {
-                    alert('The entered serial number is already availble in the lines table. Please enter a different serial number.');
-                    $('#serialNumberTextBox').focus();
-                    return;
+                if (cells[2] != null) {
+                    var firstCell = cells[2].innerHTML;
+                    if (firstCell == serialNumber) {
+                        alert('The entered serial number is already availble in the lines table. Please enter a different serial number.');
+                        $('#serialNumberTextBox').focus();
+                        isSerialNumberExist = true;
+                        return;
+                    }
                 }
             });
-
+            if (isSerialNumberExist)
+            {
+            return;
+            }
             jQuery.ajax({
                 url: "/CheckIn/GetServiceOrderLinesHistoryBySerialNumberPartNumber",
                 type: 'POST',
