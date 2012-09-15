@@ -78,7 +78,6 @@ namespace Coinco.SMS.Controllers
             }
             TempData["SiteId"] = siteCollection.First<Site>().SiteID;
             TempData["FeaturedSites"] = site.SiteList;
-            
             TempData.Keep();
 
             return siteCollection.First<Site>().SiteID;
@@ -106,10 +105,6 @@ namespace Coinco.SMS.Controllers
         // GET: /ServiceOrderProcess/
         public ActionResult ServiceOrderProcess()
         {
-            var GenreLst = new List<TransactionType>();
-            ViewData["tranasactionType"] = new SelectList(GenreLst);
-
-
 
             FailureCode failureCodeObject = new FailureCode();
             IEnumerable<FailureCode> failureCodeCollection = failureCodeObject.GetFailureCode(User.Identity.Name.ToString().Split('\\')[1]);
@@ -141,8 +136,14 @@ namespace Coinco.SMS.Controllers
             serviceTechnician.ServiceTechnicianList = new SelectList(serviceTechnician.GetTechnicians(User.Identity.Name.ToString().Split('\\')[1]), "ServiceTechnicianNo", "ServiceTechnicianName", null);
             ViewData["ServiceTechnicianList"] = serviceTechnician.ServiceTechnicianList;
 
-            GetSites();
-            ViewData["siteList"] = TempData["FeaturedSites"];
+            Site site = new Site();
+            string userName = null;
+            IEnumerable<Site> siteCollection = null;
+            userName = User.Identity.Name.ToString().Split('\\')[1];
+            siteCollection = site.GetSitesListByUsername(userName);
+            site.SiteList = new SelectList(siteCollection, "SiteId", "SiteName", null);
+
+            ViewData["siteList"] = site.SiteList;
 
             TempData.Keep();
             ViewData["TranasactionTypes"] = TransactionType.GetTransactionTypes();
@@ -207,26 +208,12 @@ namespace Coinco.SMS.Controllers
             
             string userName = "";
             userName = User.Identity.Name.ToString().Split('\\')[1];
-            
-
-                string _transactionTypeId = TransactionTypeID.ToString();
-                specialtyCodeList = (new SpecialtyCode()).GetSpecialCodes(userName, _transactionTypeId);
-
-            //specialtyCodeList.Add(new SpecialtyCode { SpecialityCodeNo = "Car Audio", SpecialityDescription = "Car Audio" });
-            //specialtyCodeList.Add(new SpecialtyCode { SpecialityCodeNo = "Bus Audio", SpecialityDescription = "Bus Audio" });
-            //specialtyCodeList.Add(new SpecialtyCode { SpecialityCodeNo = "Van Audio", SpecialityDescription = "Van Audio" });
-
+            string _transactionTypeId = TransactionTypeID.ToString();
+            specialtyCodeList = (new SpecialtyCode()).GetSpecialCodes(userName, _transactionTypeId);
             return Json(new SelectList(specialtyCodeList, "SpecialityCodeNo", "SpecialityDescription"), JsonRequestBehavior.AllowGet);
             
         }
 
-        //public static SelectList ToSelectList<TEnum>(this TEnum enumObj)
-        //{
-        //    var values = from TEnum e in Enum.GetValues(typeof(TEnum))
-        //                 select new { Id = e, Name = e.ToString() };
-
-        //    return new SelectList(values, "Id", "Name", enumObj);
-        //} 
 
 
     }
