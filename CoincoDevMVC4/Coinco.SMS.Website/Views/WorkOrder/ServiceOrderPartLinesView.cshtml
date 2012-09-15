@@ -6,7 +6,7 @@
         .Columns(columns =>
         {
             columns.Bound(c => c.TransactionSerialNumber).Title("SerialNumber").Width(120);
-            columns.Bound(c => c.ServiceObjectRelation).Title("SO Relation").Width(100);
+            //columns.Bound(c => c.ServiceObjectRelation).Title("SO Relation").Width(100);
             columns.Bound(c => c.TransactionType.TransactionTypeName).Title("Transaction").Width(100);
             columns.Bound(c => c.Description).Width(100);
             columns.Bound(c => c.SpecialtyCode.SpecialityCodeNo).Title("SpecialtyCode").Width(120);

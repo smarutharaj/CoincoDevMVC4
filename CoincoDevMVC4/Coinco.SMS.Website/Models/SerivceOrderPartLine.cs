@@ -85,7 +85,7 @@ namespace Coinco.SMS.Website.Models
                 {
                     SerivceOrderPartLine serviceObject = new SerivceOrderPartLine();
                     serviceObject.SerialNumber = row["SerialNumber"].ToString();
-                    serviceObject.ServiceObjectRelation = row["SORelationID"].ToString();
+                    //serviceObject.ServiceObjectRelation = row["SORelationID"].ToString();
                     transaction = row["TransactionType"].ToString();
                   
                     if (transaction == "3")
@@ -108,6 +108,7 @@ namespace Coinco.SMS.Website.Models
 
                     serviceObject.SpecialtyCode = new Models.SpecialtyCode(row["SpecialityCode"].ToString(),"");
                     serviceObject.FailureCode = new Models.FailureCode(row["FailureCode"].ToString(), "");
+                    serviceObject.LineProperty = new Models.LineProperty(row["LineProperty"].ToString(), "");
                     serviceObject.Quantity = row["Qty"].ToString();
                     serviceObject.SalesPrice = row["SalesPrice"].ToString();
                     serviceObject.ServiceTechnician = new Models.ServiceTechnician(row["Technician"].ToString(), "");
