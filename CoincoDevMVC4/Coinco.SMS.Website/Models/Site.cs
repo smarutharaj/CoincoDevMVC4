@@ -30,7 +30,7 @@ namespace Coinco.SMS.Website.Models
             this.IsDefault = isDefault;
         }
 
-        //- To get the GetSites  for sites and Service Order Process Page 
+        //- To get the GetSites  for sites 
 
         public IEnumerable<Site> GetSitesListByUsername(string userName)
         {
@@ -59,6 +59,34 @@ namespace Coinco.SMS.Website.Models
             }
             return siteList.AsEnumerable<Site>();
         }
+
+        //- To get the GetSites for Service Order Process Page 
+        public List<Site> GetSites(string userName)
+        {
+            List<Site> siteList = new List<Site> { };
+            IAXHelper axHelper = ObjectFactory.GetInstance<IAXHelper>();
+            try
+            {
+                DataTable resultTable = axHelper.GetSitesList(userName);
+
+
+                foreach (DataRow row in resultTable.Rows)
+                {
+                    Site siteObject = new Site();
+                    siteObject.SiteID = row["SiteID"].ToString();
+                    siteObject.SiteName = row["SiteName"].ToString();
+                    siteList.Add(siteObject);
+
+                }
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            return siteList;
+
+        }
+
     }
 
 

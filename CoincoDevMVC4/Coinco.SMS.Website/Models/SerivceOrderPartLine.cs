@@ -144,6 +144,29 @@ namespace Coinco.SMS.Website.Models
 
         }
 
+        public List<SerivceOrderPartLine> GetTransactionSerialNumbers(string itemNumber, string site, string wareHouse, string locationId, string userName)
+        {
+            IAXHelper axHelper = ObjectFactory.GetInstance<IAXHelper>();
+            List<SerivceOrderPartLine> serialNumberList = new List<SerivceOrderPartLine>();
+            try
+            {
+                DataTable resultTable = axHelper.GetTransactionSerialNumberList(itemNumber, site, wareHouse, locationId, userName);
 
+
+                foreach (DataRow row in resultTable.Rows)
+                {
+                    SerivceOrderPartLine serviceObject = new SerivceOrderPartLine();
+                    serviceObject.TransactionSerialNumber = row["SerialNumber"].ToString();
+                    serialNumberList.Add(serviceObject);
+
+                }
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            return serialNumberList;
+
+        }
     }
 }
