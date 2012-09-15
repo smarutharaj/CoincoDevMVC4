@@ -16,74 +16,37 @@
         font-family: inherit;
         font-size: inherit;
     }
-    
- 
-
-
 </style>
 <div class="pageCointainer">
-<br />
-<div class="serviceProcessDiv">
-       
-    
-    <div class="leftcolumn">
-      @Html.Label("Service Order:", new { @class = "labelHeaderView", id = "serviceOrderLabel" })
-  
-        @Html.DisplayFor(x => TempData["ServiceOrderId"], new { @class = "labelViewSO", id = "serviceOrderViewlabel" })
-    
-        <br />
-        @Html.Label("Serial Number:", new { @class = "labelHeaderView", id = "serialNumberLabel" })
-        
-        @{Html.Telerik().ComboBox().Name("slNumberDropDownList")
-            .BindTo((SelectList)ViewData["SerialNumberList"])
-            //.ClientEvents(e => e.OnChange("onserialNumberDropDownChange"))
+    <br />
+    <div id="serviceProcessDiv" class="serviceProcessDiv">
+        <div class="leftcolumn">
+            @Html.Label("Service Order:", new { @class = "labelHeaderView", id = "serviceOrderLabel" })
+            @Html.DisplayFor(x => TempData["ServiceOrderId"], new { @class = "labelViewSO", id = "serviceOrderViewlabel" })
+            <br />
+            @Html.Label("Serial Number:", new { @class = "labelHeaderView", id = "serialNumberLabel" })
+            @{Html.Telerik().ComboBox().Name("slNumberDropDownList")
+            .BindTo((SelectList)ViewData["WorkSerialNumberList"])
+            .ClientEvents(e => e.OnChange("onserialNumberDropDownChange"))
             .Placeholder("-- Select --")
             .HtmlAttributes(new { style = "font-size: 8pt; font-family: Verdana; width:150px; marign:5px;" })
             .DropDownHtmlAttributes(new { style = "font-size: 8pt; font-family: Verdana;" })
             .SelectedIndex(0)
             .Render();
-        }
-        @*@Html.DropDownListFor(x => x.ServiceObjectRelation, (SelectList)ViewData["SORelationList"], "<--Select One-->", new { @class = "dropDownPropertiesSP", id = "SORelationDropDownList" })*@
-        <br />
-    </div>
-
-    <div class="centercolumn">
-        @Html.Label("Warranty:", new { @class = "labelHeaderView", id = "warrantyHeadLabel" })
-        <div class="labelViewSO">   
-  @*      @{
-            List<Coinco.SMS.Website.Models.ServiceOrderLine> serviceOrderList= (List<Coinco.SMS.Website.Models.ServiceOrderLine>)ViewData["ServiceOrderLineinProcess"];
-
-            Html.Display(serviceOrderList == null ? "" : serviceOrderList[0].Warranty, new { @class = "labelViewSO", id = "serviceOrderViewlabel" });
-            }*@
-            @Html.DisplayFor(x => x.ServiceOrderLine.Warranty)
-
+            }
+            <br />
         </div>
-        <br />
-        @Html.Label("Repair Type:", new { @class = "labelHeaderView", id = "repairHeadLabel" })
-        <div class="labelViewSO">
-        @Html.DisplayFor(x => x.ServiceOrderLine.RepairType)
-        </div>
-      
+        <div id = "partNumberView">
+                 @{Html.RenderPartial("PartDetailsView");}
+            </div>
+        
     </div>
-
-    <div class="rightcolumn">
-  
-        @Html.Label("Part Number:", new { @class = "labelHeaderView", id = "partNoHeadLabel" })
-        <div class="labelViewSO">
-        @Html.DisplayFor(x => x.ServiceOrderLine.PartNumber)<br />
-        </div>
-    </div>
-
-</div>
-
-<div class="addLinesDiv">
- <div class="addLineleftcolumn">
- <h6>Add Lines</h6>
-
-  <label>
-     
-
-            Transaction Type:</label>
+    <div class="addLinesDiv">
+        <div class="addLineleftcolumn">
+            <h6>
+                Add Lines</h6>
+            <label>
+                Transaction Type:</label>
             @{Html.Telerik().ComboBox().Name("transactionTypeDropDownList")
             .DataBinding(binding => binding.Ajax().Select("_GetTransactionTypes", "WorkOrder"))
              .SelectedIndex(0)
@@ -92,15 +55,14 @@
             .DropDownHtmlAttributes(new { style = "font-size: 8pt; font-family: Verdana;" })
             .CascadeTo("specialtyCodeDropDownList")
             .Render();
-        }
-           @*@Html.DropDownListFor(x => x.TransactionType, new SelectList(Enum.GetValues(typeof(Coinco.SMS.Website.Models.TransactionType))), new { @class = "dropDownPropertiesSP", id = "transactionTypeDropDownList" })*@
-        <br />
-        <label>
-           Description:</label>
-           @Html.TextAreaFor(x => x.Description)<br />
-
-     <label>
-            Failure Code:</label>
+            }
+            @*@Html.DropDownListFor(x => x.TransactionType, new SelectList(Enum.GetValues(typeof(Coinco.SMS.Website.Models.TransactionType))), new { @class = "dropDownPropertiesSP", id = "transactionTypeDropDownList" })*@
+            <br />
+            <label>
+                Description:</label>
+            @Html.TextAreaFor(x => x.Description, new { id = "descriptionText" })<br />
+            <label>
+                Failure Code:</label>
             @{Html.Telerik().ComboBox().Name("failureCodeDropDownList")
             .BindTo((SelectList)ViewData["FailureCodeList"])
             .Placeholder("-- Select --")
@@ -109,25 +71,20 @@
             .SelectedIndex(0)
 
             .Render();
-        }
-           
-        <br />
-    <label>
-            Specialty Code:</label>
+            }
+            <br />
+            <label>
+                Specialty Code:</label>
             @{Html.Telerik().ComboBox().Name("specialtyCodeDropDownList")
             .DataBinding(binding => binding.Ajax().Select("_GetDropDownListSpecialtyCode", "WorkOrder"))
             .Placeholder("-- Select --")
             .HtmlAttributes(new { style = "font-size: 8pt; font-family: Verdana; width:150px" })
             .DropDownHtmlAttributes(new { style = "font-size: 8pt; font-family: Verdana;" })
             .SelectedIndex(0)
-            //.CascadeTo("techniacianDropDownList")
-           
             .Render();
-        }
-          
-          
-        <label>
-            Line Property:</label>
+            }
+            <label>
+                Line Property:</label>
             @{Html.Telerik().ComboBox().Name("LinePropertyDropDownList")
             .BindTo((SelectList)ViewData["LinePropertyList"])
             .Placeholder("-- Select --")
@@ -135,52 +92,49 @@
             .DropDownHtmlAttributes(new { style = "font-size: 8pt; font-family: Verdana;" })
             .SelectedIndex(0)
             .Render();
-        }
-          
-        <br />
-        
- </div>
- <div class="addLinecentercolumn">
- <label>
-            Quantity:</label>
-            @Html.TextBoxFor(x => x.Quantity, new { @class = "singleTextBox" })<br />
- <label>
-            Technician:</label>
+            }
+            <br />
+        </div>
+        <div class="addLinecentercolumn">
+            <label>
+                Quantity:</label>
+            @Html.TextBoxFor(x => x.Quantity, new { @class = "singleTextBox" , id = "quantityText" })<br />
+            <label>
+                Technician:</label>
             @{Html.Telerik().ComboBox().Name("techniacianDropDownList")
             .BindTo((SelectList)ViewData["ServiceTechnicianList"])
             .Placeholder("-- Select --")
             .HtmlAttributes(new { style = "font-size: 8pt; font-family: Verdana; width:150px" })
             .DropDownHtmlAttributes(new { style = "font-size: 8pt; font-family: Verdana;" })
             .SelectedIndex(0)
-           
+
             .Render();
-        }
-      
-        <br />
-         <label>
-           Service Comments:</label>
-           @Html.TextAreaFor(x => x.ServiceComments)
-           <br />
- </div>
- <div class="addLineRightcolumn" id="addLineRightcolumn">
- <div class="topDimensioncolumn">
-  <h6>Storage Dimension</h6>
-   <label>
-            Item Number:</label>
-           @{Html.Telerik().ComboBox().Name("partNumberDropDownList")
+            }
+            <br />
+            <label>
+                Service Comments:</label>
+            @Html.TextAreaFor(x => x.ServiceComments, new { id = "commentsText" })
+            <br />
+        </div>
+        <div class="addLineRightcolumn" id="addLineRightcolumn">
+            <div class="topDimensioncolumn">
+                <h6>
+                    Storage Dimension</h6>
+                <label>
+                    Item Number:</label>
+                @{Html.Telerik().ComboBox().Name("partNumberDropDownList")
             .BindTo((SelectList)ViewData["PartNumberList"])
             .Placeholder("-- Select --")
             .HtmlAttributes(new { style = "font-size: 8pt; font-family: Verdana; width:150px" })
             .DropDownHtmlAttributes(new { style = "font-size: 8pt; font-family: Verdana;" })
             .SelectedIndex(0)
-            .ClientEvents(e => e.OnChange("OnItemChange"))
+            //.ClientEvents(e => e.OnChange("OnItemChange"))
             .Render();
-        }
-          @*  @Html.DropDownList("partNumberDropDownList", (SelectList)ViewData["PartNumberList"], "<--Select One-->", new { @class = "dropDownPropertiesSP" })*@
-       
-         <label>
-            Site:</label>
-             @{Html.Telerik().ComboBox().Name("siteComboBox")
+                }
+                @*  @Html.DropDownList("partNumberDropDownList", (SelectList)ViewData["PartNumberList"], "<--Select One-->", new { @class = "dropDownPropertiesSP" })*@
+                <label>
+                    Site:</label>
+                @{Html.Telerik().ComboBox().Name("siteComboBox")
             .BindTo((SelectList)ViewData["siteList"])
             .Placeholder("-- Select --")
             .HtmlAttributes(new { style = "font-size: 8pt; font-family: Verdana; width:150px" })
@@ -188,78 +142,77 @@
             .SelectedIndex(0)
             .CascadeTo("wareHouseDropDownList")
             .Render();
-        }
-    @*@Html.DropDownListFor(x => x.Site.SiteID, new SelectList(""), "<--Select One-->", new { @class = "dropDownPropertiesSP", id = "LinePropertyDropDownList" })*@
-      
-         <label>
-            Warehouse:</label>
-             @{Html.Telerik().ComboBox().Name("wareHouseDropDownList")
+                }
+                @*@Html.DropDownListFor(x => x.Site.SiteID, new SelectList(""), "<--Select One-->", new { @class = "dropDownPropertiesSP", id = "LinePropertyDropDownList" })*@
+                <label>
+                    Warehouse:</label>
+                @{Html.Telerik().ComboBox().Name("wareHouseDropDownList")
             .DataBinding(binding => binding.Ajax().Select("_GetDropDownWareHouse", "WorkOrder"))
             .Placeholder("-- Select --")
             .HtmlAttributes(new { style = "font-size: 8pt; font-family: Verdana; width:150px" })
             .DropDownHtmlAttributes(new { style = "font-size: 8pt; font-family: Verdana;" })
             .SelectedIndex(0)
-          
+
             .Render();
-        }
-    @*@Html.DropDownListFor(x => x.WareHouse.WareHouseCode, new SelectList(""), "<--Select One-->", new { @class = "dropDownPropertiesSP", id = "LinePropertyDropDownList" })*@
-         <label>
-            Location:</label>
-             @{Html.Telerik().ComboBox().Name("locationDropDownList")
+                }
+                @*@Html.DropDownListFor(x => x.WareHouse.WareHouseCode, new SelectList(""), "<--Select One-->", new { @class = "dropDownPropertiesSP", id = "LinePropertyDropDownList" })*@
+                <label>
+                    Location:</label>
+                @{Html.Telerik().ComboBox().Name("locationDropDownList")
              .Placeholder("-- Select --")
             .HtmlAttributes(new { style = "font-size: 8pt; font-family: Verdana; width:150px" })
             .DropDownHtmlAttributes(new { style = "font-size: 8pt; font-family: Verdana;" })
             .SelectedIndex(0)
-            
+
             .Render();
-            }
-           @*@Html.DropDownListFor(x => x.Location.LocationId, new SelectList(""), "<--Select One-->", new { @class = "dropDownPropertiesSP", id = "LinePropertyDropDownList" })*@
- </div> 
- <div class="centerDimensioncolumn"> 
-    <h6>Tracking Dimension</h6>
-    <label> Serial Number:</label>
-     @{Html.Telerik().ComboBox().Name("trackingSerialNoDropDownList")
+                }
+                @*@Html.DropDownListFor(x => x.Location.LocationId, new SelectList(""), "<--Select One-->", new { @class = "dropDownPropertiesSP", id = "LinePropertyDropDownList" })*@
+            </div>
+            <div class="centerDimensioncolumn">
+                <h6>
+                    Tracking Dimension</h6>
+                <label>
+                    Serial Number:</label>
+                @{Html.Telerik().ComboBox().Name("trackingSerialNoDropDownList")
              .Placeholder("-- Select --")
             .HtmlAttributes(new { style = "font-size: 8pt; font-family: Verdana; width:150px" })
             .DropDownHtmlAttributes(new { style = "font-size: 8pt; font-family: Verdana;" })
             .SelectedIndex(0)
-            
+
             .Render();
-            }
-     @* @Html.DropDownListFor(x => x.TransactionSerialNumber, new SelectList(""), "<--Select One-->", new { @class = "dropDownPropertiesSP", id = "LinePropertyDropDownList" })*@
-  </div>  
-  <div class="bottomDimensioncolumn"  >
-     <h6>Product Dimension</h6>
-        <label> Configuration:</label>
-     @Html.DropDownListFor(x => x.ConfigType, new SelectList(""), "<--Select One-->", new { @class = "dropDownPropertiesSP", id = "LinePropertyDropDownList" })
-       
-         <label> Size:</label>
-       @Html.DropDownListFor(x => x.SizeType, new SelectList(""), "<--Select One-->", new { @class = "dropDownPropertiesSP", id = "LinePropertyDropDownList" })
-        <br />
-         <label> Color:</label>
-        @Html.DropDownListFor(x => x.ColorType, new SelectList(""), "<--Select One-->", new { @class = "dropDownPropertiesSP", id = "LinePropertyDropDownList" })
-   </div>     
- </div>
-
-</div>
-
- <div id="SubmitResult" class="submitResultClass"> 
-                     <button class="t-button" type="button" id="Add" value="Add">Add</button>
-                      
-                    <button class="t-button" type="button" id="Clear" value="Clear">Clear</button>
-
-
-  </div>
-   
-   
-
-<div class="partLinesDiv">
-@{Html.Telerik().Grid((IEnumerable<Coinco.SMS.Website.Models.SerivceOrderPartLine>)ViewData["ServiceOrderPartLines"])
+                }
+                @* @Html.DropDownListFor(x => x.TransactionSerialNumber, new SelectList(""), "<--Select One-->", new { @class = "dropDownPropertiesSP", id = "LinePropertyDropDownList" })*@
+            </div>
+            <div class="bottomDimensioncolumn">
+                <h6>
+                    Product Dimension</h6>
+                <label>
+                    Configuration:</label>
+                @Html.DropDownListFor(x => x.ConfigType, new SelectList(""), "<--Select One-->", new { @class = "dropDownPropertiesSP", id = "LinePropertyDropDownList" })
+                <label>
+                    Size:</label>
+                @Html.DropDownListFor(x => x.SizeType, new SelectList(""), "<--Select One-->", new { @class = "dropDownPropertiesSP", id = "LinePropertyDropDownList" })
+                <br />
+                <label>
+                    Color:</label>
+                @Html.DropDownListFor(x => x.ColorType, new SelectList(""), "<--Select One-->", new { @class = "dropDownPropertiesSP", id = "LinePropertyDropDownList" })
+            </div>
+        </div>
+    </div>
+    <div id="SubmitResult" class="submitResultClass">
+        <button class="t-button" type="button" id="Add" value="Add">
+            Add</button>
+        <button class="t-button" type="button" id="Clear" value="Clear">
+            Clear</button>
+    </div>
+    <div class="partLinesDiv" id="ServicepartLines">
+        @{Html.Telerik().Grid((IEnumerable<Coinco.SMS.Website.Models.SerivceOrderPartLine>)ViewData["ServiceOrderPartLines"])
         .Name("PartLinesGrid")
         .Columns(columns =>
         {
             columns.Bound(c => c.TransactionSerialNumber).Title("SerialNumber").Width(120);
             columns.Bound(c => c.ServiceObjectRelation).Title("SO Relation").Width(100);
+            columns.Bound(c => c.TransactionType.TransactionTypeName).Title("Transaction").Width(100);
             columns.Bound(c => c.Description).Width(100);
             columns.Bound(c => c.SpecialtyCode.SpecialityCodeNo).Title("SpecialtyCode").Width(120);
             columns.Bound(c => c.FailureCode.FailureCodeNo).Title("FailureCode").Width(100);
@@ -288,74 +241,69 @@
         .Filterable()
         .Render();
 
-            //.ClientEvents(clientEvents => clientEvents.OnDataBinding("onServiceGridDataBinding"))
-            //.ClientEvents(events => events.OnRowSelect("onRowSelected"))
+                //.ClientEvents(clientEvents => clientEvents.OnDataBinding("onServiceGridDataBinding"))
+                //.ClientEvents(events => events.OnRowSelect("onRowSelected"))
 
        
     
         }
-  </div> 
-  <div class="addressDiv">
-  <h6>Address and Contact</h6>
-   <div class="addLineleftcolumn">
-   <label>
-        Customer Name:</label>
-        @Html.DisplayFor(x => x.Customer.CustomerName)<br />
-  <label>
-        Service Technician:</label>
-        @Html.DisplayFor(x => x.ServiceTechnician.ServiceTechnicianName)<br />
-    <label>
-        Service Responsible:</label>
-        @Html.DisplayFor(x => x.ServiceResponsible.ServiceTechnicianName)<br />
-    <label>
-        Customer PO:</label>
-        @Html.DisplayFor(x => x.ServiceOrders.CustomerPO)<br />
-   </div>
-    <div class="centercolumn">
-     <label>
-        Billing Address:</label>
-        @Html.DisplayFor(x => x.Address.AddresswithDesc)<br />
-  </div>
-  <div class="addLineRightcolumn">
-     <label>
-        Shipping Address:</label>
-        @Html.DisplayFor(x => x.Address.AddresswithDesc)<br />
-  </div>
-
+    </div>
+    <div class="addressDiv">
+        <h6>
+            Address and Contact</h6>
+        <div class="addLineleftcolumn">
+            <label>
+                Customer Name:</label>
+            @Html.DisplayFor(x => x.Customer.CustomerName)<br />
+            <label>
+                Service Technician:</label>
+            @Html.DisplayFor(x => x.ServiceTechnician.ServiceTechnicianName)<br />
+            <label>
+                Service Responsible:</label>
+            @Html.DisplayFor(x => x.ServiceResponsible.ServiceTechnicianName)<br />
+            <label>
+                Customer PO:</label>
+            @Html.DisplayFor(x => x.ServiceOrders.CustomerPO)<br />
+        </div>
+        <div class="centercolumn">
+            <label>
+                Billing Address:</label>
+            @Html.DisplayFor(x => x.Address.AddresswithDesc)<br />
+        </div>
+        <div class="addLineRightcolumn">
+            <label>
+                Shipping Address:</label>
+            @Html.DisplayFor(x => x.Address.AddresswithDesc)<br />
+        </div>
+    </div>
 </div>
-</div>
-
 <script type="text/javascript">
 
 
     function onserialNumberDropDownChange(e) {
-debugger
-        var serialNumberId = e.currentTarget.value;
-        if (serialNumberId != null)
-        {
+ 
+        if (e != null) {
+            var serialNumber = e.currentTarget.value;
             jQuery.ajax({
                 url: "/WorkOrder/GetServiceOrderLineBySerialNumberOrderProcess",
                 type: 'GET',
-                data: { serialNumberId: serialNumberId },
-                dataType: 'html',
+                data: { serialNumber: serialNumber },
                 success: function (result) {
-                    jQuery('#serviceProcessDiv').html(result);
+                    jQuery('#partNumberView').html(result);
                 },
-                 error: function (result) {
-                              alert(result.responseText);
-                          }
+                error: function (result) {
+                    alert(result.responseText);
+                }
 
-                      });
+            });
 
+
+            return false;
+        
         }
-        return false;
     }
 
-    function OnItemChange(e) {
-        
-        var selectedItemNumber = e.currentTarget.value;
-        
-    }
+
 
     function ontransactionHide(e) {
      
@@ -373,15 +321,54 @@ debugger
         else if (transactionType == "3") {
             $('#addLineRightcolumn').show();
         }
-       };
-        
-       
-        
+       }
+
+
+       jQuery('#Add').click(function () {
+           var serviceOrderNo = $('#serviceOrderViewlabel').val();
+           var transactionType = $('#transactionTypeDropDownList').val();
+           var technicinanNo = $('#techniacianDropDownList').val();
+           var quantity = $('#quantityText').val();
+           var specialityCode = $('#specialtyCodeDropDownList').val();
+           var failureCode = $('#failureCodeDropDownList').val();
+           var lineProperty = $('#LinePropertyDropDownList').val();
+           var description = $('#descriptionText').val();
+           var serviceComments = $('#commentsText').val();
+           var itemNumber = $('#partNumberDropDownList').val();
+           var site = $('#siteComboBox').val();
+           var wareHouse = $('#wareHouseDropDownList').val();
+           var transSerialCodeNo = $('#locationDropDownList').val();
+           var locationId = $('#trackingSerialNoDropDownList').val();
+
+
+           jQuery.ajax({
+               url: "/WorkOrder/CreateServiceOrderPartLines",
+               type: 'POST',
+
+               data: { serviceOrderNo: serviceOrderNo, transactionType: transactionType, technicinanNo: technicinanNo, quantity: quantity, specialityCode: specialityCode, failureCode: failureCode, lineProperty: lineProperty, description: description, serviceComments: serviceComments, itemNumber: itemNumber, site: site, wareHouse: wareHouse, transSerialCodeNo: transSerialCodeNo, locationId: locationId },
+               success: function (result) {
+                   jQuery('#ServicepartLines').html(result);
+
+                   alert('Service Order Part Lines Created Successfully');
+                   $('#transactionTypeDropDownList').val('-1');
+                   $('#quantity').val('');
+                   $('#techniacianDropDownList').val('-1');
+                   $('#specialtyCodeDropDownList').val('-1');
+                   $('#failureCodeDropDownList').val('-1');
+                   $('#LinePropertyDropDownList').val('-1');
+                   $('#partNumberDropDownList').val('-1');
+                   $('#wareHouseDropDownList').val('-1');
+                   $('#locationDropDownList').val('-1');
+                   $('#descriptionText').val('');
+               },
+               error: function (result) {
+                   alert(result.responseText);
+               }
+
+           });
+           return false;
+       });
+ 
     
 
 </script>
-    
-    
-    
-         
-      

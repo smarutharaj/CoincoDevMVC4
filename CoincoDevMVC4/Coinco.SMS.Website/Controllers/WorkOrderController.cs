@@ -105,14 +105,17 @@ namespace Coinco.SMS.Controllers
         // GET: /ServiceOrderProcess/
         public ActionResult ServiceOrderProcess()
         {
-
+            string userName = "";
+           
+           
+            userName = User.Identity.Name.ToString().Split('\\')[1];
             FailureCode failureCodeObject = new FailureCode();
             IEnumerable<FailureCode> failureCodeCollection = failureCodeObject.GetFailureCode(User.Identity.Name.ToString().Split('\\')[1]);
             failureCodeObject.FailureCodeList = new SelectList(failureCodeCollection, "FailureCodeNo", "FailureDescription", null);
             ViewData["FailureCodeList"] = failureCodeObject.FailureCodeList;
 
             PartDetails partDetails = new PartDetails();
-            partDetails.PartDetailsList = new SelectList(partDetails.GetItemNumbers(User.Identity.Name.ToString().Split('\\')[1]), "ItemNumber", "ProductName", null);
+            partDetails.PartDetailsList = new SelectList(partDetails.GetItemNumbers(User.Identity.Name.ToString().Split('\\')[1]), "ItemNumber", "ItemNumber", null);
             ViewData["PartNumberList"] = partDetails.PartDetailsList;
 
             LineProperty LinePropertyObject = new LineProperty();
@@ -120,34 +123,34 @@ namespace Coinco.SMS.Controllers
             LinePropertyObject.LinePropertyList = new SelectList(LinePropertyCollection, "LinePropertyCode", "LinePropertyDescription", null);
             ViewData["LinePropertyList"] = LinePropertyObject.LinePropertyList;
 
-
-            SerivceOrderPartLine serivceOrderPartLineObject = new SerivceOrderPartLine();
-            IEnumerable<SerivceOrderPartLine> serviceOrderPartLineCollection = null;
-            serviceOrderPartLineCollection = serivceOrderPartLineObject.GetSerialNumberByServiceOrder(TempData["ServiceOrderId"].ToString(), User.Identity.Name.ToString().Split('\\')[1]);
-            serivceOrderPartLineObject.ServiceOrderPartLineList = new SelectList(serviceOrderPartLineCollection, "ServiceObjectRelation", "SerialNumber", serviceOrderPartLineCollection.First<SerivceOrderPartLine>().ServiceObjectRelation);
-
-
-            ViewData["SORelationList"] = serivceOrderPartLineObject.ServiceOrderPartLineList;
-            ViewData["SerialNumberList"] = serivceOrderPartLineObject.ServiceOrderPartLineList;
-            ViewData["ServiceOrderPartLines"] = GetServiceOrderPartLinesByServiceOrderID(TempData["ServiceOrderId"].ToString());
+            if (Session["SID"].ToString() != null)
+            {
+                SerivceOrderPartLine serivceOrderPartLineObject = new SerivceOrderPartLine();
+                IEnumerable<SerivceOrderPartLine> serviceOrderPartLineCollection = null;
+                serviceOrderPartLineCollection = serivceOrderPartLineObject.GetSerialNumberByServiceOrder(TempData["ServiceOrderId"].ToString(), User.Identity.Name.ToString().Split('\\')[1]);
+                serivceOrderPartLineObject.ServiceOrderPartLineList = new SelectList(serviceOrderPartLineCollection, "SerialNumber", "SerialNumber", null);
 
 
+                ViewData["SORelationList"] = serivceOrderPartLineObject.ServiceOrderPartLineList;
+                ViewData["WorkSerialNumberList"] = serivceOrderPartLineObject.ServiceOrderPartLineList;
+                ViewData["ServiceOrderPartLines"] = GetServiceOrderPartLinesByServiceOrderID(TempData["ServiceOrderId"].ToString());
+
+            }
             ServiceTechnician serviceTechnician = new ServiceTechnician();
             serviceTechnician.ServiceTechnicianList = new SelectList(serviceTechnician.GetTechnicians(User.Identity.Name.ToString().Split('\\')[1]), "ServiceTechnicianNo", "ServiceTechnicianName", null);
             ViewData["ServiceTechnicianList"] = serviceTechnician.ServiceTechnicianList;
 
             Site site = new Site();
-            string userName = null;
             IEnumerable<Site> siteCollection = null;
-            userName = User.Identity.Name.ToString().Split('\\')[1];
-            siteCollection = site.GetSitesListByUsername(userName);
-            site.SiteList = new SelectList(siteCollection, "SiteId", "SiteName", null);
-
+            siteCollection = site.GetSites(userName);
+            site.SiteList = new SelectList(siteCollection, "SiteId", "SiteName", siteCollection.First<Site>().SiteID);
             ViewData["siteList"] = site.SiteList;
 
-            TempData.Keep();
+          
             ViewData["TranasactionTypes"] = TransactionType.GetTransactionTypes();
+            TempData.Keep();
             return View();
+        
         }
 
         [GridAction]
@@ -162,14 +165,22 @@ namespace Coinco.SMS.Controllers
             });
         }
 
-        [HttpPost]
+        [HttpGet]
         public ActionResult GetServiceOrderLineBySerialNumberOrderProcess(string serialNumber)
         {
             string userName = null;
             userName = User.Identity.Name.ToString().Split('\\')[1];
-            ViewData["ServiceOrderLineinProcess"] = GetServiceOrderLineBySerialNumber(serialNumber);
+            ServiceOrderLine serviceOrderLineObject = new ServiceOrderLine();
+            serviceOrderLineObject.PartDet = new SelectList(serviceOrderLineObject.GetServiceOrderLinesDetailsBySerialNumber(serialNumber, "", userName), "PartNumber", "PartNumber" );
+            //ViewData["ServiceOrderLineinProcess"] = GetServiceOrderLineBySerialNumber(serialNumber);
+            ViewData["WorkPartNumber"] = serviceOrderLineObject.PartDet;
+            TempData["WorkPartNumber"] = serviceOrderLineObject.PartDet.First().Text;
+            //serviceOrderLineObject.PartDet = new SelectList(serviceOrderLineObject.GetServiceOrderLinesDetailsBySerialNumber(serialNumber, "", userName), "Warranty", "Warranty");
+            //TempData["WorkWarranty"] = serviceOrderLineObject.PartDet.First().Text;
+            //serviceOrderLineObject.PartDet = new SelectList(serviceOrderLineObject.GetServiceOrderLinesDetailsBySerialNumber(serialNumber, "", userName), "RepairType", "RepairType");
+            //TempData["WorkRepairType"] = serviceOrderLineObject.PartDet.First().Text;
             TempData.Keep();
-            return View();
+            return View("PartDetailsView");
         }
 
         private List<SerivceOrderPartLine> GetServiceOrderPartLinesByServiceOrderID(string serviceOrderId)
@@ -214,6 +225,46 @@ namespace Coinco.SMS.Controllers
             
         }
 
+        [HttpPost]
+        public JsonResult _GetDropDownWareHouse(string partNumberDropDownList, string siteComboBox)
+        {
+            return _GetWareHouses(partNumberDropDownList, siteComboBox);
+
+        }
+
+
+        private JsonResult _GetWareHouses(string itemNumber, string site)
+        {
+            string userName = User.Identity.Name.ToString().Split('\\')[1];
+            WareHouse wareHouseObject = new WareHouse();
+            return Json(new SelectList(wareHouseObject.GetWareHouses(itemNumber, site, userName), "WareHouseCode", "WareHouseName", "PhyiscalQty"), JsonRequestBehavior.AllowGet);
+
+        }
+
+        [HttpPost]
+        public ActionResult CreateServiceOrderPartLines(string serviceOrderNo, string transactionType, string serviceTechnicianCode, string quantity, string specialityCode, string failureCode, string serviceType, string serviceOrderRelation, string description, string serviceComments, string itemNumber, string site, string wareHouse, string transSerialCodeNo, string colorId, string sizeId, string configId, string locationId)
+        {
+            string userName = null;
+           
+            bool isSuccess = false;
+            try
+            {
+
+                userName = User.Identity.Name.ToString().Split('\\')[1];
+                if (serviceOrderNo!=null)
+                {
+                    serviceOrderNo = Session["SID"].ToString();
+                }
+                SerivceOrderPartLine serviceOrderPaerLine = new SerivceOrderPartLine();
+                isSuccess = serviceOrderPaerLine.CreateServiceOrderItemLines(serviceOrderNo, transactionType, serviceTechnicianCode , quantity, specialityCode, failureCode, serviceType, serviceOrderRelation="", description, serviceComments, itemNumber, site, wareHouse, transSerialCodeNo,  colorId="", sizeId="", configId="", locationId, userName);
+                
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            return View("ServiceOrderProcess");
+        }
 
 
     }

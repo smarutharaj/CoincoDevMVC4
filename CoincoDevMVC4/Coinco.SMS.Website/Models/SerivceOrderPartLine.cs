@@ -170,14 +170,14 @@ namespace Coinco.SMS.Website.Models
         }
 
 
-        public bool CreateServiceOrderItemLines(string serviceOrderNo, string transactionType, string serviceTechnicianCode, string quantity, string salesPrice, string specialityCode, string failureCode, string serviceType, string serviceOrderRelation, string description, string serviceComments, string itemNumber, string site, string wareHouse, string transSerialCodeNo, string colorId, string sizeId, string configId, string locationId, string userName)
+        public bool CreateServiceOrderItemLines(string serviceOrderNo, string transactionType, string serviceTechnicianCode, string quantity,  string specialityCode, string failureCode, string serviceType, string serviceOrderRelation, string description, string serviceComments, string itemNumber, string site, string wareHouse, string transSerialCodeNo, string colorId, string sizeId, string configId, string locationId, string userName)
         {
             bool isSuccess = false;
 
             IAXHelper axHelper = ObjectFactory.GetInstance<IAXHelper>();
             try
             {
-                isSuccess = axHelper.CreateServiceOrderItemLines(serviceOrderNo, transactionType, serviceTechnicianCode, quantity, salesPrice, specialityCode, failureCode, serviceType, serviceOrderRelation, description, serviceComments, itemNumber, site, wareHouse, transSerialCodeNo, colorId, sizeId, configId, locationId, userName);
+                isSuccess = axHelper.CreateServiceOrderItemLines(serviceOrderNo, transactionType, serviceTechnicianCode, quantity, specialityCode, failureCode, serviceType, serviceOrderRelation, description, serviceComments, itemNumber, site, wareHouse, transSerialCodeNo, colorId, sizeId, configId, locationId, userName);
 
             }
             catch (Exception ex)
