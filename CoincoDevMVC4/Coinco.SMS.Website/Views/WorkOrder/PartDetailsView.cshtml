@@ -1,1 +1,22 @@
-﻿
+﻿@using Telerik.Web.Mvc.UI
+@model Coinco.SMS.Website.Models.ServiceOrderLine
+@* <label>Part Number:</label> @Html.DisplayFor(x => TempData["PartNum"])*@
+
+ <div class="centercolumn">
+            @Html.Label("Part Number:", new { @class = "labelHeaderView", id = "partNoHeadLabel" })  
+         
+            <div class="labelViewSO">
+                @Html.DisplayFor(x => TempData["WorkPartNumber"])
+            </div>
+            <br />
+            @Html.Label("Repair Type:", new { @class = "labelHeaderView", id = "repairHeadLabel" })
+            <div class="labelViewSO">
+                @Html.DisplayFor(x => TempData["WorkRepairType"])
+            </div>
+        </div>
+        <div class="rightcolumn">
+             @Html.Label("Warranty:", new { @class = "labelHeaderView", id = "warrantyHeadLabel" })
+            <div class="labelViewSO">
+                @Html.DisplayFor(x => TempData["WorkWarranty"])<br />
+            </div>
+        </div>

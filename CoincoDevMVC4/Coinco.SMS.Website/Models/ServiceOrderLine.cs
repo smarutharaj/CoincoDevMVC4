@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Data;
+using System.Web.Mvc;
 using Coinco.SMS.AXWrapper;
 using StructureMap;
 
@@ -19,6 +20,9 @@ namespace Coinco.SMS.Website.Models
         public string Comments { get; set; }
         public string LineProperty { get; set; }
         public string CustAccount { get; set; }
+
+        public SelectList PartDet { get; set; }
+
         public ServiceOrderLine()
         {
 

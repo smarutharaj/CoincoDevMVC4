@@ -1091,7 +1091,7 @@ namespace Coinco.SMS.AXWrapper
             return serialTable;
         }
 
-        public bool CreateServiceOrderItemLines(string serviceOrderNo, string transactionType, string serviceTechnicianCode, string quantity, string specialityCode, string failureCode, string serviceType, string serviceOrderRelation, string description, string serviceComments, string itemNumber, string site, string wareHouse, string transSerialCodeNo, string colorId, string sizeId, string configId, string locationId, string userName)
+        public bool CreateServiceOrderItemLines(string serviceOrderNo, string transactionType, string serviceTechnicianCode, string quantity, string specialityCode, string failureCode, string lineProperty, string serviceOrderRelation, string description, string serviceComments, string itemNumber, string site, string wareHouse, string transSerialCodeNo, string colorId, string sizeId, string configId, string locationId, string userName)
         {
 
             Axapta ax = null;
@@ -1112,7 +1112,7 @@ namespace Coinco.SMS.AXWrapper
                 param[4] = salesPrice;
                 param[5] = specialityCode;
                 param[6] = failureCode;
-                param[7] = serviceType;
+                param[7] = lineProperty;
                 param[8] = serviceOrderRelation;
                 param[9] = description;
                 param[10] = serviceComments;
