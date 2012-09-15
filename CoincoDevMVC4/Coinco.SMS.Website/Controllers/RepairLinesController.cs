@@ -21,7 +21,7 @@ namespace Coinco.SMS.Website.Controllers
             SerivceOrderPartLine serviceOrderPartLineObj = new SerivceOrderPartLine();
             IEnumerable<SerivceOrderPartLine> serviceOrderPartLineCollection = null;
             serviceOrderPartLineCollection = serviceOrderPartLineObj.GetSerialNumberByServiceOrder(TempData["ServiceOrderId"].ToString(), userName);
-            serviceOrderPartLineObj.ServiceOrderPartLineList = new SelectList(serviceOrderPartLineCollection, "ServiceObjectRelation", "SerialNumber", null);
+            serviceOrderPartLineObj.ServiceOrderPartLineList = new SelectList(serviceOrderPartLineCollection, "SerialNumber", "SerialNumber", null);
             ViewData["SerialNumberList"] = serviceOrderPartLineObj.ServiceOrderPartLineList;
 
             RepairType repairTypeObj = new RepairType();
@@ -76,6 +76,32 @@ namespace Coinco.SMS.Website.Controllers
             string userName = User.Identity.Name.ToString().Split('\\')[1];
             RepairType repairTypeObj = new RepairType();
             return Json(new SelectList(repairTypeObj.GetDiagnosisCode(DiagonsisAreaId, userName), "DiagonsisCodeId", "DiagonsisCodeName"), JsonRequestBehavior.AllowGet);
+
+        }
+
+        ///* Binding PartList...*/
+        //[HttpPost]
+        //public ActionResult _GetPartNumberList(string serialNumberList)
+        //{
+        //    string userName = User.Identity.Name.ToString().Split('\\')[1];
+        //    RepairType repairTypeObj = new RepairType();
+        //    repairTypeObj.PartNum = new SelectList(repairTypeObj.GetServiceOrderLinesDetailsBySerialNumber(SerialNumber, "", userName), "SerialNumber", "PartNumber");
+
+
+        //}
+
+        [HttpPost]
+        public JsonResult _GetPartNumberList(string serialNumberList)
+        {
+            return _GetParNumber(serialNumberList);
+
+        }
+
+        private JsonResult _GetParNumber(string SerialNumber)
+        {
+            string userName = User.Identity.Name.ToString().Split('\\')[1];
+            RepairType repairTypeObj = new RepairType();
+            return Json(new SelectList(repairTypeObj.GetServiceOrderLinesDetailsBySerialNumber(SerialNumber, "", userName), "SerialNumber", "PartNumber"), JsonRequestBehavior.AllowGet);
 
         }
     }

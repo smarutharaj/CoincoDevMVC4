@@ -15,6 +15,10 @@ namespace Coinco.SMS.Website.Models
 
         public string SerialNumber { get; set; }
 
+        public string PartNumber { get; set; }
+
+        public SelectList PartNum { get; set; }
+
         public string Description { get; set; }
 
         public string ConditionId { get; set; }
@@ -89,7 +93,7 @@ namespace Coinco.SMS.Website.Models
         //}
 
 
-        public IEnumerable<RepairType> GetCondtions(string userName)
+        public List<RepairType> GetCondtions(string userName)
         {
             IAXHelper axHelper = ObjectFactory.GetInstance<IAXHelper>();
             List<RepairType> repairList = new List<RepairType>();
@@ -111,11 +115,11 @@ namespace Coinco.SMS.Website.Models
             {
                 throw e;
             }
-            return repairList.AsEnumerable<RepairType>();
+            return repairList;
 
         }
 
-        public IEnumerable<RepairType> GetSymptomArea(string userName)
+        public List<RepairType> GetSymptomArea(string userName)
         {
             IAXHelper axHelper = ObjectFactory.GetInstance<IAXHelper>();
             List<RepairType> repairList = new List<RepairType>();
@@ -137,7 +141,7 @@ namespace Coinco.SMS.Website.Models
             {
                 throw e;
             }
-            return repairList.AsEnumerable<RepairType>();
+            return repairList;
 
         }
 
@@ -280,6 +284,33 @@ namespace Coinco.SMS.Website.Models
 
         }
 
+        public IQueryable<RepairType> GetServiceOrderLinesDetailsBySerialNumber(string serialNumber, string itemNumber, string userName)
+        {
+            IAXHelper axHelper = ObjectFactory.GetInstance<IAXHelper>();
+            List<RepairType> repairList = new List<RepairType>();
+            try
+            {
+                DataTable resultTable = axHelper.GetServiceOrderLinesDetailsBySerialNumber(serialNumber, itemNumber, userName);
+
+
+                foreach (DataRow row in resultTable.Rows)
+                {
+                    RepairType repairObject = new RepairType();
+                    //repairObject.SerialNumber = row["SerialNumber"].ToString();
+                    repairObject.PartNumber = row["PartNumber"].ToString();
+                    repairList.Add(repairObject);
+
+                }
+            }
+            catch (Exception e)
+            {
+                throw e;
+
+            }
+            return repairList.AsQueryable<RepairType>();
+
+        }
+
         public List<RepairType> GetRepairLineDetails(string serviceorderId, string userName)
         {
             IAXHelper axHelper = ObjectFactory.GetInstance<IAXHelper>();
@@ -318,6 +349,8 @@ namespace Coinco.SMS.Website.Models
             return repairList;
 
         }
+
+             
 
         //public bool CreateRepairLineItems(string serviceOrderNo, string serviceOrderRelation, string conditionId, string symptomAreaId, string symptomCodeId, string diagonsisAreaId, string diagonsisCodeId, string resolutionId, string repairStageId, string technicianNo, string description, string serviceComments, string userName)
         //{
