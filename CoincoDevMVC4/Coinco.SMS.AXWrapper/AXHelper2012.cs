@@ -919,6 +919,177 @@ namespace Coinco.SMS.AXWrapper
             }
             return resultTable;
         }
+
+        public DataTable GetSitesList(string userName)
+        {
+            DataTable resultTable = new DataTable();
+            Axapta ax = null;
+            AxaptaRecord axRecord;
+            try
+            {
+                // Login to Microsoft Dynamics AX.
+                ax = new Axapta();
+                ax.LogonAs(userName.Trim(), "", networkCredentials, axCompany, "", "", "");
+                resultTable.Columns.Add("SiteID", typeof(String));
+                resultTable.Columns.Add("SiteName", typeof(String));
+                using (axRecord = ax.CreateAxaptaRecord("InventSite"))
+                {
+                    // Execute the query on the table.
+                    axRecord.ExecuteStmt("select SiteID, Name from %1 where %1.DataAreaID=='" + axCompany + "'");
+                    // Loop through the set of retrieved records.
+                    while (axRecord.Found)
+                    {
+
+                        DataRow row = resultTable.NewRow();
+                        row["SiteID"] = axRecord.get_Field("SiteID");
+                        row["SiteName"] = axRecord.get_Field("Name");
+                        resultTable.Rows.Add(row);
+                        axRecord.Next();
+
+                    }
+
+
+                }
+            }
+            catch (Exception e)
+            {
+                throw e;
+                // Take other error action as needed.
+            }
+            finally
+            {
+                if (ax != null) ax.Logoff();
+            }
+            return resultTable;
+        }
+
+        public DataTable GetWareHouses(string itemNumber, string site, string userName)
+        {
+            DataTable resultTable = new DataTable();
+            Axapta ax = null;
+            AxaptaRecord axRecord;
+            try
+            {
+                // Login to Microsoft Dynamics AX.
+                ax = new Axapta();
+                ax.LogonAs(userName.Trim(), "", networkCredentials, axCompany, "", "", "");
+                resultTable.Columns.Add("WareHouseID", typeof(String));
+                resultTable.Columns.Add("WareHouseName", typeof(String));
+                resultTable.Columns.Add("PhysicalQty", typeof(String));
+                axRecord = (AxaptaRecord)ax.CallStaticClassMethod("ServiceOrderManagement", "getSMAWarehouse", site, itemNumber);                    // Loop through the set of retrieved records.
+                axRecord.ExecuteStmt("select * from %1");
+                while (axRecord.Found)
+                {
+
+                    DataRow row = resultTable.NewRow();
+                    row["WareHouseID"] = axRecord.get_Field("InventLocationID");
+                    row["WareHouseName"] = axRecord.get_Field("Name");
+                    row["PhysicalQty"] = axRecord.get_Field("AvaiPhysicalQty");
+                    resultTable.Rows.Add(row);
+                    axRecord.Next();
+
+                }
+
+
+            }
+
+            catch (Exception e)
+            {
+                throw e;
+                // Take other error action as needed.
+            }
+            finally
+            {
+                if (ax != null) ax.Logoff();
+            }
+            return resultTable;
+        }
+
+        public DataTable GetLocations(string itemNumber, string site, string wareHouse, string userName)
+        {
+            DataTable resultTable = new DataTable();
+            Axapta ax = null;
+            AxaptaRecord axRecord;
+            try
+            {
+                // Login to Microsoft Dynamics AX.
+                ax = new Axapta();
+                ax.LogonAs(userName.Trim(), "", networkCredentials, axCompany, "", "", "");
+                resultTable.Columns.Add("LocationID", typeof(String));
+                resultTable.Columns.Add("LocationName", typeof(String));
+                resultTable.Columns.Add("PhysicalQty", typeof(String));
+                axRecord = (AxaptaRecord)ax.CallStaticClassMethod("ServiceOrderManagement", "getSMAWMSLocationNew", site, wareHouse, itemNumber);                    // Loop through the set of retrieved records.
+                axRecord.ExecuteStmt("select * from %1");
+                while (axRecord.Found)
+                {
+
+                    DataRow row = resultTable.NewRow();
+                    row["LocationID"] = axRecord.get_Field("wMSLocationId");
+                    //row["LocationName"] = axRecord.get_Field("locationType");
+                    row["PhysicalQty"] = axRecord.get_Field("AvaiPhysicalQty");
+                    resultTable.Rows.Add(row);
+                    axRecord.Next();
+
+                }
+
+
+            }
+
+            catch (Exception e)
+            {
+                throw e;
+                // Take other error action as needed.
+            }
+            finally
+            {
+                if (ax != null) ax.Logoff();
+            }
+            return resultTable;
+        }
+
+
+        public DataTable GetTransactionSerialNumberList(string itemNumber, string site, string wareHouse, string locationId, string userName)
+        {
+
+            Axapta ax = null;
+            AxaptaRecord axRecord;
+            DataTable serialTable = new DataTable();
+
+
+            serialTable.Columns.Add("SerialNumber", typeof(String));
+
+            try
+            {
+
+                ax = new Axapta();
+                ax.LogonAs(userName.Trim(), "", networkCredentials, axCompany, "", "", "");
+
+                axRecord = (AxaptaRecord)ax.CallStaticClassMethod("ServiceOrderManagement", "getSMATransactionSerialNumbersLocation", itemNumber, wareHouse, site, locationId);
+                axRecord.ExecuteStmt("select * from %1");
+
+                while (axRecord.Found)
+                {
+                    DataRow row = serialTable.NewRow();
+                    row["SerialNumber"] = axRecord.get_Field("SerialNumber");
+                    serialTable.Rows.Add(row);
+                    axRecord.Next();
+                }
+
+
+
+
+            }
+            catch (Exception e)
+            {
+                throw e;
+                // Take other error action as needed.
+            }
+            finally
+            {
+                if (ax != null) ax.Logoff();
+            }
+            return serialTable;
+        }
         #endregion
 
         #region "Sales Details"
@@ -1434,6 +1605,8 @@ namespace Coinco.SMS.AXWrapper
             return repairLineTable;
         }
 
+
+      
         #endregion
 
     }
