@@ -24,7 +24,7 @@ namespace Coinco.SMS.Website.Models
         {
             get
             {
-                return new TransactionType { TransactionTypeID = 2, TransactionTypeName = "Fee" };
+                return new TransactionType { TransactionTypeID = 4, TransactionTypeName = "Fee" };
             }
         }
         public static TransactionType Hour
@@ -38,7 +38,7 @@ namespace Coinco.SMS.Website.Models
         {
             get
             {
-                return new TransactionType { TransactionTypeID = 4, TransactionTypeName = "Expense" };
+                return new TransactionType { TransactionTypeID = 2, TransactionTypeName = "Expense" };
             }
         }
 
