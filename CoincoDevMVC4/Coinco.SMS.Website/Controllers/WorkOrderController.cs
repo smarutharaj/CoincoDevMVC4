@@ -145,8 +145,6 @@ namespace Coinco.SMS.Controllers
             siteCollection = site.GetSites(userName);
             site.SiteList = new SelectList(siteCollection, "SiteId", "SiteName", siteCollection.First<Site>().SiteID);
             ViewData["siteList"] = site.SiteList;
-
-          
             ViewData["TranasactionTypes"] = TransactionType.GetTransactionTypes();
             TempData.Keep();
             return View();
