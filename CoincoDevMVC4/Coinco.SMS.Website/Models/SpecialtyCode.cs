@@ -26,13 +26,14 @@ namespace Coinco.SMS.Website.Models
             this.SpecialityDescription = specialityDescription;
         }
 
-        public IQueryable<SpecialtyCode> GetSpecialCode(string userName, string TransactionId)
+        public List<SpecialtyCode> GetSpecialCodes(string userName, string TransactionId)
         {
             IAXHelper axHelper = ObjectFactory.GetInstance<IAXHelper>();
             List<SpecialtyCode> SpecialtyCodeList = new List<SpecialtyCode>();
             try
             {
-                DataTable resultTable = axHelper.GetLinePropertyList(userName);
+
+                DataTable resultTable = axHelper.GetSpecialityCodeList(userName, TransactionId.ToString());
 
 
                 foreach (DataRow row in resultTable.Rows)
@@ -44,14 +45,15 @@ namespace Coinco.SMS.Website.Models
                     SpecialtyCodeList.Add(SpecialtyCodeObject);
 
                 }
+
             }
             catch (Exception e)
             {
                 throw e;
-
             }
-            return SpecialtyCodeList.AsQueryable<SpecialtyCode>();
+            return SpecialtyCodeList;
 
         }
+
     }
 }
