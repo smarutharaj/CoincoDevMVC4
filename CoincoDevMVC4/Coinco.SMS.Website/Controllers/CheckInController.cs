@@ -6,6 +6,7 @@ using System.Web.Mvc;
 using Coinco.SMS.Website.Models;
 using Telerik.Web.Mvc.UI;
 using Telerik.Web.Mvc;
+
 namespace Coinco.SMS.Website.Controllers
 {
     public class CheckInController : Controller
@@ -17,60 +18,69 @@ namespace Coinco.SMS.Website.Controllers
         {
             ServiceOrder serviceOrder = new ServiceOrder();
             Customer customer = new Customer();
+            try
+            {
+                IEnumerable<Customer> customerCollection = customer.GetCustomers(User.Identity.Name.ToString().Split('\\')[1]);
+                customer.CustomerList = new SelectList(customerCollection, "CustomerAccount", "CustomerName", null);
+                serviceOrder.Customer = customer;
+                ViewData["CustomerList"] = customer.CustomerList;
+                WOClassification woClassification = new WOClassification();
+                List<WOClassification> woClassificationCollection = new List<WOClassification>();
 
-            IEnumerable<Customer> customerCollection = customer.GetCustomers(User.Identity.Name.ToString().Split('\\')[1]);
-            customer.CustomerList = new SelectList(customerCollection, "CustomerAccount", "CustomerName", null);
-            serviceOrder.Customer = customer;
-            ViewData["CustomerList"] = customer.CustomerList;
-            WOClassification woClassification = new WOClassification();
-            List<WOClassification> woClassificationCollection = new List<WOClassification>();
-
-            // IEnumerable<WOClassification> woClassificationCollection=woClassification.GetWOClassification(User.Identity.Name.ToString().Split('\\')[1]);
-            woClassification.WOClassificationList = new SelectList(woClassificationCollection.AsEnumerable<WOClassification>(), "WOClassificationCode", "WOClassificationName", null);
-
-
-            ViewData["WOClassificationList"] = woClassification.WOClassificationList;
-            ServiceTechnician serviceTechnician = new ServiceTechnician();
-            List<ServiceTechnician> serviceTechnicianCollection = new List<ServiceTechnician>();
-            // IEnumerable<ServiceTechnician> serviceTechnicianCollection = serviceTechnician.GetTechnicians(User.Identity.Name.ToString().Split('\\')[1]);
-            serviceTechnician.ServiceTechnicianList = new SelectList(serviceTechnicianCollection.AsEnumerable<ServiceTechnician>(), "ServiceTechnicianNo", "ServiceTechnicianName", null);
-
-            ViewData["ServiceTechnicianList"] = serviceTechnician.ServiceTechnicianList;
-            ViewData["ServiceResponsibleList"] = serviceTechnician.ServiceTechnicianList;
-
-            PartDetails partDetails = new PartDetails();
-            List<PartDetails> partDetailsCollection = new List<PartDetails>();
-            //IEnumerable<PartDetails> partDetailsCollection = partDetails.GetItemNumbers(User.Identity.Name.ToString().Split('\\')[1]);
-
-            partDetails.PartDetailsList = new SelectList(partDetailsCollection.AsEnumerable<PartDetails>(), "ItemNumber", "ProductName", null);
-            ViewData["PartNumberList"] = partDetails.PartDetailsList;
-            List<ServiceOrderLine> serviceOrderLineList = new List<ServiceOrderLine>();
-            ViewData["ServiceOrderLine"] = serviceOrderLineList;
+                // IEnumerable<WOClassification> woClassificationCollection=woClassification.GetWOClassification(User.Identity.Name.ToString().Split('\\')[1]);
+                woClassification.WOClassificationList = new SelectList(woClassificationCollection.AsEnumerable<WOClassification>(), "WOClassificationCode", "WOClassificationName", null);
 
 
-            List<Address> addressList = new List<Address>();
+                ViewData["WOClassificationList"] = woClassification.WOClassificationList;
+                ServiceTechnician serviceTechnician = new ServiceTechnician();
+                List<ServiceTechnician> serviceTechnicianCollection = new List<ServiceTechnician>();
+                // IEnumerable<ServiceTechnician> serviceTechnicianCollection = serviceTechnician.GetTechnicians(User.Identity.Name.ToString().Split('\\')[1]);
+                serviceTechnician.ServiceTechnicianList = new SelectList(serviceTechnicianCollection.AsEnumerable<ServiceTechnician>(), "ServiceTechnicianNo", "ServiceTechnicianName", null);
 
-            ViewData["BillingAddress"] = addressList;
-            ViewData["ShippingAddress"] = addressList;
-            TempData.Keep();
-            ViewData["ServiceOrder"] = serviceOrder;
+                ViewData["ServiceTechnicianList"] = serviceTechnician.ServiceTechnicianList;
+                ViewData["ServiceResponsibleList"] = serviceTechnician.ServiceTechnicianList;
+
+                PartDetails partDetails = new PartDetails();
+                List<PartDetails> partDetailsCollection = new List<PartDetails>();
+                //IEnumerable<PartDetails> partDetailsCollection = partDetails.GetItemNumbers(User.Identity.Name.ToString().Split('\\')[1]);
+
+                partDetails.PartDetailsList = new SelectList(partDetailsCollection.AsEnumerable<PartDetails>(), "ItemNumber", "ProductName", null);
+                ViewData["PartNumberList"] = partDetails.PartDetailsList;
+                List<ServiceOrderLine> serviceOrderLineList = new List<ServiceOrderLine>();
+                ViewData["ServiceOrderLine"] = serviceOrderLineList;
+                TempData["ServiceOrderLine"] = serviceOrderLineList;
+
+                List<Address> addressList = new List<Address>();
+
+                ViewData["BillingAddress"] = addressList;
+                ViewData["ShippingAddress"] = addressList;
+                TempData.Keep();
+                ViewData["ServiceOrder"] = serviceOrder;
+            }
+            catch(Exception ex)
+            {
+                throw (ex);
+            }
+
             return View(serviceOrder);
         }
 
-        [HttpPost]
-        public ActionResult SelectionServerSide(string addressId)
-        {
-            TempData["AddressId"] = addressId;
-            return View();
-        }
-
+       
         [GridAction]
         public ActionResult _SelectionClientSide_ServiceOrderLines(string siteId)
         {
             List <ServiceOrderLine> serviceOrderLineList= new List<ServiceOrderLine>();
-            if (siteId != null)
+            try
             {
-                TempData["SiteId"] = siteId;
+                if (siteId != null)
+                {
+                    TempData["SiteId"] = siteId;
+                }
+                
+            }
+            catch(Exception ex)
+            {
+                throw ex;
             }
             return View(new GridModel<ServiceOrderLine>
             {
@@ -82,23 +92,33 @@ namespace Coinco.SMS.Website.Controllers
         [GridAction]
         public ActionResult _UpdateServiceOrderLine(string serialNumber)
        
-        {
-            List<ServiceOrderLine> serviceOrderLineExistingList = TempData["ServiceOrderLine"] as List<ServiceOrderLine>;
-            ServiceOrderLine serviceOrderLineExisting = (from item in serviceOrderLineExistingList
-                                                         where item.SerialNumber == serialNumber
-                                                         select item).First();
+        {List<ServiceOrderLine> serviceOrderLineExistingList =new List<ServiceOrderLine>();
+            try
+            {
+                serviceOrderLineExistingList = TempData["ServiceOrderLine"] as List<ServiceOrderLine>;
+                ServiceOrderLine serviceOrderLineExisting = (from item in serviceOrderLineExistingList
+                                                             where item.SerialNumber == serialNumber
+                                                             select item).First();
 
-            TryUpdateModel(serviceOrderLineExisting);
-            TempData["ServiceOrderLine"] = serviceOrderLineExistingList;
+                TryUpdateModel(serviceOrderLineExisting);
+                TempData["ServiceOrderLine"] = serviceOrderLineExistingList;
+            }
+            catch (Exception ex)
+            {
 
+                throw ex;
+            }
             return View(new GridModel(serviceOrderLineExistingList));
-
         }
         [AcceptVerbs(HttpVerbs.Post)]
         [GridAction]
         public ActionResult _DeleteServiceOrderLine(string serialNumber)
         {
             string userName = null;
+            try
+            {
+
+            
             userName = User.Identity.Name.ToString().Split('\\')[1];
             if (TempData["ServiceOrderLine"] != null)
             {
@@ -117,6 +137,12 @@ namespace Coinco.SMS.Website.Controllers
             }
             TempData["ServiceOrderLine"] = ViewData["ServiceOrderLine"];
             TempData.Keep();
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
             return View(new GridModel<ServiceOrderLine>
             {
                 Data = TempData["ServiceOrderLine"] as List<ServiceOrderLine>
@@ -127,6 +153,7 @@ namespace Coinco.SMS.Website.Controllers
         public ActionResult _GetCustomerAddresses(string customerAccount)
         {
             List<Address> addressList = new List<Address>();
+            
             return View(new GridModel<Address>
             {
 
@@ -140,83 +167,88 @@ namespace Coinco.SMS.Website.Controllers
         public ActionResult GetOtherDetails(string customerAccount)
         {
             WOClassification woClassification = new WOClassification();
-            if (customerAccount != null)
+            try
             {
-                // IEnumerable<WOClassification> woClassificationCollection = new IEnumerable<WOClassification;
-                string userName = null;
-                userName = User.Identity.Name.ToString().Split('\\')[1];
-                List<Address> addressList = (new Address()).GetCustomerAddress(customerAccount, userName);
-                List<Address> addressShipping = (from item1 in addressList
-                                                 where item1.IsShipping == "1"
-                                                 select item1).ToList<Address>();
-                List<Address> addressBilling = (from item1 in addressList
-                                                where item1.IsBilling == "1"
-                                                select item1).ToList<Address>();
-                addressShipping[0].IsSelected = "checked";
-                ViewData["BillingAddress"] = addressBilling;
-                ViewData["ShippingAddress"] = addressShipping;
-                TempData["CustomerAccount"] = customerAccount;
 
-                IEnumerable<WOClassification> woClassificationCollection = woClassification.GetWOClassification(User.Identity.Name.ToString().Split('\\')[1]);
-                woClassification.WOClassificationList = new SelectList(woClassificationCollection, "WOClassificationCode", "WOClassificationName", null);
+                if (customerAccount != null)
+                {
+                    // IEnumerable<WOClassification> woClassificationCollection = new IEnumerable<WOClassification;
+                    string userName = null;
+                    userName = User.Identity.Name.ToString().Split('\\')[1];
+                    List<Address> addressList = (new Address()).GetCustomerAddress(customerAccount, userName);
+                    List<Address> addressShipping = (from item1 in addressList
+                                                     where item1.IsShipping == "1"
+                                                     select item1).ToList<Address>();
+                    List<Address> addressBilling = (from item1 in addressList
+                                                    where item1.IsBilling == "1"
+                                                    select item1).ToList<Address>();
+                    if (addressShipping.Count > 1)
+                    {
+                        addressShipping[0].IsSelected = "checked";
+                    }
+                    ViewData["BillingAddress"] = addressBilling;
+                    ViewData["ShippingAddress"] = addressShipping;
+                    TempData["CustomerAccount"] = customerAccount;
 
-                ViewData["WOClassificationList"] = woClassification.WOClassificationList;
-                ServiceTechnician serviceTechnician = new ServiceTechnician();
-                //IEnumerable<ServiceTechnician> serviceTechnicianCollection = null;
-                IEnumerable<ServiceTechnician> serviceTechnicianCollection = serviceTechnician.GetTechnicians(User.Identity.Name.ToString().Split('\\')[1]);
-                serviceTechnician.ServiceTechnicianList = new SelectList(serviceTechnicianCollection, "ServiceTechnicianNo", "ServiceTechnicianName", null);
+                    IEnumerable<WOClassification> woClassificationCollection = woClassification.GetWOClassification(User.Identity.Name.ToString().Split('\\')[1]);
+                    woClassification.WOClassificationList = new SelectList(woClassificationCollection, "WOClassificationCode", "WOClassificationName", null);
 
-                ViewData["ServiceTechnicianList"] = serviceTechnician.ServiceTechnicianList;
-                ViewData["ServiceResponsibleList"] = serviceTechnician.ServiceTechnicianList;
+                    ViewData["WOClassificationList"] = woClassification.WOClassificationList;
+                    ServiceTechnician serviceTechnician = new ServiceTechnician();
+                    //IEnumerable<ServiceTechnician> serviceTechnicianCollection = null;
+                    IEnumerable<ServiceTechnician> serviceTechnicianCollection = serviceTechnician.GetTechnicians(User.Identity.Name.ToString().Split('\\')[1]);
+                    serviceTechnician.ServiceTechnicianList = new SelectList(serviceTechnicianCollection, "ServiceTechnicianNo", "ServiceTechnicianName", null);
 
-                PartDetails partDetails = new PartDetails();
-                //IEnumerable<PartDetails> partDetailsCollection = null;
-                IEnumerable<PartDetails> partDetailsCollection = partDetails.GetItemNumbers(User.Identity.Name.ToString().Split('\\')[1]);
+                    ViewData["ServiceTechnicianList"] = serviceTechnician.ServiceTechnicianList;
+                    ViewData["ServiceResponsibleList"] = serviceTechnician.ServiceTechnicianList;
 
-                partDetails.PartDetailsList = new SelectList(partDetailsCollection, "ItemNumber", "ProductName", null);
-                ViewData["PartNumberList"] = partDetails.PartDetailsList;
+                    PartDetails partDetails = new PartDetails();
+                    //IEnumerable<PartDetails> partDetailsCollection = null;
+                    IEnumerable<PartDetails> partDetailsCollection = partDetails.GetItemNumbers(User.Identity.Name.ToString().Split('\\')[1]);
+
+                    partDetails.PartDetailsList = new SelectList(partDetailsCollection, "ItemNumber", "ProductName", null);
+                    ViewData["PartNumberList"] = partDetails.PartDetailsList;
+                }
+                TempData.Keep();
             }
-            TempData.Keep();
-            return View("OtherDetails");
-        }
+            catch (Exception ex)
+            {
 
-        [HttpGet]
-        public ActionResult GetCustomerAddresses(string customerAccount)
-        {
-            string userName = null;
-            userName = User.Identity.Name.ToString().Split('\\')[1];
-            List<Address> addressList = (new Address()).GetCustomerAddress(customerAccount, userName);
-            List<Address> addressShipping = (from item1 in addressList
-                                 where item1.IsShipping == "1"
-                                 select item1).ToList<Address>();
-            List<Address> addressBilling = (from item1 in addressList
-                                             where item1.IsBilling == "1"
-                                             select item1).ToList<Address>();
-            ViewData["BillingAddress"] = addressBilling;
-            ViewData["ShippingAddress"] = addressShipping;
-            TempData["CustomerAccount"] = customerAccount;
-            TempData.Keep();
-            return View("Address");
+                throw ex;
+            }
+            return View("OtherDetails");
         }
 
         [HttpPost]
         public ActionResult GetServiceOrderLinesHistoryBySerialNumberPartNumber(ServiceOrder model,string serialNumber, string partNumber)
         {
             string userName = null;
-            userName = User.Identity.Name.ToString().Split('\\')[1];
-            if (TempData["ServiceOrderLine"] == null)
+            try
             {
-                ViewData["ServiceOrderLine"] = GetServiceOrderLinesBySerialNumberPartNumber(partNumber, serialNumber, "");
+
+
+                userName = User.Identity.Name.ToString().Split('\\')[1];
+                if (TempData["ServiceOrderLine"] == null)
+                {
+                    ViewData["ServiceOrderLine"] = GetServiceOrderLinesBySerialNumberPartNumber(partNumber, serialNumber, "");
+                }
+                else
+                {
+                    List<ServiceOrderLine> serviceOrderLineExistingList = TempData["ServiceOrderLine"] as List<ServiceOrderLine>;
+                    List<ServiceOrderLine> serviceOrderLineNewList = GetServiceOrderLinesBySerialNumberPartNumber(partNumber, serialNumber, "");
+                    if (serviceOrderLineNewList.Count > 0)
+                    {
+                        serviceOrderLineExistingList.Add(serviceOrderLineNewList.First());
+                    }
+                    ViewData["ServiceOrderLine"] = serviceOrderLineExistingList;
+                }
+                TempData["ServiceOrderLine"] = ViewData["ServiceOrderLine"];
+                TempData.Keep();
             }
-            else
+            catch (Exception ex)
             {
-                List<ServiceOrderLine> serviceOrderLineExistingList = TempData["ServiceOrderLine"] as List<ServiceOrderLine>;
-                List<ServiceOrderLine> serviceOrderLineNewList = GetServiceOrderLinesBySerialNumberPartNumber(partNumber, serialNumber, "");
-                serviceOrderLineExistingList.Add(serviceOrderLineNewList.First());
-                ViewData["ServiceOrderLine"] = serviceOrderLineExistingList;
+                throw ex;
             }
-            TempData["ServiceOrderLine"]=ViewData["ServiceOrderLine"];
-            TempData.Keep();
             return View("ServiceOrderLine");
         }
 
@@ -226,35 +258,50 @@ namespace Coinco.SMS.Website.Controllers
             string userName = null;
             string newSerivceOrder = null;
             bool isSuccess = false;
-            userName = User.Identity.Name.ToString().Split('\\')[1];
-            ServiceOrder serviceOrder = new ServiceOrder();
-            ServiceOrderLine serviceOrderLine = new ServiceOrderLine();
-            isSuccess = serviceOrder.CreateServiceOrder(TempData["SiteId"].ToString(), customerAccount, addressId == null ? null : addressId.ToString(), customerPo, technicinanNo, responsibleNo, woClassification, customerComments, out newSerivceOrder, userName);
-            if (isSuccess)
-            {
-                isSuccess = serviceOrderLine.CreateServiceOrderLinesItem(newSerivceOrder, (List<ServiceOrderLine>)TempData["ServiceOrderLine"], userName);
-            }
-            else
+            try
             {
 
+                userName = User.Identity.Name.ToString().Split('\\')[1];
+                ServiceOrder serviceOrder = new ServiceOrder();
+                ServiceOrderLine serviceOrderLine = new ServiceOrderLine();
+                isSuccess = serviceOrder.CreateServiceOrder(TempData["SiteId"].ToString(), customerAccount, addressId == null ? null : addressId.ToString(), customerPo, technicinanNo, responsibleNo, woClassification, customerComments, out newSerivceOrder, userName);
+                if (isSuccess)
+                {
+                    isSuccess = serviceOrderLine.CreateServiceOrderLinesItem(newSerivceOrder, (List<ServiceOrderLine>)TempData["ServiceOrderLine"], userName);
+                }
+                else
+                {
+
+                }
+                if (isSuccess)
+                {
+                    List<ServiceOrderLine> emptyList = new List<ServiceOrderLine>();
+                    ViewData["ServiceOrderLine"] = emptyList;
+                    TempData["ServiceOrderLine"] = emptyList;
+                }
+
             }
-            if (isSuccess)
+            catch (Exception ex)
             {
-                List<ServiceOrderLine> emptyList = new List<ServiceOrderLine>();
-                ViewData["ServiceOrderLine"] = emptyList;
-                TempData["ServiceOrderLine"] = emptyList;
-            }
-
-
+                throw ex;
+            }    
             return View("ServiceOrderLine");
         }
 
         private List<ServiceOrderLine> GetServiceOrderLinesBySerialNumberPartNumber(string partNumber,string serialNumber,string customerAccount)
         {
+            List<ServiceOrderLine> serviceOrderLine = new List<ServiceOrderLine>();
             string userName = null;
-            userName = User.Identity.Name.ToString().Split('\\')[1];
-            List<ServiceOrderLine> serviceOrderLine = (new ServiceOrderLine()).GetServiceOrderLinesBySerialNumberPartNumber(serialNumber, partNumber, customerAccount, userName);
-            return serviceOrderLine;
+            try
+            {
+                userName = User.Identity.Name.ToString().Split('\\')[1];
+                serviceOrderLine = (new ServiceOrderLine()).GetServiceOrderLinesBySerialNumberPartNumber(serialNumber, partNumber, customerAccount, userName);
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }   
+                return serviceOrderLine;
         }
     }
 }
