@@ -20,10 +20,11 @@
                         @{
                             Html.Telerik().ComboBox().Name("customerAccountDropDownList")
                                 .BindTo((SelectList)ViewData["CustomerList"])
-                                .Placeholder("<--Select-->")
+                                .Placeholder("<--SELECT-->")
                                 .ClientEvents(e => e.OnChange("onCustomerAccountDropDownListChange"))
                                 .HtmlAttributes(new { style = "font-size: 8pt; font-family: Verdana; width:200px" })
                                 .DropDownHtmlAttributes(new { style = "font-size: 8pt; font-family: Verdana;" })
+                                .SelectedIndex(0)
                                 .Render();
                                 }
            
@@ -110,14 +111,14 @@
               success: function (result) {
                   jQuery('#ServiceOrderGridDiv').html(result);
                  
-                  $('#customerAccountDropDownList').val('-1');
+                  $('#customerAccountDropDownList').val('');
                   $('#customerPOTextBox').val('');
-                  $('#serviceTechnicianDropDownList').val('-1');
-                  $('#serviceResponsibleDropDownList').val('-1');
-                  $('#woClassificationDropDownList').val('-1');
+                  $('#serviceTechnicianDropDownList').val('');
+                  $('#serviceResponsibleDropDownList').val('');
+                  $('#woClassificationDropDownList').val('');
                   $('#customerCommentTextArea').val('');
                   $('#serialNumberTextBox').val('');
-                  $('#partNumberDropDownList').val('-1');
+                  $('#partNumberDropDownList').val('');
 
                   alert('Service order created successfully.');
 

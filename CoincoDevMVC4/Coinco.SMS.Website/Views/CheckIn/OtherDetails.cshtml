@@ -92,9 +92,10 @@
             @{
                 Html.Telerik().ComboBox().Name("serviceTechnicianDropDownList")
                 .BindTo((SelectList)ViewData["ServiceTechnicianList"])
-                .Placeholder("<--Select-->")
+                .Placeholder("<--SELECT-->")
                 .HtmlAttributes(new { style = "font-size: 8pt; font-family: Verdana;width:205px" })
                 .DropDownHtmlAttributes(new { style = "font-size: 8pt; font-family: Verdana;" })
+                .SelectedIndex(0)
                 .Render();
             }
         </div>
@@ -109,9 +110,10 @@
             @{
                 Html.Telerik().ComboBox().Name("woClassificationDropDownList")
                 .BindTo((SelectList)ViewData["WOClassificationList"])
-                .Placeholder("<--Select-->")
+                .Placeholder("<--SELECT-->")
                 .HtmlAttributes(new { style = "font-size: 8pt; font-family: Verdana;width:205px" })
                 .DropDownHtmlAttributes(new { style = "font-size: 8pt; font-family: Verdana;" })
+                .SelectedIndex(0)
                 .Render();
             }
         </div>
@@ -126,9 +128,10 @@
             @{
                 Html.Telerik().ComboBox().Name("serviceResponsibleDropDownList")
                 .BindTo((SelectList)ViewData["ServiceResponsibleList"])
-                .Placeholder("<--Select-->")
+                .Placeholder("<--SELECT-->")
                 .HtmlAttributes(new { style = "font-size: 8pt; font-family: Verdana;width:205px" })
                 .DropDownHtmlAttributes(new { style = "font-size: 8pt; font-family: Verdana;" })
+                .SelectedIndex(0)
                 .Render();
             }
         </div>
@@ -158,9 +161,10 @@
            @{
                 Html.Telerik().ComboBox().Name("partNumberDropDownList")
                 .BindTo((SelectList)ViewData["PartNumberList"])
-                .Placeholder("<--Select-->")
+                .Placeholder("<--SELECT-->")
                 .HtmlAttributes(new { style = "font-size: 8pt; font-family: Verdana;width:205px" })
-                .DropDownHtmlAttributes(new { style = "font-size: 8pt; font-family: Verdana;" })     
+                .DropDownHtmlAttributes(new { style = "font-size: 8pt; font-family: Verdana;" })
+                .SelectedIndex(0)
                 .Render();
             }
         </div>
