@@ -4,7 +4,7 @@
         .Name("ServiceOrderLineGrid")
         .DataKeys(keys =>
         {
-            keys.Add(c => c.SerialNumber);
+            keys.Add(c => c.SerialNumber).RouteKey("serialNumber");
         })
         .Columns(columns =>
         {
