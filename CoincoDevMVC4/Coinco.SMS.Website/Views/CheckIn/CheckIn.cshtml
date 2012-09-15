@@ -4,6 +4,7 @@
 @{
     ViewBag.Title = "CheckIn";
 }
+
 @using (Html.BeginForm())
 {
 <div id="ServiceOrderAdditionDiv">
@@ -47,6 +48,7 @@
 </div>
 }
   <script type="text/javascript">
+
       function onCustomerAccountDropDownListChange(e) {
           if (e != null) {
               var customerAccount = e.currentTarget.value;
@@ -64,18 +66,17 @@
 
                           },
                           error: function (result) {
-                              alert(result.responseText);
+                              alert('An error occured while clearing the service order lines. Please try again');
                           }
 
                       });
                   },
                   error: function (result) {
-                      alert(result.responseText);
+                      alert('An error occured while getting the input details. Please try again');
                   }
 
               });
-
-              
+             
              return false;
           }
       }
@@ -108,17 +109,21 @@
               data: { customerAccount: customerAccount, customerPo: customerPo,addressId:addressId, technicinanNo: technicinanNo, responsibleNo: responsibleNo, woClassification: woClassification, customerComments: customerComments },
               success: function (result) {
                   jQuery('#ServiceOrderGridDiv').html(result);
-
-                  alert('Service Order Created Successfully');
+                 
                   $('#customerAccountDropDownList').val('-1');
                   $('#customerPOTextBox').val('');
                   $('#serviceTechnicianDropDownList').val('-1');
                   $('#serviceResponsibleDropDownList').val('-1');
                   $('#woClassificationDropDownList').val('-1');
                   $('#customerCommentTextArea').val('');
+                  $('#serialNumberTextBox').val('');
+                  $('#partNumberDropDownList').val('-1');
+
+                  alert('Service order created successfully.');
+
               },
               error: function (result) {
-                  alert(result.responseText);
+                  alert('An error occured while creating the service order. Please check the inputs and try again');
               }
 
           });
@@ -132,27 +137,19 @@
           $('#serviceResponsibleDropDownList').val('-1');
           $('#woClassificationDropDownList').val('-1');
           $('#customerCommentTextArea').val('');
+          $('#serialNumberTextBox').val('');
+          $('#partNumberDropDownList').val('-1');
           jQuery.ajax({
               url: "/CheckIn/ClearServiceOrderLines",
               type: 'POST',
               success: function (result) {
                   jQuery('#ServiceOrderGridDiv').html(result);
-
               },
               error: function (result) {
-                  alert(result.responseText);
+                  alert('An error occured while clearing the values. Please try again');
               }
 
           });
-      });
-
-
-      function onDataBinding(e) {
-          var dropDownList = jQuery('#customerAccountDropDownList').data('DropDownList');
-          var customerAccount = dropDownList.value();
-          e.data = jQuery.extend(e.data, { customerAccount: customerAccount });
-      }
-
-     
+      });   
       
 </script>

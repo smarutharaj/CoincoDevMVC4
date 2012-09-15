@@ -1,4 +1,5 @@
 ﻿@model Coinco.SMS.Website.Models.ServiceOrder
+
 <div id="Address" class="fullViewforLargerHeightClass">  
     <div id="BillingAddress" class="leftAddressViewClass">
         @{Html.Telerik().Grid((IEnumerable<Coinco.SMS.Website.Models.Address>)ViewData["BillingAddress"])
@@ -184,8 +185,6 @@
 
                 });
 
-                
-                //handle the click event
             })
         }
 
@@ -226,7 +225,7 @@
                             jQuery('#ServiceOrderGridDiv').html(result);
                         },
                         error: function (result) {
-                            alert(result.responseText);
+                            alert('An error occured while adding the service order lines. Please check the inputs and try again');
                         }
 
                     });
@@ -270,24 +269,12 @@
                     jQuery('#ServiceOrderGridDiv').html(result);
                 },
                 error: function (result) {
-                    alert(result.responseText);
+                    alert('An error occured while adding the service order lines. Please check the inputs and try again');
                 }
 
             });
             return false;
-        });
-
-        function displayCheckedOrders() {
-            var $checkedRecords = $(':checked');
-
-            if ($checkedRecords.length < 1) {
-                alert('Check a few grid rows first.');
-                return;
-            }
-
-            //            $('#result').load('<%= Url.Action("DisplayCheckedOrders", "Grid")
-            //                %>', $checkedRecords);
-        }
+        });   
 
         
         jQuery('#serialNumberTextBox').keyup(function () {
