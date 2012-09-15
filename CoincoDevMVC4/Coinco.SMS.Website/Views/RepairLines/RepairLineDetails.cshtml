@@ -1,1 +1,32 @@
-﻿
+﻿@using Telerik.Web.Mvc.UI
+@model Coinco.SMS.Website.Models.RepairType
+
+ @{Html.Telerik().Grid((IEnumerable<Coinco.SMS.Website.Models.RepairType>)ViewData["RepairLinesList"])
+                .Name("RepairLinesGrid")
+                .Columns(columns =>
+                {
+                    columns.Bound(c => c.ServiceObjectRelation).Title("SO Relation").Width(100);
+                    columns.Bound(c => c.Description).Title("Description").Width(120);
+                    columns.Bound(c => c.ConditionId).Title("Condition").Width(100);
+                    columns.Bound(c => c.SymptomAreaId).Title("Symptom Area").Width(100);
+                    columns.Bound(c => c.SymptomCodeId).Title("Symptom Code").Width(100);
+                    columns.Bound(c => c.DiagonsisAreaId).Title("Diagnosis Area").Width(100);
+                    columns.Bound(c => c.DiagonsisCodeId).Title("Diagnosis Code").Width(100);
+                    columns.Bound(c => c.ResolutionId).Title("Resolution").Width(100);
+                    columns.Bound(c => c.RepairStageId).Title("Repair Stage").Width(100);
+                })
+                        .DataBinding(dataBinding =>
+                        {
+                            dataBinding.Ajax().OperationMode(GridOperationMode.Client).Select("_Selection_RepairLines", "RepairLines")
+                                .Enabled(true);
+                        }
+              )
+                .HtmlAttributes(new { style = "font-size: 8pt; font-family: Verdana; width:950px" })
+                .Scrollable()
+                .Pageable((pager => pager.PageSize(5)))
+                .Sortable()
+                .Selectable()
+                .Filterable()
+                .Render();
+   
+                }

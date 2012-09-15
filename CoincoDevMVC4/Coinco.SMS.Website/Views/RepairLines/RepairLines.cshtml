@@ -11,7 +11,7 @@
      <h6>Identification</h6>
      <br />
         <label>Service Order:</label>
-               @Html.DisplayFor(x => TempData["ServiceOrderId"] )
+               @Html.DisplayFor(x => TempData["ServiceOrderId"], new { id = "serviceOrderNo" })
          <br />
          <label> Serial Number:</label>
                @{Html.Telerik().ComboBox().Name("serialNumberList")
@@ -91,7 +91,7 @@
             <br />
              
             <label>Comments:</label>
-                @*@Html.TextAreaFor(x => x.ServiceComments)*@
+               @Html.TextBoxFor(x => x.Comments, new { id = "commentsTextBox" }) 
             <br />
      </div>
     </div>
@@ -102,7 +102,8 @@
      <h6>Description</h6>
      <br />
         <label>Description:</label>
-               @* @Html.TextAreaFor(x => x.ServiceComments)*@
+                @Html.TextAreaFor(x => x.Description, new {id = "descriptionTextBox" })
+               @*@Html.TextBoxFor(p => p.Description, new { @class = "textBoxProperties", id = "descriptionTextBox" }) *@
          <br />
      </div>
      <div class="addLinecentercolumnRL">
@@ -149,44 +150,11 @@
   <br />
 
     <div class="centercolumnSubmitRL">
-        <button class="t-button" type="button">Add</button>
-        <button class="t-button" type="button">Clear</button>
+        <button class="t-button" type="button  id="Create" value="Create"">Add</button>
+        <button class="t-button" type="button id="Clear" value="Clear"">Clear</button>
     </div>
-   <div class="partLinesDiv">
-        @{Html.Telerik().Grid((IEnumerable<Coinco.SMS.Website.Models.RepairType>)ViewData["RepairLinesList"])
-                .Name("RepairLinesGrid")
-                .Columns(columns =>
-                {
-                    columns.Bound(c => c.ServiceObjectRelation).Title("SO Relation").Width(100);
-                    columns.Bound(c => c.Description).Title("Description").Width(120);
-                    columns.Bound(c => c.ConditionId).Title("Condition").Width(100);
-                    columns.Bound(c => c.SymptomAreaId).Title("Symptom Area").Width(100);
-                    columns.Bound(c => c.SymptomCodeId).Title("Symptom Code").Width(100);
-                    columns.Bound(c => c.DiagonsisAreaId).Title("Diagnosis Area").Width(100);
-                    columns.Bound(c => c.DiagonsisCodeId).Title("Diagnosis Code").Width(100);
-                    columns.Bound(c => c.ResolutionId).Title("Resolution").Width(100);
-                    columns.Bound(c => c.RepairStageId).Title("Repair Stage").Width(100);
-                })
-                        .DataBinding(dataBinding =>
-                        {
-                            dataBinding.Ajax().OperationMode(GridOperationMode.Client).Select("_Selection_RepairLines", "RepairLines")
-                                .Enabled(true);
-                        }
-              )
-                .HtmlAttributes(new { style = "font-size: 8pt; font-family: Verdana; width:950px" })
-                .Scrollable()
-                .Pageable((pager => pager.PageSize(5)))
-                .Sortable()
-                .Selectable()
-                .Filterable()
-                .Render();
-        
-                //.ClientEvents(clientEvents => clientEvents.OnDataBinding("onServiceGridDataBinding"))
-                //.ClientEvents(events => events.OnRowSelect("onRowSelected"))
-
-     
-    
-                }
+   <div id ="repairLinesDetails" class="partLinesDiv">
+       @{Html.RenderPartial("RepairLineDetails");}
   </div> 
 </div>
 <script type="text/javascript">
@@ -210,4 +178,54 @@
             return false;
         }
     }
+
+//    jQuery('#Create').click(function () {
+//        var serviceOrderNo = $('#serviceOrderID').val();
+//        var serialNumberList = $("#serialNumberList").val();
+//        var conditionId = $('#conditionList').val();
+//        var symptomAreaId = $('#symptomAreaList').val();
+//        var symptomCodeId = $('#symptomCodeList').val();
+//        var diagnosisAreaId = $('#diagnosisAreaList').val();
+//        var resolutionId = $('#resolutionList').val();
+//        var repairStageId = $('#repairStageList').val();
+//        var technicianNo = $('#technicianList').val();
+//        var description = $('#descriptionTextBox').val();
+//        var serviceComments = $('#commentsTextBox').val();
+
+////        var $checkedRecords = $(':checked');
+////        var addressId;
+////        if ($checkedRecords.length < 1) {
+////            alert('Please select atleast one shipping address.');
+////            return;
+////        }
+////        $checkedRecords.each(function (index, domEle) {
+////            // domEle == this
+////            if ($checkedRecords[index].checked = true) {
+////                addressId = $checkedRecords[index].value;
+////            }
+
+////        });
+//        jQuery.ajax({
+//            url: "/RepairLines/CreateServiceOrder",
+//            type: 'POST',
+
+//            data: { customerAccount: customerAccount, customerPo: customerPo, addressId: addressId, technicinanNo: technicinanNo, responsibleNo: responsibleNo, woClassification: woClassification, customerComments: customerComments },
+//            success: function (result) {
+//                jQuery('#ServiceOrderGridDiv').html(result);
+
+//                alert('Service Order Created Successfully');
+//                $('#customerAccountDropDownList').val('-1');
+//                $('#customerPOTextBox').val('');
+//                $('#serviceTechnicianDropDownList').val('-1');
+//                $('#serviceResponsibleDropDownList').val('-1');
+//                $('#woClassificationDropDownList').val('-1');
+//                $('#customerCommentTextArea').val('');
+//            },
+//            error: function (result) {
+//                alert(result.responseText);
+//            }
+
+//        });
+//        return false;
+//    });
 </script>
