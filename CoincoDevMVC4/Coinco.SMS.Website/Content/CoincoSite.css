@@ -252,7 +252,7 @@ footer
 .serviceProcessDiv
 {
     margin-top: 30px;
-    max-width: 330px;
+    max-width: 960px;
     height: 150px;
     float: left;
     
@@ -424,7 +424,7 @@ footer
     padding-top:0px;
     padding-right:10px;
     max-width: 420px;
-    width:420px;
+    width:380px;
     height: 25px;
     vertical-align:middle;
     font-family:  Verdana;
@@ -499,7 +499,7 @@ footer
     padding-top:5px;
     padding-right:10px;
     padding-bottom:5px;
-    width:910;
+    width:960;
     height: 20px;
     vertical-align:middle;
      font-weight:normal;
@@ -511,7 +511,7 @@ footer
     padding-left: 5px;
     padding-top:5px;
     padding-right:10px;
-    max-width: 910px;
+    max-width: 960px;
     height: 385px;
     vertical-align:middle;
      font-weight:normal;
@@ -666,7 +666,7 @@ footer
    float:right;
    padding-left:10px;
     padding-bottom:10px;
-   width:30px;
+   width:25px;
    text-align: center;
    vertical-align:middle;
    font-family:  Verdana;
