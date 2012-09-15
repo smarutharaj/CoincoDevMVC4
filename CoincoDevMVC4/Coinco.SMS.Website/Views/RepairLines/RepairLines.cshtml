@@ -16,8 +16,10 @@
          <label> Serial Number:</label>
                @{Html.Telerik().ComboBox().Name("serialNumberList")
                      .BindTo((SelectList)ViewData["SerialNumberList"])
+                     .Placeholder("--select--")
                  .HtmlAttributes(new { style = "font-size: 8pt; font-family: Calibri; width=50px;" })
                  .DropDownHtmlAttributes(new { style = "font-size: 8pt; font-family: Calibri;" })
+                 .SelectedIndex(0)
                  .Render();
                 }
             <br />
@@ -34,6 +36,7 @@
                         .Placeholder("--select--")
                  .HtmlAttributes(new { style = "font-size: 8pt; font-family: Calibri; width=50px;" })
                  .DropDownHtmlAttributes(new { style = "font-size: 8pt; font-family: Calibri;" })
+                 .SelectedIndex(0)
                  .Render();
                     }
             <br />
@@ -44,7 +47,7 @@
                  .HtmlAttributes(new { style = "font-size: 8pt; font-family: Calibri; width=50px;" })
                  .DropDownHtmlAttributes(new { style = "font-size: 8pt; font-family: Calibri;" })
                  .CascadeTo("symptomCodeList")
-                 //.ClientEvents(events => events.OnChange("SymptomArea"))
+                 .SelectedIndex(0)
                  .Render();
                     }
             <br />
@@ -54,6 +57,7 @@
                    .Placeholder("--select--")
                  .HtmlAttributes(new { style = "font-size: 8pt; font-family: Calibri; width=50px;" })
                  .DropDownHtmlAttributes(new { style = "font-size: 8pt; font-family: Calibri;" })
+                 .SelectedIndex(0)
                  .Render();
                     }
             <br />
@@ -67,6 +71,7 @@
                      .Placeholder("--select--")
                  .HtmlAttributes(new { style = "font-size: 8pt; font-family: Calibri; width=50px;" })
                  .DropDownHtmlAttributes(new { style = "font-size: 8pt; font-family: Calibri;" })
+                 .SelectedIndex(0)
                  .Render();
                     }
             <br />
@@ -77,6 +82,7 @@
                      .Placeholder("--select--")
                  .HtmlAttributes(new { style = "font-size: 8pt; font-family: Calibri; width=50px;" })
                  .DropDownHtmlAttributes(new { style = "font-size: 8pt; font-family: Calibri;" })
+                 .SelectedIndex(0)
                  .Render();
                     }
             <br />
@@ -107,6 +113,7 @@
                  .HtmlAttributes(new { style = "font-size: 8pt; font-family: Calibri; width=50px;" })
                  .DropDownHtmlAttributes(new { style = "font-size: 8pt; font-family: Calibri;" })
                  .CascadeTo("diagnosisCodeList")
+                 .SelectedIndex(0)
                  .Render();
                     }
             <br />
@@ -116,6 +123,7 @@
                        .Placeholder("--select--")
                  .HtmlAttributes(new { style = "font-size: 8pt; font-family: Calibri; width=50px;" })
                  .DropDownHtmlAttributes(new { style = "font-size: 8pt; font-family: Calibri;" })
+                 .SelectedIndex(0)
                  .Render();
                     }
             <br />
@@ -125,6 +133,7 @@
                      .Placeholder("--select--")
                  .HtmlAttributes(new { style = "font-size: 8pt; font-family: Calibri; width=50px;" })
                  .DropDownHtmlAttributes(new { style = "font-size: 8pt; font-family: Calibri;" })
+                 .SelectedIndex(0)
                  .Render();
                     }
             <br />
