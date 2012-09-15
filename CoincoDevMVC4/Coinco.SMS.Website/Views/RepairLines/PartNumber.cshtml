@@ -1,8 +1,3 @@
 ﻿@using Telerik.Web.Mvc.UI
 @model Coinco.SMS.Website.Models.RepairType
- @{Html.Telerik().ComboBox().Name("symptomCodeList")
-                 .BindTo(Model.SymptomCodeList) 
-                 .HtmlAttributes(new { style = "font-size: 8pt; font-family: Calibri; width=50px;" })
-                 .DropDownHtmlAttributes(new { style = "font-size: 8pt; font-family: Calibri;" })
-                 .Render();
-                    }
+@Html.DisplayFor(x => TempData["PartNum"])

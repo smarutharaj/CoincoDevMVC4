@@ -19,21 +19,15 @@
                      .Placeholder("--select--")
                  .HtmlAttributes(new { style = "font-size: 8pt; font-family: Calibri; width=50px;" })
                  .DropDownHtmlAttributes(new { style = "font-size: 8pt; font-family: Calibri;" })
-                 .CascadeTo("PartList")
+                 .ClientEvents(e => e.OnChange("onSerialNumberChange"))
                  .SelectedIndex(0)
                  .Render();
                 }
             <br />
          <label>Part Number:</label>
-         @{Html.Telerik().ComboBox().Name("PartList")
-                        .DataBinding(binding => binding.Ajax().Select("_GetPartNumberList", "RepairLines"))
-                 .HtmlAttributes(new { style = "font-size: 8pt; font-family: Calibri; width=50px;" })
-                 .DropDownHtmlAttributes(new { style = "font-size: 8pt; font-family: Calibri;" })
-                 .SelectedIndex(0)
-                 .Enable(false)
-                 .Render();
-                    }
-              @* @Html.DisplayFor(x => TempData["ServiceOrderId"])*@
+            <div id = "partNumber">
+                 @{Html.RenderPartial("PartNumber");}
+            </div>
          <br />
      </div>
      <div class="addLinecentercolumnRL">
@@ -199,15 +193,15 @@
         }
   </div> *@
 <script type="text/javascript">
-    function onSymptomAreaListChange(e) {
+    function onSerialNumberChange(e) {
         if (e != null) {
-            var symptomArea = e.currentTarget.value;
+            var serialNumber = e.currentTarget.value;
             jQuery.ajax({
-                url: "/RepairLines/GetSymptomCode",
+                url: "/RepairLines/getPartNumber",
                 type: 'GET',
-                data: { symptomArea: symptomArea },
+                data: { serialNumber: serialNumber },
                 success: function (result) {
-                    jQuery('#symptomCodeList').html(result);
+                    jQuery('#partNumber').html(result);
                 },
                 error: function (result) {
                     alert(result.responseText);
