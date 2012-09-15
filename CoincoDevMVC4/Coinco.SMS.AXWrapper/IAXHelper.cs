@@ -48,8 +48,8 @@ namespace Coinco.SMS.AXWrapper
         DataTable GetResolutionList(string userName);
         DataTable GetRespairStageList(string userName);
         DataTable GetRepairLines(string serviceOrderId, string userName);
-        DataTable CreateRepairLines(string serviceOrderNo, string serviceOrderRelation, string conditionId, string symptomAreaId, string symptomCodeId, string diagonsisAreaId, string diagonsisCodeId, string resolutionId, string repairStageId, string technicianNo, string description, string serviceComments, string userName);
-        DataTable UpdateRepairLines(string uniqueId, string serviceOrderNo, string serviceOrderRelation, string conditionId, string symptomAreaId, string symptomCodeId, string diagonsisAreaId, string diagonsisCodeId, string resolutionId, string repairStageId, string technicianNo, string description, string serviceComments, string userName);
-        DataTable DeleteRepairLines(string uniqueId, string userName);
+        bool CreateRepairLines(string serviceOrderNo, string serviceOrderRelation, string conditionId, string symptomAreaId, string symptomCodeId, string diagonsisAreaId, string diagonsisCodeId, string resolutionId, string repairStageId, string technicianNo, string description, string serviceComments, string userName);
+        bool UpdateRepairLines(string uniqueId, string serviceOrderNo, string serviceOrderRelation, string conditionId, string symptomAreaId, string symptomCodeId, string diagonsisAreaId, string diagonsisCodeId, string resolutionId, string repairStageId, string technicianNo, string description, string serviceComments, string userName);
+        bool DeleteRepairLines(string uniqueId, string userName);
     }
 }
