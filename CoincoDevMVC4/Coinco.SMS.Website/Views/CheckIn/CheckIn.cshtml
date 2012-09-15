@@ -20,7 +20,7 @@
                         @{
                             Html.Telerik().ComboBox().Name("customerAccountDropDownList")
                                 .BindTo((SelectList)ViewData["CustomerList"])
-                                //.ClientEvents(e => e.OnOpen("onOpen"))
+                                .Placeholder("<--Select-->")
                                 .ClientEvents(e => e.OnChange("onCustomerAccountDropDownListChange"))
                                 .HtmlAttributes(new { style = "font-size: 8pt; font-family: Verdana; width:200px" })
                                 .DropDownHtmlAttributes(new { style = "font-size: 8pt; font-family: Verdana;" })
@@ -131,14 +131,14 @@
       });
 
       jQuery('#Clear').click(function () {
-          $('#customerAccountDropDownList').val('-1');
+          $('#customerAccountDropDownList').val('');
           $('#customerPOTextBox').val('');
-          $('#serviceTechnicianDropDownList').val('-1');
-          $('#serviceResponsibleDropDownList').val('-1');
-          $('#woClassificationDropDownList').val('-1');
+          $('#serviceTechnicianDropDownList').val('');
+          $('#serviceResponsibleDropDownList').val('');
+          $('#woClassificationDropDownList').val('');
           $('#customerCommentTextArea').val('');
           $('#serialNumberTextBox').val('');
-          $('#partNumberDropDownList').val('-1');
+          $('#partNumberDropDownList').val('');
           jQuery.ajax({
               url: "/CheckIn/ClearServiceOrderLines",
               type: 'POST',
