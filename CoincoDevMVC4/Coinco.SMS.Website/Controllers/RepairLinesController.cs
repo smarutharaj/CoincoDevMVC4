@@ -47,18 +47,27 @@ namespace Coinco.SMS.Website.Controllers
 
             //List<RepairType> RepairLineList = (new RepairType()).GetRepairLineDetails(TempData["ServiceOrderId"].ToString(), userName);
             //repairTypeObj.RepairLineList = new SelectList(repairTypeObj.GetRepairLineDetails(TempData["ServiceOrderId"].ToString(), userName));
-            ViewData["RepairLinesList"] = GetRepairLinesDetails(TempData["ServiceOrderId"].ToString());
+            //ViewData["RepairLinesList"] = GetRepairLinesDetails(TempData["ServiceOrderId"].ToString());
  
             TempData.Keep();
 
             return View();
         }
 
+        //[HttpGet]
+        //public ActionResult grid_RepairLinesDetails()
+        //{
+        //    TempData["ServiceOrderId"] = TempData["ServiceOrderId"].ToString();
+        //    ViewData["RepairLinesList"] = GetRepairLinesDetails(TempData["ServiceOrderId"].ToString());
+        //    TempData.Keep();
+        //    return View("RepairLineDetails");
+        //}
+
         [GridAction]
-        public ActionResult _Selection_RepairLines(string serviceOrderId)
+        public ActionResult _Selection_RepairLines()
         {
-            Session["SID"] = serviceOrderId;
-            TempData["ServiceOrderId"] = serviceOrderId;
+            TempData["ServiceOrderId"] = Session["SID"];
+            string serviceOrderId = Session["SID"].ToString();
             TempData.Keep();
             return View(new GridModel<RepairType>
             {
@@ -88,6 +97,8 @@ namespace Coinco.SMS.Website.Controllers
             TempData.Keep();
             return View("PartNumber");
         }
+
+       
 
         /* Binding Symptom Code...*/
         [HttpPost]
@@ -120,6 +131,17 @@ namespace Coinco.SMS.Website.Controllers
             return Json(new SelectList(repairTypeObj.GetDiagnosisCode(DiagonsisAreaId, userName), "DiagonsisCodeId", "DiagonsisCodeName"), JsonRequestBehavior.AllowGet);
 
         }
+
+        //[HttpPost]
+        //public ActionResult CreateRepairLineItems(string serviceOrderNo, string serviceOrderRelation, string conditionId, string symptomAreaId, string symptomCodeId, string diagonsisAreaId, string diagonsisCodeId, string resolutionId, string repairStageId, string technicianNo, string description, string serviceComments, string userName)
+        //{
+        //    string userName = null;
+        //    string newSerivceOrder = null;
+        //    bool isSuccess = false;
+        //    userName = User.Identity.Name.ToString().Split('\\')[1];
+
+        //    return ()
+        //}
 
         ///* Binding PartList...*/
 
