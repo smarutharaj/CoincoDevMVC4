@@ -10,11 +10,11 @@ namespace Coinco.SMS.Website.Models
     public enum TransactionType : int
     {
             [Description("Item")]
-            Item = 1,
+            Item = 3,
             [Description("Hour")]
             Hour = 2,
             [Description("Expense")]
-            Expense = 3,
+            Expense = 1,
             [Description("Fee")]
             Fee = 4
     }
