@@ -60,6 +60,8 @@ namespace Coinco.SMS.Website.Models
 
         public string Comments { get; set; }
 
+        //public SelectList RepairLineList { get; set; }
+
         public string UniqueId { get; set; }
         public string ServiceObjectRelation { get; set; }
 

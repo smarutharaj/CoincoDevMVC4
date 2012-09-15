@@ -16,7 +16,7 @@ namespace Coinco.SMS.Website.Controllers
         public ActionResult RepairLines()
         {
             TempData["ServiceOrderId"] = TempData["ServiceOrderId"].ToString();
-            String userName = User.Identity.Name.ToString().Split('\\')[1];
+            string userName = User.Identity.Name.ToString().Split('\\')[1];
 
             SerivceOrderPartLine serviceOrderPartLineObj = new SerivceOrderPartLine();
             IEnumerable<SerivceOrderPartLine> serviceOrderPartLineCollection = null;
@@ -45,9 +45,37 @@ namespace Coinco.SMS.Website.Controllers
             serviceTechnician.ServiceTechnicianList = new SelectList(serviceTechnician.GetTechnicians(userName), "ServiceTechnicianNo", "ServiceTechnicianName", null);
             ViewData["ServiceTechnicianList"] = serviceTechnician.ServiceTechnicianList;
 
+            //List<RepairType> RepairLineList = (new RepairType()).GetRepairLineDetails(TempData["ServiceOrderId"].ToString(), userName);
+            //repairTypeObj.RepairLineList = new SelectList(repairTypeObj.GetRepairLineDetails(TempData["ServiceOrderId"].ToString(), userName));
+            ViewData["RepairLinesList"] = GetRepairLinesDetails(TempData["ServiceOrderId"].ToString());
+ 
+            TempData.Keep();
 
-            return View(repairTypeObj);
+            return View();
         }
+
+        [GridAction]
+        public ActionResult _Selection_RepairLines(string serviceOrderId)
+        {
+            Session["SID"] = serviceOrderId;
+            TempData["ServiceOrderId"] = serviceOrderId;
+            TempData.Keep();
+            return View(new GridModel<RepairType>
+            {
+                Data = GetRepairLinesDetails(serviceOrderId)
+            });
+        }
+
+
+        private List<RepairType> GetRepairLinesDetails(string serviceOrderId)
+        {
+            string userName = null;
+            userName = User.Identity.Name.ToString().Split('\\')[1];
+            List<RepairType> RepairLineList = (new RepairType()).GetRepairLineDetails(TempData["ServiceOrderId"].ToString(), userName);
+            return RepairLineList;
+        }
+
+ 
 
         [HttpGet]
         public ActionResult getPartNumber(string serialNumber)

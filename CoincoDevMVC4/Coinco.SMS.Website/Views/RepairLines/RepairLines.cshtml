@@ -24,8 +24,8 @@
                  .Render();
                 }
             <br />
-         <label>Part Number:</label>
-            <div id = "partNumber">
+          
+            <div id = "partNumber" >
                  @{Html.RenderPartial("PartNumber");}
             </div>
          <br />
@@ -152,46 +152,43 @@
         <button class="t-button" type="button">Add</button>
         <button class="t-button" type="button">Clear</button>
     </div>
-   
-</div>
-
-@*<div class="partLinesDiv">
-@{Html.Telerik().Grid((IEnumerable<Coinco.SMS.Website.Models.SerivceOrderPartLine>)ViewData["ServiceOrder"])
-        .Name("PartLinesGrid")
-        .Columns(columns =>
-        {
-            columns.Bound(c => c.ServiceObjectRelation).Title("SO Relation").Width(100);
-            columns.Bound(c => c.TransactionType).Title("Description").Width(120);
-            columns.Bound(c => c.Description).Title("Condition").Width(100);
-            columns.Bound(c => c.SpecialtyCode.SpecialityCodeNo).Title("Symptom Area").Width(100);
-            columns.Bound(c => c.FailureCode.FailureCodeNo).Title("Symptom Code").Width(100);
-            columns.Bound(c => c.LineProperty.LinePropertyCode).Title("Diagnosis Area").Width(100);
-            columns.Bound(c => c.Quantity).Title("Diagnosis Code").Width(100);
-            columns.Bound(c => c.ServiceTechnician.ServiceTechnicianName).Title("Resolution").Width(100);
-            columns.Bound(c => c.ServiceComments).Title("Repair Stage").Width(100);
-        })
-
-        .DataBinding(dataBinding =>
-          {
-              dataBinding.Ajax().OperationMode(GridOperationMode.Client).Select("_SelectionClientSide_ServiceOrders", "PartLinesGrid")
-                  .Enabled(true);
-          }
-      )
-        .HtmlAttributes(new { style = "font-size: 8pt; font-family: Verdana; width:950px" })
-        .Scrollable()
-        .Pageable((pager => pager.PageSize(5)))
-        .Sortable()
-        .Selectable()
-        .Filterable()
-        .Render();
+   <div class="partLinesDiv">
+        @{Html.Telerik().Grid((IEnumerable<Coinco.SMS.Website.Models.RepairType>)ViewData["RepairLinesList"])
+                .Name("RepairLinesGrid")
+                .Columns(columns =>
+                {
+                    columns.Bound(c => c.ServiceObjectRelation).Title("SO Relation").Width(100);
+                    columns.Bound(c => c.Description).Title("Description").Width(120);
+                    columns.Bound(c => c.ConditionId).Title("Condition").Width(100);
+                    columns.Bound(c => c.SymptomAreaId).Title("Symptom Area").Width(100);
+                    columns.Bound(c => c.SymptomCodeId).Title("Symptom Code").Width(100);
+                    columns.Bound(c => c.DiagonsisAreaId).Title("Diagnosis Area").Width(100);
+                    columns.Bound(c => c.DiagonsisCodeId).Title("Diagnosis Code").Width(100);
+                    columns.Bound(c => c.ResolutionId).Title("Resolution").Width(100);
+                    columns.Bound(c => c.RepairStageId).Title("Repair Stage").Width(100);
+                })
+                        .DataBinding(dataBinding =>
+                        {
+                            dataBinding.Ajax().OperationMode(GridOperationMode.Client).Select("_Selection_RepairLines", "RepairLines")
+                                .Enabled(true);
+                        }
+              )
+                .HtmlAttributes(new { style = "font-size: 8pt; font-family: Verdana; width:950px" })
+                .Scrollable()
+                .Pageable((pager => pager.PageSize(5)))
+                .Sortable()
+                .Selectable()
+                .Filterable()
+                .Render();
         
-        //.ClientEvents(clientEvents => clientEvents.OnDataBinding("onServiceGridDataBinding"))
-        //.ClientEvents(events => events.OnRowSelect("onRowSelected"))
+                //.ClientEvents(clientEvents => clientEvents.OnDataBinding("onServiceGridDataBinding"))
+                //.ClientEvents(events => events.OnRowSelect("onRowSelected"))
 
-       
+     
     
-        }
-  </div> *@
+                }
+  </div> 
+</div>
 <script type="text/javascript">
     function onSerialNumberChange(e) {
         if (e != null) {
