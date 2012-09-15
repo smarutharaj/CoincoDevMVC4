@@ -77,10 +77,9 @@
         <div id="CustomerPOLabel" class="rightView" >
             @Html.Label("Customer PO", new { @class = "rightView" })
         </div>
-        <div id="CustomerPOTextBox" class="rightadjacentView">
-  
-                 @Html.TextBoxFor(p => p.CustomerPO, new { @class = "textBoxProperties", id = "customerPOTextBox" }) 
 
+        <div id="CustomerPOTextBox" class="rightadjacentView">
+            @Html.TextBoxFor(p => p.CustomerPO, new { @class = "textBoxProperties", id = "customerPOTextBox" }) 
         </div>
     </div>
 
@@ -93,7 +92,7 @@
             @{
                 Html.Telerik().ComboBox().Name("serviceTechnicianDropDownList")
                 .BindTo((SelectList)ViewData["ServiceTechnicianList"])
-                //.ClientEvents(e => e.OnOpen("onOpen"))
+                .Placeholder("<--Select-->")
                 .HtmlAttributes(new { style = "font-size: 8pt; font-family: Verdana;width:205px" })
                 .DropDownHtmlAttributes(new { style = "font-size: 8pt; font-family: Verdana;" })
                 .Render();
@@ -110,7 +109,7 @@
             @{
                 Html.Telerik().ComboBox().Name("woClassificationDropDownList")
                 .BindTo((SelectList)ViewData["WOClassificationList"])
-                //.ClientEvents(e => e.OnOpen("onOpen"))
+                .Placeholder("<--Select-->")
                 .HtmlAttributes(new { style = "font-size: 8pt; font-family: Verdana;width:205px" })
                 .DropDownHtmlAttributes(new { style = "font-size: 8pt; font-family: Verdana;" })
                 .Render();
@@ -127,7 +126,7 @@
             @{
                 Html.Telerik().ComboBox().Name("serviceResponsibleDropDownList")
                 .BindTo((SelectList)ViewData["ServiceResponsibleList"])
-                //.ClientEvents(e => e.OnOpen("onOpen"))
+                .Placeholder("<--Select-->")
                 .HtmlAttributes(new { style = "font-size: 8pt; font-family: Verdana;width:205px" })
                 .DropDownHtmlAttributes(new { style = "font-size: 8pt; font-family: Verdana;" })
                 .Render();
@@ -159,7 +158,7 @@
            @{
                 Html.Telerik().ComboBox().Name("partNumberDropDownList")
                 .BindTo((SelectList)ViewData["PartNumberList"])
-                //.ClientEvents(e => e.OnOpen("onOpen"))
+                .Placeholder("<--Select-->")
                 .HtmlAttributes(new { style = "font-size: 8pt; font-family: Verdana;width:205px" })
                 .DropDownHtmlAttributes(new { style = "font-size: 8pt; font-family: Verdana;" })     
                 .Render();
