@@ -34,7 +34,10 @@ namespace Coinco.SMS.AXWrapper
         DataTable GetSpecialityCodeList(string userName, string transactionId);
         DataTable GetServiceOrderPartLineByServiceOrder(string serviceOrderId, string userName);
         DataTable GetServiceOrderLinesDetailsBySerialNumber(string serialId, string itemNumber, string userName);
-
+        DataTable GetSitesList(string userName);
+        DataTable GetWareHouses(string itemNumber, string site, string userName);
+        DataTable GetLocations(string itemNumber, string site, string wareHouse, string userName);
+        DataTable GetTransactionSerialNumberList(string itemNumber, string site, string wareHouse, string locationId, string userName);
 
         DataTable GetConditionList(string userName);
         DataTable GetSymptomAreaList(string userName);
