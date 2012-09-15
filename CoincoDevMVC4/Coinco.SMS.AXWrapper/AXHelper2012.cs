@@ -1090,6 +1090,69 @@ namespace Coinco.SMS.AXWrapper
             }
             return serialTable;
         }
+
+        public bool CreateServiceOrderItemLines(string serviceOrderNo, string transactionType, string serviceTechnicianCode, string quantity, string salesPrice, string specialityCode, string failureCode, string serviceType, string serviceOrderRelation, string description, string serviceComments, string itemNumber, string site, string wareHouse, string transSerialCodeNo, string colorId, string sizeId, string configId, string locationId, string userName)
+        {
+
+            Axapta ax = null;
+            object[] param = new object[19];
+            object axObject;
+            bool flagValue;
+            bool isSuccess = false;
+            try
+            {
+                ax = new Axapta();
+                ax.LogonAs(userName.Trim(), "", networkCredentials, axCompany, "", "", "");
+
+                param[0] = serviceOrderNo;
+                param[1] = transactionType;
+                param[2] = serviceTechnicianCode;
+                param[3] = quantity;
+                param[4] = salesPrice;
+                param[5] = specialityCode;
+                param[6] = failureCode;
+                param[7] = serviceType;
+                param[8] = serviceOrderRelation;
+                param[9] = description;
+                param[10] = serviceComments;
+                param[11] = itemNumber;
+                param[12] = site;
+                param[13] = wareHouse;
+                param[14] = transSerialCodeNo;
+                param[15] = colorId;
+                param[16] = sizeId;
+                param[17] = configId;
+                param[18] = locationId;
+                axObject = ax.CallStaticClassMethod("ServiceOrderManagement", "createSMAServiceOrderLine", param).ToString();
+                if (bool.TryParse(axObject.ToString(), out flagValue))
+                {
+                    isSuccess = flagValue;
+                }
+
+                //If false, log exception
+                if (!isSuccess)
+                {
+                    string parameterString = "";
+                    for (int i = 0; i < param.Length; i++)
+                    {
+                        parameterString += "param[" + i + "]" + param[i].ToString() + "; ";
+                    }
+
+                    throw new Exception(String.Format("AX Failure:- Method='{0}' Parameters:Values = {1} - ", "createSMAServiceOrderLine", parameterString));
+                }
+
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                if (ax != null) ax.Logoff();
+            }
+            return isSuccess;
+        }
+
         #endregion
 
         #region "Sales Details"
