@@ -252,7 +252,7 @@ footer
 .serviceProcessDiv
 {
     margin-top: 30px;
-    max-width: 960px;
+    max-width: 330px;
     height: 150px;
     float: left;
     
@@ -392,10 +392,11 @@ footer
 {
     padding-left: 5px;
     padding-top:0px;
+    padding-bottom:10px;
     padding-right:10px;
     max-width: 380px;
     width:380px;
-    height: 25px;
+    max-height: 50px;
     vertical-align:middle;
    font-family:  Verdana;
    font-size:8pt;
@@ -414,6 +415,21 @@ footer
    font-size:8pt;
     font-weight:normal;
     float:left;
+}
+
+.leftViewClassforThirdColumn
+{
+    float:left;
+    padding-left: 5px;
+    padding-top:0px;
+    padding-right:10px;
+    max-width: 420px;
+    width:420px;
+    height: 25px;
+    vertical-align:middle;
+    font-family:  Verdana;
+    font-size:8pt;
+     font-weight:normal;
 }
 
 .leftView
@@ -444,8 +460,8 @@ footer
     padding-left: 5px;
     padding-top:5px;
     padding-right:10px;
-    max-width: 850px;
-    height: 50px;
+    max-width: 895px;
+    height: 160px;
     vertical-align:middle;
      font-weight:normal;
     
@@ -455,8 +471,8 @@ footer
     padding-left: 5px;
     padding-top:5px;
     padding-right:10px;
-    max-width: 850px;
-    height: 50px;
+    max-width: 895px;
+    height: 85px;
     vertical-align:middle;
      font-weight:normal;
      
@@ -468,7 +484,9 @@ footer
     padding-left: 5px;
     padding-top:5px;
     padding-right:10px;
-    max-width: 850px;
+    padding-bottom:5px;
+    max-width: 895px;
+    width:895px;
     height: 20px;
     vertical-align:middle;
      font-weight:normal;
@@ -480,7 +498,8 @@ footer
     padding-left: 5px;
     padding-top:5px;
     padding-right:10px;
-    max-width: 890px;
+    padding-bottom:5px;
+    width:910;
     height: 20px;
     vertical-align:middle;
      font-weight:normal;
@@ -492,19 +511,32 @@ footer
     padding-left: 5px;
     padding-top:5px;
     padding-right:10px;
-    max-width: 890px;
-    height: 250px;
+    max-width: 910px;
+    height: 385px;
     vertical-align:middle;
      font-weight:normal;
     
 }
+
+.serviceOrderLineGridClass
+{
+    padding-left: 5px;
+    padding-top:5px;
+    padding-right:5px;
+    max-width: 950px;
+    height: 265px;
+    vertical-align:middle;
+    font-weight:normal;
+}
+
 
 .submitResultClass
 {
     padding-left: 400px;
     padding-top:5px;
     padding-right:400px;
-    max-width: 890px;
+    padding-bottom:10px;
+    max-width: 950px;
     height: 20px;
     vertical-align:middle;
      font-weight:normal;
@@ -565,6 +597,7 @@ footer
     float:right;
     padding-left: 10px;
     padding-top:0px;
+    padding-bottom:5px;
     padding-right:10px;
     max-width: 380px;
     width:380px;
@@ -583,8 +616,8 @@ footer
     float:right;
     max-width: 380px;
     width:380px;
-    max-height: 40px;
-    height: 40px;
+    max-height: 150px;
+    height: 150px;
     font-family:  Verdana;
     font-size:8pt;
     font-weight:normal;
@@ -616,7 +649,7 @@ footer
 .rightViewClassforThirdColumn
 {
     float:right;
-    padding-left: 10px;
+    padding-left: 5px;
     padding-top:0px;
     padding-right:10px;
     max-width: 420px;
