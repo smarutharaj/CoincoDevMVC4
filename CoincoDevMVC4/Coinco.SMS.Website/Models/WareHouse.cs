@@ -15,7 +15,7 @@ namespace Coinco.SMS.Website.Models
         public string WareHouseName { get; set; }
         public string PhyiscalQty { get; set; }
 
-        public List<WareHouse> WareHouseList { get; set; } 
+        public SelectList WareHouseList { get; set; } 
 
         public WareHouse()
         {
