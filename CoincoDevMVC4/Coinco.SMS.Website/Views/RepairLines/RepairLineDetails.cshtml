@@ -5,13 +5,12 @@
                 .Name("RepairLinesGrid")
                 .DataKeys(keys =>
                 {
-                    keys.Add(c => c.SerialNumber).RouteKey("UniqueId");
+                    keys.Add(c => c.UniqueId).RouteKey("UniqueId");
                 })
                 .Columns(columns =>
                 {
-                    columns.Command(comments => comments.Delete().ButtonType(GridButtonType.Image)).Title("Delete").Width(10);
                     columns.Bound(c => c.UniqueId).Visible(false);
-                    columns.Bound(c => c.ServiceObjectRelation).Title("SO Relation").Width(100);
+                    columns.Bound(c => c.ServiceObjectRelation).Title("Serial Number").Width(100);
                     columns.Bound(c => c.Description).Title("Description").Width(100);
                     columns.Bound(c => c.ConditionId).Title("Condition").Width(80);
                     columns.Bound(c => c.SymptomAreaId).Title("Symptom Area").Width(110);
@@ -20,7 +19,7 @@
                     columns.Bound(c => c.DiagonsisCodeId).Title("Diagnosis Code").Width(110);
                     columns.Bound(c => c.ResolutionId).Title("Resolution").Width(80);
                     columns.Bound(c => c.RepairStageId).Title("Repair Stage").Width(100);
-                    
+                    columns.Command(c => c.Delete().ButtonType(GridButtonType.Image)).Title("Delete").Width(40);
                    
                 })
                         .DataBinding(dataBinding =>
@@ -30,7 +29,7 @@
                                 .Enabled(true);
                         }
               )
-                .HtmlAttributes(new { style = "font-size: 8pt; font-family: Verdana; width:950px" })
+                .HtmlAttributes(new { style = "font-size: 8pt; font-family: Verdana" })
                 .Scrollable()
                 .Pageable((pager => pager.PageSize(10)))
                 .Sortable()
@@ -41,14 +40,14 @@
                 }
 
 <script type ="text/javascript"">
-    function onRowSelected(e) {
+//    function onRowSelected(e) {
 
-        serviceOrderNumber = e.row.cells[0].innerHTML;
+//        serviceOrderNumber = e.row.cells[0].innerHTML;
 
-        // update ui text
-        $('#customerID').text(serviceOrderNumber);
+//        // update ui text
+//        $('#customerID').text(serviceOrderNumber);
 
-        serviceOrderLineGrid.rebind();
+//        serviceOrderLineGrid.rebind();
 
-    }
+//    }
 </script>
