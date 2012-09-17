@@ -104,6 +104,7 @@
         <label>Description:</label>
                 @Html.TextAreaFor(x => x.Description, new {id = "descriptionTextBox" })
          <br />
+         @Html.TextBoxFor(x => x.UniqueId, new { @class = "singleTextBox" , id = "uniqueText", @type="hidden" })
      </div>
      <div class="addLinecentercolumnRL">
      <br />
@@ -150,7 +151,7 @@
 
     <div class="centercolumnSubmitRL">
         <button class="t-button"  id="Create" value="Create"">Add</button>
-        <button class="t-button"  id="Update" value="Update"">Update</button>
+@*        <button class="t-button"  id="Update" value="Update"">Update</button>*@
         <button class="t-button"  id="Clear" value="Clear"">Clear</button>
     </div>
    <div id ="RepairLinesGrid" class="partLinesDiv">
