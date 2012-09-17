@@ -39,7 +39,7 @@
             .OnSave("onSave"))
         
         .HtmlAttributes(new { style = "font-size: 8pt; font-family: Verdana;" })
-        .Scrollable()
+        .Scrollable(c => c.Height("180px"))
         .Pageable((pager => pager.PageSize(10)))
         .Sortable()
         .Selectable()

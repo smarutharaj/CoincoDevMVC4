@@ -110,16 +110,19 @@
               data: { customerAccount: customerAccount, customerPo: customerPo,addressId:addressId, technicinanNo: technicinanNo, responsibleNo: responsibleNo, woClassification: woClassification, customerComments: customerComments },
               success: function (result) {
                   jQuery('#ServiceOrderGridDiv').html(result);
-                 
-                  $('#customerAccountDropDownList').val('');
+                  $('#customerAccountDropDownList').data('tComboBox').value('<--Select-->');
                   $('#customerPOTextBox').val('');
-                  $('#serviceTechnicianDropDownList').val('');
-                  $('#serviceResponsibleDropDownList').val('');
-                  $('#woClassificationDropDownList').val('');
+                  $('#serviceTechnicianDropDownList').data('tComboBox').value('<--Select-->');
+                  $('#serviceResponsibleDropDownList').data('tComboBox').value('<--Select-->');
+                  $('#woClassificationDropDownList').data('tComboBox').value('<--Select-->');
                   $('#customerCommentTextArea').val('');
                   $('#serialNumberTextBox').val('');
-                  $('#partNumberDropDownList').val('');
-
+                  $('#partNumberDropDownList').data('tComboBox').value('<--Select-->');
+                  var billingAddressGrid = $("#BillingAddressGrid").data("tGrid");
+                  var shippingAddressGrid = $("#ShippingAddressGrid").data("tGrid");
+                  var testData;
+                  billingAddressGrid.dataBind(testData);
+                  shippingAddressGrid.dataBind(testData);
                   alert('Service order created successfully.');
 
               },
@@ -132,14 +135,20 @@
       });
 
       jQuery('#Clear').click(function () {
-          $('#customerAccountDropDownList').val('');
+          $('#customerAccountDropDownList').data('tComboBox').value('<--Select-->');
           $('#customerPOTextBox').val('');
-          $('#serviceTechnicianDropDownList').val('');
-          $('#serviceResponsibleDropDownList').val('');
-          $('#woClassificationDropDownList').val('');
+          $('#serviceTechnicianDropDownList').data('tComboBox').value('<--Select-->');
+          $('#serviceResponsibleDropDownList').data('tComboBox').value('<--Select-->');
+          $('#woClassificationDropDownList').data('tComboBox').value('<--Select-->');
           $('#customerCommentTextArea').val('');
           $('#serialNumberTextBox').val('');
-          $('#partNumberDropDownList').val('');
+          $('#partNumberDropDownList').data('tComboBox').value('<--Select-->');
+          var billingAddressGrid = $("#BillingAddressGrid").data("tGrid");
+          var shippingAddressGrid = $("#ShippingAddressGrid").data("tGrid");
+          var testData;
+          billingAddressGrid.dataBind(testData);
+          shippingAddressGrid.dataBind(testData);
+          //$('#partNumberDropDownList').val('');
           jQuery.ajax({
               url: "/CheckIn/ClearServiceOrderLines",
               type: 'POST',
