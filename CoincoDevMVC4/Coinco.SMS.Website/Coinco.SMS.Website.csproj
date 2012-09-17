@@ -500,6 +500,7 @@
     <Content Include="Views\WorkOrder\PartDetailsView.cshtml" />
     <Content Include="Views\RepairLines\RepairLineDetails.cshtml" />
     <Content Include="Views\WorkOrder\ServiceOrderPartLinesView.cshtml" />
+    <Content Include="Views\CheckIn\SalesDetailsHistory.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

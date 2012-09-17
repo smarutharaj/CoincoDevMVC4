@@ -8,7 +8,7 @@
         })
         .Columns(columns =>
         {
-            columns.Template(@<text> @(Html.ActionLink("History", "ServiceOrderHistory", new { id = @item.SerialNumber }))</text>).Width(50).Title("History").Width(60).ClientTemplate(@"<a href=""/WorkOrder/ServiceOrderHistory/<#= SerialNumber #>"">History</a>");
+            columns.Template(@<text> <input type="text" name="history" onclick="SalesDetailsViewForSegment(id = @item.SerialNumber)" /></text>).Width(50).Title("History").Width(60).ClientTemplate("<input type='text' name='history' onclick='SalesDetailsViewForSegment(id = @item.SerialNumber)' />");
             columns.Bound(c => c.SerialNumber).Title("Serial Number").Width(1).Hidden();                                                                                                                                
             columns.Bound(c => c.SerialNumber).Title("Serial Number").Width(130).ReadOnly();
             columns.Bound(c => c.PartNumber).Title("Part Number").Width(120).ReadOnly();
@@ -52,5 +52,16 @@
 
             function onSave(e) {
                 e.Data = e.values;
+            }
+
+            function SalesDetailsViewForSegment(e) { /// called on row click of main page grid.
+                var row = e.row;
+                var grid = $(this).data("tGrid");
+                var dataItem = grid.dataItem(row);
+                var detailWindow = $("#SalesDetailsHistory").data("tWindow");
+                detailWindow.title("Sales Details History");
+                detailWindow.ajaxRequest('@Url.Action("GetSalesDetailsHistory", "CheckIn")', { serialNumber: dataItem.SerialNumber });
+                detailWindow.title(dataItem.ProcessSegment);
+                detailWindow.open();
             }
         </script>

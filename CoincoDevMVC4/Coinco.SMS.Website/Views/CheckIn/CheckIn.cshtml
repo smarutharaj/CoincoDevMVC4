@@ -4,7 +4,32 @@
 @{
     ViewBag.Title = "CheckIn";
 }
-
+@{ Html.Telerik().Window()
+        .Name("SalesDetailsHistoryWindow")
+        .Title("Sales Details History")
+        .Draggable((bool)ViewData["movable"])
+        .Resizable(resizing => resizing
+            .Enabled((bool)ViewData["resizable"])
+            .MinHeight(250)
+            .MinWidth(250)
+            .MaxHeight(500)
+            .MaxWidth(500)
+        )
+        .Modal((bool)ViewData["modal"])
+        .Buttons(b => b.Maximize().Close())
+        .Content(@<text>
+            <p style="text-align: center">
+                <img src="@Url.Content("~/Content/Window/window.png")"
+                        alt="Window for ASP.NET MVC logo" style="display:block;margin:0 auto 10px;" />
+                            
+                The Telerik Window for ASP.NET MVC is<br /> the right choice for creating Window dialogs<br />
+                and alert/prompt/confirm boxes<br /> in your ASP.NET MVC applications.
+            </p>
+        </text>)
+        .Width(300)
+        .Height(300)
+        .Render();
+}
 @using (Html.BeginForm())
 {
 <div id="ServiceOrderAdditionDiv">
