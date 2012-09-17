@@ -31,20 +31,24 @@ namespace Coinco.SMS.Website.Controllers
                 ViewData["CustomerList"] = customer.CustomerList;
 
                 woClassification.WOClassificationList = new SelectList(woClassificationCollection.AsEnumerable<WOClassification>(), "WOClassificationCode", "WOClassificationName", null);
-                ViewData["WOClassificationList"] = woClassification.WOClassificationList;
-                
+                serviceOrder.WOClassification = woClassification;
+
                 serviceTechnician.ServiceTechnicianList = new SelectList(serviceTechnicianCollection.AsEnumerable<ServiceTechnician>(), "ServiceTechnicianNo", "ServiceTechnicianName", null);
-                ViewData["ServiceTechnicianList"] = serviceTechnician.ServiceTechnicianList;
-                ViewData["ServiceResponsibleList"] = serviceTechnician.ServiceTechnicianList;
+                serviceOrder.ServiceTechnician = serviceTechnician;
+                serviceOrder.ServiceResponsible = serviceTechnician;
 
                 partDetails.PartDetailsList = new SelectList(partDetailsCollection.AsEnumerable<PartDetails>(), "ItemNumber", "ItemNumber", null);
                 ViewData["PartNumberList"] = partDetails.PartDetailsList;
-      
+                serviceOrder.PartDetails = partDetails;
+
                 ViewData["ServiceOrderLine"] = serviceOrderLineList;
                 TempData["ServiceOrderLine"] = serviceOrderLineList;
 
+
                 ViewData["BillingAddress"] = addressList;
                 ViewData["ShippingAddress"] = addressList;
+                serviceOrder.BillingAddressList = addressList;
+                serviceOrder.ShippingAddressList = addressList;
 
                 ViewData["ServiceOrder"] = serviceOrder;
                 TempData.Keep();
@@ -184,13 +188,13 @@ namespace Coinco.SMS.Website.Controllers
         #endregion
 
         #region "Other Details Get Actions"
-
         [HttpGet]
-        public ActionResult GetOtherDetails(string customerAccount)
+        public JsonResult GetOtherDetails(string customerAccount)
         {
             WOClassification woClassification = new WOClassification();
             ServiceTechnician serviceTechnician = new ServiceTechnician();
             PartDetails partDetails = new PartDetails();
+            ServiceOrder serviceOrder = new ServiceOrder();
             try
             {
                 if (customerAccount != null)
@@ -206,24 +210,40 @@ namespace Coinco.SMS.Website.Controllers
                                                     select item1).ToList<Address>();
                     if (addressShipping.Count > 1)
                     {
-                        addressShipping[0].IsSelected = "checked";
+                        for (int i=0; i <= addressShipping.Count-1; i++)
+                        {
+                            if (i == 0)
+                            {
+                                addressShipping[i].IsSelected = "checked";
+                            }
+                            else
+                            {
+                                addressShipping[i].IsSelected = null;
+                            }
+                        }
+                       
+                        serviceOrder.ShippingAddressList = addressShipping;
                     }
-                    ViewData["BillingAddress"] = addressBilling;
-                    ViewData["ShippingAddress"] = addressShipping;
+                    //ViewData["BillingAddress"] = addressBilling;
+                    //ViewData["ShippingAddress"] = addressShipping;
                     TempData["CustomerAccount"] = customerAccount;
+                    serviceOrder.BillingAddressList = addressBilling;
 
                     IEnumerable<WOClassification> woClassificationCollection = woClassification.GetWOClassification(User.Identity.Name.ToString().Split('\\')[1]);
                     woClassification.WOClassificationList = new SelectList(woClassificationCollection, "WOClassificationCode", "WOClassificationName", null);
-                    ViewData["WOClassificationList"] = woClassification.WOClassificationList;               
-
+                    //ViewData["WOClassificationList"] = woClassification.WOClassificationList;
+                    serviceOrder.WOClassification = woClassification;
                     IEnumerable<ServiceTechnician> serviceTechnicianCollection = serviceTechnician.GetTechnicians(User.Identity.Name.ToString().Split('\\')[1]);
                     serviceTechnician.ServiceTechnicianList = new SelectList(serviceTechnicianCollection, "ServiceTechnicianNo", "ServiceTechnicianName", null);
-                    ViewData["ServiceTechnicianList"] = serviceTechnician.ServiceTechnicianList;
-                    ViewData["ServiceResponsibleList"] = serviceTechnician.ServiceTechnicianList;
-
+                    //ViewData["ServiceTechnicianList"] = serviceTechnician.ServiceTechnicianList;
+                    //ViewData["ServiceResponsibleList"] = serviceTechnician.ServiceTechnicianList;
+                    serviceOrder.ServiceTechnician = serviceTechnician;
+                    serviceOrder.ServiceResponsible = serviceTechnician;
+                   
                     IEnumerable<PartDetails> partDetailsCollection = partDetails.GetItemNumbers(User.Identity.Name.ToString().Split('\\')[1]);
                     partDetails.PartDetailsList = new SelectList(partDetailsCollection, "ItemNumber", "ProductName", null);
                     ViewData["PartNumberList"] = partDetails.PartDetailsList;
+                    serviceOrder.PartDetails = partDetails;
                 }
                 TempData.Keep();
             }
@@ -232,7 +252,7 @@ namespace Coinco.SMS.Website.Controllers
 
                 throw ex;
             }
-            return View("OtherDetails");
+            return Json(serviceOrder, JsonRequestBehavior.AllowGet);
         }
 
         #endregion
@@ -271,8 +291,8 @@ namespace Coinco.SMS.Website.Controllers
 
         #region "Service Order Line Grid Post Actions"
 
-        [HttpPost]
-        public ActionResult ClearServiceOrderLines()
+
+        public JsonResult ClearServiceOrderLines()
         {
             List<ServiceOrderLine> serviceOrderLineEmptyList = new List<ServiceOrderLine>();
             try
@@ -286,11 +306,10 @@ namespace Coinco.SMS.Website.Controllers
 
                 throw ex;
             }
-            return View("ServiceOrderLine");
+            return Json(serviceOrderLineEmptyList, JsonRequestBehavior.AllowGet);
         }
         
-        [HttpPost]
-        public ActionResult GetServiceOrderLinesHistoryBySerialNumberPartNumber(ServiceOrder model,string serialNumber, string partNumber)
+        public JsonResult GetServiceOrderLinesHistoryBySerialNumberPartNumber(ServiceOrder model, string serialNumber, string partNumber)
         {
             string userName = null;
             try
@@ -317,17 +336,17 @@ namespace Coinco.SMS.Website.Controllers
             {
                 throw ex;
             }
-            return View("ServiceOrderLine");
+            return Json(TempData["ServiceOrderLine"], JsonRequestBehavior.AllowGet);
         }
 
-        [HttpPost]
-        public ActionResult CreateServiceOrder( string customerAccount, string customerPo,string addressId, string technicinanNo, string responsibleNo, string woClassification, string customerComments)
+        public JsonResult CreateServiceOrder( string customerAccount, string customerPo,string addressId, string technicinanNo, string responsibleNo, string woClassification, string customerComments)
         {
             string userName = null;
             string newSerivceOrder = null;
             bool isSuccess = false;
             ServiceOrder serviceOrder = new ServiceOrder();
             ServiceOrderLine serviceOrderLine = new ServiceOrderLine();
+            List<ServiceOrderLine> emptyList = new List<ServiceOrderLine>();
             try
             {
                 userName = User.Identity.Name.ToString().Split('\\')[1];
@@ -343,7 +362,7 @@ namespace Coinco.SMS.Website.Controllers
                 }
                 if (isSuccess)
                 {
-                    List<ServiceOrderLine> emptyList = new List<ServiceOrderLine>();
+   
                     ViewData["ServiceOrderLine"] = emptyList;
                     TempData["ServiceOrderLine"] = emptyList;
                 }
@@ -352,8 +371,8 @@ namespace Coinco.SMS.Website.Controllers
             catch (Exception ex)
             {
                 throw ex;
-            }    
-            return View("ServiceOrderLine");
+            }
+            return Json(TempData["ServiceOrderLine"], JsonRequestBehavior.AllowGet);
         }
 
         #endregion
