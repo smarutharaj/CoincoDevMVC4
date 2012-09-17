@@ -23,6 +23,8 @@ namespace Coinco.SMS.Website.Models
 
         public SelectList PartDet { get; set; }
 
+        public List<ServiceOrderLine> ServiceOrderLineList { get; set; }
+
         public ServiceOrderLine()
         {
 

@@ -16,6 +16,9 @@ namespace Coinco.SMS.Website.Models
         public string Status { get; set; }
         public string CustomerPO { get; set; }
         public string Comments { get; set; }
+        public Address WOBillingAddress { get; set; }
+        public Address WOShippingAddress { get; set; }
+      
         public Customer Customer { get; set; }
         public PartDetails PartDetails { get; set; }
         public ServiceTechnician ServiceTechnician { get; set; }
@@ -52,7 +55,9 @@ namespace Coinco.SMS.Website.Models
                     serviceObject.WOClassification = new Models.WOClassification("",row["WOClassification"].ToString());
                     serviceObject.ServiceTechnician = new Models.ServiceTechnician(row["ServiceTechnician"].ToString(),"");
                     serviceObject.ServiceOrderDate = Convert.ToDateTime(row["EntryDate"].ToString());
-                 
+                    serviceObject.WOBillingAddress = new Models.Address(row["BillingAddress"].ToString());
+                    serviceObject.WOShippingAddress = new Models.Address(row["ShippingAddress"].ToString());
+                    
                     if (status == "0")
                     {
                         serviceObject.Status = "In Process";

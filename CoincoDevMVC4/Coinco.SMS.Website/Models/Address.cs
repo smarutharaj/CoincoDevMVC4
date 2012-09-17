@@ -24,6 +24,11 @@ namespace Coinco.SMS.Website.Models
 
         }
 
+        public Address(string addresswithDesc)
+        {
+            this.AddresswithDesc = addresswithDesc;
+        }
+
 
         //- To get the GetCustomersAddress for Check In Page and Service Order Process
 
