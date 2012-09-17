@@ -20,7 +20,7 @@
                     columns.Bound(c => c.ResolutionId).Title("Resolution").Width(80);
                     columns.Bound(c => c.RepairStageId).Title("Repair Stage").Width(100);
                     columns.Bound(c => c.Technician).Hidden();;
-                    columns.Bound(c => c.Comments).Hidden();;
+                    columns.Bound(c => c.Comments).Hidden(); ;
                     columns.Command(c => c.Delete().ButtonType(GridButtonType.Image)).Title("Delete").Width(40);
                    
                 })
