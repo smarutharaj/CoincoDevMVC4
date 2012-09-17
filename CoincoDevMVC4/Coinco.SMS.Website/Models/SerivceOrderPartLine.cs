@@ -189,5 +189,24 @@ namespace Coinco.SMS.Website.Models
             return isSuccess;
 
         }
+
+        public bool DeleteServiceOrderPartItemLines(string uniqueId, string userName)
+        {
+            bool isSuccess = false;
+
+            IAXHelper axHelper = ObjectFactory.GetInstance<IAXHelper>();
+            try
+            {
+                isSuccess = axHelper.DeleteServiceOrderPartLines(uniqueId, userName);
+
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
+            return isSuccess;
+
+        }
     }
 }
