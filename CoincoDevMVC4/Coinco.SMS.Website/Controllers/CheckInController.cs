@@ -37,7 +37,7 @@ namespace Coinco.SMS.Website.Controllers
                 ViewData["ServiceTechnicianList"] = serviceTechnician.ServiceTechnicianList;
                 ViewData["ServiceResponsibleList"] = serviceTechnician.ServiceTechnicianList;
 
-                partDetails.PartDetailsList = new SelectList(partDetailsCollection.AsEnumerable<PartDetails>(), "ItemNumber", "ProductName", null);
+                partDetails.PartDetailsList = new SelectList(partDetailsCollection.AsEnumerable<PartDetails>(), "ItemNumber", "ItemNumber", null);
                 ViewData["PartNumberList"] = partDetails.PartDetailsList;
       
                 ViewData["ServiceOrderLine"] = serviceOrderLineList;
