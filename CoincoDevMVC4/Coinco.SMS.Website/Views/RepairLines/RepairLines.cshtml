@@ -91,7 +91,7 @@
             <br />
              
             <label>Comments:</label>
-               @Html.TextBoxFor(x => x.Comments, new { id = "commentsTextBox" }) 
+               @Html.TextAreaFor(x => x.Comments, new { id = "commentsTextBox" }) 
             <br />
      </div>
     </div>
@@ -103,7 +103,6 @@
      <br />
         <label>Description:</label>
                 @Html.TextAreaFor(x => x.Description, new {id = "descriptionTextBox" })
-               @*@Html.TextBoxFor(p => p.Description, new { @class = "textBoxProperties", id = "descriptionTextBox" }) *@
          <br />
      </div>
      <div class="addLinecentercolumnRL">
