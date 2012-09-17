@@ -165,10 +165,14 @@ namespace Coinco.SMS.Controllers
             Session["SID"] = serviceOrderId;
             TempData["ServiceOrderId"] = serviceOrderId;
             TempData.Keep();
-            return View(new GridModel<SerivceOrderPartLine>
+            if (!String.IsNullOrEmpty(serviceOrderId))
             {
-                Data = GetServiceOrderPartLinesByServiceOrderID(serviceOrderId)
-            });
+                return View(new GridModel<SerivceOrderPartLine>
+                {
+                    Data = GetServiceOrderPartLinesByServiceOrderID(serviceOrderId)
+                });
+            }
+            return View();
         }
 
         [HttpGet]
