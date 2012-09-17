@@ -27,7 +27,7 @@
                         .DataBinding(dataBinding =>
                         {
                             dataBinding.Ajax().OperationMode(GridOperationMode.Client).Select("_Selection_RepairLines", "RepairLines")
-                                .Delete("_DeleteRepairLine", "RepairLines")
+                                .Delete("DeleteRepairLine", "RepairLines")
                                 .Enabled(true);
                         }
               )
@@ -55,9 +55,10 @@
         var diagonsisCodeId = e.row.cells[7].innerHTML;
         var resolutionId = e.row.cells[8].innerHTML;
         var repairStageId = e.row.cells[9].innerHTML;
-//        var technicianNo = e.row.cells[10].innerHTML;
-//        var serviceComments = e.row.cells[11].innerHTML;
+        var technicianNo = e.row.cells[10].innerHTML;
+        var serviceComments = e.row.cells[11].innerHTML;
 
+        $("#serialNumberList").data("tComboBox").value(serialNumberList);
         $('#conditionList').data("tComboBox").value(conditionId);
         $('#symptomAreaList').data("tComboBox").value(symptomAreaId);
         $('#symptomCodeList').data("tComboBox").value(symptomCodeId);
@@ -67,7 +68,7 @@
         $('#repairStageList').data("tComboBox").value(repairStageId);
 //        $('#technicianList').data("tComboBox").value(technicianNo);
         $('#descriptionTextBox').val(description);
-        //        $('#commentsTextBox').val(serviceComments);
+        $('#commentsTextBox').val(serviceComments);
         $('#uniqueText').val(uniqueId);
       
     }
