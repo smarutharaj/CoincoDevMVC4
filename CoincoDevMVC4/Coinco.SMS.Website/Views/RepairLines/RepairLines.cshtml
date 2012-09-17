@@ -56,8 +56,8 @@
             <br />
             <label>Symptom Code:</label>
              @{Html.Telerik().ComboBox().Name("symptomCodeList")
-                 .DataBinding(binding => binding.Ajax().Select("_GetDropDownSymptomCode", "RepairLines"))
-                   .Placeholder("--Select--")
+                       .DataBinding(binding => binding.Ajax().Select("_GetDropDownSymptomCode", "RepairLines"))
+                       .Placeholder("--Select--")
                  .HtmlAttributes(new { style = "font-size: 8pt; font-family: Calibri; width=50px;" })
                  .DropDownHtmlAttributes(new { style = "font-size: 8pt; font-family: Calibri;" })
                  .SelectedIndex(0)
@@ -96,7 +96,7 @@
      </div>
     </div>
 
-    <div class="addLinesDivRL">
+    <div class="addLinesDivRL1">
      <div class="addLineleftcolumnRL">
      <br />
      <h6>Description</h6>
