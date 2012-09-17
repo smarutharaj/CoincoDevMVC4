@@ -408,8 +408,8 @@ footer
     padding-top:0px;
     padding-bottom:10px;
     padding-right:10px;
-    max-width: 380px;
-    width:380px;
+    max-width: 410px;
+    width:410px;
     max-height: 50px;
     vertical-align:middle;
    font-family:  Verdana;
@@ -422,8 +422,8 @@ footer
    padding-left: 5px;
    padding-top:0px;
    padding-right:10px;
-   max-width: 380px;
-   width:380px;
+   max-width: 415px;
+   width:415px;
    height: 160px;
    font-family:  Verdana;
    font-size:8pt;
@@ -438,7 +438,7 @@ footer
     padding-top:0px;
     padding-right:10px;
     max-width: 420px;
-    width:380px;
+    width:410px;
     height: 25px;
     vertical-align:middle;
     font-family:  Verdana;
@@ -460,8 +460,8 @@ footer
 .leftadjacentView
 {
    float:right;
-   width:200px;
-   max-width:210px;
+   width:230px;
+   max-width:230px;
    text-align: left;
    vertical-align:middle;
    font-family:  Verdana;
@@ -474,7 +474,7 @@ footer
     padding-left: 5px;
     padding-top:5px;
     padding-right:10px;
-    max-width: 895px;
+    max-width: 900px;
     height: 160px;
     vertical-align:middle;
      font-weight:normal;
@@ -501,7 +501,7 @@ footer
     padding-bottom:5px;
     max-width: 895px;
     width:895px;
-    height: 20px;
+    height: 25px;
     vertical-align:middle;
      font-weight:normal;
     
@@ -560,8 +560,8 @@ footer
 .textBoxProperties
 {
     margin:0px 0px 0px 0px;
-    max-width: 200px;
-    width:200px;
+    max-width: 230px;
+    width:230px;
     height: 15px; 
     vertical-align:middle;
     font-weight:normal;
@@ -573,9 +573,9 @@ footer
 .dropDownProperties
 {
     margin:0px 0px 0px 0px;
-    max-width: 205px;
-    width:205px;
-    height: 20px; 
+    max-width: 235px;
+    width:235px;
+    height: 22px; 
     vertical-align:middle;
     font-weight:normal;
     font-family:  Verdana;
@@ -598,8 +598,8 @@ footer
 .textAreaProperties
 {
     margin:0px 0px 0px 0px;
-    max-width: 200px;
-    width: 200px;
+    max-width: 230px;
+    width: 230px;
     height: 45px; 
     max-height:45px;
     vertical-align:middle;
@@ -614,8 +614,8 @@ footer
     padding-top:0px;
     padding-bottom:5px;
     padding-right:10px;
-    max-width: 380px;
-    width:380px;
+    max-width: 410px;
+    width:410px;
     height: 25px;
     vertical-align:middle;
     font-family:  Verdana;
@@ -629,8 +629,8 @@ footer
     padding-top:0px;
     padding-right:10px;
     float:right;
-    max-width: 380px;
-    width:380px;
+    max-width: 415px;
+    width:415px;
     max-height: 160px;
     height: 160px;
     font-family:  Verdana;
@@ -653,7 +653,7 @@ footer
 .rightadjacentView
 {
    float:left;
-   width:200px;
+   width:230px;
    text-align: left;
    vertical-align:middle;
    font-family:  Verdana;
@@ -667,8 +667,8 @@ footer
     padding-left: 5px;
     padding-top:0px;
     padding-right:10px;
-    max-width: 415px;
-    width:415px;
+    max-width: 445px;
+    width:445px;
     height: 25px;
     vertical-align:middle;
     font-family:  Verdana;
