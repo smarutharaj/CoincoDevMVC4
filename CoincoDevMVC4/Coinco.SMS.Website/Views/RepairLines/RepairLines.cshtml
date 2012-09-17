@@ -225,13 +225,18 @@
                     serviceComments: serviceComments },
             success: function (result) {
                 jQuery('#RepairLinesGrid').html(result);
-               alert('Repair Line Created Successfully');
-//                $('#customerAccountDropDownList').val('-1');
-//                $('#customerPOTextBox').val('');
-//                $('#serviceTechnicianDropDownList').val('-1');
-//                $('#serviceResponsibleDropDownList').val('-1');
-//                $('#woClassificationDropDownList').val('-1');
-//                $('#customerCommentTextArea').val('');
+                alert('Repair Line Created Successfully');
+
+               $('#conditionList').data("tComboBox").value("--Select--");
+               $('#symptomAreaList').data("tComboBox").value("--Select--");
+               $('#symptomCodeList').data("tComboBox").value("--Select--");
+               $('#diagnosisAreaList').data("tComboBox").value("--Select--");
+               $('#diagnosisCodeList').data("tComboBox").value("--Select--");
+               $('#resolutionList').data("tComboBox").value("--Select--");
+               $('#repairStageList').data("tComboBox").value("--Select--");
+               $('#technicianList').data("tComboBox").value("--Select--");
+               $('#descriptionTextBox').val('');
+               $('#commentsTextBox').val('');
             },
             error: function (result) {
                 alert(result.responseText);
