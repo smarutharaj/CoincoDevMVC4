@@ -9,8 +9,7 @@
         .Columns(columns =>
         {
             columns.Command(commands => commands
-                    .Custom("getSalesHistoryDetails")
-                    .Text("History")
+                    .Custom("getSalesHistoryDetails").ButtonType(GridButtonType.BareImage)
                     .DataRouteValues(route => route.Add(c => c.SerialNumber).RouteKey("serialNo"))
                     .Ajax(true)
                     .Action("GetSalesHistoryDetails", "CheckIn")).Title("History")

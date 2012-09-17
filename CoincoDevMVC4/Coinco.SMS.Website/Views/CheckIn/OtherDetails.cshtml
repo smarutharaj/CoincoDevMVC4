@@ -36,10 +36,10 @@
                 </text>)
                    .ClientTemplate("<input type='checkbox' name='checkedRecords' value='<#= AddressId #>'  checked='<#= IsSelected #>' />")
                    .Title("")
-                   .Width(36)
+                   .Width(20)
                    .HtmlAttributes(new { style = "text-align:center" });
 
-            columns.Bound(c => c.AddressDetails).Title("Shipping Address").Width(180);
+            columns.Bound(c => c.AddressDetails).Title("Shipping Address");
         })
                         .DataBinding(dataBinding =>
                         {
@@ -93,8 +93,8 @@
                 Html.Telerik().ComboBox().Name("serviceTechnicianDropDownList")
                 .BindTo((SelectList)ViewData["ServiceTechnicianList"])
                 .Placeholder("<--SELECT-->")
-                .HtmlAttributes(new { style = "font-size: 8pt; font-family: Verdana;width:205px" })
-                .DropDownHtmlAttributes(new { style = "font-size: 8pt; font-family: Verdana;" })
+                .HtmlAttributes(new { @class = "dropDownProperties" })
+                .DropDownHtmlAttributes(new { @class = "dropDownProperties" })
                 .SelectedIndex(0)
                 .Render();
             }
@@ -111,8 +111,8 @@
                 Html.Telerik().ComboBox().Name("woClassificationDropDownList")
                 .BindTo((SelectList)ViewData["WOClassificationList"])
                 .Placeholder("<--SELECT-->")
-                .HtmlAttributes(new { style = "font-size: 8pt; font-family: Verdana;width:205px" })
-                .DropDownHtmlAttributes(new { style = "font-size: 8pt; font-family: Verdana;" })
+                .HtmlAttributes(new { @class = "dropDownProperties" })
+                .DropDownHtmlAttributes(new { @class = "dropDownProperties" })
                 .SelectedIndex(0)
                 .Render();
             }
@@ -129,8 +129,8 @@
                 Html.Telerik().ComboBox().Name("serviceResponsibleDropDownList")
                 .BindTo((SelectList)ViewData["ServiceResponsibleList"])
                 .Placeholder("<--SELECT-->")
-                .HtmlAttributes(new { style = "font-size: 8pt; font-family: Verdana;width:205px" })
-                .DropDownHtmlAttributes(new { style = "font-size: 8pt; font-family: Verdana;" })
+                .HtmlAttributes(new { @class = "dropDownProperties" })
+                .DropDownHtmlAttributes(new { @class = "dropDownProperties" })
                 .SelectedIndex(0)
                 .Render();
             }
@@ -162,8 +162,8 @@
                 Html.Telerik().ComboBox().Name("partNumberDropDownList")
                 .BindTo((SelectList)ViewData["PartNumberList"])
                 .Placeholder("<--SELECT-->")
-                .HtmlAttributes(new { style = "font-size: 8pt; font-family: Verdana;width:205px" })
-                .DropDownHtmlAttributes(new { style = "font-size: 8pt; font-family: Verdana;" })
+                .HtmlAttributes(new { @class = "dropDownProperties" })
+                .DropDownHtmlAttributes(new { @class = "dropDownProperties" })
                 .SelectedIndex(0)
                 .Render();
             }
@@ -225,7 +225,9 @@
                         type: 'POST',
                         data: { partNumber: partNumber, serialNumber: serialNumber },
                         success: function (result) {
-                            jQuery('#ServiceOrderGridDiv').html(result);
+                            // jQuery('#ServiceOrderGridDiv').html(result);
+                            var serviceOrderLineGrid = $("#ServiceOrderLineGrid").data("tGrid");
+                            serviceOrderLineGrid.dataBind(result.response);
                         },
                         error: function (result) {
                             //alert('An error occured while adding the service order lines. Please check the inputs and try again');
@@ -239,6 +241,7 @@
             });
         });
         jQuery('#Add').click(function () {
+
             var isSerialNumberExist = false;
             var partNumber = $('#partNumberDropDownList').val();
             var serialNumber = $('#serialNumberTextBox').val();
@@ -271,7 +274,8 @@
                 type: 'POST',
                 data: { partNumber: partNumber, serialNumber: serialNumber },
                 success: function (result) {
-                    jQuery('#ServiceOrderGridDiv').html(result);
+                    var serviceOrderLineGrid = $("#ServiceOrderLineGrid").data("tGrid");
+                    serviceOrderLineGrid.dataBind(result.response);
                 },
                 error: function (result) {
                     alert('An error occured while adding the service order lines. Please check the inputs and try again');
