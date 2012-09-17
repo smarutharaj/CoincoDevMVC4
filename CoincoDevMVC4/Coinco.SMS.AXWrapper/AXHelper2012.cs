@@ -1154,6 +1154,48 @@ namespace Coinco.SMS.AXWrapper
             return isSuccess;
         }
 
+        public bool DeleteServiceOrderPartLines(string uniqueId, string userName)
+        {
+
+            Axapta ax = null;
+            object[] param = new object[1];
+            object axObject;
+            bool flagValue;
+            bool isSuccess = false;
+            try
+            {
+                ax = new Axapta();
+                ax.LogonAs(userName.Trim(), "", networkCredentials, axCompany, "", "", "");
+                param[0] = uniqueId;
+                axObject = ax.CallStaticClassMethod("ServiceOrderManagement", "deleteSMAServiceOrderLine", param).ToString();
+                if (bool.TryParse(axObject.ToString(), out flagValue))
+                {
+                    isSuccess = flagValue;
+                }
+                if (!isSuccess)
+                {
+                    string parameterString = "";
+                    for (int i = 0; i < param.Length; i++)
+                    {
+                        parameterString += "param[" + i + "]" + param[i].ToString() + "; ";
+                    }
+
+                    throw new Exception(String.Format("AX Failure:- Method='{0}' Parameters:Values = {1} - ", "deleteSMAServiceOrderLine", parameterString));
+                }
+
+            }
+            catch (Exception e)
+            {
+                throw e;
+                // Take other error action as needed.
+            }
+            finally
+            {
+                if (ax != null) ax.Logoff();
+            }
+            return isSuccess;
+        }
+
         #endregion
 
         #region "Sales Details"
