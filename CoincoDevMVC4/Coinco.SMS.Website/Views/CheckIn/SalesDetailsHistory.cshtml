@@ -1,1 +1,17 @@
-﻿
+﻿@using Telerik.Web.Mvc
+@model Coinco.SMS.Website.Models.SalesHistory
+
+        <div id="SalesDetailsHistory">
+            <h6>Sales Information</h6>
+            <div id="SalesInformation" class="fullViewforSmallerHeightClass">
+                <div id="SerialNumber" class="leftViewClass"> 
+                    <div id="SerialNumberLabel" class="leftView" >
+                        @Html.Label("Serial Number", new { @class = "leftView" })
+                    </div>
+                    <div id="SerialNumberResult" class="leftadjacentView">                  
+                         @Html.Label(Model.SalesSerialNumber, Model.SalesSerialNumber.ToString(), new { @class = "leftadjacentView" })
+           
+                    </div>
+                </div>
+            </div>
+        </div>

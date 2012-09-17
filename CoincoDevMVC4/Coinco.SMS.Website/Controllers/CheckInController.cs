@@ -81,7 +81,30 @@ namespace Coinco.SMS.Website.Controllers
 
             });
         }
-       
+
+        [GridAction]
+        public ActionResult _SelectionClientSide_ServiceInfoLines(string siteId)
+        {
+            List<SalesHistory> serviceInfoLineList = new List<SalesHistory>();
+            try
+            {
+                if (siteId != null)
+                {
+                    TempData["SiteId"] = siteId;
+                }
+                TempData.Keep();
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            return View(new GridModel<SalesHistory>
+            {
+                Data = serviceInfoLineList
+
+            });
+        }
+
         [AcceptVerbs(HttpVerbs.Post)]
         [GridAction]
         public ActionResult _UpdateServiceOrderLine(string serialNumber)
@@ -212,6 +235,38 @@ namespace Coinco.SMS.Website.Controllers
             return View("OtherDetails");
         }
 
+        #endregion
+
+        #region Sales History Details Get Action
+
+
+        public JsonResult GetSalesHistoryDetails(string serialNo)
+        {
+            string userName = null;
+            SalesHistory salesHistory = new SalesHistory();
+            List<SalesHistory> salesInfoList = new List<SalesHistory>();
+
+            try
+            {
+                userName = User.Identity.Name.ToString().Split('\\')[1];
+                salesInfoList = salesHistory.GetSalesDetails(serialNo, userName);
+                salesHistory.SalesSerialNumber = salesInfoList[0].SalesSerialNumber;
+                salesHistory.ItemNumber = salesInfoList[0].ItemNumber;
+                salesHistory.SalesOrderNumber = salesInfoList[0].SalesOrderNumber;
+                salesHistory.CustomerName = salesInfoList[0].CustomerName;
+                salesHistory.InvoiceNumber = salesInfoList[0].InvoiceNumber;
+                salesHistory.InvoiceDate = salesInfoList[0].InvoiceDate;
+                salesHistory.ServiceInfoList = salesHistory.GetServiceDetails(serialNo, userName);
+                ViewData["ServiceInformation"] = salesHistory.ServiceInfoList;
+                TempData.Keep();
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
+            return Json(salesHistory);
+        }
         #endregion
 
         #region "Service Order Line Grid Post Actions"
