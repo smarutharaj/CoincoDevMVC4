@@ -16,7 +16,7 @@
          <label> Serial Number:</label>
                @{Html.Telerik().ComboBox().Name("serialNumberList")
                      .BindTo((SelectList)ViewData["SerialNumberList"])
-                     .Placeholder("--select--")
+                     .Placeholder("--Select--")
                  .HtmlAttributes(new { style = "font-size: 8pt; font-family: Calibri; width=50px;" })
                  .DropDownHtmlAttributes(new { style = "font-size: 8pt; font-family: Calibri;" })
                  .ClientEvents(e => e.OnChange("onSerialNumberChange"))
@@ -36,7 +36,7 @@
             <label>Condition:</label>
                   @{Html.Telerik().ComboBox().Name("conditionList")
                         .BindTo((SelectList)ViewData["Condition"])
-                        .Placeholder("--select--")
+                        .Placeholder("--Select--")
                  .HtmlAttributes(new { style = "font-size: 8pt; font-family: Calibri; width=50px;" })
                  .DropDownHtmlAttributes(new { style = "font-size: 8pt; font-family: Calibri;" })
                  .SelectedIndex(0)
@@ -46,7 +46,7 @@
             <label>Symptom Area:</label>
                  @{Html.Telerik().ComboBox().Name("symptomAreaList")
                        .BindTo((SelectList)ViewData["SymptomArea"])
-                       .Placeholder("--select--")
+                       .Placeholder("--Select--")
                  .HtmlAttributes(new { style = "font-size: 8pt; font-family: Calibri; width=50px;" })
                  .DropDownHtmlAttributes(new { style = "font-size: 8pt; font-family: Calibri;" })
                  .CascadeTo("symptomCodeList")
@@ -57,7 +57,7 @@
             <label>Symptom Code:</label>
              @{Html.Telerik().ComboBox().Name("symptomCodeList")
                  .DataBinding(binding => binding.Ajax().Select("_GetDropDownSymptomCode", "RepairLines"))
-                   .Placeholder("--select--")
+                   .Placeholder("--Select--")
                  .HtmlAttributes(new { style = "font-size: 8pt; font-family: Calibri; width=50px;" })
                  .DropDownHtmlAttributes(new { style = "font-size: 8pt; font-family: Calibri;" })
                  .SelectedIndex(0)
@@ -71,7 +71,7 @@
             <label>Repair Stage:</label>
                @{Html.Telerik().ComboBox().Name("repairStageList")
                      .BindTo((SelectList)ViewData["RepairStage"])
-                     .Placeholder("--select--")
+                     .Placeholder("--Select--")
                  .HtmlAttributes(new { style = "font-size: 8pt; font-family: Calibri; width=50px;" })
                  .DropDownHtmlAttributes(new { style = "font-size: 8pt; font-family: Calibri;" })
                  .SelectedIndex(0)
@@ -82,7 +82,7 @@
             <label>Technician:</label>
                @{Html.Telerik().ComboBox().Name("technicianList")
                      .BindTo((SelectList)ViewData["ServiceTechnicianList"])
-                     .Placeholder("--select--")
+                     .Placeholder("--Select--")
                  .HtmlAttributes(new { style = "font-size: 8pt; font-family: Calibri; width=50px;" })
                  .DropDownHtmlAttributes(new { style = "font-size: 8pt; font-family: Calibri;" })
                  .SelectedIndex(0)
@@ -113,7 +113,7 @@
             <label>Diagnosis Area:</label>
                   @{Html.Telerik().ComboBox().Name("diagnosisAreaList")
                        .BindTo((SelectList)ViewData["DiagnosisArea"])
-                       .Placeholder("--select--") 
+                       .Placeholder("--Select--") 
                  .HtmlAttributes(new { style = "font-size: 8pt; font-family: Calibri; width=50px;" })
                  .DropDownHtmlAttributes(new { style = "font-size: 8pt; font-family: Calibri;" })
                  .CascadeTo("diagnosisCodeList")
@@ -124,7 +124,7 @@
             <label>Diagnosis Code:</label>
                  @{Html.Telerik().ComboBox().Name("diagnosisCodeList")
                        .DataBinding(binding => binding.Ajax().Select("_GetDropDownDiagnosisCode", "RepairLines"))
-                       .Placeholder("--select--")
+                       .Placeholder("--Select--")
                  .HtmlAttributes(new { style = "font-size: 8pt; font-family: Calibri; width=50px;" })
                  .DropDownHtmlAttributes(new { style = "font-size: 8pt; font-family: Calibri;" })
                  .SelectedIndex(0)
@@ -134,7 +134,7 @@
             <label>Resolution:</label>
                @{Html.Telerik().ComboBox().Name("resolutionList")
                      .BindTo((SelectList)ViewData["Resolution"])
-                     .Placeholder("--select--")
+                     .Placeholder("--Select--")
                  .HtmlAttributes(new { style = "font-size: 8pt; font-family: Calibri; width=50px;" })
                  .DropDownHtmlAttributes(new { style = "font-size: 8pt; font-family: Calibri;" })
                  .SelectedIndex(0)
@@ -239,5 +239,24 @@
 
         });
         return false;
+    });
+
+
+    jQuery('#Clear').click(function () {
+        $('#conditionList').data("tComboBox").value("--Select--");
+        $('#symptomAreaList').data("tComboBox").value("--Select--");
+        $('#symptomCodeList').data("tComboBox").value("--Select--");
+        $('#diagnosisAreaList').data("tComboBox").value("--Select--");
+        $('#diagnosisCodeList').data("tComboBox").value("--Select--");
+        $('#resolutionList').data("tComboBox").value("--Select--");
+        $('#repairStageList').data("tComboBox").value("--Select--");
+        $('#technicianList').data("tComboBox").value("--Select--");
+        $('#descriptionTextBox').val('');
+        $('#commentsTextBox').val('');
+        jQuery.ajax({
+            url: "/RepairLines/RepairLines",
+            type: 'POST'
+        });
+        return true;
     });
 </script>
