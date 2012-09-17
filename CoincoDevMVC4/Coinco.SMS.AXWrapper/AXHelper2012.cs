@@ -1154,6 +1154,69 @@ namespace Coinco.SMS.AXWrapper
             return isSuccess;
         }
 
+        public bool UpdateServiceOrderPartLines(string uniqueId, string serviceOrderNo, string transactionType, string serviceTechnicianCode, string quantity, string salesPrice, string specialityCode, string failureCode, string serviceType, string serviceOrderRelation, string description, string serviceComments, string itemNumber, string site, string wareHouse, string transSerialCodeNo, string colorId, string sizeId, string configId, string locationId, string userName)
+        {
+
+            Axapta ax = null;
+            object[] param = new object[20];
+            object axObject;
+            bool flagValue;
+            bool isSuccess = false;
+            try
+            {
+                ax = new Axapta();
+                ax.LogonAs(userName.Trim(), "", networkCredentials, axCompany, "", "", "");
+                param[0] = uniqueId;
+                param[1] = serviceOrderNo;
+
+                param[2] = transactionType;
+                param[3] = serviceTechnicianCode;
+                param[4] = quantity;
+                param[5] = salesPrice;
+                param[6] = specialityCode;
+                param[7] = failureCode;
+                param[8] = serviceType;
+                param[9] = serviceOrderRelation;
+                param[10] = description;
+                param[11] = serviceComments;
+                param[12] = itemNumber;
+                param[13] = site;
+                param[14] = wareHouse;
+                param[15] = transSerialCodeNo;
+                param[16] = colorId;
+                param[17] = sizeId;
+                param[18] = configId;
+                param[19] = locationId;
+
+                axObject = ax.CallStaticClassMethod("ServiceOrderManagement", "updateSMAServiceOrderLine", param).ToString();
+                if (bool.TryParse(axObject.ToString(), out flagValue))
+                {
+                    isSuccess = flagValue;
+                }
+                if (!isSuccess)
+                {
+                    string parameterString = "";
+                    for (int i = 0; i < param.Length; i++)
+                    {
+                        parameterString += "param[" + i + "]" + param[i].ToString() + "; ";
+                    }
+
+                    throw new Exception(String.Format("AX Failure:- Method='{0}' Parameters:Values = {1} - ", "updateSMAServiceOrderLine", parameterString));
+                }
+
+            }
+            catch (Exception e)
+            {
+                throw e;
+                // Take other error action as needed.
+            }
+            finally
+            {
+                if (ax != null) ax.Logoff();
+            }
+            return isSuccess;
+        }
+
         public bool DeleteServiceOrderPartLines(string uniqueId, string userName)
         {
 

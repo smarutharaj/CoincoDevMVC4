@@ -39,6 +39,7 @@ namespace Coinco.SMS.AXWrapper
         DataTable GetLocations(string itemNumber, string site, string wareHouse, string userName);
         DataTable GetTransactionSerialNumberList(string itemNumber, string site, string wareHouse, string locationId, string userName);
         bool CreateServiceOrderItemLines(string serviceOrderNo, string transactionType, string serviceTechnicianCode, string quantity, string specialityCode, string failureCode, string lineProperty, string serviceOrderRelation, string description, string serviceComments, string itemNumber, string site, string wareHouse, string transSerialCodeNo, string colorId, string sizeId, string configId, string locationId, string userName);
+        bool UpdateServiceOrderPartLines(string uniqueId, string serviceOrderNo, string transactionType, string serviceTechnicianCode, string quantity, string salesPrice, string specialityCode, string failureCode, string serviceType, string serviceOrderRelation, string description, string serviceComments, string itemNumber, string site, string wareHouse, string transSerialCodeNo, string colorId, string sizeId, string configId, string locationId, string userName);
         bool DeleteServiceOrderPartLines(string uniqueId, string userName);
 
         DataTable GetConditionList(string userName);
