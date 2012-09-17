@@ -16,41 +16,47 @@ namespace Coinco.SMS.Website.Controllers
         public ActionResult RepairLines()
         {
             TempData["ServiceOrderId"] = Session["SID"];
-            string userName = User.Identity.Name.ToString().Split('\\')[1];
+            try
+            { 
+                string userName = User.Identity.Name.ToString().Split('\\')[1];
 
-            SerivceOrderPartLine serviceOrderPartLineObj = new SerivceOrderPartLine();
-            IEnumerable<SerivceOrderPartLine> serviceOrderPartLineCollection = null;
-            serviceOrderPartLineCollection = serviceOrderPartLineObj.GetSerialNumberByServiceOrder(TempData["ServiceOrderId"].ToString(), userName);
-            serviceOrderPartLineObj.ServiceOrderPartLineList = new SelectList(serviceOrderPartLineCollection, "SerialNumber", "SerialNumber", null);
-            ViewData["SerialNumberList"] = serviceOrderPartLineObj.ServiceOrderPartLineList;
+                SerivceOrderPartLine serviceOrderPartLineObj = new SerivceOrderPartLine();
+                 IEnumerable<SerivceOrderPartLine> serviceOrderPartLineCollection = null;
+                serviceOrderPartLineCollection = serviceOrderPartLineObj.GetSerialNumberByServiceOrder(TempData["ServiceOrderId"].ToString(), userName);
+                serviceOrderPartLineObj.ServiceOrderPartLineList = new SelectList(serviceOrderPartLineCollection, "SerialNumber", "SerialNumber", null);
+                ViewData["SerialNumberList"] = serviceOrderPartLineObj.ServiceOrderPartLineList;
 
-            RepairType repairTypeObj = new RepairType();
+                RepairType repairTypeObj = new RepairType();
 
-            repairTypeObj.ConditionList = new SelectList(repairTypeObj.GetCondtions(userName), "ConditionId", "ConditionId", null);
-            ViewData["Condition"] = repairTypeObj.ConditionList;
+                repairTypeObj.ConditionList = new SelectList(repairTypeObj.GetCondtions(userName), "ConditionId", "ConditionId", null);
+                ViewData["Condition"] = repairTypeObj.ConditionList;
 
-            repairTypeObj.SysmptomAreaList = new SelectList(repairTypeObj.GetSymptomArea(userName), "SymptomAreaId", "SymptomAreaId", null);
-            ViewData["SymptomArea"] = repairTypeObj.SysmptomAreaList;
+                repairTypeObj.SysmptomAreaList = new SelectList(repairTypeObj.GetSymptomArea(userName), "SymptomAreaId", "SymptomAreaId", null);
+                ViewData["SymptomArea"] = repairTypeObj.SysmptomAreaList;
 
-            repairTypeObj.DiagnosisAreaList = new SelectList(repairTypeObj.GetDiagnosisArea(userName), "DiagonsisAreaId", "DiagonsisAreaId", null);
-            ViewData["DiagnosisArea"] = repairTypeObj.DiagnosisAreaList;
+                repairTypeObj.DiagnosisAreaList = new SelectList(repairTypeObj.GetDiagnosisArea(userName), "DiagonsisAreaId", "DiagonsisAreaId", null);
+                ViewData["DiagnosisArea"] = repairTypeObj.DiagnosisAreaList;
 
-            repairTypeObj.ResolutionList = new SelectList(repairTypeObj.GetResolution(userName), "ResolutionId", "ResolutionId", null);
-            ViewData["Resolution"] = repairTypeObj.ResolutionList;
+                repairTypeObj.ResolutionList = new SelectList(repairTypeObj.GetResolution(userName), "ResolutionId", "ResolutionId", null);
+                ViewData["Resolution"] = repairTypeObj.ResolutionList;
 
-            repairTypeObj.RepairStageList = new SelectList(repairTypeObj.GetRepairStages(userName), "RepairStageId", "RepairStageId", null);
-            ViewData["RepairStage"] = repairTypeObj.RepairStageList;
+                repairTypeObj.RepairStageList = new SelectList(repairTypeObj.GetRepairStages(userName), "RepairStageId", "RepairStageId", null);
+                ViewData["RepairStage"] = repairTypeObj.RepairStageList;
 
-            ServiceTechnician serviceTechnician = new ServiceTechnician();
-            serviceTechnician.ServiceTechnicianList = new SelectList(serviceTechnician.GetTechnicians(userName), "ServiceTechnicianNo", "ServiceTechnicianName", null);
-            ViewData["ServiceTechnicianList"] = serviceTechnician.ServiceTechnicianList;
+                ServiceTechnician serviceTechnician = new ServiceTechnician();
+                serviceTechnician.ServiceTechnicianList = new SelectList(serviceTechnician.GetTechnicians(userName), "ServiceTechnicianNo", "ServiceTechnicianName", null);
+                ViewData["ServiceTechnicianList"] = serviceTechnician.ServiceTechnicianList;
 
-            //List<RepairType> RepairLineList = (new RepairType()).GetRepairLineDetails(TempData["ServiceOrderId"].ToString(), userName);
-            //repairTypeObj.RepairLineList = new SelectList(repairTypeObj.GetRepairLineDetails(TempData["ServiceOrderId"].ToString(), userName));
-            //ViewData["RepairLinesList"] = GetRepairLinesDetails(TempData["ServiceOrderId"].ToString());
+                //List<RepairType> RepairLineList = (new RepairType()).GetRepairLineDetails(TempData["ServiceOrderId"].ToString(), userName);
+                //repairTypeObj.RepairLineList = new SelectList(repairTypeObj.GetRepairLineDetails(TempData["ServiceOrderId"].ToString(), userName));
+                //ViewData["RepairLinesList"] = GetRepairLinesDetails(TempData["ServiceOrderId"].ToString());
  
-            TempData.Keep();
-
+                TempData.Keep();    
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
             return View();
         }
 

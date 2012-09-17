@@ -9,7 +9,7 @@
                 })
                 .Columns(columns =>
                 {
-                    columns.Bound(c => c.UniqueId).Hidden();
+                    
                     columns.Bound(c => c.ServiceObjectRelation).Title("Serial Number").Width(100);
                     columns.Bound(c => c.Description).Title("Description").Width(100);
                     columns.Bound(c => c.ConditionId).Title("Condition").Width(80);
@@ -19,9 +19,13 @@
                     columns.Bound(c => c.DiagonsisCodeId).Title("Diagnosis Code").Width(110);
                     columns.Bound(c => c.ResolutionId).Title("Resolution").Width(80);
                     columns.Bound(c => c.RepairStageId).Title("Repair Stage").Width(100);
-                    columns.Bound(c => c.Technician).Hidden();;
-                    columns.Bound(c => c.Comments).Hidden(); ;
-                    columns.Command(c => c.Delete().ButtonType(GridButtonType.Image)).Title("Delete").Width(40);
+                    columns.Bound(c => c.Technician).Hidden();
+                    columns.Bound(c => c.Comments).Hidden();
+                    columns.Bound(c => c.UniqueId).Hidden();
+                    columns.Command(commands =>
+                    {
+                        commands.Delete().ButtonType(GridButtonType.Image);
+                    }).Width(40).Title("Delete");
                    
                 })
                         .DataBinding(dataBinding =>
@@ -31,32 +35,34 @@
                                 .Enabled(true);
                         }
               )
-                .HtmlAttributes(new { style = "font-size: 8pt; font-family: Verdana" })
-                .ClientEvents(events => events.OnRowSelect("onRowSelected"))
+                .HtmlAttributes(new { style = "font-size: 8pt; font-family: Verdana; width:950px" })
                 .Scrollable()
-                .Pageable((pager => pager.PageSize(10)))
+                .Pageable((pager => pager.PageSize(8)))
                 .Sortable()
+                .ClientEvents(e => e.OnRowSelect("onRowSelected"))
                 .Selectable()
                 .Filterable()
                 .Render();
+
    
                 }
 
 <script type ="text/javascript">
 
     function onRowSelected(e) {
-        var uniqueId = e.row.cells[0].innerHTML;
-        var serialNumberList = e.row.cells[1].innerHTML;
-        var description = e.row.cells[2].innerHTML;
-        var conditionId = e.row.cells[3].innerHTML;
-        var symptomAreaId = e.row.cells[4].innerHTML;
-        var symptomCodeId = e.row.cells[5].innerHTML;
-        var diagnosisAreaId = e.row.cells[6].innerHTML;
-        var diagonsisCodeId = e.row.cells[7].innerHTML;
-        var resolutionId = e.row.cells[8].innerHTML;
-        var repairStageId = e.row.cells[9].innerHTML;
-        var technicianNo = e.row.cells[10].innerHTML;
-        var serviceComments = e.row.cells[11].innerHTML;
+        
+        var serialNumberList = e.row.cells[0].innerHTML;
+        var description = e.row.cells[1].innerHTML;
+        var conditionId = e.row.cells[2].innerHTML;
+        var symptomAreaId = e.row.cells[3].innerHTML;
+        var symptomCodeId = e.row.cells[4].innerHTML;
+        var diagnosisAreaId = e.row.cells[5].innerHTML;
+        var diagonsisCodeId = e.row.cells[6].innerHTML;
+        var resolutionId = e.row.cells[7].innerHTML;
+        var repairStageId = e.row.cells[8].innerHTML;
+        var technicianNo = e.row.cells[9].innerHTML;
+        var serviceComments = e.row.cells[10].innerHTML;
+        var uniqueId = e.row.cells[11].innerHTML;
 
         $("#serialNumberList").data("tComboBox").value(serialNumberList);
         $('#conditionList').data("tComboBox").value(conditionId);
