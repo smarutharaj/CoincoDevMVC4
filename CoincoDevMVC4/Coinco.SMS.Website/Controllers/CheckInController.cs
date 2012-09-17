@@ -336,7 +336,7 @@ namespace Coinco.SMS.Website.Controllers
             {
                 throw ex;
             }
-            return Json(TempData["ServiceOrderLine"], JsonRequestBehavior.AllowGet);
+            return Json(ViewData["ServiceOrderLine"], JsonRequestBehavior.AllowGet);
         }
 
         public JsonResult CreateServiceOrder( string customerAccount, string customerPo,string addressId, string technicinanNo, string responsibleNo, string woClassification, string customerComments)
@@ -372,7 +372,7 @@ namespace Coinco.SMS.Website.Controllers
             {
                 throw ex;
             }
-            return Json(TempData["ServiceOrderLine"], JsonRequestBehavior.AllowGet);
+            return Json(ViewData["ServiceOrderLine"], JsonRequestBehavior.AllowGet);
         }
 
         #endregion
