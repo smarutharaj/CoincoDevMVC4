@@ -56,7 +56,7 @@
             .CascadeTo("specialtyCodeDropDownList")
             .Render();
             }
-            @*@Html.DropDownListFor(x => x.TransactionType, new SelectList(Enum.GetValues(typeof(Coinco.SMS.Website.Models.TransactionType))), new { @class = "dropDownPropertiesSP", id = "transactionTypeDropDownList" })*@
+          
             <br />
             <label>
                 Description:</label>
@@ -115,6 +115,8 @@
                 Service Comments:</label>
             @Html.TextAreaFor(x => x.ServiceComments, new { id = "commentsText" })
             <br />
+            
+               @Html.TextBoxFor(x => x.UniqueId, new { @class = "singleTextBox" , id = "uniqueText", @type="hidden" })<br />
         </div>
         <div class="addLineRightcolumn" id="addLineRightcolumn">
             <div class="topDimensioncolumn">
@@ -128,10 +130,11 @@
             .HtmlAttributes(new { style = "font-size: 8pt; font-family: Verdana; width:150px" })
             .DropDownHtmlAttributes(new { style = "font-size: 8pt; font-family: Verdana;" })
             .SelectedIndex(0)
-            //.ClientEvents(e => e.OnChange("OnItemChange"))
+               .ClientEvents(events => events.OnChange("onItemNumberSiteChange"))
+          
             .Render();
                 }
-                @*  @Html.DropDownList("partNumberDropDownList", (SelectList)ViewData["PartNumberList"], "<--Select One-->", new { @class = "dropDownPropertiesSP" })*@
+          
                 <label>
                     Site:</label>
                 @{Html.Telerik().ComboBox().Name("siteComboBox")
@@ -140,7 +143,7 @@
             .HtmlAttributes(new { style = "font-size: 8pt; font-family: Verdana; width:150px" })
             .DropDownHtmlAttributes(new { style = "font-size: 8pt; font-family: Verdana;" })
             .SelectedIndex(0)
-            .CascadeTo("wareHouseDropDownList")
+                  
             .Render();
                 }
                 @*@Html.DropDownListFor(x => x.Site.SiteID, new SelectList(""), "<--Select One-->", new { @class = "dropDownPropertiesSP", id = "LinePropertyDropDownList" })*@
@@ -152,10 +155,10 @@
             .HtmlAttributes(new { style = "font-size: 8pt; font-family: Verdana; width:150px" })
             .DropDownHtmlAttributes(new { style = "font-size: 8pt; font-family: Verdana;" })
             .SelectedIndex(0)
-
+            .ClientEvents(events => events.OnChange("onwareHouseChange"))
             .Render();
                 }
-                @*@Html.DropDownListFor(x => x.WareHouse.WareHouseCode, new SelectList(""), "<--Select One-->", new { @class = "dropDownPropertiesSP", id = "LinePropertyDropDownList" })*@
+         
                 <label>
                     Location:</label>
                 @{Html.Telerik().ComboBox().Name("locationDropDownList")
@@ -163,10 +166,10 @@
             .HtmlAttributes(new { style = "font-size: 8pt; font-family: Verdana; width:150px" })
             .DropDownHtmlAttributes(new { style = "font-size: 8pt; font-family: Verdana;" })
             .SelectedIndex(0)
-
+             .ClientEvents(events => events.OnChange("onlocationChange"))
             .Render();
                 }
-                @*@Html.DropDownListFor(x => x.Location.LocationId, new SelectList(""), "<--Select One-->", new { @class = "dropDownPropertiesSP", id = "LinePropertyDropDownList" })*@
+         
             </div>
             <div class="centerDimensioncolumn">
                 <h6>
@@ -181,7 +184,7 @@
 
             .Render();
                 }
-                @* @Html.DropDownListFor(x => x.TransactionSerialNumber, new SelectList(""), "<--Select One-->", new { @class = "dropDownPropertiesSP", id = "LinePropertyDropDownList" })*@
+              
             </div>
             <div class="bottomDimensioncolumn">
                 <h6>
@@ -202,15 +205,14 @@
     <div id="SubmitResult" class="submitResultClass">
         <button class="t-button" type="button" id="Add" value="Add">
             Add</button>
+        <button class="t-button" type="button" id="Update" value="Update">
+            Update</button>
         <button class="t-button" type="button" id="Clear" value="Clear">
             Clear</button>
     </div>
     <div class="partLinesDiv" id="ServicepartLines">
               @{Html.RenderPartial("ServiceOrderPartLinesView");}
 
-                     
-    
-        
     </div>
     <div class="addressDiv">
         <h6>
@@ -289,6 +291,7 @@
 
 
        jQuery('#Add').click(function () {
+
            var serviceOrderNo = $('#serviceOrderViewlabel').val();
            var transactionType = $('#transactionTypeDropDownList').val();
            var technicinanNo = $('#techniacianDropDownList').val();
@@ -301,29 +304,31 @@
            var itemNumber = $('#itemNumberDropDownList').val();
            var site = $('#siteComboBox').val();
            var wareHouse = $('#wareHouseDropDownList').val();
-           var transSerialCodeNo = $('#locationDropDownList').val();
-           var locationId = $('#trackingSerialNoDropDownList').val();
-
+           var locationId = $('#locationDropDownList').val();
+           var transSerialCodeNo = $('#trackingSerialNoDropDownList').val();
+           var serviceOrderRelation = $('#slNumberDropDownList').val();
 
            jQuery.ajax({
                url: "/WorkOrder/CreateServiceOrderPartLines",
                type: 'POST',
 
-               data: { serviceOrderNo: serviceOrderNo, transactionType: transactionType, technicinanNo: technicinanNo, quantity: quantity, specialityCode: specialityCode, failureCode: failureCode, lineProperty: lineProperty, description: description, serviceComments: serviceComments, itemNumber: itemNumber, site: site, wareHouse: wareHouse, transSerialCodeNo: transSerialCodeNo, locationId: locationId },
+               data: { serviceOrderNo: serviceOrderNo, transactionType: transactionType, technicinanNo: technicinanNo, quantity: quantity, specialityCode: specialityCode, failureCode: failureCode, lineProperty: lineProperty, serviceOrderRelation:serviceOrderRelation, description: description, serviceComments: serviceComments, itemNumber: itemNumber, site: site, wareHouse: wareHouse, transSerialCodeNo: transSerialCodeNo, locationId: locationId },
                success: function (result) {
                    jQuery('#ServicepartLines').html(result);
 
                    alert('Service Order Part Lines Created Successfully');
-                   $('#transactionTypeDropDownList').val('-1');
-                   $('#quantity').val('');
-                   $('#techniacianDropDownList').val('-1');
-                   $('#specialtyCodeDropDownList').val('-1');
-                   $('#failureCodeDropDownList').val('-1');
-                   $('#LinePropertyDropDownList').val('-1');
-                   $('#partNumberDropDownList').val('-1');
-                   $('#wareHouseDropDownList').val('-1');
-                   $('#locationDropDownList').val('-1');
+                   $('#transactionTypeDropDownList').data('tComboBox').value('--Select--');
+                   $('#quantityText').val('');
+                   $('#techniacianDropDownList').data('tComboBox').value('--Select--');
+                   $('#specialtyCodeDropDownList').data('tComboBox').value('--Select--');
+                   $('#failureCodeDropDownList').data('tComboBox').value('--Select--');
+                   $('#LinePropertyDropDownList').data('tComboBox').value('--Select--');
+                   $('#itemNumberDropDownList').data('tComboBox').value('--Select--');
+                   $('#wareHouseDropDownList').data('tComboBox').value('--Select--');
+                   $('#locationDropDownList').data('tComboBox').value('--Select--');
+                   $('#trackingSerialNoDropDownList').data('tComboBox').value('--Select--');
                    $('#descriptionText').val('');
+                   $('#commentsText').val('');
                },
                error: function (result) {
                    alert(result.responseText);
@@ -332,7 +337,148 @@
            });
            return false;
        });
- 
+
+       jQuery('#Update').click(function () {
+
+           var serviceOrderNo = $('#serviceOrderViewlabel').val();
+           var transactionType = $('#transactionTypeDropDownList').val();
+           var technicinanNo = $('#techniacianDropDownList').val();
+           var quantity = $('#quantityText').val();
+           var specialityCode = $('#specialtyCodeDropDownList').val();
+           var failureCode = $('#failureCodeDropDownList').val();
+           var lineProperty = $('#LinePropertyDropDownList').val();
+           var description = $('#descriptionText').val();
+           var serviceComments = $('#commentsText').val();
+           var itemNumber = $('#itemNumberDropDownList').val();
+           var site = $('#siteComboBox').val();
+           var wareHouse = $('#wareHouseDropDownList').val();
+           var locationId = $('#locationDropDownList').val();
+           var transSerialCodeNo = $('#trackingSerialNoDropDownList').val();
+           var serviceOrderRelation = $('#slNumberDropDownList').val();
+           var uniqueId = $('#uniqueText').val(); 
+           jQuery.ajax({
+               url: "/WorkOrder/UpdateServiceOrderPartLines",
+               type: 'POST',
+
+               data: { uniqueId:uniqueId, serviceOrderNo: serviceOrderNo, transactionType: transactionType, technicinanNo: technicinanNo, quantity: quantity, specialityCode: specialityCode, failureCode: failureCode, lineProperty: lineProperty, serviceOrderRelation: serviceOrderRelation, description: description, serviceComments: serviceComments, itemNumber: itemNumber, site: site, wareHouse: wareHouse, transSerialCodeNo: transSerialCodeNo, locationId: locationId },
+               success: function (result) {
+                   jQuery('#ServicepartLines').html(result);
+
+                   alert('Service Order Part Lines Updated Successfully');
+                   $('#transactionTypeDropDownList').data('tComboBox').value('--Select--');
+                   $('#quantityText').val('');
+                   $('#techniacianDropDownList').data('tComboBox').value('--Select--');
+                   $('#specialtyCodeDropDownList').data('tComboBox').value('--Select--');
+                   $('#failureCodeDropDownList').data('tComboBox').value('--Select--');
+                   $('#LinePropertyDropDownList').data('tComboBox').value('--Select--');
+                   $('#itemNumberDropDownList').data('tComboBox').value('--Select--');
+                   $('#wareHouseDropDownList').data('tComboBox').value('--Select--');
+                   $('#locationDropDownList').data('tComboBox').value('--Select--');
+                   $('#trackingSerialNoDropDownList').data('tComboBox').value('--Select--');
+                   $('#descriptionText').val('');
+                   $('#commentsText').val('');
+               },
+               error: function (result) {
+                   alert(result.responseText);
+               }
+
+           });
+           return false;
+       });
+
+
+       jQuery('#Clear').click(function () {
+           $('#transactionTypeDropDownList').data('tComboBox').value('--Select--');
+           $('#quantityText').val('');
+           $('#techniacianDropDownList').data('tComboBox').value('--Select--');
+           $('#specialtyCodeDropDownList').data('tComboBox').value('--Select--');
+           $('#failureCodeDropDownList').data('tComboBox').value('--Select--');
+           $('#LinePropertyDropDownList').data('tComboBox').value('--Select--');
+           $('#itemNumberDropDownList').data('tComboBox').value('--Select--');
+           $('#wareHouseDropDownList').data('tComboBox').value('--Select--');
+           $('#locationDropDownList').data('tComboBox').value('--Select--');
+           $('#trackingSerialNoDropDownList').data('tComboBox').value('--Select--');
+           $('#descriptionText').val('');
+           $('#commentsText').val('');
+
+       });
+
+       function onItemNumberSiteChange(e) {
+   
     
+       var SelectedSiteId = $('#siteComboBox').val();
+       var SelectedItemNumber = $('#itemNumberDropDownList').val();
+       var getwareHouse = $('#wareHouseDropDownList').data('tComboBox');
+       getwareHouse.loader.showBusy();
+
+         jQuery.ajax({
+                url: "/WorkOrder/_GetDropDownWareHouse",
+                type: 'GET',
+                data: { partNumberDropDownList: SelectedItemNumber, siteComboBox: SelectedSiteId },
+                success: function (result) {
+                    getwareHouse.dataBind(result);
+                    getwareHouse.loader.hideBusy();
+
+
+                 } 
+          
+        
+           });
+
+
+            return false;
+        
+        }
+
+        function onwareHouseChange(e) {
+            
+            var SelectedSiteId = $('#siteComboBox').val();
+            var SelectedItemNumber = $('#itemNumberDropDownList').val();
+            var SelectedwarehouseId = $('#wareHouseDropDownList').val();
+            var getLocation = $('#locationDropDownList').data('tComboBox');
+            getLocation.loader.showBusy();
+            jQuery.ajax({
+                url: "/WorkOrder/_GetLocationList",
+                type: 'GET',
+                data: { partNumberDropDownList: SelectedItemNumber, siteComboBox: SelectedSiteId, wareHouseDropDownList: SelectedwarehouseId },
+                success: function (result) {
+
+                    getLocation.dataBind(result);
+                    getLocation.loader.hideBusy();
+                }
+
+
+            });
+
+
+            return false;
+
+        }
+
+        function onlocationChange(e) {
+    
+
+            var SelectedSiteId = $('#siteComboBox').val();
+            var SelectedItemNumber = $('#itemNumberDropDownList').val();
+            var SelectedwarehouseId = $('#wareHouseDropDownList').val();
+            var SelectedlocationId = $('#locationDropDownList').val();
+
+            jQuery.ajax({
+                url: "/WorkOrder/_GetTransactionSerialNumberList",
+                type: 'GET',
+                data: { partNumberDropDownList: SelectedItemNumber, siteComboBox: SelectedSiteId, wareHouseDropDownList: SelectedwarehouseId, locationDropDownList: SelectedlocationId },
+                success: function (result) {
+                    var gettrackingSerialNo = $('#trackingSerialNoDropDownList').data('tComboBox');
+                    gettrackingSerialNo.dataBind(result);
+                }
+
+
+            });
+
+
+            return false;
+
+        }   
+
 
 </script>
