@@ -85,7 +85,7 @@ namespace Coinco.SMS.Website.Models
                 {
                     SerivceOrderPartLine serviceObject = new SerivceOrderPartLine();
                     serviceObject.SerialNumber = row["SerialNumber"].ToString();
-                    //serviceObject.ServiceObjectRelation = row["SORelationID"].ToString();
+                    serviceObject.ServiceObjectRelation = row["SORelationID"].ToString();
                     transaction = row["TransactionType"].ToString();
                   
                     if (transaction == "3")
@@ -179,6 +179,25 @@ namespace Coinco.SMS.Website.Models
             try
             {
                 isSuccess = axHelper.CreateServiceOrderItemLines(serviceOrderNo, transactionType, serviceTechnicianCode, quantity, specialityCode, failureCode, serviceType, serviceOrderRelation, description, serviceComments, itemNumber, site, wareHouse, transSerialCodeNo, colorId, sizeId, configId, locationId, userName);
+
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
+            return isSuccess;
+
+        }
+
+        public bool UpdateServiceOrderPartLines(string uniqueId, string serviceOrderNo, string transactionType, string serviceTechnicianCode, string quantity,  string specialityCode, string failureCode, string serviceType, string serviceOrderRelation, string description, string serviceComments, string itemNumber, string site, string wareHouse, string transSerialCodeNo, string colorId, string sizeId, string configId, string locationId, string userName)
+        {
+            bool isSuccess = false;
+
+            IAXHelper axHelper = ObjectFactory.GetInstance<IAXHelper>();
+            try
+            {
+                isSuccess = axHelper.UpdateServiceOrderPartLines(uniqueId, serviceOrderNo, transactionType, serviceTechnicianCode, quantity, specialityCode, failureCode, serviceType, serviceOrderRelation, description, serviceComments, itemNumber, site, wareHouse, transSerialCodeNo, colorId, sizeId, configId, locationId, userName);
 
             }
             catch (Exception ex)
