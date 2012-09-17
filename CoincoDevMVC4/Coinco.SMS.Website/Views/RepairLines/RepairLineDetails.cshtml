@@ -3,8 +3,14 @@
 
  @{Html.Telerik().Grid((IEnumerable<Coinco.SMS.Website.Models.RepairType>)ViewData["RepairLinesList"])
                 .Name("RepairLinesGrid")
+                .DataKeys(keys =>
+                {
+                    keys.Add(c => c.SerialNumber).RouteKey("UniqueId");
+                })
                 .Columns(columns =>
                 {
+                    columns.Command(comments => comments.Delete().ButtonType(GridButtonType.Image)).Title("Delete").Width(10);
+                    columns.Bound(c => c.UniqueId).Visible(false);
                     columns.Bound(c => c.ServiceObjectRelation).Title("SO Relation").Width(100);
                     columns.Bound(c => c.Description).Title("Description").Width(100);
                     columns.Bound(c => c.ConditionId).Title("Condition").Width(80);
@@ -14,10 +20,13 @@
                     columns.Bound(c => c.DiagonsisCodeId).Title("Diagnosis Code").Width(110);
                     columns.Bound(c => c.ResolutionId).Title("Resolution").Width(80);
                     columns.Bound(c => c.RepairStageId).Title("Repair Stage").Width(100);
+                    
+                   
                 })
                         .DataBinding(dataBinding =>
                         {
                             dataBinding.Ajax().OperationMode(GridOperationMode.Client).Select("_Selection_RepairLines", "RepairLines")
+                                .Delete("_DeleteRepairLine", "RepairLines")
                                 .Enabled(true);
                         }
               )
@@ -30,3 +39,16 @@
                 .Render();
    
                 }
+
+<script type ="text/javascript"">
+    function onRowSelected(e) {
+
+        serviceOrderNumber = e.row.cells[0].innerHTML;
+
+        // update ui text
+        $('#customerID').text(serviceOrderNumber);
+
+        serviceOrderLineGrid.rebind();
+
+    }
+</script>

@@ -15,7 +15,7 @@ namespace Coinco.SMS.Website.Controllers
 
         public ActionResult RepairLines()
         {
-            TempData["ServiceOrderId"] = TempData["ServiceOrderId"].ToString();
+            TempData["ServiceOrderId"] = Session["SID"];
             string userName = User.Identity.Name.ToString().Split('\\')[1];
 
             SerivceOrderPartLine serviceOrderPartLineObj = new SerivceOrderPartLine();
@@ -160,6 +160,33 @@ namespace Coinco.SMS.Website.Controllers
                 throw ex;
             }
                 return View("RepairLineDetails");
+        }
+
+        [AcceptVerbs(HttpVerbs.Post)]
+        [GridAction]
+        public ActionResult _DeleteRepairLine(string uniqueID)
+        {
+            string userName = null;
+            bool isSuccess = false;
+            try
+            {
+
+                userName = User.Identity.Name.ToString().Split('\\')[1];
+                RepairType repairType = new RepairType();
+                isSuccess = repairType.DeleteRepairLineItems(uniqueID, userName);
+
+                if (isSuccess)
+                {
+                    TempData["ServiceOrderId"] = Session["SID"].ToString();
+
+                }
+                ViewData["RepairLinesList"] = GetRepairLinesDetails(TempData["ServiceOrderId"].ToString());
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            return View("RepairLineDetails");
         }
 
         ///* Binding PartList...*/
