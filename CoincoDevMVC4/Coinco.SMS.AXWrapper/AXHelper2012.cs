@@ -1154,7 +1154,7 @@ namespace Coinco.SMS.AXWrapper
             return isSuccess;
         }
 
-        public bool UpdateServiceOrderPartLines(string uniqueId, string serviceOrderNo, string transactionType, string serviceTechnicianCode, string quantity, string salesPrice, string specialityCode, string failureCode, string serviceType, string serviceOrderRelation, string description, string serviceComments, string itemNumber, string site, string wareHouse, string transSerialCodeNo, string colorId, string sizeId, string configId, string locationId, string userName)
+        public bool UpdateServiceOrderPartLines(string uniqueId, string serviceOrderNo, string transactionType, string serviceTechnicianCode, string quantity, string specialityCode, string failureCode, string serviceType, string serviceOrderRelation, string description, string serviceComments, string itemNumber, string site, string wareHouse, string transSerialCodeNo, string colorId, string sizeId, string configId, string locationId, string userName)
         {
 
             Axapta ax = null;
@@ -1162,6 +1162,7 @@ namespace Coinco.SMS.AXWrapper
             object axObject;
             bool flagValue;
             bool isSuccess = false;
+            string salesPrice = "";
             try
             {
                 ax = new Axapta();
