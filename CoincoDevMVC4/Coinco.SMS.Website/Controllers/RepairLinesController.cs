@@ -137,7 +137,7 @@ namespace Coinco.SMS.Website.Controllers
         }
 
         [HttpPost]
-        public ActionResult CreateRepairLineItems(string serialNumberList, string conditionId, string symptomAreaId, string symptomCodeId, string diagonsisAreaId, string diagonsisCodeId, string resolutionId, string repairStageId, string technicianNo, string description, string serviceComments)
+        public ActionResult CreateRepairLineItems(string serialNumberList, string conditionId, string symptomAreaId, string symptomCodeId, string diagonsisAreaId, string diagnosisAreaId, string resolutionId, string repairStageId, string technicianNo, string description, string serviceComments)
         {
             string userName = null;
             bool isSuccess = false;
@@ -146,7 +146,7 @@ namespace Coinco.SMS.Website.Controllers
 
                 userName = User.Identity.Name.ToString().Split('\\')[1];
                 RepairType repairType = new RepairType();
-                isSuccess = repairType.CreateRepairLineItems(Session["SID"].ToString(), serialNumberList, conditionId, symptomAreaId, symptomCodeId, diagonsisAreaId, diagonsisCodeId, resolutionId, repairStageId, technicianNo, description, serviceComments, userName);
+                isSuccess = repairType.CreateRepairLineItems(Session["SID"].ToString(), serialNumberList, conditionId, symptomAreaId, symptomCodeId, diagonsisAreaId, diagnosisAreaId, resolutionId, repairStageId, technicianNo, description, serviceComments, userName);
 
                 if (isSuccess)
                 {
@@ -154,6 +154,7 @@ namespace Coinco.SMS.Website.Controllers
                   
                 }
                 ViewData["RepairLinesList"] = GetRepairLinesDetails(TempData["ServiceOrderId"].ToString());
+                TempData["RepairLinesList"] = ViewData["RepairLinesList"];
                 TempData.Keep();
             }
             catch (Exception ex)
@@ -164,7 +165,7 @@ namespace Coinco.SMS.Website.Controllers
         }
 
         [HttpPost]
-        public ActionResult updateRepairLineItems(string uniqueId, string serialNumberList, string serviceOrderRelation, string conditionId, string symptomAreaId, string symptomCodeId, string diagonsisAreaId, string diagonsisCodeId, string resolutionId, string repairStageId, string technicianNo, string description, string serviceComments)
+        public ActionResult updateRepairLineItems(string uniqueId, string serialNumberList, string serviceOrderRelation, string conditionId, string symptomAreaId, string symptomCodeId, string diagnosisAreaId, string diagonsisCodeId, string resolutionId, string repairStageId, string technicianNo, string description, string serviceComments)
         {
             string userName = null;
             bool isSuccess = false;
@@ -173,7 +174,7 @@ namespace Coinco.SMS.Website.Controllers
 
                 userName = User.Identity.Name.ToString().Split('\\')[1];
                 RepairType repairType = new RepairType();
-                isSuccess = repairType.UpdateRepairLineItems(uniqueId, Session["SID"].ToString(), serialNumberList, conditionId, symptomAreaId, symptomCodeId, diagonsisAreaId, diagonsisCodeId, resolutionId, repairStageId, technicianNo, description, serviceComments, userName);
+                isSuccess = repairType.UpdateRepairLineItems(uniqueId, Session["SID"].ToString(), serialNumberList, conditionId, symptomAreaId, symptomCodeId, diagnosisAreaId, diagonsisCodeId, resolutionId, repairStageId, technicianNo, description, serviceComments, userName);
 
                 if (isSuccess)
                 {
@@ -181,6 +182,7 @@ namespace Coinco.SMS.Website.Controllers
 
                 }
                 ViewData["RepairLinesList"] = GetRepairLinesDetails(TempData["ServiceOrderId"].ToString());
+                TempData["RepairLinesList"] = ViewData["RepairLinesList"];
                 TempData.Keep();
             }
             catch (Exception ex)
@@ -190,8 +192,9 @@ namespace Coinco.SMS.Website.Controllers
             return View("RepairLineDetails");
         }
 
-       [HttpPost]
-        public ActionResult _DeleteRepairLine(string uniqueID)
+        [AcceptVerbs(HttpVerbs.Post)]
+        [GridAction]
+        public ActionResult DeleteRepairLine(string uniqueID)
         {
             string userName = null;
             bool isSuccess = false;
@@ -201,12 +204,7 @@ namespace Coinco.SMS.Website.Controllers
                 userName = User.Identity.Name.ToString().Split('\\')[1];
                 RepairType repairType = new RepairType();
                 isSuccess = repairType.DeleteRepairLineItems(uniqueID, userName);
-
-                if (isSuccess)
-                {
-                    TempData["ServiceOrderId"] = Session["SID"].ToString();
-
-                }
+                TempData["ServiceOrderId"] = Session["SID"].ToString();
                 ViewData["RepairLinesList"] = GetRepairLinesDetails(TempData["ServiceOrderId"].ToString());
                 TempData.Keep();
             }
@@ -214,27 +212,10 @@ namespace Coinco.SMS.Website.Controllers
             {
                 throw ex;
             }
-            return View("RepairLineDetails");
+            return View(new GridModel<RepairType>
+                {
+                    Data = ViewData["RepairLinesList"] as List<RepairType>
+                });
         }
-
-        ///* Binding PartList...*/
-
-        //[HttpPost]
-        //public JsonResult _GetPartNumberList(string serialNumberList)
-        //{
-        //    return _GetParNumber(serialNumberList);
-
-        //}
-
-        //private JsonResult _GetParNumber(string SerialNumber)
-        //{
-        //    string userName = User.Identity.Name.ToString().Split('\\')[1];
-        //    RepairType repairTypeObj = new RepairType();
-        //    return Json(new SelectList(repairTypeObj.GetServiceOrderLinesDetailsBySerialNumber(SerialNumber, "", userName), "PartNumber", "PartNumber"), JsonRequestBehavior.AllowGet);
-
-        //}
-
-
-
     }
 }
