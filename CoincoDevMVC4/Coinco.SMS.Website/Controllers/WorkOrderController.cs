@@ -123,7 +123,7 @@ namespace Coinco.SMS.Controllers
             LinePropertyObject.LinePropertyList = new SelectList(LinePropertyCollection, "LinePropertyCode", "LinePropertyDescription", null);
             ViewData["LinePropertyList"] = LinePropertyObject.LinePropertyList;
 
-            if (Session["SID"].ToString() != null)
+            if (Session["SID"] != null)
             {
                 SerivceOrderPartLine serivceOrderPartLineObject = new SerivceOrderPartLine();
                 IEnumerable<SerivceOrderPartLine> serviceOrderPartLineCollection = null;
@@ -136,6 +136,15 @@ namespace Coinco.SMS.Controllers
                 ViewData["ServiceOrderPartLines"] = GetServiceOrderPartLinesByServiceOrderID(TempData["ServiceOrderId"].ToString());
 
             }
+            //else
+            //{
+            //    IEnumerable<SerivceOrderPartLine> serviceOrderPartLineCollection = null;
+            //    List<SerivceOrderPartLine> emptyList = new List<SerivceOrderPartLine>();
+            //    ViewData["SORelationList"] = serviceOrderPartLineCollection;
+            //    ViewData["WorkSerialNumberList"] = serviceOrderPartLineCollection;
+            //    ViewData["ServiceOrderPartLines"] = emptyList;
+            //}
+
             ServiceTechnician serviceTechnician = new ServiceTechnician();
             serviceTechnician.ServiceTechnicianList = new SelectList(serviceTechnician.GetTechnicians(User.Identity.Name.ToString().Split('\\')[1]), "ServiceTechnicianNo", "ServiceTechnicianName", null);
             ViewData["ServiceTechnicianList"] = serviceTechnician.ServiceTechnicianList;
@@ -240,7 +249,7 @@ namespace Coinco.SMS.Controllers
         }
 
         [HttpPost]
-        public ActionResult CreateServiceOrderPartLines(string serviceOrderNo, string transactionType, string serviceTechnicianCode, string quantity, string specialityCode, string failureCode, string serviceType, string serviceOrderRelation, string description, string serviceComments, string itemNumber, string site, string wareHouse, string transSerialCodeNo, string colorId, string sizeId, string configId, string locationId)
+        public ActionResult CreateServiceOrderPartLines(string serviceOrderNo, string transactionType, string technicinanNo, string quantity, string specialityCode, string failureCode, string lineProperty, string serviceOrderRelation, string description, string serviceComments, string itemNumber, string site, string wareHouse, string transSerialCodeNo, string colorId, string sizeId, string configId, string locationId)
         {
             string userName = null;
            
@@ -254,14 +263,14 @@ namespace Coinco.SMS.Controllers
                     serviceOrderNo = Session["SID"].ToString();
                 }
                 SerivceOrderPartLine serviceOrderPartLine = new SerivceOrderPartLine();
-                isSuccess = serviceOrderPartLine.CreateServiceOrderItemLines(serviceOrderNo, transactionType, serviceTechnicianCode , quantity, specialityCode, failureCode, serviceType, serviceOrderRelation="", description, serviceComments, itemNumber, site, wareHouse, transSerialCodeNo,  colorId="", sizeId="", configId="", locationId, userName);
+                isSuccess = serviceOrderPartLine.CreateServiceOrderItemLines(serviceOrderNo, transactionType, technicinanNo, quantity, specialityCode, failureCode, lineProperty, serviceOrderRelation = "", description, serviceComments, itemNumber, site, wareHouse, transSerialCodeNo, colorId = "", sizeId = "", configId = "", locationId, userName);
                 if (isSuccess)
                 {
 
                 }
                 ViewData["ServiceOrderPartLines"] = GetServiceOrderPartLinesByServiceOrderID(TempData["ServiceOrderId"].ToString());
 
-
+                TempData.Keep();
             }
             catch (Exception ex)
             {
