@@ -259,4 +259,67 @@
         });
         return true;
     });
+
+
+//    jQuery('#Update').click(function () {
+//        var serialNumberList = $("#serialNumberList").val();
+//        var conditionId = $('#conditionList').val();
+//        var symptomAreaId = $('#symptomAreaList').val();
+//        var symptomCodeId = $('#symptomCodeList').val();
+//        var diagnosisAreaId = $('#diagnosisAreaList').val();
+//        var diagonsisCodeId = $('#diagnosisCodeList').val();
+//        var resolutionId = $('#resolutionList').val();
+//        var repairStageId = $('#repairStageList').val();
+//        var technicianNo = $('#technicianList').val();
+//        var description = $('#descriptionTextBox').val();
+//        var serviceComments = $('#commentsTextBox').val();
+//        var uniqueId = $('#uniqueText').val(); 
+//        //        var $checkedRecords = $(':checked');
+//        //        var addressId;
+//        //        if ($checkedRecords.length < 1) {
+//        //            alert('Please select atleast one shipping address.');
+//        //            return;
+//        //        }
+//        //        $checkedRecords.each(function (index, domEle) {
+//        //            // domEle == this
+//        //            if ($checkedRecords[index].checked = true) {
+//        //                addressId = $checkedRecords[index].value;
+//        //            }
+
+//        //        });
+//        jQuery.ajax({
+//            url: "/RepairLines/CreateRepairLineItems",
+//            type: 'POST',
+
+//            data: {
+//                uniqueId:uniqueId,
+//                serialNumberList: serialNumberList,
+//                conditionId: conditionId,
+//                symptomAreaId: symptomAreaId,
+//                symptomCodeId: symptomCodeId,
+//                diagnosisAreaId: diagnosisAreaId,
+//                diagonsisCodeId: diagonsisCodeId,
+//                resolutionId: resolutionId,
+//                repairStageId: repairStageId,
+//                technicianNo: technicianNo,
+//                description: description,
+//                serviceComments: serviceComments
+//            },
+//            success: function (result) {
+//                jQuery('#RepairLinesGrid').html(result);
+//                alert('Repair Line Created Successfully');
+//                //                $('#customerAccountDropDownList').val('-1');
+//                //                $('#customerPOTextBox').val('');
+//                //                $('#serviceTechnicianDropDownList').val('-1');
+//                //                $('#serviceResponsibleDropDownList').val('-1');
+//                //                $('#woClassificationDropDownList').val('-1');
+//                //                $('#customerCommentTextArea').val('');
+//            },
+//            error: function (result) {
+//                alert(result.responseText);
+//            }
+
+//        });
+//        return false;
+//    });
 </script>
