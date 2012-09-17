@@ -163,6 +163,33 @@ namespace Coinco.SMS.Website.Controllers
             return View("RepairLineDetails");
         }
 
+        //[HttpPost]
+        //public ActionResult updateRepairLineItems(string uniqueId, string serviceOrderNo, string serviceOrderRelation, string conditionId, string symptomAreaId, string symptomCodeId, string diagonsisAreaId, string diagonsisCodeId, string resolutionId, string repairStageId, string technicianNo, string description, string serviceComments)
+        //{
+        //    string userName = null;
+        //    bool isSuccess = false;
+        //    try
+        //    {
+
+        //        userName = User.Identity.Name.ToString().Split('\\')[1];
+        //        RepairType repairType = new RepairType();
+        //        isSuccess = repairType.UpdateRepairLineItems(Session["SID"].ToString(), serialNumberList, conditionId, symptomAreaId, symptomCodeId, diagonsisAreaId, diagonsisCodeId, resolutionId, repairStageId, technicianNo, description, serviceComments, userName);
+
+        //        if (isSuccess)
+        //        {
+        //            TempData["ServiceOrderId"] = Session["SID"].ToString();
+
+        //        }
+        //        ViewData["RepairLinesList"] = GetRepairLinesDetails(TempData["ServiceOrderId"].ToString());
+        //        TempData.Keep();
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        throw ex;
+        //    }
+        //    return View("RepairLineDetails");
+        //}
+
        [HttpPost]
         public ActionResult _DeleteRepairLine(string uniqueID)
         {

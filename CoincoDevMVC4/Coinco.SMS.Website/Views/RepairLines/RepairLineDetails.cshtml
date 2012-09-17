@@ -45,7 +45,6 @@
 <script type ="text/javascript">
 
     function onRowSelected(e) {
-    debugger
         var uniqueId = e.row.cells[0].innerHTML;
         var serialNumberList = e.row.cells[1].innerHTML;
         var description = e.row.cells[2].innerHTML;
@@ -68,7 +67,8 @@
         $('#repairStageList').data("tComboBox").value(repairStageId);
 //        $('#technicianList').data("tComboBox").value(technicianNo);
         $('#descriptionTextBox').val(description);
-//        $('#commentsTextBox').val(serviceComments);
+        //        $('#commentsTextBox').val(serviceComments);
+        $('#uniqueText').val(uniqueId);
       
     }
 </script>
