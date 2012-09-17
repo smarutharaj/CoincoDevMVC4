@@ -227,6 +227,7 @@ footer
     width: 300px;
     float: left;
     position: absolute;
+    
 }
 
 .centercolumn
@@ -253,20 +254,31 @@ footer
 {
     margin-top: 30px;
     max-width: 960px;
-    height: 150px;
+    height: 300px;
     float: left;
-    
+    margin : 0px 0px 0px 0px;
   
 }
 .addLinesDiv
 {
     margin-top: 50px; 
     max-width: 960px;
-   height: 280px;
+   height: 300px;
     
    
 }
-
+.submitResultServiceOrderProcess
+{
+    padding-left: 380px;
+    padding-top:5px;
+    padding-right:300px;
+    padding-bottom:5px;
+    max-width: 950px;
+    height: 20px;
+    vertical-align:middle;
+     font-weight:normal;
+    
+}
 .addLineleftcolumn
 {
    
@@ -292,7 +304,7 @@ footer
     width: 300px;
     margin-left: 630px;
     position: absolute;
-  
+    height:300px;
 }
 
 .topDimensioncolumn
@@ -302,6 +314,7 @@ footer
     margin-left: 630px;
     position: absolute;
     margin : 0px 0px 0px 0px;
+    height:400px;
 }
 
 .centerDimensioncolumn
@@ -310,7 +323,7 @@ footer
     width: 300px;
     margin-left: 630px;
     position: absolute;
-    margin : 130px 0px 0px 0px;
+    margin : 150px 0px 0px 0px;
 }
 
 .bottomDimensioncolumn
