@@ -32,7 +32,7 @@ namespace Coinco.SMS.Website.Models
         public List<Location> GetLocations(string itemNumber, string site, string warehouse, string userName)
         {
             IAXHelper axHelper = ObjectFactory.GetInstance<IAXHelper>();
-            List<Location> wareList = new List<Location>();
+            List<Location> locationList = new List<Location>();
 
             try
             {
@@ -43,7 +43,7 @@ namespace Coinco.SMS.Website.Models
                     Location locationObject = new Location();
                     locationObject.LocationId = row["LocationID"].ToString();
                     locationObject.LocationQty = row["PhysicalQty"].ToString();
-                    wareList.Add(locationObject);
+                    locationList.Add(locationObject);
 
                 }
             }
@@ -51,7 +51,7 @@ namespace Coinco.SMS.Website.Models
             {
                 throw ex;
             }
-            return wareList;
+            return locationList;
 
         }
     }
