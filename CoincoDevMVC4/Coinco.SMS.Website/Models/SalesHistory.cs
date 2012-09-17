@@ -20,7 +20,7 @@ namespace Coinco.SMS.Website.Models
         public string SalesPrice { get; set; }
         public string DateExecution { get; set; }
         public string InvoiceNumber { get; set; }
-
+        public List<SalesHistory> ServiceInfoList { get; set; }
 
         public SalesHistory()
         {
@@ -35,23 +35,23 @@ namespace Coinco.SMS.Website.Models
             List<SalesHistory> salesList = new List<SalesHistory>();
             try
             {
-                //DataTable resultTable = axHelper.GetSalesInformation(serialNumber, userName);
+                DataTable resultTable = axHelper.GetSalesInformation(serialNumber, userName);
 
 
-                //foreach (DataRow row in resultTable.Rows)
-                //{
-                //    SalesHistory salesObject = new SalesHistory();
-                //    salesObject.SalesOrderNumber = row["SalesNumber"].ToString();
-                //    salesObject.InvoiceNumber = row["InvoiceNumber"].ToString();
-                //    salesObject.InvoiceDate = row["InvoiceDate"].ToString();
-                //    salesObject.CustomerName = row["Name"].ToString();
-                //    salesObject.ItemNumber = row["ItemNumber"].ToString();
+                foreach (DataRow row in resultTable.Rows)
+                {
+                    SalesHistory salesObject = new SalesHistory();
+                    salesObject.SalesOrderNumber = row["SalesNumber"].ToString();
+                    salesObject.InvoiceNumber = row["InvoiceNumber"].ToString();
+                    salesObject.InvoiceDate = row["InvoiceDate"].ToString();
+                    salesObject.CustomerName = row["Name"].ToString();
+                    salesObject.ItemNumber = row["ItemNumber"].ToString();
 
 
 
-                //    salesList.Add(salesObject);
+                    salesList.Add(salesObject);
 
-                //}
+                }
             }
             catch (Exception ex)
             {
@@ -63,33 +63,32 @@ namespace Coinco.SMS.Website.Models
         }
 
 
-        //- To get the GetServiceDetails for Sales History, Check In Page and Service Order with History Page
+      //  - To get the GetServiceDetails for Sales History, Check In Page and Service Order with History Page
 
         public List<SalesHistory> GetServiceDetails(string serialNumber, string userName)
         {
-            //DateTime dateValue;
-            //string dateExecute = "";
+
             IAXHelper axHelper = ObjectFactory.GetInstance<IAXHelper>();
             List<SalesHistory> salesList = new List<SalesHistory>();
             try
             {
-            //    DataTable resultTable = axHelper.GetSalesHistory(serialNumber, userName);
+                DataTable resultTable = axHelper.GetSalesHistory(serialNumber, userName);
 
 
-            //    foreach (DataRow row in resultTable.Rows)
-            //    {
-            //        SalesHistory salesObject = new SalesHistory();
-            //        salesObject.SalesServiceOrder = row["ServiceOrderId"].ToString();
-            //        salesObject.SalesPrice = row["SalesPrice"].ToString();
-            //        salesObject.DateExecution = row["DateExecution"].ToString();
-            //        salesObject.Description = row["Description"].ToString();
+                foreach (DataRow row in resultTable.Rows)
+                {
+                    SalesHistory salesObject = new SalesHistory();
+                    salesObject.SalesServiceOrder = row["ServiceOrderId"].ToString();
+                    salesObject.SalesPrice = row["SalesPrice"].ToString();
+                    salesObject.DateExecution = row["DateExecution"].ToString();
+                    salesObject.Description = row["Description"].ToString();
 
 
 
 
-            //        salesList.Add(salesObject);
+                    salesList.Add(salesObject);
 
-                //}
+                }
             }
             catch (Exception ex)
             {

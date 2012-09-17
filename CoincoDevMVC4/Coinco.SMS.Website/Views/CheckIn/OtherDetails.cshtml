@@ -228,7 +228,9 @@
                             jQuery('#ServiceOrderGridDiv').html(result);
                         },
                         error: function (result) {
-                            alert('An error occured while adding the service order lines. Please check the inputs and try again');
+                            //alert('An error occured while adding the service order lines. Please check the inputs and try again');
+                            alert(result.responseText);
+
                         }
 
                     });

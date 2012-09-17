@@ -5,31 +5,129 @@
     ViewBag.Title = "CheckIn";
 }
 @{ Html.Telerik().Window()
-        .Name("SalesDetailsHistoryWindow")
+        .Name("SalesDetailsHistory")
+        .Modal(true)
         .Title("Sales Details History")
-        .Draggable((bool)ViewData["movable"])
-        .Resizable(resizing => resizing
-            .Enabled((bool)ViewData["resizable"])
-            .MinHeight(250)
-            .MinWidth(250)
-            .MaxHeight(500)
-            .MaxWidth(500)
+        .Content(@<text><div id="SalesDetailsHistory">
+            <h6>Sales Information</h6>
+            <div id="firstSalesInfo" class="fullViewforSmallerHeightClass">
+                <div id="SerialNumber" class="leftViewClass"> 
+                    <div id="SerialNumberDiv" class="leftView" >
+                        @Html.Label("Serial Number", new { @class = "leftView" })
+                    </div>
+                    <div id="SerialNumberResult" class="leftadjacentView">
+                        @Html.Label("Serial Number", new { @class = "leftView" , id="serialNumberLabel"})                  
+                    </div>
+                </div>
+                 
+                 <div id="Name" class="rightViewClass"> 
+                    <div id="nameDiv" class="rightView" >
+                        @Html.Label("Name", new { @class = "rightView" })
+                    </div>
+                    <div id="nameResult" class="rightadjacentView">                  
+                          @Html.Label("Name", new { @class = "leftView" , id="nameLabel"})     
+                    </div>
+                </div>
+
+            </div>
+
+            <div id="secondSalesInfo" class="fullViewforSmallerHeightClass">
+                <div id="ItemNumber" class="leftViewClass"> 
+                    <div id="ItemNumberDiv" class="leftView" >
+                        @Html.Label("Item Number", new { @class = "leftView" })
+                    </div>
+                    <div id="ItemNumberResult" class="leftadjacentView">                  
+                        @Html.Label("Item Number", new { @class = "leftView" , id="itemNumberLabel"})     
+                    </div>
+                </div>
+                 
+                 <div id="InvoiceNumber" class="rightViewClass"> 
+                    <div id="invoiceNumberDiv" class="rightView" >
+                        @Html.Label("Invoice Number", new { @class = "rightView" })
+                    </div>
+                    <div id="invoiceNumberResult" class="rightadjacentView">                  
+                                    @Html.Label("Invoice Number", new { @class = "leftView", id = "invoiceNumberLabel" })     
+                    </div>
+                </div>
+
+            </div>
+
+            <div id="thirdSalesInfo" class="fullViewforSmallerHeightClass">
+                <div id="SalesOrder" class="leftViewClass"> 
+                    <div id="salesOrderDiv" class="leftView" >
+                        @Html.Label("SalesOrder", new { @class = "leftView" })
+                    </div>
+                    <div id="SalesOrderResult" class="leftadjacentView">                  
+                        @Html.Label("Sales Order", new { @class = "leftView" , id="salesOrderLabel"})     
+                    </div>
+                </div>
+                 
+                 <div id="InvoiceDate" class="rightViewClass"> 
+                    <div id="invoiceDateDiv" class="rightView" >
+                        @Html.Label("Invoice Date", new { @class = "rightView" })
+                    </div>
+                    <div id="invoiceDateResult" class="rightadjacentView">                  
+                                    @Html.Label("Invoice Date", new { @class = "leftView", id = "invoiceDateLabel" })     
+                    </div>
+                </div>
+
+            </div>
+            <h6>Service Information</h6>
+            <div id ="serviceInfoGridDiv" class="serviceOrderLineGridClass" >
+       @{
+    
+           Html.Telerik().Grid<Coinco.SMS.Website.Models.SalesHistory>((IEnumerable<Coinco.SMS.Website.Models.SalesHistory>)ViewData["ServiceInformation"])
+        .Name("ServiceInformationGrid")
+        
+        .Columns(columns =>
+        {
+            columns.Bound(c => c.SalesServiceOrder).Title("Service Order").Width(120).ReadOnly();                                                                                                                                
+            columns.Bound(c => c.SalesPrice).Title("Service Amount").Width(130).ReadOnly();
+            columns.Bound(c => c.DateExecution).Title("Date").Width(110).ReadOnly();
+            columns.Bound(c => c.Description).Title("Description").ReadOnly();              
+        })
+
+        .DataBinding(dataBinding =>
+        {
+            dataBinding.Ajax().OperationMode(GridOperationMode.Client).Select("_SelectionClientSide_ServiceInfoLines", "CheckIn")
+                .Enabled(true);
+        }
         )
-        .Modal((bool)ViewData["modal"])
-        .Buttons(b => b.Maximize().Close())
-        .Content(@<text>
-            <p style="text-align: center">
-                <img src="@Url.Content("~/Content/Window/window.png")"
-                        alt="Window for ASP.NET MVC logo" style="display:block;margin:0 auto 10px;" />
-                            
-                The Telerik Window for ASP.NET MVC is<br /> the right choice for creating Window dialogs<br />
-                and alert/prompt/confirm boxes<br /> in your ASP.NET MVC applications.
-            </p>
+        
+        .HtmlAttributes(new { style = "font-size: 8pt; font-family: Verdana;" })
+        .Scrollable(c => c.Height("180px"))
+        .Pageable((pager => pager.PageSize(10)))
+        .Sortable()
+        .Selectable()
+        .Filterable()
+       .Render();
+    
+        }
+      
+        
         </text>)
-        .Width(300)
-        .Height(300)
+        .Resizable(resizing => resizing
+            .Enabled(true)
+            .MinHeight(500)
+            .MinWidth(800)
+            .MaxHeight(500)
+            .MaxWidth(800)
+        )
+        .Buttons(b => b.Maximize().Close())
+        .Visible(false)
+        .Width(800)
+        .Height(500)
         .Render();
+        
 }
+  </div> 
+
+            <div id="closeButtonDiv" class="submitResultClass">
+                <button class="t-button" type="button" id="Close" value="Close">Close</button>     
+            </div>
+
+</div>
+
 @using (Html.BeginForm())
 {
 <div id="ServiceOrderAdditionDiv">
@@ -43,14 +141,14 @@
                     </div>
                     <div id="CustomerAccountDropDown" class="leftadjacentView">                  
                         @{
-                            Html.Telerik().ComboBox().Name("customerAccountDropDownList")
-                                .BindTo((SelectList)ViewData["CustomerList"])
-                                .Placeholder("<--SELECT-->")
-                                .ClientEvents(e => e.OnChange("onCustomerAccountDropDownListChange"))
-                                .HtmlAttributes(new { style = "font-size: 8pt; font-family: Verdana; width:200px" })
-                                .DropDownHtmlAttributes(new { style = "font-size: 8pt; font-family: Verdana;" })
-                                .SelectedIndex(0)
-                                .Render();
+    Html.Telerik().ComboBox().Name("customerAccountDropDownList")
+        .BindTo((SelectList)ViewData["CustomerList"])
+        .Placeholder("<--SELECT-->")
+        .ClientEvents(e => e.OnChange("onCustomerAccountDropDownListChange"))
+        .HtmlAttributes(new { style = "font-size: 8pt; font-family: Verdana; width:200px" })
+        .DropDownHtmlAttributes(new { style = "font-size: 8pt; font-family: Verdana;" })
+        .SelectedIndex(0)
+        .Render();
                                 }
            
                     </div>
@@ -185,6 +283,10 @@
               }
 
           });
+      });
+
+      jQuery('#Close').click(function () {
+          $('#SalesDetailsHistory').data('tWindow').close();
+         
       });   
-      
 </script>

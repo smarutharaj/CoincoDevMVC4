@@ -8,7 +8,14 @@
         })
         .Columns(columns =>
         {
-            columns.Template(@<text> <input type="text" name="history" onclick="SalesDetailsViewForSegment(id = @item.SerialNumber)" /></text>).Width(50).Title("History").Width(60).ClientTemplate("<input type='text' name='history' onclick='SalesDetailsViewForSegment(id = @item.SerialNumber)' />");
+            columns.Command(commands => commands
+                    .Custom("getSalesHistoryDetails")
+                    .Text("History")
+                    .DataRouteValues(route => route.Add(c => c.SerialNumber).RouteKey("serialNo"))
+                    .Ajax(true)
+                    .Action("GetSalesHistoryDetails", "CheckIn")).Title("History")
+                .HtmlAttributes(new { style = "text-align: center" })
+                .Width(95);
             columns.Bound(c => c.SerialNumber).Title("Serial Number").Width(1).Hidden();                                                                                                                                
             columns.Bound(c => c.SerialNumber).Title("Serial Number").Width(130).ReadOnly();
             columns.Bound(c => c.PartNumber).Title("Part Number").Width(120).ReadOnly();
@@ -17,7 +24,7 @@
             columns.Bound(c => c.RepairType).Title("Repair Type").Width(120).ReadOnly();
             columns.Bound(c => c.Warranty).Title("Warranty").Width(100).ReadOnly();
             columns.Bound(c => c.Comments).Title("Comments").Width(120);
-
+             
             columns.Command(commands =>
             {
                 commands.Edit().ButtonType(GridButtonType.Image);
@@ -36,7 +43,9 @@
         }
         )
         .ClientEvents(events => events
-            .OnSave("onSave"))
+            .OnSave("onSave")
+            .OnComplete("onComplete")
+            )
         
         .HtmlAttributes(new { style = "font-size: 8pt; font-family: Verdana;" })
         .Scrollable(c => c.Height("180px"))
@@ -54,14 +63,61 @@
                 e.Data = e.values;
             }
 
-            function SalesDetailsViewForSegment(e) { /// called on row click of main page grid.
-                var row = e.row;
-                var grid = $(this).data("tGrid");
-                var dataItem = grid.dataItem(row);
-                var detailWindow = $("#SalesDetailsHistory").data("tWindow");
-                detailWindow.title("Sales Details History");
-                detailWindow.ajaxRequest('@Url.Action("GetSalesDetailsHistory", "CheckIn")', { serialNumber: dataItem.SerialNumber });
-                detailWindow.title(dataItem.ProcessSegment);
-                detailWindow.open();
+
+            function onComplete(e) {
+            if (e.name == "getSalesHistoryDetails") {
+                    var detailWindow = $("#SalesDetailsHistory").data("tWindow");
+                    var saleshistory = e.response;
+                    if (saleshistory.SalesSerialNumber != null) {
+                        $('#serialNumberLabel').text(saleshistory.CustomerName);
+                    }
+                    else {
+                        $('#serialNumberLabel').text('');
+                    }
+                    if (saleshistory.CustomerName != null) {
+                        $('#nameLabel').text(saleshistory.CustomerName);
+                    }
+                    else {
+                        $('#nameLabel').text('');
+                    }
+
+                    if (saleshistory.ItemNumber != null) {
+                        $('#itemNumberLabel').text(saleshistory.ItemNumber);
+                    }
+                    else {
+                        $('#itemNumberLabel').text('');
+                    }
+
+                    if (saleshistory.InvoiceNumber != null) {
+                        $('#invoiceNumberLabel').text(saleshistory.InvoiceNumber);
+                    }
+                    else {
+                        $('#invoiceNumberLabel').text('');
+                    }
+
+                    if (saleshistory.ItemNumber != null) {
+                        $('#salesOrderLabel').text(saleshistory.ItemNumber);
+                    }
+                    else {
+                        $('#salesOrderLabel').text('');
+                    }
+
+                    if (saleshistory.InvoiceNumber != null) {
+                        $('#invoiceDateLabel').text(saleshistory.InvoiceNumber);
+                    }
+                    else {
+                        $('#invoiceDateLabel').text('');
+                    }
+                    if (saleshistory.ServiceInfoList != null) {
+                        var serviceInformationGrid = $("#ServiceInformationGrid").data("tGrid");
+                        serviceInformationGrid.dataBind(saleshistory.ServiceInfoList);
+                        detailWindow.center().open();
+                    }
+                }
             }
+
+            
+
+           
+
         </script>
