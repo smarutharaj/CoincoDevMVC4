@@ -56,6 +56,9 @@ namespace Coinco.SMS.Website.Models
 
         public SelectList RepairStageList { get; set; }
 
+        public string ServiceTechnicianName { get; set; }
+        public string ServiceTechnicianNo { get; set; }
+
         public ServiceTechnician Technician { get; set; }
 
         public string Comments { get; set; }
@@ -335,7 +338,7 @@ namespace Coinco.SMS.Website.Models
                     repairObject.DiagonsisCodeId = row["DiagnosisCodeId"].ToString();
                     repairObject.ResolutionId = row["ResolutionId"].ToString();
                     repairObject.RepairStageId = row["RepairStageId"].ToString();
-                    //repairObject.Technician = row["Technician"].ToString();
+                    repairObject.ServiceTechnicianNo = row["Technician"].ToString();
                     repairObject.Comments = row["ServiceComments"].ToString();
 
 
