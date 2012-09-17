@@ -17,11 +17,13 @@ namespace Coinco.SMS.Website.Models
         public string CustomerPO { get; set; }
         public string Comments { get; set; }
         public Customer Customer { get; set; }
+        public PartDetails PartDetails { get; set; }
         public ServiceTechnician ServiceTechnician { get; set; }
         public ServiceTechnician ServiceResponsible { get; set; }
         public WOClassification WOClassification { get; set; }
-        public List<Address> AddressList { get; set; } 
-
+        public List<Address> AddressList { get; set; }
+        public List<Address> BillingAddressList { get; set; }
+        public List<Address> ShippingAddressList { get; set; } 
         public ServiceOrder()
         {
 
