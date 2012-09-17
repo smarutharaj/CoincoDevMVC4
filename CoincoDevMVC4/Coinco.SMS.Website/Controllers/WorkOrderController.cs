@@ -232,7 +232,7 @@ namespace Coinco.SMS.Controllers
             
         }
 
-        [HttpPost]
+        [HttpGet]
         public JsonResult _GetDropDownWareHouse(string partNumberDropDownList, string siteComboBox)
         {
             return _GetWareHouses(partNumberDropDownList, siteComboBox);
@@ -244,8 +244,41 @@ namespace Coinco.SMS.Controllers
         {
             string userName = User.Identity.Name.ToString().Split('\\')[1];
             WareHouse wareHouseObject = new WareHouse();
-            return Json(new SelectList(wareHouseObject.GetWareHouses(itemNumber, site, userName), "WareHouseCode", "WareHouseName", "PhyiscalQty"), JsonRequestBehavior.AllowGet);
+            return Json(new SelectList(wareHouseObject.GetWareHouses(itemNumber, site, userName), "WareHouseCode", "WareHouseCode"), JsonRequestBehavior.AllowGet);
 
+        }
+
+
+        [HttpGet]
+        public JsonResult _GetLocationList(string partNumberDropDownList, string siteComboBox, string wareHouseDropDownList)
+        {
+            return _GetLocations(partNumberDropDownList, siteComboBox, wareHouseDropDownList);
+
+        }
+
+
+        private JsonResult _GetLocations(string itemNumber, string site, string warehouse)
+        {
+            string userName = User.Identity.Name.ToString().Split('\\')[1];
+            Location locationObject = new Location();
+            return Json(new SelectList(locationObject.GetLocations(itemNumber, site, warehouse, userName), "LocationId", "LocationId"), JsonRequestBehavior.AllowGet);
+
+        }
+
+
+        [HttpGet]
+        public JsonResult _GetTransactionSerialNumberList(string partNumberDropDownList, string siteComboBox, string wareHouseDropDownList, string locationDropDownList)
+        {
+            return _GetTransactionSerialNumber(partNumberDropDownList, siteComboBox, wareHouseDropDownList, locationDropDownList);
+
+        }
+
+
+        private JsonResult _GetTransactionSerialNumber(string itemNumber, string site, string warehouse, string locationid)
+        {
+            string userName = User.Identity.Name.ToString().Split('\\')[1];
+            SerivceOrderPartLine transactionSerialObject = new SerivceOrderPartLine();
+            return Json(new SelectList(transactionSerialObject.GetTransactionSerialNumbers(itemNumber, site, warehouse, locationid, userName), "TransactionSerialNumber", "TransactionSerialNumber"), JsonRequestBehavior.AllowGet);
         }
 
         [HttpPost]
