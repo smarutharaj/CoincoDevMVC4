@@ -693,17 +693,24 @@ footer
 {
 
     width:960px;
-    height:570px;
+    height:595px;
   
 }
 
 .addLinesDivRL
 {
-    margin-top: 30px; 
+    margin-top: 10px; 
     max-width: 960px;
-    height: 75px;
+    height: 120px;
     
    
+}
+
+.addLinesDivRL1
+{
+    margin-top: 10px; 
+    max-width: 960px;
+    height: 80px;
 }
 
 .addLineleftcolumnRL
@@ -721,7 +728,7 @@ footer
     width: 300px;
     margin-left:310px;
     position: absolute;
-  
+ 
 }
 
 .addLineRightcolumnRL
