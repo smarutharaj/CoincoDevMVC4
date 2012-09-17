@@ -91,9 +91,13 @@ namespace Coinco.SMS.Website.Controllers
         {
             string userName = User.Identity.Name.ToString().Split('\\')[1];
             RepairType repairTypeObj = new RepairType();
-            repairTypeObj.PartNum = new SelectList(repairTypeObj.GetServiceOrderLinesDetailsBySerialNumber(serialNumber, "", userName), "PartNumber", "PartNumber");
+            repairTypeObj.PartNum = new SelectList(repairTypeObj.GetServiceOrderLinesDetailsBySerialNumber(serialNumber, null, userName), "PartNumber", "PartNumber");
             ViewData["PartNumber"] = repairTypeObj.PartNum;
-            TempData["PartNum"] = repairTypeObj.PartNum.First().Text;
+            TempData["PartNum"] = "";
+            if (repairTypeObj.PartNum.Count() > 0)
+            {
+                TempData["PartNum"] = repairTypeObj.PartNum.First().Value;
+            }
             TempData.Keep();
             return View("PartNumber");
         }
