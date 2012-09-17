@@ -95,6 +95,8 @@ namespace Coinco.SMS.AXWrapper
             serviceTable.Columns.Add("WOClassification", typeof(String));
             serviceTable.Columns.Add("ServiceTechnician", typeof(String));
             serviceTable.Columns.Add("ServiceResponsible", typeof(String));
+            serviceTable.Columns.Add("BillingAddress", typeof(String));
+            serviceTable.Columns.Add("ShippingAddress", typeof(String));
             serviceTable.Columns.Add("EntryDate", typeof(DateTime));
             try
             {
@@ -117,6 +119,8 @@ namespace Coinco.SMS.AXWrapper
                         row["WOClassification"] = axRecord.get_Field("WOClassification");
                         row["ServiceTechnician"] = axRecord.get_Field("ServiceTechnician");
                         row["ServiceResponsible"] = axRecord.get_Field("ServiceResponsible");
+                        row["BillingAddress"] = axRecord.get_Field("BillingAddress");
+                        row["ShippingAddress"] = axRecord.get_Field("ShippingAddress");
                         row["EntryDate"] = axRecord.get_Field("DateEntry");
                         serviceTable.Rows.Add(row);
                         axRecord.Next();

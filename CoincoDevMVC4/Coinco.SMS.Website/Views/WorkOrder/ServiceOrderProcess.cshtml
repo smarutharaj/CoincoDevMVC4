@@ -37,7 +37,7 @@
             <br />
         </div>
         <div id="partNumberView">
-            @{Html.RenderPartial("PartDetailsView");}
+            @{Html.RenderPartial("PartDetailsView",Model.ServiceOrderLine);}
         </div>
     </div>
     <div class="addLinesDiv">
@@ -239,7 +239,7 @@
 
 
     function onserialNumberDropDownChange(e) {
-
+    debugger
         if (e != null) {
             var serialNumber = e.currentTarget.value;
             jQuery.ajax({

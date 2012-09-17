@@ -3,20 +3,55 @@
 @* <label>Part Number:</label> @Html.DisplayFor(x => TempData["PartNum"])*@
 
  <div class="centercolumn">
+
+
             @Html.Label("Part Number:", new { @class = "labelHeaderView", id = "partNoHeadLabel" })  
          
             <div class="labelViewSO">
-                @Html.DisplayFor(x => TempData["WorkPartNumber"])
+            @{if (Model.PartNumber != null)
+              {
+            
+                @Html.Label(Model.PartNumber, new { @class = "leftView", id = "partNumberLabel" })     
+              }
+              else
+              {
+                @Html.Label("", new { @class = "leftView", id = "partNumberLabel" })     
+              }
+              }
             </div>
             <br />
             @Html.Label("Repair Type:", new { @class = "labelHeaderView", id = "repairHeadLabel" })
             <div class="labelViewSO">
-                @Html.DisplayFor(x => TempData["WorkRepairType"])
+              @{if (Model.RepairType != null)
+                {
+                 @Html.Label(Model.RepairType, new { @class = "leftView", id = "repairTypeLabel" })     
+                }
+                else
+                {
+                  @Html.Label("", new { @class = "leftView", id = "repairTypeLabel" })     
+                }
+                }
             </div>
         </div>
         <div class="rightcolumn">
              @Html.Label("Warranty:", new { @class = "labelHeaderView", id = "warrantyHeadLabel" })
             <div class="labelViewSO">
-                @Html.DisplayFor(x => TempData["WorkWarranty"])<br />
+              @{if (Model.Warranty != null)
+                {
+
+                 @Html.Label(Model.Warranty, new { @class = "leftView", id = "warrantyLabel" })   
+                }
+                else
+                {
+                  @Html.Label("", new { @class = "leftView", id = "warrantyLabel" })     
+                }
+                }
             </div>
+
         </div>
+
+        <script type="text/javascript">
+
+           
+
+        </script>
