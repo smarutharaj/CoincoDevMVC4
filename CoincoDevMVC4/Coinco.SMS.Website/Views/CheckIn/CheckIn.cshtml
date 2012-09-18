@@ -8,72 +8,83 @@
         .Name("SalesDetailsHistory")
         .Modal(true)
         .Title("Sales Details History")
-        .Content(@<text><div id="SalesDetailsHistory" >
-            <h6>Sales Information</h6>
-            <div id="firstSalesInfo" class="fullViewforSmallerHeightClass">
-                <div id="SerialNumberParentDiv" class="leftViewClass"> 
+        .Content(@<text>
+        
+
+        <div id="SalesDetailsHistory" class="salesHistory" >
+              <label class="labelHeadingClass">Sales Information</label>
+          
+
+            <div id="firstSalesInfo" class="fullViewforSalesHistoryClass">
+
+                <div id="SerialNumberParentDiv" class="leftSalesViewClass"> 
                     <div id="SerialNumberDiv" class="leftView" >
                         @Html.Label("Serial Number", new { @class = "leftView" })
                     </div>
-                    <div id="SerialNumberResult" class="leftadjacentView">
+                    <div id="SerialNumberResult" class="leftadjacentSalesView">
                         @Html.Label("Serial Number", new { @class = "leftView" , id="serialNumberLabel"})                  
                     </div>
                 </div>
                  
-                 <div id="Name" class="rightViewClass"> 
+                 <div id="Name" class="rightSalesViewClass"> 
                     <div id="nameDiv" class="rightView" >
                         @Html.Label("Name", new { @class = "rightView" })
                     </div>
-                    <div id="nameResult" class="rightadjacentView">                  
+                    <div id="nameResult" class="rightadjacentSalesView">                  
                           @Html.Label("Name", new { @class = "leftView" , id="nameLabel"})     
                     </div>
                 </div>
 
             </div>
 
-            <div id="secondSalesInfo" class="fullViewforSmallerHeightClass">
-                <div id="ItemNumber" class="leftViewClass"> 
+            <div id="secondSalesInfo" class="fullViewforSalesHistoryClass">
+                <div id="ItemNumber" class="leftSalesViewClass"> 
                     <div id="ItemNumberDiv" class="leftView" >
                         @Html.Label("Item Number", new { @class = "leftView" })
                     </div>
-                    <div id="ItemNumberResult" class="leftadjacentView">                  
+                    <div id="ItemNumberResult" class="leftadjacentSalesView">                  
                         @Html.Label("Item Number", new { @class = "leftView" , id="itemNumberLabel"})     
                     </div>
                 </div>
                  
-                 <div id="InvoiceNumber" class="rightViewClass"> 
+                 <div id="InvoiceNumber" class="rightSalesViewClass"> 
                     <div id="invoiceNumberDiv" class="rightView" >
                         @Html.Label("Invoice Number", new { @class = "rightView" })
                     </div>
-                    <div id="invoiceNumberResult" class="rightadjacentView">                  
+                    <div id="invoiceNumberResult" class="rightadjacentSalesView">                  
                                     @Html.Label("Invoice Number", new { @class = "leftView", id = "invoiceNumberLabel" })     
                     </div>
                 </div>
 
             </div>
 
-            <div id="thirdSalesInfo" class="fullViewforSmallerHeightClass">
-                <div id="SalesOrder" class="leftViewClass"> 
+            <div id="thirdSalesInfo" class="fullViewforSalesHistoryClass">
+                <div id="SalesOrder" class="leftSalesViewClass"> 
                     <div id="salesOrderDiv" class="leftView" >
                         @Html.Label("SalesOrder", new { @class = "leftView" })
                     </div>
-                    <div id="SalesOrderResult" class="leftadjacentView">                  
+                    <div id="SalesOrderResult" class="leftadjacentSalesView">                  
                         @Html.Label("Sales Order", new { @class = "leftView" , id="salesOrderLabel"})     
                     </div>
                 </div>
                  
-                 <div id="InvoiceDate" class="rightViewClass"> 
+                 <div id="InvoiceDate" class="rightSalesViewClass"> 
                     <div id="invoiceDateDiv" class="rightView" >
                         @Html.Label("Invoice Date", new { @class = "rightView" })
                     </div>
-                    <div id="invoiceDateResult" class="rightadjacentView">                  
+                    <div id="invoiceDateResult" class="rightadjacentSalesView">                  
                                     @Html.Label("Invoice Date", new { @class = "leftView", id = "invoiceDateLabel" })     
                     </div>
                 </div>
 
             </div>
-            <h6>Service Information</h6>
-            <div id ="serviceInfoGridDiv" class="serviceOrderLineGridClass" >
+
+            <div>
+            
+                 </div>
+           <label class="labelHeadingClass">Service Information</label>
+
+            <div id ="serviceInfoGridDiv" class="serviceOrderInfoGridClass" >
        @{
     
            Html.Telerik().Grid<Coinco.SMS.Website.Models.SalesHistory>((IEnumerable<Coinco.SMS.Website.Models.SalesHistory>)ViewData["ServiceInformation"])
@@ -106,23 +117,18 @@
       
         
         </text>)
-        .Resizable(resizing => resizing
-            .Enabled(true)
-            .MinHeight(500)
-            .MinWidth(800)
-            .MaxHeight(500)
-            .MaxWidth(800)
-        )
-        .Buttons(b => b.Maximize().Close())
+        
+        .Buttons(b => b.Close())
         .Visible(false)
-        .Width(800)
-        .Height(500)
+        .Width(790)
+        .Height(470)
+        .Scrollable(false)
         .Render();
         
 }
   </div> 
 
-            <div id="closeButtonDiv" class="submitResultClass">
+            <div id="closeButtonDiv" class="submitButtonClass">
                 <button class="t-button" type="button" id="Close" value="Close">Close</button>     
             </div>
 
@@ -133,7 +139,8 @@
 <div id="ServiceOrderAdditionDiv">
     <div id="ServiceOrderDetailsDiv">
         <div id="Identification">
-            <h6>Identification</h6>
+                      <label class="labelHeadingClass">Identification</label>
+
             <div id="IdentificationDetails" class="fullViewforSmallerHeightClass">
                 <div id="CustomerAccount" class="leftViewClass"> 
                     <div id="CustomerAccountLabel" class="leftView" >
@@ -217,8 +224,8 @@
         }
     </div>
 </div>
+                      <label class="labelHeadingClass">Other Details</label>
 
-<h6>Other Details</h6>
 
 <div id="OtherDetails" class="fullViewforMediumHeightClass">
 
@@ -297,8 +304,7 @@
     </div>
     
 </div>
-
-<h6> Check In Data</h6>
+                      <label class="labelHeadingClass">Check In Data</label>
 
 <div id="CheckInData" class="fullViewThreeColumnforSmallerHeightClass">
     <div id="SerialNumber" class="leftViewClassforThirdColumn"> 
@@ -348,12 +354,13 @@
         .Columns(columns =>
         {
             columns.Command(commands => commands
-                    .Custom("getSalesHistoryDetails").ButtonType(GridButtonType.BareImage)
+                    .Custom("getSalesHistoryDetails").ButtonType(GridButtonType.Image)
                     .DataRouteValues(route => route.Add(c => c.SerialNumber).RouteKey("serialNo"))
                     .Ajax(true)
                     .Action("GetSalesHistoryDetails", "CheckIn")).Title("History")
-                .HtmlAttributes(new { style = "text-align: center" })
-                .Width(95);
+
+                .HtmlAttributes(new { style = "text-align: center", id = "viewSalesHistory" })
+                .Width(65);
             columns.Bound(c => c.SerialNumber).Title("Serial Number").Width(1).Hidden();                                                                                                                                
             columns.Bound(c => c.SerialNumber).Title("Serial Number").Width(130).ReadOnly();
             columns.Bound(c => c.PartNumber).Title("Part Number").Width(120).ReadOnly();
@@ -383,14 +390,17 @@
         .ClientEvents(events => events
             .OnSave("onSave")
             .OnComplete("onComplete")
+            .OnDataBinding("onDataBinding")
+            
             )
         
         .HtmlAttributes(new { style = "font-size: 8pt; font-family: Verdana;" })
         .Scrollable(c => c.Height("180px"))
-        .Pageable((pager => pager.PageSize(10)))
-        .Sortable()
-        .Selectable()
-        .Filterable()
+       // .Pageable((pager => pager.PageSize(10)))
+        //.Sortable()
+       // .Selectable()
+       // .Filterable()
+      
        .Render();
     
         }        
@@ -428,10 +438,10 @@
                       var partNumberDropDownList = $('#partNumberDropDownList').data('tComboBox');
                       partNumberDropDownList.dataBind(serviceOrder.PartDetails.PartDetailsList);
 
-                      $('#serviceTechnicianDropDownList').data('tComboBox').value('<--Select-->');
-                      $('#serviceResponsibleDropDownList').data('tComboBox').value('<--Select-->');
-                      $('#woClassificationDropDownList').data('tComboBox').value('<--Select-->');
-                      $('#partNumberDropDownList').data('tComboBox').value('<--Select-->');
+                      $('#serviceTechnicianDropDownList').data('tComboBox').value('<--SELECT-->');
+                      $('#serviceResponsibleDropDownList').data('tComboBox').value('<--SELECT-->');
+                      $('#woClassificationDropDownList').data('tComboBox').value('<--SELECT-->');
+                      $('#partNumberDropDownList').data('tComboBox').value('<--SELECT-->');
 
                       var billingAddressGrid = $("#BillingAddressGrid").data("tGrid");
                       var shippingAddressGrid = $("#ShippingAddressGrid").data("tGrid");
@@ -444,7 +454,9 @@
                           type: 'POST',
                           success: function (result) {
                               var serviceOrderLineGrid = $("#ServiceOrderLineGrid").data("tGrid");
-                              serviceOrderLineGrid.dataBind(result.ServiceOrderLine.ServiceOrderLineList);
+                              serviceOrderLineGrid.data = null;
+                              serviceOrderLineGrid.dataSource = null;
+                              serviceOrderLineGrid.dataBind();
                               //jQuery('#ServiceOrderGridDiv').html(result);
 
                           },
@@ -470,9 +482,22 @@
 
           var customerAccount = $('#customerAccountDropDownList').val();
           var customerPo = $('#customerPOTextBox').val();
+          if (($.trim(customerPo) == '<--SELECT-->') || (customerPo == null)) {
+              customerPo = '';
+          }
           var technicinanNo = $('#serviceTechnicianDropDownList').val();
+          if (($.trim(technicinanNo) == '<--SELECT-->') || (technicinanNo == null)) {
+              technicinanNo = '';
+          }
           var responsibleNo = $('#serviceResponsibleDropDownList').val();
+
+          if (($.trim(responsibleNo) == '<--SELECT-->') || (responsibleNo == null)) {
+              responsibleNo = '';
+          }
           var woClassification = $('#woClassificationDropDownList').val();
+          if (($.trim(woClassification) == '<--SELECT-->') || (woClassification == null)) {
+              woClassification = '';
+          }
           var customerComments = $('#customerCommentTextArea').val();
           var $checkedRecords = $(':checked');
           var addressId;
@@ -487,6 +512,11 @@
               }
 
           });
+          var serviceOrderLineGrid = $("#ServiceOrderLineGrid").data("tGrid");
+          if (serviceOrderLineGrid.data.length < 1) {
+              alert('Please add atleast one service order line to create an order.');
+              return;
+          }
           jQuery.ajax({
               url: "/CheckIn/CreateServiceOrder",
               type: 'GET',
@@ -495,17 +525,17 @@
               data: { customerAccount: customerAccount, customerPo: customerPo, addressId: addressId, technicinanNo: technicinanNo, responsibleNo: responsibleNo, woClassification: woClassification, customerComments: customerComments },
               success: function (result) {
 
-                  var serviceOrderLineGrid = $("#ServiceOrderLineGrid").data("tGrid");
-
-                  serviceOrderLineGrid.dataBind(result.response);
-                  $('#customerAccountDropDownList').data('tComboBox').value('<--Select-->');
+                  serviceOrderLineGrid.data = null;
+                  serviceOrderLineGrid.dataSource = null;
+                  serviceOrderLineGrid.dataBind();
+                  $('#customerAccountDropDownList').data('tComboBox').value('<--SELECT-->');
                   $('#customerPOTextBox').val('');
-                  $('#serviceTechnicianDropDownList').data('tComboBox').value('<--Select-->');
-                  $('#serviceResponsibleDropDownList').data('tComboBox').value('<--Select-->');
-                  $('#woClassificationDropDownList').data('tComboBox').value('<--Select-->');
+                  $('#serviceTechnicianDropDownList').data('tComboBox').value('<--SELECT-->');
+                  $('#serviceResponsibleDropDownList').data('tComboBox').value('<--SELECT-->');
+                  $('#woClassificationDropDownList').data('tComboBox').value('<--SELECT-->');
                   $('#customerCommentTextArea').val('');
                   $('#serialNumberTextBox').val('');
-                  $('#partNumberDropDownList').data('tComboBox').value('<--Select-->');
+                  $('#partNumberDropDownList').data('tComboBox').value('<--SELECT-->');
                   var billingAddressGrid = $("#BillingAddressGrid").data("tGrid");
                   var shippingAddressGrid = $("#ShippingAddressGrid").data("tGrid");
                   var testData;
@@ -523,31 +553,33 @@
       });
 
       jQuery('#Clear').click(function () {
-          $('#customerAccountDropDownList').data('tComboBox').value('<--Select-->');
+
+          $('#customerAccountDropDownList').data('tComboBox').value('<--SELECT-->');
           $('#customerPOTextBox').val('');
-          $('#serviceTechnicianDropDownList').data('tComboBox').value('<--Select-->');
-          $('#serviceResponsibleDropDownList').data('tComboBox').value('<--Select-->');
-          $('#woClassificationDropDownList').data('tComboBox').value('<--Select-->');
+          $('#serviceTechnicianDropDownList').data('tComboBox').value('<--SELECT-->');
+          $('#serviceResponsibleDropDownList').data('tComboBox').value('<--SELECT-->');
+          $('#woClassificationDropDownList').data('tComboBox').value('<--SELECT-->');
           $('#customerCommentTextArea').val('');
           $('#serialNumberTextBox').val('');
-          $('#partNumberDropDownList').data('tComboBox').value('<--Select-->');
+          $('#partNumberDropDownList').data('tComboBox').value('<--SELECT-->');
           var billingAddressGrid = $("#BillingAddressGrid").data("tGrid");
           var shippingAddressGrid = $("#ShippingAddressGrid").data("tGrid");
           var testData;
-          debugger
           billingAddressGrid.dataBind(testData);
           shippingAddressGrid.dataBind(testData);
-          var serviceOrderLineGrid = $("#ServiceOrderLineGrid").data("tGrid");
-          serviceOrderLineGrid.dataBind();
+
           //$('#partNumberDropDownList').val('');
           jQuery.ajax({
               url: "/CheckIn/ClearServiceOrderLines",
               type: 'GET',
-              datatype: 'json',
+              datatype: 'jsonp',
               contentType: "application/json; charset=utf-8",
               success: function (result) {
-
-                  //  jQuery('#ServiceOrderGridDiv').html(result);
+                    //  jQuery('#ServiceOrderGridDiv').html(result);
+                  var serviceOrderLineGrid = $("#ServiceOrderLineGrid").data("tGrid");
+                  serviceOrderLineGrid.data = null;
+                  serviceOrderLineGrid.dataSource = null;
+                  serviceOrderLineGrid.dataBind();
 
               },
               error: function (result) {
@@ -569,6 +601,7 @@
 
 
       function onComplete(e) {
+
           if (e.name == "getSalesHistoryDetails") {
               var detailWindow = $("#SalesDetailsHistory").data("tWindow");
               var saleshistory = e.response;
@@ -614,8 +647,10 @@
               }
               if (saleshistory.ServiceInfoList != null) {
                   var serviceInformationGrid = $("#ServiceInformationGrid").data("tGrid");
-                  serviceInformationGrid.dataBind(saleshistory.ServiceInfoList);
-                  detailWindow.center().open();
+            
+                      serviceInformationGrid.dataBind(saleshistory.ServiceInfoList);
+                      detailWindow.center().open();
+                
               }
           }
       }
@@ -651,60 +686,72 @@
             })
         }
 
-      $(function () {
-          $('#serialNumberTextBox').keydown(function (e) {
-              if (e.keyCode == 13) {
-                  
-                  var isSerialNumberExist = false;
-                  var partNumber = $('#partNumberDropDownList').val();
-                  var serialNumber = $('#serialNumberTextBox').val();
-                  if (($.trim(serialNumber) == '') || (serialNumber == null)) {
-                      alert('Please enter the serial number before adding a line.');
-                      $('#serialNumberTextBox').addClass("input-validation-error");
-                      $('#serialNumberTextBox').focus();
-                      return;
-                  }
+        $(function () {
+            $('#serialNumberTextBox').keydown(function (e) {
+                if (e.keyCode == 13) {
 
-                  $("#ServiceOrderLineGrid .t-grid-content tbody > tr").each(function () {
-                      var tr = this;
-                      var cells = tr.cells;
-                      if (cells[2] != null) {
-                          var firstCell = cells[2].innerHTML;
-                          if (firstCell == serialNumber) {
-                              alert('The entered serial number is already availble in the lines table. Please enter a different serial number.');
-                              $('#serialNumberTextBox').focus();
-                              isSerialNumberExist = true;
-                              return;
-                          }
-                      }
-                  });
-                  if (isSerialNumberExist) {
-                      return;
-                  }
-                  jQuery.ajax({
-                      url: "/CheckIn/GetServiceOrderLinesHistoryBySerialNumberPartNumber",
-                      type: 'GET',
-                      contentType: "application/json; charset=utf-8",
-                      data: { partNumber: partNumber, serialNumber: serialNumber },
-                      success: function (result) {
-                          // jQuery('#ServiceOrderGridDiv').html(result);
-                          var serviceOrderLineGrid = $("#ServiceOrderLineGrid").data("tGrid");
-                          serviceOrderLineGrid.dataBind(result);
-                      },
-                      error: function (result) {
-                          //alert('An error occured while adding the service order lines. Please check the inputs and try again');
-                          alert(result.responseText);
+                    var isSerialNumberExist = false;
+                    var partNumber = $('#partNumberDropDownList').val();
+                    if (($.trim(partNumber) == '<--SELECT-->') || (partNumber == null)) {
+                        partNumber = '';
+                    }
+                    var serialNumber = $('#serialNumberTextBox').val();
+                    if (($.trim(serialNumber) == '') || (serialNumber == null)) {
+                        alert('Please enter the serial number before adding a line.');
+                        $('#serialNumberTextBox').addClass("input-validation-error");
+                        $('#serialNumberTextBox').focus();
+                        return;
+                    }
 
-                      }
+                    $("#ServiceOrderLineGrid .t-grid-content tbody > tr").each(function () {
+                        var tr = this;
+                        var cells = tr.cells;
+                        if (cells[2] != null) {
+                            var firstCell = cells[2].innerHTML;
+                            if (firstCell == serialNumber) {
+                                alert('The entered serial number is already availble in the lines table. Please enter a different serial number.');
+                                $('#serialNumberTextBox').focus();
+                                isSerialNumberExist = true;
+                                return;
+                            }
+                        }
+                    });
+                    if (isSerialNumberExist) {
+                        return;
+                    }
+                    jQuery.ajax({
+                        url: "/CheckIn/GetServiceOrderLinesHistoryBySerialNumberPartNumber",
+                        type: 'GET',
+                        contentType: "application/json; charset=utf-8",
+                        data: { partNumber: partNumber, serialNumber: serialNumber },
+                        success: function (result) {
+                            // jQuery('#ServiceOrderGridDiv').html(result);
+                            var serviceOrderLineGrid = $("#ServiceOrderLineGrid").data("tGrid");
+                            serviceOrderLineGrid.dataBind(result);
+                        },
+                        error: function (result) {
+                            var response = result.responseText;
+                            var start = result.responseText.search("<title>") + 7;
+                            var  end = result.responseText.search("</title>");
 
-                  });
-                  return false;
-              }
-          });
-      });
+                            if (start > 0 && end > 0)
+                                alert(" " + result.responseText.substring(start, end) + ".");
+    
+                            //alert('An error occured while adding the service order lines. Please check the inputs and try again');
+
+                        }
+
+                    });
+                    return false;
+                }
+            });
+        });
       jQuery('#Add').click(function () {
           var isSerialNumberExist = false;
           var partNumber = $('#partNumberDropDownList').val();
+          if (($.trim(partNumber) == '<--SELECT-->') || (partNumber == null)) {
+              partNumber = '';
+          }
           var serialNumber = $('#serialNumberTextBox').val();
           if (($.trim(serialNumber) == '') || (serialNumber == null)) {
               alert('Please enter the serial number before adding a line.');
@@ -739,7 +786,12 @@
                   serviceOrderLineGrid.dataBind(result);
               },
               error: function (result) {
-                  alert('An error occured while adding the service order lines. Please check the inputs and try again');
+                  var response = result.responseText;
+                  var start = result.responseText.search("<title>") + 7;
+                  var end = result.responseText.search("</title>");
+
+                  if (start > 0 && end > 0)
+                      alert(" " + result.responseText.substring(start, end) + ".");
               }
 
           });
@@ -752,7 +804,6 @@
       });
 
       function onDataBinding(e) {
-          SomethingGroupGrid_RowSelect(e);
-          e.data = $.extend(e.data, { addressId: addressId });
+
       }
 </script>
