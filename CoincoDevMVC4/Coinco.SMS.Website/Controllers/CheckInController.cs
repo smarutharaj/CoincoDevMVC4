@@ -21,6 +21,7 @@ namespace Coinco.SMS.Website.Controllers
             List<ServiceTechnician> serviceTechnicianCollection = new List<ServiceTechnician>();
             PartDetails partDetails = new PartDetails();
             List<PartDetails> partDetailsCollection = new List<PartDetails>();
+            ServiceOrderLine serviceOrderLine = new ServiceOrderLine();
             List<ServiceOrderLine> serviceOrderLineList = new List<ServiceOrderLine>();
             List<Address> addressList = new List<Address>();
             try
@@ -44,7 +45,8 @@ namespace Coinco.SMS.Website.Controllers
                 ViewData["ServiceOrderLine"] = serviceOrderLineList;
                 TempData["ServiceOrderLine"] = serviceOrderLineList;
 
-
+                serviceOrderLine.ServiceOrderLineList = serviceOrderLineList;
+                serviceOrder.ServiceOrderLine = serviceOrderLine;
                 ViewData["BillingAddress"] = addressList;
                 ViewData["ShippingAddress"] = addressList;
                 serviceOrder.BillingAddressList = addressList;
@@ -195,6 +197,7 @@ namespace Coinco.SMS.Website.Controllers
             ServiceTechnician serviceTechnician = new ServiceTechnician();
             PartDetails partDetails = new PartDetails();
             ServiceOrder serviceOrder = new ServiceOrder();
+            ServiceOrderLine serviceOrderLine = new ServiceOrderLine();
             try
             {
                 if (customerAccount != null)
@@ -244,6 +247,8 @@ namespace Coinco.SMS.Website.Controllers
                     partDetails.PartDetailsList = new SelectList(partDetailsCollection, "ItemNumber", "ProductName", null);
                     ViewData["PartNumberList"] = partDetails.PartDetailsList;
                     serviceOrder.PartDetails = partDetails;
+                    serviceOrderLine.ServiceOrderLineList = new List<ServiceOrderLine>();
+                    serviceOrder.ServiceOrderLine = serviceOrderLine;
                 }
                 TempData.Keep();
             }
@@ -294,11 +299,15 @@ namespace Coinco.SMS.Website.Controllers
 
         public JsonResult ClearServiceOrderLines()
         {
+            ServiceOrder serviceOrder = new ServiceOrder();
+            ServiceOrderLine serviceOrderLine = new ServiceOrderLine();
             List<ServiceOrderLine> serviceOrderLineEmptyList = new List<ServiceOrderLine>();
             try
             {
                 TempData["ServiceOrderLine"] = serviceOrderLineEmptyList;
                 ViewData["ServiceOrderLine"] = serviceOrderLineEmptyList;
+                serviceOrderLine.ServiceOrderLineList=serviceOrderLineEmptyList;
+                serviceOrder.ServiceOrderLine = serviceOrderLine;
                 TempData.Keep();
             }
             catch (Exception ex)
@@ -306,7 +315,7 @@ namespace Coinco.SMS.Website.Controllers
 
                 throw ex;
             }
-            return Json(serviceOrderLineEmptyList, JsonRequestBehavior.AllowGet);
+            return Json(serviceOrder, JsonRequestBehavior.AllowGet);
         }
         
         public JsonResult GetServiceOrderLinesHistoryBySerialNumberPartNumber(ServiceOrder model, string serialNumber, string partNumber)
