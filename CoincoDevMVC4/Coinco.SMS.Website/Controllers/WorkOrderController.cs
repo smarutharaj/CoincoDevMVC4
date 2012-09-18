@@ -390,19 +390,15 @@ namespace Coinco.SMS.Controllers
             {
 
                 userName = User.Identity.Name.ToString().Split('\\')[1];
-                if (serviceOrderNo == null)
-                {
-                    serviceOrderNo = Session["SID"].ToString();
-                }
                 SerivceOrderPartLine serviceOrderPartLine = new SerivceOrderPartLine();
                 isSuccess = serviceOrderPartLine.CreateServiceOrderItemLines(serviceOrderNo, transactionType, technicinanNo, quantity, specialityCode, failureCode, lineProperty, serviceOrderRelation, description, serviceComments, itemNumber, site, wareHouse, transSerialCodeNo, colorId = "", sizeId = "", configId = "", locationId, userName);
+
                 if (isSuccess)
                 {
-
+                    ViewData["ServiceOrderPartLines"] = GetServiceOrderPartLinesByServiceOrderID(serviceOrderNo);
                 }
-                ViewData["ServiceOrderPartLines"] = GetServiceOrderPartLinesByServiceOrderID(TempData["ServiceOrderId"].ToString());
 
-                TempData.Keep();
+                //TempData.Keep();
             }
             catch (Exception ex)
             {
@@ -421,17 +417,14 @@ namespace Coinco.SMS.Controllers
             {
 
                 userName = User.Identity.Name.ToString().Split('\\')[1];
-                if (serviceOrderNo == null)
-                {
-                    serviceOrderNo = Session["SID"].ToString();
-                }
+               
                 SerivceOrderPartLine serviceOrderPartLine = new SerivceOrderPartLine();
                 isSuccess = serviceOrderPartLine.UpdateServiceOrderPartLines(uniqueId, serviceOrderNo, transactionType, technicinanNo, quantity, specialityCode, failureCode, lineProperty, serviceOrderRelation, description, serviceComments, itemNumber, site, wareHouse, transSerialCodeNo, colorId = "", sizeId = "", configId = "", locationId, userName);
                 if (isSuccess)
                 {
-
+                    ViewData["ServiceOrderPartLines"] = GetServiceOrderPartLinesByServiceOrderID(serviceOrderNo);
                 }
-                ViewData["ServiceOrderPartLines"] = GetServiceOrderPartLinesByServiceOrderID(TempData["ServiceOrderId"].ToString());
+              
 
                 TempData.Keep();
             }
