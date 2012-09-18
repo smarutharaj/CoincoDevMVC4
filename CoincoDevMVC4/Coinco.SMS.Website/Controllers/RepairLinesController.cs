@@ -68,12 +68,11 @@ namespace Coinco.SMS.Website.Controllers
             TempData.Keep();
             return View("RepairLineDetails");
         }
-
+            
         [GridAction]
-        public ActionResult _Selection_RepairLines()
+        public ActionResult _Selection_RepairLines(string serviceOrderId)
         {
             TempData["ServiceOrderId"] = Session["SID"];
-            string serviceOrderId = Session["SID"].ToString();
             TempData.Keep();
             return View(new GridModel<RepairType>
             {
@@ -171,7 +170,7 @@ namespace Coinco.SMS.Website.Controllers
         }
 
         [HttpPost]
-        public ActionResult updateRepairLineItems(string uniqueId, string serialNumberList, string serviceOrderRelation, string conditionId, string symptomAreaId, string symptomCodeId, string diagnosisAreaId, string diagonsisCodeId, string resolutionId, string repairStageId, string technicianNo, string description, string serviceComments)
+        public ActionResult UpdateRepairLineItems(string uniqueId, string serialNumberList, string serviceOrderRelation, string conditionId, string symptomAreaId, string symptomCodeId, string diagnosisAreaId, string diagonsisCodeId, string resolutionId, string repairStageId, string technicianNo, string description, string serviceComments)
         {
             string userName = null;
             bool isSuccess = false;
@@ -188,7 +187,6 @@ namespace Coinco.SMS.Website.Controllers
 
                 }
                 ViewData["RepairLinesList"] = GetRepairLinesDetails(TempData["ServiceOrderId"].ToString());
-                TempData["RepairLinesList"] = ViewData["RepairLinesList"];
                 TempData.Keep();
             }
             catch (Exception ex)

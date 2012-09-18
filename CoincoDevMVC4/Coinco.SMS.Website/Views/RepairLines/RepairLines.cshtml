@@ -154,10 +154,12 @@
         <button class="t-button"  id="Update" value="Update"">Update</button>
         <button class="t-button"  id="Clear" value="Clear"">Clear</button>
     </div>
-   <div id ="RepairLinesGrid" class="partLinesDiv">
+   <div id ="RepairLinesGrid" class="addLinesDivGrid">
+
     @{Html.RenderPartial("RepairLineDetails");}
-     
+
   </div> 
+
 </div>
 <script type="text/javascript">
 
@@ -249,7 +251,7 @@
         var serviceComments = $('#commentsTextBox').val();
         var uniqueId = $('#uniqueText').val(); 
         jQuery.ajax({
-            url: "/RepairLines/updateRepairLineItems",
+            url: "/RepairLines/UpdateRepairLineItems",
             type: 'POST',
 
             data: {

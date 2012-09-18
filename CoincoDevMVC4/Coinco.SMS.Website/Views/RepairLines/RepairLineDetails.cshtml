@@ -2,54 +2,53 @@
 @model Coinco.SMS.Website.Models.RepairType
 
  @{Html.Telerik().Grid((IEnumerable<Coinco.SMS.Website.Models.RepairType>)ViewData["RepairLinesList"])
-                .Name("RepairLinesGrid")
-                .DataKeys(keys =>
-                {
-                    keys.Add(c => c.UniqueId).RouteKey("UniqueId");
-                })
-                .Columns(columns =>
-                {
-                    
-                    columns.Bound(c => c.ServiceObjectRelation).Title("Serial Number").Width(100);
-                    columns.Bound(c => c.Description).Title("Description").Width(100);
-                    columns.Bound(c => c.ConditionId).Title("Condition").Width(80);
-                    columns.Bound(c => c.SymptomAreaId).Title("Symptom Area").Width(110);
-                    columns.Bound(c => c.SymptomCodeId).Title("Symptom Code").Width(110);
-                    columns.Bound(c => c.DiagonsisAreaId).Title("Diagnosis Area").Width(105);
-                    columns.Bound(c => c.DiagonsisCodeId).Title("Diagnosis Code").Width(110);
-                    columns.Bound(c => c.ResolutionId).Title("Resolution").Width(80);
-                    columns.Bound(c => c.RepairStageId).Title("Repair Stage").Width(100);
-                    columns.Bound(c => c.Technician).Hidden();
-                    columns.Bound(c => c.Comments).Hidden();
-                    columns.Bound(c => c.UniqueId).Hidden();
-                    columns.Command(commands =>
-                    {
-                        commands.Delete().ButtonType(GridButtonType.Image);
-                    }).Width(40).Title("Delete");
-                   
-                })
-                        .DataBinding(dataBinding =>
-                        {
-                            dataBinding.Ajax().OperationMode(GridOperationMode.Client).Select("_Selection_RepairLines", "RepairLines")
-                                .Delete("DeleteRepairLine", "RepairLines")
-                                .Enabled(true);
-                        }
-              )
-                .HtmlAttributes(new { style = "font-size: 8pt; font-family: Verdana; width:950px" })
-                .Scrollable()
-                .Pageable((pager => pager.PageSize(8)))
-                .Sortable()
-                .ClientEvents(e => e.OnRowSelect("onRowSelected"))
-                .Selectable()
-                .Filterable()
-                .Render();
+        .Name("RepairLinesGrid")
+           .DataKeys(keys =>
+           {
+               keys.Add(c => c.UniqueId).RouteKey("UniqueId");
+           })
+        .Columns(columns =>
+        {
+            columns.Bound(c => c.ServiceObjectRelation).Title("Serial Number").Width(110);
+            columns.Bound(c => c.Description).Title("Description").Width(100);
+            columns.Bound(c => c.ConditionId).Title("Condition").Width(80);
+            columns.Bound(c => c.SymptomAreaId).Title("Symptom Area").Width(110);
+            columns.Bound(c => c.SymptomCodeId).Title("Symptom Code").Width(115);
+            columns.Bound(c => c.DiagonsisAreaId).Title("Diagnosis Area").Width(110);
+            columns.Bound(c => c.DiagonsisCodeId).Title("Diagnosis Code").Width(115);
+            columns.Bound(c => c.ResolutionId).Title("Resolution").Width(85);
+            columns.Bound(c => c.RepairStageId).Title("Repair Stage").Width(100);
+            columns.Bound(c => c.Technician).Hidden();
+            columns.Bound(c => c.Comments).Hidden();
+            columns.Bound(c => c.UniqueId).Hidden();
+            columns.Command(commands =>
+            {
+                commands.Delete().ButtonType(GridButtonType.Image);
+            }).Width(80).Title("Commands");
+        })
 
-   
-                }
-
+        .DataBinding(dataBinding =>
+        {
+            dataBinding.Ajax().OperationMode(GridOperationMode.Client).Select("_Selection_RepairLines", "RepairLines")
+                 .Delete("DeleteRepairLine", "RepairLines")
+                .Enabled(true);
+        }
+      )
+        .HtmlAttributes(new { style = "font-size: 8pt; font-family: Verdana; width:950px" })
+        .Scrollable()
+        .Pageable((pager => pager.PageSize(8)))
+        .Sortable()
+        .ClientEvents(e => e.OnRowSelect("onRowSelecting"))
+        .Selectable()
+        .Filterable()
+        .Render();
+        
+        
+        }
+ 
 <script type ="text/javascript">
 
-    function onRowSelected(e) {
+    function onRowSelecting(e) {
         
         var serialNumberList = e.row.cells[0].innerHTML;
         var description = e.row.cells[1].innerHTML;
