@@ -5,38 +5,88 @@
         <h6>
             Address and Contact</h6>
         <div class="addLineleftcolumn">
-            <label>
-                Customer Name:</label>
-
-              @{if (Model.Customer.CustomerName != null)
+            @Html.Label("Customer Name:", new { @class = "labelHeaderView", id = "customerNameHeadLabel" })  
+           
+               <div class="labelViewSO">
+              @{if (Model.ServiceOrderList[0].Customer.CustomerName != null)
               {
             
-                @Html.Label(Model..Customer.CustomerName, new { @class = "leftView", id = "customerNameLabel" })     
+                @Html.Label(Model.ServiceOrderList[0].Customer.CustomerName, new { @class = "labelViewSO", id = "customerNameLabel" })     
               }
               else
               {
                 @Html.Label("", new { @class = "leftView", id = "customerNameLabel" })     
               }
               }
-         
-            <label>
-                Service Technician:</label>
-            @Html.DisplayFor(x => x.ServiceTechnician.ServiceTechnicianName)<br />
-            <label>
-                Service Responsible:</label>
-            @Html.DisplayFor(x => x.ServiceResponsible.ServiceTechnicianName)<br />
-            <label>
-                Customer PO:</label>
-            @Html.DisplayFor(x => x.CustomerPO)<br />
+              </div>
+             <br />
+             @Html.Label("Service Technician:", new { @class = "labelHeaderView", id = "technicianHeadLabel" })  
+           
+              <div class="labelViewSO">
+              @{if (Model.ServiceOrderList[0].ServiceTechnician.ServiceTechnicianName != null)
+              {
+                @Html.Label(Model.ServiceOrderList[0].ServiceTechnician.ServiceTechnicianName, new { @class = "labelViewSO", id = "technicianLabel" })     
+              }
+              else
+              {
+                @Html.Label("", new { @class = "leftView", id = "technicianLabel" })     
+              }
+              }
+               </div>
+             <br />
+             @Html.Label("Service Responsible:", new { @class = "labelHeaderView", id = "responsibleHeadLabel" })  
+           
+              <div class="labelViewSO">
+              @{if (Model.ServiceOrderList[0].ServiceResponsible.ServiceTechnicianName != null)
+              {
+                @Html.Label(Model.ServiceOrderList[0].ServiceResponsible.ServiceTechnicianName, new { @class = "labelViewSO", id = "responsibleLabel" })     
+              }
+              else
+              {
+                @Html.Label("", new { @class = "leftView", id = "responsibleLabel" })     
+              }
+              }
+               </div>
+             <br />
+             @Html.Label("Customer PO:", new { @class = "labelHeaderView", id = "customerpoHeadLabel" })  
+           
+              <div class="labelViewSO">
+              @{if (Model.ServiceOrderList[0].CustomerPO != null)
+              {
+                @Html.Label(Model.ServiceOrderList[0].CustomerPO, new { @class = "labelViewSO", id = "customerpoLabel" })     
+              }
+              else
+              {
+                @Html.Label("", new { @class = "leftView", id = "customerpoLabel" })     
+              }
+              }
+               </div>
+             <br />
+          
         </div>
         <div class="centercolumn">
-            <label>
-                Billing Address:</label>
-            @Html.DisplayFor(x => x.WOBillingAddress)<br />
+            @Html.Label("Billing Address:", new { @class = "labelHeaderView", id = "billingHeadLabel" })  
+              @{if (Model.ServiceOrderList[0].WOBillingAddress.AddresswithDesc != null)
+              {
+                @Html.Label(Model.ServiceOrderList[0].WOBillingAddress.AddresswithDesc, new { @class = "labelViewSO", id = "billingLabel" })     
+              }
+              else
+              {
+                @Html.Label("", new { @class = "labelViewSO", id = "billingLabel" })     
+              }
+              }
+           <br />
         </div>
         <div class="addLineRightcolumn">
-            <label>
-                Shipping Address:</label>
-            @Html.DisplayFor(x => x.WOBillingAddress)<br />
+              @Html.Label("Shipping Address:", new { @class = "labelHeaderView", id = "shippingHeadLabel" })  
+              @{if (Model.ServiceOrderList[0].WOShippingAddress.AddresswithDesc != null)
+              {
+                @Html.Label(Model.ServiceOrderList[0].WOShippingAddress.AddresswithDesc, new { @class = "labelViewSO", id = "shippingLabel" })     
+              }
+              else
+              {
+                @Html.Label("", new { @class = "labelViewSO", id = "shippingLabel" })     
+              }
+              }
         </div>
     </div>

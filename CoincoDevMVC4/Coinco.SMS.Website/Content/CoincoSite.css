@@ -247,25 +247,44 @@ footer
 }
 .pageCointainer
 {
-    width:960px;
-    max-height:750px;
-    
+    width: 960px;
+    max-height: 750px;
+   
 }
 .serviceProcessDiv
 {
-    max-width: 960px;
-    height: 320px;
-    float: left;
-    margin: 0px 0px 0px 0px;
+    
+    padding-left: 5px;
+    padding-top:5px;
+    padding-right:5px;
+    padding-bottom:5px;
+    max-width: 950px;
    
+}
+.header1
+{
+    padding: 5px 0px 0px 0px;
+    vertical-align: middle;
+    text-align: left;
+    height: 26px;
+    font-size: 14px;
+    font-weight: bold;
+    font-family: Verdana;
+    color: #6B70AB;
+}
+
+.textAreaClass
+{
+    height:140px;
+    width:195px;
+    
 }
 .addLinesDiv
 {
-    margin :35px 0 0 0;
+    padding: 0px;
+    margin-top: 50px;
     max-width: 960px;
-    height: 280px;
-    
-   
+    height: 250px;
 }
 .submitResultServiceOrderProcess
 {
@@ -281,30 +300,26 @@ footer
 }
 .addLineleftcolumn
 {
-   
     width: 300px;
     float: left;
     position: absolute;
-   
+    padding: 5px;
 }
 
 .addLinecentercolumn
 {
-   
     width: 300px;
-    margin-left:310px;
+    margin-left: 310px;
     position: absolute;
-    margin-top: 55px; 
-  
+    margin-top: 30px;
 }
 
 .addLineRightcolumn
 {
-   
     width: 300px;
     margin-left: 630px;
     position: absolute;
-    height:280px;
+  
 }
 
 .topDimensioncolumn
@@ -314,7 +329,7 @@ footer
     margin-left: 630px;
     position: absolute;
     margin : 0px 0px 0px 0px;
-    height:400px;
+    
 }
 
 .centerDimensioncolumn
@@ -373,11 +388,10 @@ footer
 
 .labelHeaderView
 {
-   margin : 2px 0 0 0;
    float:left;
    width:135px;
    text-align: left;
-   vertical-align:top;
+   vertical-align:middle;
    font-family:  Verdana;
    font-size:8pt;
    font-weight:bold;
@@ -389,6 +403,7 @@ footer
 {
     float: left;
     width: 150px;
+    height:24px;
     text-align: left;
     vertical-align:middle;
     font-family: Verdana;
@@ -1224,7 +1239,7 @@ input, textarea {
     background: #fff;
     color: #333;
     font-size: 0.8em;
-    margin:10px 0px 0 3px 0;
+    margin:15px 0px 0 3px 0;
     width: 145px;
   
 }
@@ -1232,6 +1247,8 @@ input, textarea {
 textarea {
     font-family: inherit;
     width: 145px;
+    height:30px;
+  
 }
 
     input:focus, textarea:focus {

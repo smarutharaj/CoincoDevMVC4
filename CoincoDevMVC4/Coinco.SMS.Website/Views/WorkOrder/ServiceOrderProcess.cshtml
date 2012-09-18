@@ -17,12 +17,11 @@
         font-size: inherit;
     }
 </style>
-<div id="pageCointainer">
-  
-    <div id="serviceProcessDiv" class="serviceProcessDiv">
+<div class="pageCointainer" id="pageCointainer">
+    <div id="serviceProcessDiv" class="serviceProcessDiv" >
         <div class="leftcolumn">
             @Html.Label("Service Order:", new { @class = "labelHeaderView", id = "serviceOrderLabel" })
-            @Html.DisplayFor(x => TempData["ServiceOrderId"], new { @class = "labelViewSO", id = "serviceOrderViewlabel" })
+            @Html.Label(TempData["ServiceOrderId"].ToString(), new { @class = "labelViewSO", id = "serviceOrderViewlabel" })
             <br />
             @Html.Label("Serial Number:", new { @class = "labelHeaderView", id = "serialNumberLabel" })
             @{Html.Telerik().ComboBox().Name("slNumberDropDownList")
@@ -40,10 +39,10 @@
             @{Html.RenderPartial("PartDetailsView", Model.ServiceOrderLine);}
         </div>
     </div>
-    <div class="addLinesDiv">
+    <div class="addLinesDiv" id="addLinesDiv" >
         <div class="addLineleftcolumn">
-            <h6>
-                Add Lines</h6> 
+            <div class="header1">
+                Add Lines</div>
             <label>
                 Transaction Type:</label>
             @{Html.Telerik().ComboBox().Name("transactionTypeDropDownList")
@@ -58,7 +57,8 @@
             <br />
             <label>
                 Description:</label>
-            @Html.TextAreaFor(x => x.Description, new { id = "descriptionText" })<br />
+            @Html.TextAreaFor(x => x.Description, new { id = "descriptionText" })
+            <br />
             <label>
                 Failure Code:</label>
             @{Html.Telerik().ComboBox().Name("failureCodeDropDownList")
@@ -117,8 +117,8 @@
         </div>
         <div class="addLineRightcolumn" id="addLineRightcolumn">
             <div class="topDimensioncolumn">
-                <h6>
-                    Storage Dimension</h6>
+               <div class="header1">
+                    Storage Dimension</div>
                 <label>
                     Item Number:</label>
                 @{Html.Telerik().ComboBox().Name("itemNumberDropDownList")
@@ -192,17 +192,15 @@
     <div class="partLinesDiv" id="ServicepartLines">
         @{Html.RenderPartial("ServiceOrderPartLinesView");}
     </div>
-    <div id ="AddressDiv">
-        @{Html.RenderPartial("AddressView");}
+    <div id="AddressDiv">
+        @{Html.RenderPartial("AddressView", Model.ServiceOrders);}
     </div>
-
-   
 </div>
 <script type="text/javascript">
 
 
     function onserialNumberDropDownChange(e) {
-        debugger
+
         if (e != null) {
             var serialNumber = e.currentTarget.value;
             jQuery.ajax({

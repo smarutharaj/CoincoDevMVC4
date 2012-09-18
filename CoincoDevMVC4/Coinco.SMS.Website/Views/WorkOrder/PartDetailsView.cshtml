@@ -11,7 +11,7 @@
             @{if (Model.PartNumber != null)
               {
             
-                @Html.Label(Model.PartNumber, new { @class = "leftView", id = "partNumberLabel" })     
+                @Html.Label(Model.PartNumber, new { @class = "labelViewSO", id = "partNumberLabel" })     
               }
               else
               {
@@ -24,7 +24,7 @@
             <div class="labelViewSO">
               @{if (Model.RepairType != null)
                 {
-                 @Html.Label(Model.RepairType, new { @class = "leftView", id = "repairTypeLabel" })     
+                 @Html.Label(Model.RepairType, new { @class = "labelViewSO", id = "repairTypeLabel" })     
                 }
                 else
                 {
@@ -39,7 +39,7 @@
               @{if (Model.Warranty != null)
                 {
 
-                 @Html.Label(Model.Warranty, new { @class = "leftView", id = "warrantyLabel" })   
+                 @Html.Label(Model.Warranty, new { @class = "labelViewSO", id = "warrantyLabel" })   
                 }
                 else
                 {
