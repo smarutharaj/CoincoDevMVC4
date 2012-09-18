@@ -40,6 +40,7 @@ namespace Coinco.SMS.Website.Models
         public Address Address { get; set; }
         public Customer Customer { get; set; }
         public SelectList ServiceOrderPartLineList { get; set; }
+       
 
         public IEnumerable<SerivceOrderPartLine> GetSerialNumberByServiceOrder(string serviceOrderID, string userName)
         {

@@ -9,7 +9,7 @@ namespace Coinco.SMS.AXWrapper
     public interface IAXHelper
     {
         DataTable GetDefaultSitesByUsername(string username);
-        DataTable GetServiceOrders(string inventSiteId, string orderStatus, string userName);
+        DataTable GetServiceOrders(string inventSiteId, string orderStatus, string serviceOrder, string userName);
         DataTable GetServiceOrderLinesByServiceOrderId(string serviceOrderId, string userName);
         DataTable GetServiceOrderLinesBySerialNumberPartNumber(string serialId, string itemNumber, string custAccount, string userName);
 

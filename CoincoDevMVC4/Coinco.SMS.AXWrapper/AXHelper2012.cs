@@ -80,7 +80,7 @@ namespace Coinco.SMS.AXWrapper
         }
 
         //orderstatus - 0: Inprocess; 1-Posted; 2-Cancelled; -1: All
-        public DataTable GetServiceOrders(string inventSiteId, string orderStatus, string userName)
+        public DataTable GetServiceOrders(string inventSiteId, string orderStatus, string serviceOrder, string userName)
         {
 
             Axapta ax = null;
@@ -104,7 +104,7 @@ namespace Coinco.SMS.AXWrapper
                 ax = new Axapta();
                 ax.LogonAs(userName.Trim(), "", networkCredentials, axCompany, "", "", "");
 
-                axRecord = (AxaptaRecord)ax.CallStaticClassMethod("ServiceOrderManagement", "getSMAServiceOrders", inventSiteId, orderStatus);
+                axRecord = (AxaptaRecord)ax.CallStaticClassMethod("ServiceOrderManagement", "getSMAServiceOrders", inventSiteId, orderStatus, serviceOrder);
                     axRecord.ExecuteStmt("select * from %1 order by %1.DateEntry desc");
 
                     while (axRecord.Found)
