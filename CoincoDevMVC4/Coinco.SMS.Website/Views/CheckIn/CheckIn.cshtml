@@ -339,7 +339,7 @@
     <div id="ServiceOrderGridDiv" class="serviceOrderLineGridClass" >
          @{
     
-   Html.Telerik().Grid<Coinco.SMS.Website.Models.ServiceOrderLine>((IEnumerable<Coinco.SMS.Website.Models.ServiceOrderLine>)ViewData["ServiceOrderLine"])
+    Html.Telerik().Grid(Model.ServiceOrderLine.ServiceOrderLineList.AsEnumerable<Coinco.SMS.Website.Models.ServiceOrderLine>())
         .Name("ServiceOrderLineGrid")
         .DataKeys(keys =>
         {
@@ -444,7 +444,7 @@
                           type: 'POST',
                           success: function (result) {
                               var serviceOrderLineGrid = $("#ServiceOrderLineGrid").data("tGrid");
-                              serviceOrderLineGrid.dataBind(result);
+                              serviceOrderLineGrid.dataBind(result.ServiceOrderLine.ServiceOrderLineList);
                               //jQuery('#ServiceOrderGridDiv').html(result);
 
                           },
@@ -534,16 +534,21 @@
           var billingAddressGrid = $("#BillingAddressGrid").data("tGrid");
           var shippingAddressGrid = $("#ShippingAddressGrid").data("tGrid");
           var testData;
+          debugger
           billingAddressGrid.dataBind(testData);
           shippingAddressGrid.dataBind(testData);
+          var serviceOrderLineGrid = $("#ServiceOrderLineGrid").data("tGrid");
+          serviceOrderLineGrid.dataBind();
           //$('#partNumberDropDownList').val('');
           jQuery.ajax({
               url: "/CheckIn/ClearServiceOrderLines",
-              type: 'POST',
+              type: 'GET',
+              datatype: 'json',
+              contentType: "application/json; charset=utf-8",
               success: function (result) {
+
                   //  jQuery('#ServiceOrderGridDiv').html(result);
-                  var serviceOrderLineGrid = $("#ServiceOrderLineGrid").data("tGrid");
-                  serviceOrderLineGrid.dataBind(result);
+
               },
               error: function (result) {
                   alert('An error occured while clearing the values. Please try again');
