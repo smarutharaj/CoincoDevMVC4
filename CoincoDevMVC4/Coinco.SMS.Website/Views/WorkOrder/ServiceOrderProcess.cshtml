@@ -192,45 +192,11 @@
     <div class="partLinesDiv" id="ServicepartLines">
         @{Html.RenderPartial("ServiceOrderPartLinesView");}
     </div>
-    <div class="addressDiv">
-        <h6>
-            Address and Contact</h6>
-        <div class="addLineleftcolumn">
-            <label>
-                Customer Name:</label>
-
-              @{if (Model.ServiceOrders.Customer.CustomerName != null)
-              {
-            
-                @Html.Label(Model.ServiceOrders.Customer.CustomerName, new { @class = "leftView", id = "customerNameLabel" })     
-              }
-              else
-              {
-                @Html.Label("", new { @class = "leftView", id = "customerNameLabel" })     
-              }
-              }
-         
-            <label>
-                Service Technician:</label>
-            @Html.DisplayFor(x => x.ServiceTechnician.ServiceTechnicianName)<br />
-            <label>
-                Service Responsible:</label>
-            @Html.DisplayFor(x => x.ServiceResponsible.ServiceTechnicianName)<br />
-            <label>
-                Customer PO:</label>
-            @Html.DisplayFor(x => x.ServiceOrders.CustomerPO)<br />
-        </div>
-        <div class="centercolumn">
-            <label>
-                Billing Address:</label>
-            @Html.DisplayFor(x => x.Address.AddresswithDesc)<br />
-        </div>
-        <div class="addLineRightcolumn">
-            <label>
-                Shipping Address:</label>
-            @Html.DisplayFor(x => x.Address.AddresswithDesc)<br />
-        </div>
+    <div id ="AddressDiv">
+        @{Html.RenderPartial("AddressView");}
     </div>
+
+   
 </div>
 <script type="text/javascript">
 
