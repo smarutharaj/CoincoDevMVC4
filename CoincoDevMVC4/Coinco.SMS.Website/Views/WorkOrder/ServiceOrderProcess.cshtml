@@ -33,6 +33,7 @@
             .SelectedIndex(0)
             .Render();
             }
+               <span class="mandatory">*</span>
             <br />
         </div>
         <div id="partNumberView">
@@ -43,7 +44,7 @@
         <div class="addLineleftcolumn">
             <div class="header1">
                 Add Lines</div>
-            @Html.Label("Transaction Type:", new { @class = "labelHeaderView", id = "transactionHeadLabel" })  
+            @Html.Label("Transaction Type:", new { @class = "labelHeaderSPView", id = "transactionHeadLabel" })  
             
             @{Html.Telerik().ComboBox().Name("transactionTypeDropDownList")
             .DataBinding(binding => binding.Ajax().Select("_GetTransactionTypes", "WorkOrder"))
@@ -54,12 +55,13 @@
             .CascadeTo("specialtyCodeDropDownList")
             .Render();
             }
+               <span class="mandatory">*</span>
             <br />
-            @Html.Label("Description:", new { @class = "labelHeaderView", id = "descriptionHeadLabel" })  
+            @Html.Label("Description:", new { @class = "labelHeaderSPView", id = "descriptionHeadLabel" })  
             @Html.TextAreaFor(x => x.Description, new { id = "descriptionText" })
             <br />
-            <label>
-                Failure Code:</label>
+           
+             @Html.Label("Failure Code:", new { @class = "labelHeaderSPView", id = "failureCodeeHeadLabel" }) 
             @{Html.Telerik().ComboBox().Name("failureCodeDropDownList")
             .BindTo((SelectList)ViewData["FailureCodeList"])
             .Placeholder("-- Select --")
@@ -70,7 +72,7 @@
             .Render();
             }
             <br />
-            @Html.Label("Specialty Code:", new { @class = "labelHeaderView", id = "specialtyCodeHeadLabel" })  
+            @Html.Label("Specialty Code:", new { @class = "labelHeaderSPView", id = "specialtyCodeHeadLabel" })  
             @{Html.Telerik().ComboBox().Name("specialtyCodeDropDownList")
             .DataBinding(binding => binding.Ajax().Select("_GetDropDownListSpecialtyCode", "WorkOrder"))
             .Placeholder("-- Select --")
@@ -79,7 +81,8 @@
             .SelectedIndex(0)
             .Render();
             }
-            @Html.Label("LineProperty:", new { @class = "labelHeaderView", id = "linePropertyHeadLabel" })  
+               <span class="mandatory">*</span>
+            @Html.Label("LineProperty:", new { @class = "labelHeaderSPView", id = "linePropertyHeadLabel" })  
             @{Html.Telerik().ComboBox().Name("LinePropertyDropDownList")
             .BindTo((SelectList)ViewData["LinePropertyList"])
             .Placeholder("-- Select --")
@@ -88,10 +91,11 @@
             .SelectedIndex(0)
             .Render();
             }
+               <span class="mandatory">*</span>
             <br />
         </div>
         <div class="addLinecentercolumn">
-            @Html.Label("Quantity:", new { @class = "labelHeaderView", id = "quantityHeadLabel" })  
+            @Html.Label("Quantity:", new { @class = "labelHeaderSPView", id = "quantityHeadLabel" })  
             @Html.TextBoxFor(x => x.Quantity, new { @class = "textBoxPropertiesSP", id = "quantityText" })<br />
            @Html.Label("Techniacian:", new { @class = "labelHeaderView", id = "techniacianHeadLabel" }) 
             @{Html.Telerik().ComboBox().Name("techniacianDropDownList")
@@ -113,7 +117,7 @@
             <div class="topDimensioncolumn">
                <div class="header1">
                     Storage Dimension</div>
-            @Html.Label("Item Number:", new { @class = "labelHeaderView", id = "itemNumberHeadLabel" }) 
+            @Html.Label("Item Number:", new { @class = "labelHeaderSPView", id = "itemNumberHeadLabel" }) 
             @{Html.Telerik().ComboBox().Name("itemNumberDropDownList")
             .BindTo((SelectList)ViewData["PartNumberList"])
             .Placeholder("-- Select --")
@@ -124,7 +128,8 @@
 
             .Render();
                 }
-             @Html.Label("Site:", new { @class = "labelHeaderView", id = "siteHeadLabel" })   
+                <span class="mandatory">*</span>
+             @Html.Label("Site:", new { @class = "labelHeaderSPView", id = "siteHeadLabel" })   
                 @{Html.Telerik().ComboBox().Name("siteComboBox")
             .BindTo((SelectList)ViewData["siteList"])
             .Placeholder("-- Select --")
@@ -134,8 +139,9 @@
 
             .Render();
                 }
+                   <span class="mandatory">*</span>
                 @*@Html.DropDownListFor(x => x.Site.SiteID, new SelectList(""), "<--Select One-->", new { @class = "dropDownPropertiesSP", id = "LinePropertyDropDownList" })*@
-             @Html.Label("Warehouse:", new { @class = "labelHeaderView", id = "wareHouseHeadLabel" })   
+             @Html.Label("Warehouse:", new { @class = "labelHeaderSPView", id = "wareHouseHeadLabel" })   
                 @{Html.Telerik().ComboBox().Name("wareHouseDropDownList")
             .DataBinding(binding => binding.Ajax().Select("_GetDropDownWareHouse", "WorkOrder"))
             .Placeholder("-- Select --")
@@ -145,7 +151,7 @@
             .ClientEvents(events => events.OnChange("onwareHouseChange"))
             .Render();
                 }
-             @Html.Label("Location:", new { @class = "labelHeaderView", id = "locationHeadLabel" })   
+             @Html.Label("Location:", new { @class = "labelHeaderSPView", id = "locationHeadLabel" })   
                 @{Html.Telerik().ComboBox().Name("locationDropDownList")
              .Placeholder("-- Select --")
             .HtmlAttributes(new { @class = "dropDownPropertiesSP" })
@@ -158,7 +164,7 @@
             <div class="centerDimensioncolumn">
                <div class="header1">
                Tracking Dimension</div>
-               @Html.Label("Serial Number:", new { @class = "labelHeaderView", id = "serialNoHeadLabel" })   
+               @Html.Label("Serial Number:", new { @class = "labelHeaderSPView", id = "serialNoHeadLabel" })   
                 @{Html.Telerik().ComboBox().Name("trackingSerialNoDropDownList")
              .Placeholder("-- Select --")
             .HtmlAttributes(new { @class = "dropDownPropertiesSP" })
@@ -322,6 +328,11 @@
 
         });
         return false;
+    });
+
+
+    jQuery('#slNumberDropDownList').keyup(function () {
+        $('#slNumberDropDownList').removeClass("input-validation-error");
     });
 
     jQuery('#Update').click(function () {
