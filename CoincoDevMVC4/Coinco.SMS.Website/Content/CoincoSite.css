@@ -202,7 +202,7 @@ label {
     margin : 5px 0 0px 0;
     font-size: 0.8em;
     font-weight: 600;
-    width: 130px;
+    width: 140px;
     display: inline-block;
     vertical-align:top;
 }
@@ -311,7 +311,7 @@ footer
     width: 300px;
     margin-left: 310px;
     position: absolute;
-    margin-top: 30px;
+    margin-top: 35px;
 }
 
 .addLineRightcolumn
@@ -351,8 +351,16 @@ footer
     display:none;
 }
 
-.singleTextBox {
-    width: 12em;
+.textBoxPropertiesSP
+{
+    margin:0px 0px 0px 0px;
+    width:145px;
+    height: 16px; 
+    vertical-align:middle;
+    font-weight:normal;
+    font-family:  Verdana;
+    font-size:8pt;
+    border-color:#8ba0bc;
 }
 
 .partLinesDiv
@@ -368,10 +376,11 @@ footer
 
 .dropDownPropertiesSP
 {
-    margin:5px 0px 5px 0px;
+    margin: 3px 0px 3px 0px;
+    padding:1px 0px 1px 0px;
     max-width: 150px;
     width:150px;
-    height: 20px; 
+    height: 22px; 
     vertical-align:middle;
     font-weight:normal;
     font-family:  Verdana;
@@ -562,14 +571,15 @@ footer
 .submitResultClass
 {
     padding-left: 400px;
-    padding-top:5px;
-    padding-right:400px;
-    padding-bottom:5px;
+    padding-top: 5px;
+    padding-right: 400px;
+    padding-bottom: 5px;
     max-width: 950px;
-    height: 20px;
-    vertical-align:middle;
-     font-weight:normal;
-    
+    height: 18px;
+    vertical-align: middle;
+    font-weight: bold;
+    font-family: Verdana;
+    font-size: small;
 }
 
 .textBoxProperties
