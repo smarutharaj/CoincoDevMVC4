@@ -244,7 +244,7 @@
 
     jQuery('#Add').click(function () {
 
-        var serviceOrderNo = $('#serviceOrderViewlabel').val();
+        var serviceOrderNo = $('#serviceOrderViewlabel')[0].innerHTML;
         var transactionType = $('#transactionTypeDropDownList').val();
         var technicinanNo = $('#techniacianDropDownList').val();
         var quantity = $('#quantityText').val();
