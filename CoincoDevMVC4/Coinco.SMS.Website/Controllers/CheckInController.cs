@@ -275,12 +275,15 @@ namespace Coinco.SMS.Website.Controllers
             {
                 userName = User.Identity.Name.ToString().Split('\\')[1];
                 salesInfoList = salesHistory.GetSalesDetails(serialNo, userName);
-                salesHistory.SalesSerialNumber = salesInfoList[0].SalesSerialNumber;
-                salesHistory.ItemNumber = salesInfoList[0].ItemNumber;
-                salesHistory.SalesOrderNumber = salesInfoList[0].SalesOrderNumber;
-                salesHistory.CustomerName = salesInfoList[0].CustomerName;
-                salesHistory.InvoiceNumber = salesInfoList[0].InvoiceNumber;
-                salesHistory.InvoiceDate = salesInfoList[0].InvoiceDate;
+                if (salesInfoList.Count > 0)
+                {
+                    salesHistory.SalesSerialNumber = salesInfoList[0].SalesSerialNumber;
+                    salesHistory.ItemNumber = salesInfoList[0].ItemNumber;
+                    salesHistory.SalesOrderNumber = salesInfoList[0].SalesOrderNumber;
+                    salesHistory.CustomerName = salesInfoList[0].CustomerName;
+                    salesHistory.InvoiceNumber = salesInfoList[0].InvoiceNumber;
+                    salesHistory.InvoiceDate = salesInfoList[0].InvoiceDate;
+                }
                 salesHistory.ServiceInfoList = salesHistory.GetServiceDetails(serialNo, userName);
                 ViewData["ServiceInformation"] = salesHistory.ServiceInfoList;
                 TempData.Keep();
@@ -304,7 +307,7 @@ namespace Coinco.SMS.Website.Controllers
             List<ServiceOrderLine> serviceOrderLineEmptyList = new List<ServiceOrderLine>();
             try
             {
-                TempData["ServiceOrderLine"] = serviceOrderLineEmptyList;
+                TempData["ServiceOrderLine"] = null;
                 ViewData["ServiceOrderLine"] = serviceOrderLineEmptyList;
                 serviceOrderLine.ServiceOrderLineList=serviceOrderLineEmptyList;
                 serviceOrder.ServiceOrderLine = serviceOrderLine;
@@ -326,7 +329,15 @@ namespace Coinco.SMS.Website.Controllers
                 userName = User.Identity.Name.ToString().Split('\\')[1];
                 if (TempData["ServiceOrderLine"] == null)
                 {
-                    ViewData["ServiceOrderLine"] = GetServiceOrderLinesBySerialNumberPartNumber(partNumber, serialNumber, "");
+                    List<ServiceOrderLine> serviceOrderLineNewList= GetServiceOrderLinesBySerialNumberPartNumber(partNumber, serialNumber, "");
+                    if (serviceOrderLineNewList.Count == 0)
+                    {
+                        throw new Exception("No service order lines found for the entered part number");
+                    }
+                    else
+                    {
+                        ViewData["ServiceOrderLine"] = serviceOrderLineNewList;
+                    }
                 }
                 else
                 {
@@ -335,6 +346,10 @@ namespace Coinco.SMS.Website.Controllers
                     if (serviceOrderLineNewList.Count > 0)
                     {
                         serviceOrderLineExistingList.Add(serviceOrderLineNewList.First());
+                    }
+                    else
+                    {
+                        throw new Exception("No service order lines found for the entered part number");
                     }
                     ViewData["ServiceOrderLine"] = serviceOrderLineExistingList;
                 }
