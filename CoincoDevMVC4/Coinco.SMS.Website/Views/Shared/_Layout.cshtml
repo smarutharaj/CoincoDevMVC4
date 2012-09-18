@@ -12,7 +12,7 @@
     @{Html.Telerik().StyleSheetRegistrar()
                     .DefaultGroup(group => group.Add("telerik.common.css")
                                             .Add("telerik.Office2010Blue.css")
-                                            .Add("CoincoSite.css") 
+                                            .Add("CoincoSite.css")
                                             .CacheDurationInDays(5)
                                             .Combined(false)
                                             .Compress(false)).Render();}
@@ -40,7 +40,7 @@
             
                 <div class ="smsMenuHeader">
                         <div id="InProcess" class="ribbonIconBarClass" >
-                                <a href="@Url.Action("ServiceOrderWithHistory", "WorkOrder", new {siteid = "", process = "0" })" style = "text-decoration:none;">
+                                <a href="@Url.Action("ServiceOrderWithHistory", "WorkOrder", new { siteid = "", process = "0" })" style = "text-decoration:none;">
                                     <img class="imgClass" src="@Url.Content("../../Images/WorkOrder-Open.png")" alt="" />
                                     <p  class= "imgTitle">In Process</p></a>
                         </div>
@@ -63,16 +63,24 @@
                                     <p  class= "imgTitle">Check In</p></a>
                         </div>
                         <div id="RepairLines" class="ribbonIconBarClass">
-                                <a href="@Url.Action("RepairLines", "RepairLines")" style = "text-decoration:none;">
-                                <img class="imgClass" src="@Url.Content("../../Images/RepairLines.png")" alt=""/>
-                                <p class= "imgTitle">Repair Lines</p></a>
-                        
+                        @{if (@Session["SID"] == null)
+                          {
+                              <a id ="a_RepairLine" style = "text-decoration:none;">
+                              <img class="imgClass" src="@Url.Content("../../Images/RepairLines.png")" alt=""/>
+                              <p class= "imgTitle">Repair Lines</p></a>
+                          }
+                        }
                         </div>
                         <div id="OrderProcess" class="ribbonIconBarClass">
-                                <a href="@Url.Action("ServiceOrderProcess", "WorkOrder")" style = "text-decoration:none;">
+
+                        @{if (@Session["SID"] == null)
+                           {
+                                <a id ="a_OrderProcess" style = "text-decoration:none;">
                                 <img class="imgClass" src="@Url.Content("../../Images/new.png")" alt="" />  
                                 <p class= "imgTitle">Order Process</p></a> 
-                        
+
+                           }} 
+
                         </div>
                 </div>
 @*    </div>*@
