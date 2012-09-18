@@ -63,24 +63,15 @@
                                     <p  class= "imgTitle">Check In</p></a>
                         </div>
                         <div id="RepairLines" class="ribbonIconBarClass">
-                        @{if (@Session["SID"] == null)
-                          {
+
                               <a id ="a_RepairLine" style = "text-decoration:none;">
                               <img class="imgClass" src="@Url.Content("../../Images/RepairLines.png")" alt=""/>
                               <p class= "imgTitle">Repair Lines</p></a>
-                          }
-                        }
                         </div>
                         <div id="OrderProcess" class="ribbonIconBarClass">
-
-                        @{if (@Session["SID"] == null)
-                           {
-                                <a id ="a_OrderProcess" style = "text-decoration:none;">
+                                  <a id ="a_OrderProcess" style = "text-decoration:none;">
                                 <img class="imgClass" src="@Url.Content("../../Images/new.png")" alt="" />  
                                 <p class= "imgTitle">Order Process</p></a> 
-
-                           }} 
-
                         </div>
                 </div>
 @*    </div>*@
@@ -90,7 +81,7 @@
     </div>
     <footer>
             <div class="float-right">
-                <p>Developed by Barry-Wehmiller International Pvt Ltd. www.bwir.com</p>
+                <p>Developed by Barry-Wehmiller International Pvt Ltd.<a href = "http://www.bwir.com"> www.bwir.com </a></p>
             </div>
     </footer>
     </div>
