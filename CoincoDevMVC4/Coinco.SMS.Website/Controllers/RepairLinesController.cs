@@ -70,9 +70,10 @@ namespace Coinco.SMS.Website.Controllers
         }
             
         [GridAction]
-        public ActionResult _Selection_RepairLines(string serviceOrderId)
+        public ActionResult _Selection_RepairLines()
         {
             TempData["ServiceOrderId"] = Session["SID"];
+            string serviceOrderId = Session["SID"].ToString();
             TempData.Keep();
             return View(new GridModel<RepairType>
             {
