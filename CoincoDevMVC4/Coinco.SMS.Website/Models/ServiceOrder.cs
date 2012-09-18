@@ -28,6 +28,8 @@ namespace Coinco.SMS.Website.Models
         public List<Address> BillingAddressList { get; set; }
         public List<Address> ShippingAddressList { get; set; }
         public ServiceOrderLine ServiceOrderLine { get; set; }
+        public List<ServiceOrder> ServiceOrderList { get; set; }
+
         public ServiceOrder()
         {
 
@@ -42,7 +44,7 @@ namespace Coinco.SMS.Website.Models
             List<ServiceOrder> serviceOrderList = new List<ServiceOrder>();
             try
             {
-                DataTable resultTable = axHelper.GetServiceOrders(inventId, progressId, userName);
+                DataTable resultTable = axHelper.GetServiceOrders(inventId, progressId, serviceorderId, userName);
 
                 string status = "";
                 foreach (DataRow row in resultTable.Rows)
@@ -55,6 +57,7 @@ namespace Coinco.SMS.Website.Models
                     status = row["Status"].ToString();
                     serviceObject.WOClassification = new Models.WOClassification("",row["WOClassification"].ToString());
                     serviceObject.ServiceTechnician = new Models.ServiceTechnician(row["ServiceTechnician"].ToString(),"");
+                    serviceObject.ServiceResponsible = new Models.ServiceTechnician(row["ServiceResponsible"].ToString(), "");
                     serviceObject.ServiceOrderDate = Convert.ToDateTime(row["EntryDate"].ToString());
                     serviceObject.WOBillingAddress = new Models.Address(row["BillingAddress"].ToString());
                     serviceObject.WOShippingAddress = new Models.Address(row["ShippingAddress"].ToString());

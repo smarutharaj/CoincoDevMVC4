@@ -248,22 +248,22 @@ footer
 .pageCointainer
 {
     width:960px;
-    height:810px
+    max-height:750px;
+    
 }
 .serviceProcessDiv
 {
-    margin-top: 30px;
     max-width: 960px;
-    height: 300px;
+    height: 320px;
     float: left;
-    margin : 0px 0px 0px 0px;
-  
+    margin: 0px 0px 0px 0px;
+   
 }
 .addLinesDiv
 {
-    margin-top: 50px; 
+    margin :35px 0 0 0;
     max-width: 960px;
-   height: 280px;
+    height: 280px;
     
    
 }
@@ -304,7 +304,7 @@ footer
     width: 300px;
     margin-left: 630px;
     position: absolute;
-    height:300px;
+    height:280px;
 }
 
 .topDimensioncolumn
