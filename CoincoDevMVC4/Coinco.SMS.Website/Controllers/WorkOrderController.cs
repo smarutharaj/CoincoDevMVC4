@@ -152,13 +152,17 @@ namespace Coinco.SMS.Controllers
                 ViewData["SORelationList"] = serivceOrderPartLineObject.ServiceOrderPartLineList;
                 ViewData["WorkSerialNumberList"] = serivceOrderPartLineObject.ServiceOrderPartLineList;
                 ViewData["ServiceOrderPartLines"] = GetServiceOrderPartLinesByServiceOrderID(TempData["ServiceOrderId"].ToString());
-                serivceOrderPartLineObject.ServiceOrderList = GetServiceOrderDetailsByServiceOrder(TempData["WorkOrderSiteId"].ToString(), TempData["ServiceOrderId"].ToString());
 
-
-
+  
+                ServiceOrder ServiceOrder=new ServiceOrder();
+                ServiceOrder.ServiceOrderList= GetServiceOrderDetailsByServiceOrder(TempData["WorkOrderSiteId"].ToString(), TempData["ServiceOrderId"].ToString());
+                serivceOrderPartLineObject.ServiceOrders=ServiceOrder;
+                ViewData["ServiceOrderLineinProcess"] = serivceOrderPartLineObject.ServiceOrders.ServiceOrderList;
+                
                 ServiceTechnician serviceTechnician = new ServiceTechnician();
                 serviceTechnician.ServiceTechnicianList = new SelectList(serviceTechnician.GetTechnicians(userName), "ServiceTechnicianNo", "ServiceTechnicianName", null);
                 ViewData["ServiceTechnicianList"] = serviceTechnician.ServiceTechnicianList;
+
 
                 
                 Site site = new Site();
@@ -177,7 +181,7 @@ namespace Coinco.SMS.Controllers
                 ViewData["siteList"] = site.SiteList;
                 ViewData["TranasactionTypes"] = TransactionType.GetTransactionTypes();
                 TempData.Keep();
-            
+      
             }
             catch (Exception ex)
             {
@@ -264,6 +268,8 @@ namespace Coinco.SMS.Controllers
                         serviceOrderObject.ServiceTechnician = new ServiceTechnician(serviceOrderList[0].ServiceTechnician.ServiceTechnicianName,"") ;
                         serviceOrderObject.ServiceResponsible = new ServiceTechnician(serviceOrderList[0].ServiceResponsible.ServiceTechnicianName, "");
 
+                        serviceOrderObject.WOBillingAddress = new Address(serviceOrderList[0].WOBillingAddress.AddresswithDesc);
+                        serviceOrderObject.WOShippingAddress = new Address(serviceOrderList[0].WOShippingAddress.AddresswithDesc);
                         ViewData["ServiceOrderDetailsinProcess"] = serviceOrderList;
                     }
 
