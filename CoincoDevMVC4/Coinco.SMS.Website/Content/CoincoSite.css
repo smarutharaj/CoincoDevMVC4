@@ -737,6 +737,129 @@ footer
 }
 
 
+#viewSalesHistory .t-icon
+{
+    background: transparent url('SalesHistory.png') no-repeat 0 0;
+}
+
+/************************************************************/
+
+/*******************Sales History**************/
+
+.fullViewforSalesHistoryClass
+{
+    padding-left: 10px;
+    padding-top:10px;
+    padding-right:10px;
+    padding-bottom:5px;
+    max-width: 790px;
+    width:790px;
+    height: 25px;
+    vertical-align:middle;
+     font-weight:normal;
+    
+}
+
+.salesHistory
+{
+   padding:10px;
+   width:780px;
+   height:470px;
+   vertical-align:middle;
+
+}
+.rightSalesViewClass
+{
+    float:right;
+    padding-left: 10px;
+    padding-top:0px;
+    padding-bottom:5px;
+    padding-right:10px;
+    max-width: 370px;
+    width:370px;
+    height: 25px;
+    vertical-align:middle;
+    font-family:  Verdana;
+    font-size:8pt;
+     font-weight:normal;
+}
+
+.leftSalesViewClass
+{
+    padding-left: 5px;
+    padding-top:0px;
+    padding-bottom:10px;
+    padding-right:10px;
+    max-width: 370px;
+    width:370px;
+    max-height: 50px;
+    vertical-align:middle;
+   font-family:  Verdana;
+   font-size:8pt;
+    font-weight:normal;
+    float:left;
+}
+.leftadjacentSalesView
+{
+   float:right;
+   width:180px;
+   max-width:180px;
+   text-align: left;
+   vertical-align:middle;
+   font-family:  Verdana;
+   font-size:8pt;
+   font-weight:normal;
+}
+.rightadjacentSalesView
+{
+   float:left;
+   width:180px;
+   text-align: left;
+   vertical-align:middle;
+   font-family:  Verdana;
+   font-size:8pt;
+    font-weight:normal;
+}
+.serviceOrderInfoGridClass
+{
+    padding-left: 5px;
+    padding-top:5px;
+    padding-right:5px;
+    max-width: 780px;
+    height: 220px;
+    vertical-align:middle;
+    font-weight:normal;
+}
+
+.submitButtonClass
+{
+    padding-left: 370px;
+    padding-top:5px;
+    padding-right:370px;
+    padding-bottom:10px;
+    max-width: 780px;
+    height: 20px;
+    vertical-align:middle;
+     font-weight:normal;
+    
+}
+.labelHeadingClass
+{
+    padding:10px;
+    max-width: 750px;
+    width: 750px;
+    height: 10px; 
+    max-height:10px;
+    vertical-align:middle;
+    text-align: left;
+    font-weight:normal;
+    font-family:  Verdana;
+    color: #6B70AB;
+    font-size:9pt;
+    font-weight:bold;
+}
+
+
 /************************************************************/
 
 /*******************Repair Lines**************/
