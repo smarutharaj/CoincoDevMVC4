@@ -149,12 +149,12 @@
   <br />
   <br />
 
-    <div class="centercolumnSubmitRL">
-        <button class="t-button"  id="Create" value="Create"">Add</button>
-        <button class="t-button"  id="Update" value="Update"">Update</button>
-        <button class="t-button"  id="Clear" value="Clear"">Clear</button>
+    <div id="SubmitResult" class="centercolumnSubmitRL">
+        <button class="t-button" type="button" id="Add" value="Add"">Add</button>
+        <button class="t-button" type="button" id="Update" value="Update"">Update</button>
+        <button class="t-button" type="button" id="Clear" value="Clear"">Clear</button>
     </div>
-   <div id ="RepairLinesGrid" class="addLinesDivGrid">
+   <div id ="divRepairLinesGrid" class="addLinesDivGrid">
 
     @{Html.RenderPartial("RepairLineDetails");}
 
@@ -185,7 +185,7 @@
         }
     }
 
-    jQuery('#Create').click(function () {
+    jQuery('#Add').click(function () {
         var serialNumberList = $("#serialNumberList").val();
         var conditionId = $('#conditionList').val();
         var symptomAreaId = $('#symptomAreaList').val();
@@ -214,7 +214,7 @@
                     description: description, 
                     serviceComments: serviceComments },
             success: function (result) {
-                jQuery('#RepairLinesGrid').html(result);
+                jQuery('#divRepairLinesGrid').html(result);
                 alert('Repair Line Created Successfully');
 
                $('#conditionList').data("tComboBox").value("--Select--");
@@ -269,8 +269,10 @@
                 serviceComments: serviceComments
             },
             success: function (result) {
-                jQuery('#RepairLinesGrid').html(result);
+                jQuery('#divRepairLinesGrid').html(result);
+
                 alert('Repair Line Updated Successfully');
+                $('#serialNumberList').data("tComboBox").value("--Select--");
                 $('#conditionList').data("tComboBox").value("--Select--");
                 $('#symptomAreaList').data("tComboBox").value("--Select--");
                 $('#symptomCodeList').data("tComboBox").value("--Select--");
@@ -291,6 +293,7 @@
     });
 
     jQuery('#Clear').click(function () {
+        $('#serialNumberList').data("tComboBox").value("--Select--");
         $('#conditionList').data("tComboBox").value("--Select--");
         $('#symptomAreaList').data("tComboBox").value("--Select--");
         $('#symptomCodeList').data("tComboBox").value("--Select--");
