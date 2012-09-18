@@ -706,7 +706,7 @@ footer
 {
 
     width:960px;
-    height:595px;
+    height:810px;
   
 }
 
@@ -724,6 +724,14 @@ footer
     margin-top: 10px; 
     max-width: 960px;
     height: 80px;
+}
+
+.addLinesDivGrid
+{
+    margin-top: 10px; 
+    padding-top:10px;
+    max-width: 960px;
+    height: 250px;
 }
 
 .addLineleftcolumnRL
@@ -759,6 +767,7 @@ footer
     padding-left: 400px;
     padding-top:5px;
     padding-right:400px;
+    padding-bottom:5px;
     max-width: 890px;
     height: 10px;
     vertical-align:middle;
