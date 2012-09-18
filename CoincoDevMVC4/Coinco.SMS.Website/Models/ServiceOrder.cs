@@ -26,7 +26,8 @@ namespace Coinco.SMS.Website.Models
         public WOClassification WOClassification { get; set; }
         public List<Address> AddressList { get; set; }
         public List<Address> BillingAddressList { get; set; }
-        public List<Address> ShippingAddressList { get; set; } 
+        public List<Address> ShippingAddressList { get; set; }
+        public ServiceOrderLine ServiceOrderLine { get; set; }
         public ServiceOrder()
         {
 
