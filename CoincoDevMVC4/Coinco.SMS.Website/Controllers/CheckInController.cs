@@ -190,6 +190,7 @@ namespace Coinco.SMS.Website.Controllers
         #endregion
 
         #region "Other Details Get Actions"
+        [OutputCache(Duration = 0)] 
         [HttpGet]
         public JsonResult GetOtherDetails(string customerAccount)
         {
@@ -299,7 +300,7 @@ namespace Coinco.SMS.Website.Controllers
 
         #region "Service Order Line Grid Post Actions"
 
-
+        [OutputCache(Duration = 0)] 
         public JsonResult ClearServiceOrderLines()
         {
             ServiceOrder serviceOrder = new ServiceOrder();
@@ -320,7 +321,7 @@ namespace Coinco.SMS.Website.Controllers
             }
             return Json(serviceOrder, JsonRequestBehavior.AllowGet);
         }
-        
+        [OutputCache(Duration = 0)] 
         public JsonResult GetServiceOrderLinesHistoryBySerialNumberPartNumber(ServiceOrder model, string serialNumber, string partNumber)
         {
             string userName = null;
