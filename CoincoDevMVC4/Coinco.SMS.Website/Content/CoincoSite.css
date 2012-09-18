@@ -267,7 +267,7 @@ footer
     vertical-align: middle;
     text-align: left;
     height: 26px;
-    font-size: 14px;
+    font-size: 0.88em;
     font-weight: bold;
     font-family: Verdana;
     color: #6B70AB;
@@ -408,6 +408,19 @@ footer
 
 }
 
+.labelHeaderSPView
+{
+   float:left;
+   width:135px;
+   text-align: left;
+   vertical-align:middle;
+   font-family:  Verdana;
+   font-size:9pt;
+   font-weight:normal;
+
+
+}
+
 .labelViewSO
 {
     float: left;
@@ -420,6 +433,15 @@ footer
     font-weight: normal;
 }
 
+
+.mandatory
+{
+	FONT-WEIGHT: bold;
+    FONT-SIZE: 10px;
+    COLOR:Red;
+    FONT-FAMILY: verdana,helvetica;
+    text-align:center;
+}
 /*******************end********************/
 
 
