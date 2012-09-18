@@ -97,7 +97,7 @@
         <div class="addLinecentercolumn">
             @Html.Label("Quantity:", new { @class = "labelHeaderSPView", id = "quantityHeadLabel" })  
             @Html.TextBoxFor(x => x.Quantity, new { @class = "textBoxPropertiesSP", id = "quantityText" })<br />
-           @Html.Label("Techniacian:", new { @class = "labelHeaderView", id = "techniacianHeadLabel" }) 
+           @Html.Label("Technician:", new { @class = "labelHeaderView", id = "techniacianHeadLabel" }) 
             @{Html.Telerik().ComboBox().Name("techniacianDropDownList")
             .BindTo((SelectList)ViewData["ServiceTechnicianList"])
             .Placeholder("-- Select --")
