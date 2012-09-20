@@ -265,7 +265,6 @@ namespace Coinco.SMS.Website.Controllers
 
         #region Sales History Details Get Action
 
-
         public JsonResult GetSalesHistoryDetails(string serialNo)
         {
             string userName = null;
@@ -296,6 +295,7 @@ namespace Coinco.SMS.Website.Controllers
             }
             return Json(salesHistory);
         }
+
         #endregion
 
         #region "Service Order Line Grid Post Actions"
@@ -321,6 +321,7 @@ namespace Coinco.SMS.Website.Controllers
             }
             return Json(serviceOrder, JsonRequestBehavior.AllowGet);
         }
+        
         [OutputCache(Duration = 0)] 
         public JsonResult GetServiceOrderLinesHistoryBySerialNumberPartNumber(ServiceOrder model, string serialNumber, string partNumber)
         {

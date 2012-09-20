@@ -49,6 +49,14 @@
             .Name("ServiceOrderLineGrid")
         .Columns(columns=>
         {
+            columns.Command(commands => commands
+                    .Custom("getSalesHistoryDetails").ButtonType(GridButtonType.Image)
+                    .DataRouteValues(route => route.Add(c => c.SerialNumber).RouteKey("serialNo"))
+                    .Ajax(true)
+                    .Action("GetSalesHistoryDetails", "CheckIn")).Title("History")
+
+                .HtmlAttributes(new { style = "text-align: center", id = "viewSalesHistory" })
+                .Width(65);
             columns.Bound(c => c.SerialNumber).Width(100);
             columns.Bound(c => c.PartNumber).Width(100);
             columns.Bound(c => c.PartType).Width(100); 
@@ -61,7 +69,8 @@
             //{
             //serviceOrderId = "" }))
              .DataBinding(dataBinding => dataBinding.Ajax().Select("_SelectionClientSide_SerialNumber", "WorkOrder"))
-        .ClientEvents(clientEvents => clientEvents.OnDataBinding("onDataBinding"))
+        .ClientEvents(clientEvents => clientEvents.OnDataBinding("onDataBinding")
+                                                  .OnComplete("onComplete"))
         .HtmlAttributes(new { style = "font-size: 8pt; font-family: Verdana;" })
         .Pageable()
         .Sortable()
@@ -135,7 +144,62 @@
 //        $(".iqNameTooltip").live("mouseout", function () {
 //            $('.iqTooltip').remove();
 //        });
-    // *****    END Tooltip     *****
+        // *****    END Tooltip     *****
+
+        function onComplete(e) {
+
+            if (e.name == "getSalesHistoryDetails") {
+                var detailWindow = $("#SalesDetailsHistory").data("tWindow");
+                var saleshistory = e.response;
+                if (saleshistory.SalesSerialNumber != null) {
+                    $('#serialNumberLabel').text(saleshistory.CustomerName);
+                }
+                else {
+                    $('#serialNumberLabel').text('');
+                }
+                if (saleshistory.CustomerName != null) {
+                    $('#nameLabel').text(saleshistory.CustomerName);
+                }
+                else {
+                    $('#nameLabel').text('');
+                }
+
+                if (saleshistory.ItemNumber != null) {
+                    $('#itemNumberLabel').text(saleshistory.ItemNumber);
+                }
+                else {
+                    $('#itemNumberLabel').text('');
+                }
+
+                if (saleshistory.InvoiceNumber != null) {
+                    $('#invoiceNumberLabel').text(saleshistory.InvoiceNumber);
+                }
+                else {
+                    $('#invoiceNumberLabel').text('');
+                }
+
+                if (saleshistory.ItemNumber != null) {
+                    $('#salesOrderLabel').text(saleshistory.ItemNumber);
+                }
+                else {
+                    $('#salesOrderLabel').text('');
+                }
+
+                if (saleshistory.InvoiceNumber != null) {
+                    $('#invoiceDateLabel').text(saleshistory.InvoiceNumber);
+                }
+                else {
+                    $('#invoiceDateLabel').text('');
+                }
+                if (saleshistory.ServiceInfoList != null) {
+                    var serviceInformationGrid = $("#ServiceInformationGrid").data("tGrid");
+
+                    serviceInformationGrid.dataBind(saleshistory.ServiceInfoList);
+                    detailWindow.center().open();
+
+                }
+            }
+        }
 </script>
 
 

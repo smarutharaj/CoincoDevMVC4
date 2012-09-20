@@ -4,135 +4,6 @@
 @{
     ViewBag.Title = "CheckIn";
 }
-@{ Html.Telerik().Window()
-        .Name("SalesDetailsHistory")
-        .Modal(true)
-        .Title("Sales Details History")
-        .Content(@<text>
-        
-
-        <div id="SalesDetailsHistory" class="salesHistory" >
-              <label class="labelHeadingClass">Sales Information</label>
-          
-
-            <div id="firstSalesInfo" class="fullViewforSalesHistoryClass">
-
-                <div id="SerialNumberParentDiv" class="leftSalesViewClass"> 
-                    <div id="SerialNumberDiv" class="leftView" >
-                        @Html.Label("Serial Number", new { @class = "leftView" })
-                    </div>
-                    <div id="SerialNumberResult" class="leftadjacentSalesView">
-                        @Html.Label("Serial Number", new { @class = "leftView" , id="serialNumberLabel"})                  
-                    </div>
-                </div>
-                 
-                 <div id="Name" class="rightSalesViewClass"> 
-                    <div id="nameDiv" class="rightView" >
-                        @Html.Label("Name", new { @class = "rightView" })
-                    </div>
-                    <div id="nameResult" class="rightadjacentSalesView">                  
-                          @Html.Label("Name", new { @class = "leftView" , id="nameLabel"})     
-                    </div>
-                </div>
-
-            </div>
-
-            <div id="secondSalesInfo" class="fullViewforSalesHistoryClass">
-                <div id="ItemNumber" class="leftSalesViewClass"> 
-                    <div id="ItemNumberDiv" class="leftView" >
-                        @Html.Label("Item Number", new { @class = "leftView" })
-                    </div>
-                    <div id="ItemNumberResult" class="leftadjacentSalesView">                  
-                        @Html.Label("Item Number", new { @class = "leftView" , id="itemNumberLabel"})     
-                    </div>
-                </div>
-                 
-                 <div id="InvoiceNumber" class="rightSalesViewClass"> 
-                    <div id="invoiceNumberDiv" class="rightView" >
-                        @Html.Label("Invoice Number", new { @class = "rightView" })
-                    </div>
-                    <div id="invoiceNumberResult" class="rightadjacentSalesView">                  
-                                    @Html.Label("Invoice Number", new { @class = "leftView", id = "invoiceNumberLabel" })     
-                    </div>
-                </div>
-
-            </div>
-
-            <div id="thirdSalesInfo" class="fullViewforSalesHistoryClass">
-                <div id="SalesOrder" class="leftSalesViewClass"> 
-                    <div id="salesOrderDiv" class="leftView" >
-                        @Html.Label("SalesOrder", new { @class = "leftView" })
-                    </div>
-                    <div id="SalesOrderResult" class="leftadjacentSalesView">                  
-                        @Html.Label("Sales Order", new { @class = "leftView" , id="salesOrderLabel"})     
-                    </div>
-                </div>
-                 
-                 <div id="InvoiceDate" class="rightSalesViewClass"> 
-                    <div id="invoiceDateDiv" class="rightView" >
-                        @Html.Label("Invoice Date", new { @class = "rightView" })
-                    </div>
-                    <div id="invoiceDateResult" class="rightadjacentSalesView">                  
-                                    @Html.Label("Invoice Date", new { @class = "leftView", id = "invoiceDateLabel" })     
-                    </div>
-                </div>
-
-            </div>
-
-            <div>
-            
-                 </div>
-           <label class="labelHeadingClass">Service Information</label>
-
-            <div id ="serviceInfoGridDiv" class="serviceOrderInfoGridClass" >
-       @{
-    
-           Html.Telerik().Grid<Coinco.SMS.Website.Models.SalesHistory>((IEnumerable<Coinco.SMS.Website.Models.SalesHistory>)ViewData["ServiceInformation"])
-        .Name("ServiceInformationGrid")
-        
-        .Columns(columns =>
-        {
-            columns.Bound(c => c.SalesServiceOrder).Title("Service Order").Width(120).ReadOnly();                                                                                                                                
-            columns.Bound(c => c.SalesPrice).Title("Service Amount").Width(130).ReadOnly();
-            columns.Bound(c => c.DateExecution).Title("Date").Width(110).ReadOnly();
-            columns.Bound(c => c.Description).Title("Description").ReadOnly();              
-        })
-
-        .DataBinding(dataBinding =>
-        {
-            dataBinding.Ajax().OperationMode(GridOperationMode.Client).Select("_SelectionClientSide_ServiceInfoLines", "CheckIn")
-                .Enabled(true);
-        } 
-        )
-        
-        .HtmlAttributes(new { style = "font-size: 8pt; font-family: Verdana;" })
-        .Scrollable(c => c.Height("180px"))
-        .Pageable((pager => pager.PageSize(10)))
-        .Sortable()
-        .Selectable()
-        .Filterable()
-       .Render();
-    
-        }
-      
-        
-        </text>)
-        
-        .Buttons(b => b.Close())
-        .Visible(false)
-        .Width(790)
-        .Height(470)
-        .Scrollable(false)
-        .Render();
-        
-}
-  </div> 
-
-            <div id="closeButtonDiv" class="submitButtonClass">
-                <button class="t-button" type="button" id="Close" value="Close">Close</button>     
-            </div>
-
-</div>
 
 @using (Html.BeginForm())
 {
@@ -195,12 +66,12 @@
             columns.Template(@<text>
 
 
-                    <input name="checkedRecords" type="checkbox" checked="@item.IsSelected" value="@item.AddressId" title="checkedRecords"           
+                    <input name="checkedRecords" type="checkbox" checked="@item.IsSelected" value="@item.AddressId" title="checkedRecords" style="text-align:center"          
                      />
                 </text>)
                    .ClientTemplate("<input type='checkbox' name='checkedRecords' value='<#= AddressId #>' checked='<#= IsSelected #>' />")
                    .Title("")
-                   .Width(25)
+                   .Width(30)
                    .HtmlAttributes(new { style = "text-align:center" });
 
             columns.Bound(c => c.AddressDetails).Title("Shipping Address");
@@ -313,10 +184,12 @@
         </div>
 
         <div id="SerialNumberTextBox" class="leftadjacentView">
-                 @Html.TextBox("serialNumberTextBox", "", new { @class = "textBoxProperties" }) 
+                 @Html.TextBox("serialNumberTextBox", "", new { @class = "textBoxProperties" })
+                
         </div>
-    </div>
 
+    </div>
+     <span style = "font-size: 8pt; font-family: Verdana;FONT-WEIGHT: bold;COLOR:Red" >*</span>
     <div id="PartNumber" class="rightViewClassforThirdColumn"> 
         <div id="PartNumberLabel" class="rightView" >
             @Html.Label("Part Number", new { @class = "rightView" })
@@ -437,12 +310,24 @@
                       
                       var partNumberDropDownList = $('#partNumberDropDownList').data('tComboBox');
                       partNumberDropDownList.dataBind(serviceOrder.PartDetails.PartDetailsList);
-
+//                      partNumberDropDownList.dataBindAsTable({
+//                    data: serviceOrder.PartDetails.PartDetailsList,
+//                    displayFields: [{
+//                        fieldName: "ItemNumber",
+//                        style: "font-weight:bold"
+//                    },{
+//                        fieldName: "ProductName",
+//                        style: "color:Red;"
+//                    }],
+//                    separator: { visible: true, color: "Blue" },
+//                    selectedField: "ProductName",
+//                    valueField: "ItemNumber"
+//               });
                       $('#serviceTechnicianDropDownList').data('tComboBox').value('<--SELECT-->');
                       $('#serviceResponsibleDropDownList').data('tComboBox').value('<--SELECT-->');
                       $('#woClassificationDropDownList').data('tComboBox').value('<--SELECT-->');
                       $('#partNumberDropDownList').data('tComboBox').value('<--SELECT-->');
-
+                    
                       var billingAddressGrid = $("#BillingAddressGrid").data("tGrid");
                       var shippingAddressGrid = $("#ShippingAddressGrid").data("tGrid");
                       billingAddressGrid.dataBind(serviceOrder.BillingAddressList);
@@ -477,6 +362,119 @@
           }
       }
 
+      $(function () {
+          $('#serialNumberTextBox').keydown(function (e) {
+              if (e.keyCode == 13) {
+
+                  var isSerialNumberExist = false;
+                  var partNumber = $('#partNumberDropDownList').val();
+                  if (($.trim(partNumber) == '<--SELECT-->') || (partNumber == null)) {
+                      partNumber = '';
+                  }
+                  var serialNumber = $('#serialNumberTextBox').val();
+                  if (($.trim(serialNumber) == '') || (serialNumber == null)) {
+                      alert('Please enter the serial number before adding a line.');
+                      $('#serialNumberTextBox').addClass("input-validation-error");
+                      $('#serialNumberTextBox').focus();
+                      return;
+                  }
+
+                  $("#ServiceOrderLineGrid .t-grid-content tbody > tr").each(function () {
+                      var tr = this;
+                      var cells = tr.cells;
+                      if (cells[2] != null) {
+                          var firstCell = cells[2].innerHTML;
+                          if (firstCell == serialNumber) {
+                              alert('The entered serial number is already availble in the lines table. Please enter a different serial number.');
+                              $('#serialNumberTextBox').focus();
+                              isSerialNumberExist = true;
+                              return;
+                          }
+                      }
+                  });
+                  if (isSerialNumberExist) {
+                      return;
+                  }
+                  jQuery.ajax({
+                      url: "/CheckIn/GetServiceOrderLinesHistoryBySerialNumberPartNumber",
+                      type: 'GET',
+                      contentType: "application/json; charset=utf-8",
+                      data: { partNumber: partNumber, serialNumber: serialNumber },
+                      success: function (result) {
+                          // jQuery('#ServiceOrderGridDiv').html(result);
+                          var serviceOrderLineGrid = $("#ServiceOrderLineGrid").data("tGrid");
+                          serviceOrderLineGrid.dataBind(result);
+                      },
+                      error: function (result) {
+                          var response = result.responseText;
+                          var start = result.responseText.search("<title>") + 7;
+                          var end = result.responseText.search("</title>");
+
+                          if (start > 0 && end > 0)
+                              alert(" " + result.responseText.substring(start, end) + ".");
+
+                          //alert('An error occured while adding the service order lines. Please check the inputs and try again');
+
+                      }
+
+                  });
+                  return false;
+              }
+          });
+      });
+
+
+      jQuery('#Add').click(function () {
+          var isSerialNumberExist = false;
+          var partNumber = $('#partNumberDropDownList').val();
+          if (($.trim(partNumber) == '<--SELECT-->') || (partNumber == null)) {
+              partNumber = '';
+          }
+          var serialNumber = $('#serialNumberTextBox').val();
+          if (($.trim(serialNumber) == '') || (serialNumber == null)) {
+              alert('Please enter the serial number before adding a line.');
+              $('#serialNumberTextBox').addClass("input-validation-error");
+              $('#serialNumberTextBox').focus();
+              return;
+          }
+
+          $("#ServiceOrderLineGrid .t-grid-content tbody > tr").each(function () {
+              var tr = this;
+              var cells = tr.cells;
+              if (cells[2] != null) {
+                  var firstCell = cells[2].innerHTML;
+                  if (firstCell == serialNumber) {
+                      alert('The entered serial number is already availble in the lines table. Please enter a different serial number.');
+                      $('#serialNumberTextBox').focus();
+                      isSerialNumberExist = true;
+                      return;
+                  }
+              }
+          });
+          if (isSerialNumberExist) {
+              return;
+          }
+          jQuery.ajax({
+              url: "/CheckIn/GetServiceOrderLinesHistoryBySerialNumberPartNumber",
+              type: 'GET',
+              contentType: "application/json; charset=utf-8",
+              data: { partNumber: partNumber, serialNumber: serialNumber },
+              success: function (result) {
+                  var serviceOrderLineGrid = $("#ServiceOrderLineGrid").data("tGrid");
+                  serviceOrderLineGrid.dataBind(result);
+              },
+              error: function (result) {
+                  var response = result.responseText;
+                  var start = result.responseText.search("<title>") + 7;
+                  var end = result.responseText.search("</title>");
+
+                  if (start > 0 && end > 0)
+                      alert(" " + result.responseText.substring(start, end) + ".");
+              }
+
+          });
+          return false;
+      });
 
       jQuery('#Create').click(function () {
 
@@ -686,119 +684,7 @@
             })
         }
 
-        $(function () {
-            $('#serialNumberTextBox').keydown(function (e) {
-                if (e.keyCode == 13) {
-
-                    var isSerialNumberExist = false;
-                    var partNumber = $('#partNumberDropDownList').val();
-                    if (($.trim(partNumber) == '<--SELECT-->') || (partNumber == null)) {
-                        partNumber = '';
-                    }
-                    var serialNumber = $('#serialNumberTextBox').val();
-                    if (($.trim(serialNumber) == '') || (serialNumber == null)) {
-                        alert('Please enter the serial number before adding a line.');
-                        $('#serialNumberTextBox').addClass("input-validation-error");
-                        $('#serialNumberTextBox').focus();
-                        return;
-                    }
-
-                    $("#ServiceOrderLineGrid .t-grid-content tbody > tr").each(function () {
-                        var tr = this;
-                        var cells = tr.cells;
-                        if (cells[2] != null) {
-                            var firstCell = cells[2].innerHTML;
-                            if (firstCell == serialNumber) {
-                                alert('The entered serial number is already availble in the lines table. Please enter a different serial number.');
-                                $('#serialNumberTextBox').focus();
-                                isSerialNumberExist = true;
-                                return;
-                            }
-                        }
-                    });
-                    if (isSerialNumberExist) {
-                        return;
-                    }
-                    jQuery.ajax({
-                        url: "/CheckIn/GetServiceOrderLinesHistoryBySerialNumberPartNumber",
-                        type: 'GET',
-                        contentType: "application/json; charset=utf-8",
-                        data: { partNumber: partNumber, serialNumber: serialNumber },
-                        success: function (result) {
-                            // jQuery('#ServiceOrderGridDiv').html(result);
-                            var serviceOrderLineGrid = $("#ServiceOrderLineGrid").data("tGrid");
-                            serviceOrderLineGrid.dataBind(result);
-                        },
-                        error: function (result) {
-                            var response = result.responseText;
-                            var start = result.responseText.search("<title>") + 7;
-                            var  end = result.responseText.search("</title>");
-
-                            if (start > 0 && end > 0)
-                                alert(" " + result.responseText.substring(start, end) + ".");
-    
-                            //alert('An error occured while adding the service order lines. Please check the inputs and try again');
-
-                        }
-
-                    });
-                    return false;
-                }
-            });
-        });
-      jQuery('#Add').click(function () {
-          var isSerialNumberExist = false;
-          var partNumber = $('#partNumberDropDownList').val();
-          if (($.trim(partNumber) == '<--SELECT-->') || (partNumber == null)) {
-              partNumber = '';
-          }
-          var serialNumber = $('#serialNumberTextBox').val();
-          if (($.trim(serialNumber) == '') || (serialNumber == null)) {
-              alert('Please enter the serial number before adding a line.');
-              $('#serialNumberTextBox').addClass("input-validation-error");
-              $('#serialNumberTextBox').focus();
-              return;
-          }
-
-          $("#ServiceOrderLineGrid .t-grid-content tbody > tr").each(function () {
-              var tr = this;
-              var cells = tr.cells;
-              if (cells[2] != null) {
-                  var firstCell = cells[2].innerHTML;
-                  if (firstCell == serialNumber) {
-                      alert('The entered serial number is already availble in the lines table. Please enter a different serial number.');
-                      $('#serialNumberTextBox').focus();
-                      isSerialNumberExist = true;
-                      return;
-                  }
-              }
-          });
-          if (isSerialNumberExist) {
-              return;
-          }
-          jQuery.ajax({
-              url: "/CheckIn/GetServiceOrderLinesHistoryBySerialNumberPartNumber",
-              type: 'GET',
-              contentType: "application/json; charset=utf-8",
-              data: { partNumber: partNumber, serialNumber: serialNumber },
-              success: function (result) {
-                  var serviceOrderLineGrid = $("#ServiceOrderLineGrid").data("tGrid");
-                  serviceOrderLineGrid.dataBind(result);
-              },
-              error: function (result) {
-                  var response = result.responseText;
-                  var start = result.responseText.search("<title>") + 7;
-                  var end = result.responseText.search("</title>");
-
-                  if (start > 0 && end > 0)
-                      alert(" " + result.responseText.substring(start, end) + ".");
-              }
-
-          });
-          return false;
-      });
-
-
+       
       jQuery('#serialNumberTextBox').keyup(function () {
           $('#serialNumberTextBox').removeClass("input-validation-error");
       });
@@ -806,4 +692,5 @@
       function onDataBinding(e) {
 
       }
+
 </script>
