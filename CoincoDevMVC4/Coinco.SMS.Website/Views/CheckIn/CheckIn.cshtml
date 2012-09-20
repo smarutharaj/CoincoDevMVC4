@@ -458,6 +458,10 @@
           if (isSerialNumberExist) {
               return;
           }
+
+          $("#Add").attr("disabled", "disabled");
+          $("#Add").prop("disabled", true);
+
           jQuery.ajax({
               url: "/CheckIn/GetServiceOrderLinesHistoryBySerialNumberPartNumber",
               type: 'GET',
@@ -466,6 +470,7 @@
               success: function (result) {
                   var serviceOrderLineGrid = $("#ServiceOrderLineGrid").data("tGrid");
                   serviceOrderLineGrid.dataBind(result);
+                  $("#Add").prop("disabled", false);
               },
               error: function (result) {
                   var response = result.responseText;
@@ -474,6 +479,8 @@
 
                   if (start > 0 && end > 0)
                       alert(" " + result.responseText.substring(start, end) + ".");
+                  $("#Add").prop("disabled", false);
+
               }
 
           });
@@ -519,6 +526,9 @@
               alert('Please add atleast one service order line to create an order.');
               return;
           }
+
+          $("#Add").prop("disabled", true);
+          $("#Create").prop("disabled", true);
           jQuery.ajax({
               url: "/CheckIn/CreateServiceOrder",
               type: 'GET',
@@ -545,9 +555,13 @@
                   shippingAddressGrid.dataBind(testData);
                   alert('Service order created successfully.');
 
+                  $("#Add").prop("disabled", false);
+                  $("#Create").prop("disabled", false);
               },
               error: function (result) {
                   alert('An error occured while creating the service order. Please check the inputs and try again');
+                  $("#Add").prop("disabled", false);
+                  $("#Create").prop("disabled", false);
               }
 
           });
@@ -582,7 +596,10 @@
                   serviceOrderLineGrid.data = null;
                   serviceOrderLineGrid.dataSource = null;
                   serviceOrderLineGrid.dataBind();
-
+                  $("#Add").removeAttr("disabled");
+                  $("#Create").removeAttr("disabled");
+                  $("#Add").prop("disabled", false);
+                  $("#Create").prop("disabled", false);
               },
               error: function (result) {
                   alert('An error occured while clearing the values. Please try again');
