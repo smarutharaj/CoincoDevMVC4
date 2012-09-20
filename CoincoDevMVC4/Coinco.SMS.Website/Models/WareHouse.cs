@@ -14,7 +14,7 @@ namespace Coinco.SMS.Website.Models
         public string WareHouseCode { get; set; }
         public string WareHouseName { get; set; }
         public string PhyiscalQty { get; set; }
-
+        public string WareHouseandQty { get; set; }
         public SelectList WareHouseList { get; set; } 
 
         public WareHouse()
@@ -22,11 +22,12 @@ namespace Coinco.SMS.Website.Models
 
         }
 
-        public WareHouse(string wareHouseCode, string wareHouseName, string phyiscalQty)
+        public WareHouse(string wareHouseCode, string wareHouseName, string phyiscalQty, string wareHouseandQty)
         {
             this.WareHouseCode = wareHouseCode;
             this.WareHouseName = wareHouseName;
             this.PhyiscalQty = phyiscalQty;
+            this.WareHouseandQty = wareHouseandQty;
         }
 
 
@@ -45,6 +46,7 @@ namespace Coinco.SMS.Website.Models
                     wareHouseObject.WareHouseCode = row["WareHouseID"].ToString();
                     wareHouseObject.WareHouseName = row["WareHouseName"].ToString();
                     wareHouseObject.PhyiscalQty = row["PhysicalQty"].ToString();
+                    wareHouseObject.WareHouseandQty = wareHouseObject.WareHouseCode + " [Qty - " + wareHouseObject.PhyiscalQty + " ]";
                     wareHouseList.Add(wareHouseObject);
 
                 }

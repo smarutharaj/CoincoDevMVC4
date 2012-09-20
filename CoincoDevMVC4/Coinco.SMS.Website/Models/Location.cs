@@ -14,6 +14,7 @@ namespace Coinco.SMS.Website.Models
         public string LocationId { get; set; }
         public string LocationName { get; set; }
         public string LocationQty { get; set; }
+        public string LocationandQty { get; set; }
 
         public SelectList LocationList { get; set; } 
 
@@ -22,11 +23,13 @@ namespace Coinco.SMS.Website.Models
 
         }
 
-        public Location(string locationId, string locationName, string locationQty)
+        public Location(string locationId, string locationName, string locationQty, string locationandQty)
         {
             this.LocationId = locationId;
             this.LocationName = locationName;
             this.LocationQty = locationQty;
+            this.LocationandQty = locationandQty;
+             
         }
 
         public List<Location> GetLocations(string itemNumber, string site, string warehouse, string userName)
@@ -43,6 +46,7 @@ namespace Coinco.SMS.Website.Models
                     Location locationObject = new Location();
                     locationObject.LocationId = row["LocationID"].ToString();
                     locationObject.LocationQty = row["PhysicalQty"].ToString();
+                    locationObject.LocationandQty = locationObject.LocationId  + " [Qty - " + locationObject.LocationQty + " ]"; 
                     locationList.Add(locationObject);
 
                 }

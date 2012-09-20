@@ -9,7 +9,7 @@
            })
         .Columns(columns =>
         {
-            //columns.Bound(c => c.SerialNumber).Title("SerialNumber").Width(120);
+            
             
             columns.Bound(c => c.TransactionType.TransactionTypeName).Title("Transaction").Width(100);
             columns.Bound(c => c.Description).Width(100);
@@ -54,9 +54,9 @@
         <script type="text/javascript">
 
             function onRowSelecting(e) {
-          debugger
+     debugger
                 //var partLineGrid = $("#PartLinesGrid").data('tgrid');
-          $("#Add").val('Update');
+          $('#submit').text('Update');
          
 
             var uniqueId = e.row.cells[13].innerHTML;
@@ -81,8 +81,16 @@
             $('#transactionTypeDropDownList').data('tComboBox').value(itemtype);
             $('#descriptionText').val(description);
             $('#quantityText').val(quanity);
-            $('#techniacianDropDownList').data('tComboBox').value(technician);
+
             $('#specialtyCodeDropDownList').data('tComboBox').value(specialitycode);
+
+            if (technician == '' || technician == '&nbsp;') {
+                $('#techniacianDropDownList').data('tComboBox').value('--Select--');
+            }
+            else {
+                $('#techniacianDropDownList').data('tComboBox').value(technician);
+            }
+
             $('#failureCodeDropDownList').data('tComboBox').value(failureCode);
             $('#LinePropertyDropDownList').data('tComboBox').value(lineProperty);
             if (itemtype == 'Item') {
