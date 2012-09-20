@@ -340,7 +340,9 @@ namespace Coinco.SMS.Website.Models
                     repairObject.DiagonsisCodeId = row["DiagnosisCodeId"].ToString();
                     repairObject.ResolutionId = row["ResolutionId"].ToString();
                     repairObject.RepairStageId = row["RepairStageId"].ToString();
-                    repairObject.ServiceTechnicianNo = row["Technician"].ToString();
+                    repairObject.ServiceTechnicianNo = row["TechnicianNo"].ToString();
+                    repairObject.ServiceTechnicianName = row["TechnicianName"].ToString();
+                    //repairObject.Technician = new Models.ServiceTechnician(row["TechnicianName"].ToString(), row["TechnicianNo"].ToString());
                     repairObject.Comments = row["ServiceComments"].ToString();
 
 

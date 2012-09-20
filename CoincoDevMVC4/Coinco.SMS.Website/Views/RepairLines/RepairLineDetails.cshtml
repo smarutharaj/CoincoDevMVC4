@@ -11,7 +11,8 @@
         {
             
             columns.Bound(c => c.UniqueId).Hidden();
-            columns.Bound(c => c.Technician).Hidden();
+            columns.Bound(c => c.ServiceTechnicianNo).Hidden();
+            columns.Bound(c => c.ServiceTechnicianName).Hidden();
             columns.Bound(c => c.Comments).Hidden();
             columns.Bound(c => c.ServiceObjectRelation).Title("Serial#").Width(70);
             columns.Bound(c => c.Description).Title("Description").Width(100);
@@ -52,19 +53,56 @@
     function onRowSelecting(e) {
         var uniqueId = e.row.cells[0].innerHTML;
         var technicianNo = e.row.cells[1].innerHTML;
-        var serviceComments = e.row.cells[2].innerHTML;
-        var serialNumberList = e.row.cells[3].innerHTML;
-        var description = e.row.cells[4].innerHTML;
-        var conditionId = e.row.cells[5].innerHTML;
-        var symptomAreaId = e.row.cells[6].innerHTML;
-        var symptomCodeId = e.row.cells[7].innerHTML;
-        var diagnosisAreaId = e.row.cells[8].innerHTML;
-        var diagonsisCodeId = e.row.cells[9].innerHTML;
-        var resolutionId = e.row.cells[10].innerHTML;
-        var repairStageId = e.row.cells[11].innerHTML;
+        if (technicianNo == "" | technicianNo == "&nbsp;") 
+        {
+            technicianNo = "--Select--";
+        }
+        var technicianName = e.row.cells[2].innerHTML;
+        if (technicianName == "" | technicianName == "&nbsp;")
+        {
+            technicianName = "--Select--";
+        } 
+        var serviceComments = e.row.cells[3].innerHTML;
+        var serialNumberList = e.row.cells[4].innerHTML;
+        var description = e.row.cells[5].innerHTML;
+        var conditionId = e.row.cells[6].innerHTML;
+        if (conditionId == "" | conditionId == "&nbsp;") 
+        {
+            conditionId = "--Select--";
+        }
+        var symptomAreaId = e.row.cells[7].innerHTML;
+        if (symptomAreaId == "" | symptomAreaId == "&nbsp;") 
+        {
+            symptomAreaId = "--Select--";
+        }
+        var symptomCodeId = e.row.cells[8].innerHTML;
+        if (symptomCodeId == "" | symptomCodeId == "&nbsp;") 
+        {
+            symptomCodeId = "--Select--";
+        }
+        var diagnosisAreaId = e.row.cells[9].innerHTML;
+        if (diagnosisAreaId == "" | diagnosisAreaId == "&nbsp;") 
+        {
+            diagnosisAreaId = "--Select--";
+        }
+        var diagonsisCodeId = e.row.cells[10].innerHTML;
+        if (diagonsisCodeId == "" | diagonsisCodeId == "&nbsp;") 
+        {
+            diagonsisCodeId = "--Select--";
+        }
+        var resolutionId = e.row.cells[11].innerHTML;
+        if (resolutionId == "" | resolutionId == "&nbsp;") 
+        {
+            resolutionId = "--Select--";
+        }
+        var repairStageId = e.row.cells[12].innerHTML;
+        if (repairStageId == "" | repairStageId == "&nbsp;") 
+        {
+            repairStageId = "--Select--";
+        }
 
         $('#submit').text('Update');
-        
+        $('#submit').attr('disabled', false);
 
         $("#serialNumberList").data("tComboBox").value(serialNumberList);
         $('#conditionList').data("tComboBox").value(conditionId);
@@ -75,6 +113,7 @@
         $('#resolutionList').data("tComboBox").value(resolutionId);
         $('#repairStageList').data("tComboBox").value(repairStageId);
         $('#technicianList').data("tComboBox").value(technicianNo);
+        $('#technicianList').data("tComboBox").text(technicianName);
         $('#descriptionTextBox').val(description);
         $('#commentsTextBox').val(serviceComments);
         $('#uniqueText').val(uniqueId);
