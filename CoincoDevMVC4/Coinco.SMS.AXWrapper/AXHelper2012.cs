@@ -1722,15 +1722,9 @@ namespace Coinco.SMS.AXWrapper
 
             repairLineTable.Columns.Add("ResolutionId", typeof(String));
             repairLineTable.Columns.Add("RepairStageId", typeof(String));
-            repairLineTable.Columns.Add("Technician", typeof(String));
+            repairLineTable.Columns.Add("TechnicianNo", typeof(String));
+            repairLineTable.Columns.Add("TechnicianName", typeof(String));
             repairLineTable.Columns.Add("ServiceComments", typeof(String));
-
-
-
-
-
-
-
 
             try
             {
@@ -1756,10 +1750,9 @@ namespace Coinco.SMS.AXWrapper
                     row["DiagnosisCodeId"] = axRecord.get_Field("DiagnosisCodeId");
                     row["ResolutionId"] = axRecord.get_Field("ResolutionId");
                     row["RepairStageId"] = axRecord.get_Field("RepairStageId");
-                    row["Technician"] = axRecord.get_Field("WorkerName");
+                    row["TechnicianNo"] = axRecord.get_Field("Worker");
+                    row["TechnicianName"] = axRecord.get_Field("WorkerName");
                     row["ServiceComments"] = axRecord.get_Field("Name");
-
-
 
                     repairLineTable.Rows.Add(row);
                     axRecord.Next();
