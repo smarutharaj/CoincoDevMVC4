@@ -23,7 +23,6 @@
             columns.Bound(c => c.DiagonsisCodeId).Title("Diagnosis Code").Width(115);
             columns.Bound(c => c.ResolutionId).Title("Resolution").Width(85);
             columns.Bound(c => c.RepairStageId).Title("Repair Stage").Width(100);
-            
 
          if (@Session["SOStatus"].ToString() == "In Process")
          { 
@@ -34,8 +33,7 @@
          }
 
         })
-
-               
+   
         
         .DataBinding(dataBinding =>
         {
