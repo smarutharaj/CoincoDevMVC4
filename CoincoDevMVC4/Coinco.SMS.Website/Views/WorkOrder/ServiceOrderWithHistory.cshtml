@@ -82,6 +82,7 @@
    </div>
 <script type="text/javascript">
     var serviceOrderNumber;
+    var serviceOrderStatus;
     function onRowSelected(e) {
 
         var serviceOrderLineGrid = $('#ServiceOrderLineGrid').data('tGrid');
@@ -90,7 +91,7 @@
         $('#a_OrderProcess').attr('href', '/WorkOrder/ServiceOrderProcess');
 
         serviceOrderNumber = e.row.cells[0].innerHTML;
-
+        serviceOrderStatus = e.row.cells[4].innerHTML;
         // update ui text
         $('#customerID').text(serviceOrderNumber);
 
@@ -99,9 +100,10 @@
     }
     function onServiceGridDataBinding(e) {
         serviceOrderNumber = "";
+        serviceOrderStatus = "";
     }
     function onDataBinding(e) {
-        e.data = $.extend(e.data, { serviceOrderID: serviceOrderNumber });
+        e.data = $.extend(e.data, { serviceOrderID: serviceOrderNumber, serviceOrderStatus: serviceOrderStatus });
     }
 
     function refreshGrid() {

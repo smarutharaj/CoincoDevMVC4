@@ -199,7 +199,6 @@ namespace Coinco.SMS.Website.Controllers
             bool isSuccess = false;
             try
             {
-
                 userName = User.Identity.Name.ToString().Split('\\')[1];
                 RepairType repairType = new RepairType();
                 isSuccess = repairType.UpdateRepairLineItems(uniqueId, serviceOrderNo, serialNumberList, conditionId, symptomAreaId, symptomCodeId, diagnosisAreaId, diagnosisCodeId, resolutionId, repairStageId, technicianNo, description, serviceComments, userName);

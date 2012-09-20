@@ -149,11 +149,16 @@
   <br />
   <br />
   <br />
-
-    <div id="SubmitResult" class="centercolumnSubmitRL">
-        <button class="t-button" type="button" id="submit" value="submit" >Add</button>
-        <button class="t-button" type="button" id="Clear" value="Clear"">Clear</button>
-    </div>
+  <div id="SubmitResult" class="centercolumnSubmitRL">
+      @{
+         if (@Session["SOStatus"].ToString() == "In Process")
+         { 
+            <button class="t-button" type="button" id="submit" value="submit" >Add</button>
+            <button class="t-button" type="button" id="Clear" value="Clear">Clear</button>
+          }
+      
+      }
+   </div>
    <div id ="divRepairLinesGrid" class="addLinesDivGrid">
 
     @{Html.RenderPartial("RepairLineDetails");}
