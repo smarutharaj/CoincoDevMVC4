@@ -150,8 +150,8 @@
   <br />
 
     <div id="SubmitResult" class="centercolumnSubmitRL">
-        <button class="t-button" type="button" id="Add" value="Add"">Add</button>
-        <button class="t-button" type="button" id="Update" value="Update"">Update</button>
+        <button class="t-button" type="button" id="submit" value="submit"">Add</button>
+        @*<button class="t-button" type="button" id="Update" value="Update"">Update</button>*@
         <button class="t-button" type="button" id="Clear" value="Clear"">Clear</button>
     </div>
    <div id ="divRepairLinesGrid" class="addLinesDivGrid">
@@ -185,115 +185,114 @@
         }
     }
 
-    jQuery('#Add').click(function () {
+    jQuery('#submit').click(function () {
+        $('#submit').attr('disabled', true);
         var serialNumberList = $("#serialNumberList").val();
         var conditionId = $('#conditionList').val();
         var symptomAreaId = $('#symptomAreaList').val();
         var symptomCodeId = $('#symptomCodeList').val();
         var diagnosisAreaId = $('#diagnosisAreaList').val();
-        var diagonsisCodeId = $('#diagnosisCodeList').val();
+        var diagnosisCodeId = $('#diagnosisCodeList').val();
         var resolutionId = $('#resolutionList').val();
         var repairStageId = $('#repairStageList').val();
         var technicianNo = $('#technicianList').val();
         var description = $('#descriptionTextBox').val();
         var serviceComments = $('#commentsTextBox').val();
-        jQuery.ajax({
-            url: "/RepairLines/CreateRepairLineItems",
-            type: 'POST',
+        var uniqueId = $('#uniqueText').val();
 
-            data: { 
+        if (uniqueId == "") {
+            jQuery.ajax({
+                url: "/RepairLines/CreateRepairLineItems",
+                type: 'POST',
+
+                data: {
                     serialNumberList: serialNumberList,
                     conditionId: conditionId,
                     symptomAreaId: symptomAreaId,
                     symptomCodeId: symptomCodeId,
                     diagnosisAreaId: diagnosisAreaId,
-                    diagonsisCodeId: diagonsisCodeId,
+                    diagnosisCodeId: diagnosisCodeId,
                     resolutionId: resolutionId,
                     repairStageId: repairStageId,
                     technicianNo: technicianNo,
-                    description: description, 
-                    serviceComments: serviceComments },
-            success: function (result) {
-                jQuery('#divRepairLinesGrid').html(result);
-                alert('Repair Line Created Successfully');
+                    description: description,
+                    serviceComments: serviceComments
+                },
+                success: function (result) {
+                    jQuery('#divRepairLinesGrid').html(result);
+                    alert('Repair Line Created Successfully');
+//                    $('#serialNumberList').data("tComboBox").value("--Select--");
+//                    $('#lblPartNumber').val('');
+                    $('#conditionList').data("tComboBox").value("--Select--");
+                    $('#symptomAreaList').data("tComboBox").value("--Select--");
+                    $('#symptomCodeList').data("tComboBox").value("--Select--");
+                    $('#diagnosisAreaList').data("tComboBox").value("--Select--");
+                    $('#diagnosisCodeList').data("tComboBox").value("--Select--");
+                    $('#resolutionList').data("tComboBox").value("--Select--");
+                    $('#repairStageList').data("tComboBox").value("--Select--");
+                    $('#technicianList').data("tComboBox").value("--Select--");
+                    $('#descriptionTextBox').val('');
+                    $('#commentsTextBox').val('');
+                    $('#submit').attr('disabled', false);
+                },
+                error: function (result) {
+                    alert(result.responseText);
+                }
 
-               $('#conditionList').data("tComboBox").value("--Select--");
-               $('#symptomAreaList').data("tComboBox").value("--Select--");
-               $('#symptomCodeList').data("tComboBox").value("--Select--");
-               $('#diagnosisAreaList').data("tComboBox").value("--Select--");
-               $('#diagnosisCodeList').data("tComboBox").value("--Select--");
-               $('#resolutionList').data("tComboBox").value("--Select--");
-               $('#repairStageList').data("tComboBox").value("--Select--");
-               $('#technicianList').data("tComboBox").value("--Select--");
-               $('#descriptionTextBox').val('');
-               $('#commentsTextBox').val('');
-            },
-            error: function (result) {
-                alert(result.responseText);
-            }
+            });
+        }
+        else {
+            jQuery.ajax({
+                url: "/RepairLines/UpdateRepairLineItems",
+                type: 'POST',
 
-        });
-        return false;
-    });
+                data: {
+                    uniqueId: uniqueId,
+                    serialNumberList: serialNumberList,
+                    conditionId: conditionId,
+                    symptomAreaId: symptomAreaId,
+                    symptomCodeId: symptomCodeId,
+                    diagnosisAreaId: diagnosisAreaId,
+                    diagnosisCodeId: diagnosisCodeId,
+                    resolutionId: resolutionId,
+                    repairStageId: repairStageId,
+                    technicianNo: technicianNo,
+                    description: description,
+                    serviceComments: serviceComments
+                },
+                success: function (result) {
+                    jQuery('#divRepairLinesGrid').html(result);
 
+                    alert('Repair Line Updated Successfully');
+//                    $('#serialNumberList').data("tComboBox").value("--Select--");
+//                    $('#lblPartNumber').val('');
+                    $('#conditionList').data("tComboBox").value("--Select--");
+                    $('#symptomAreaList').data("tComboBox").value("--Select--");
+                    $('#symptomCodeList').data("tComboBox").value("--Select--");
+                    $('#diagnosisAreaList').data("tComboBox").value("--Select--");
+                    $('#diagnosisCodeList').data("tComboBox").value("--Select--");
+                    $('#resolutionList').data("tComboBox").value("--Select--");
+                    $('#repairStageList').data("tComboBox").value("--Select--");
+                    $('#technicianList').data("tComboBox").value("--Select--");
+                    $('#descriptionTextBox').val('');
+                    $('#commentsTextBox').val('');
+                    $('#submit').text('Add');
+                    $('#uniqueText').val('');
+                    $('#submit').attr('disabled', false);
+                },
+                error: function (result) {
+                    alert(result.responseText);
+                }
 
-    jQuery('#Update').click(function () {
-        var serialNumberList = $("#serialNumberList").val();
-        var conditionId = $('#conditionList').val();
-        var symptomAreaId = $('#symptomAreaList').val();
-        var symptomCodeId = $('#symptomCodeList').val();
-        var diagnosisAreaId = $('#diagnosisAreaList').val();
-        var diagonsisCodeId = $('#diagnosisCodeList').val();
-        var resolutionId = $('#resolutionList').val();
-        var repairStageId = $('#repairStageList').val();
-        var technicianNo = $('#technicianList').val();
-        var description = $('#descriptionTextBox').val();
-        var serviceComments = $('#commentsTextBox').val();
-        var uniqueId = $('#uniqueText').val(); 
-        jQuery.ajax({
-            url: "/RepairLines/UpdateRepairLineItems",
-            type: 'POST',
+            });
 
-            data: {
-                uniqueId:uniqueId,
-                serialNumberList: serialNumberList,
-                conditionId: conditionId,
-                symptomAreaId: symptomAreaId,
-                symptomCodeId: symptomCodeId,
-                diagnosisAreaId: diagnosisAreaId,
-                diagonsisCodeId: diagonsisCodeId,
-                resolutionId: resolutionId,
-                repairStageId: repairStageId,
-                technicianNo: technicianNo,
-                description: description,
-                serviceComments: serviceComments
-            },
-            success: function (result) {
-                jQuery('#divRepairLinesGrid').html(result);
-
-                alert('Repair Line Updated Successfully');
-                $('#serialNumberList').data("tComboBox").value("--Select--");
-                $('#conditionList').data("tComboBox").value("--Select--");
-                $('#symptomAreaList').data("tComboBox").value("--Select--");
-                $('#symptomCodeList').data("tComboBox").value("--Select--");
-                $('#diagnosisAreaList').data("tComboBox").value("--Select--");
-                $('#diagnosisCodeList').data("tComboBox").value("--Select--");
-                $('#resolutionList').data("tComboBox").value("--Select--");
-                $('#repairStageList').data("tComboBox").value("--Select--");
-                $('#technicianList').data("tComboBox").value("--Select--");
-                $('#descriptionTextBox').val('');
-                $('#commentsTextBox').val('');
-            },
-            error: function (result) {
-                alert(result.responseText);
-            }
-
-        });
+        }
         return false;
     });
 
     jQuery('#Clear').click(function () {
-        $('#serialNumberList').data("tComboBox").value("--Select--");
+//        $('#serialNumberList').data("tComboBox").value("--Select--");
+//        $('#lblPartNumber').text('');
         $('#conditionList').data("tComboBox").value("--Select--");
         $('#symptomAreaList').data("tComboBox").value("--Select--");
         $('#symptomCodeList').data("tComboBox").value("--Select--");

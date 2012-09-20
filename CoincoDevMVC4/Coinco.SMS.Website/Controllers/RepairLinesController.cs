@@ -143,7 +143,7 @@ namespace Coinco.SMS.Website.Controllers
         }
 
         [HttpPost]
-        public ActionResult CreateRepairLineItems(string serialNumberList, string conditionId, string symptomAreaId, string symptomCodeId, string diagonsisAreaId, string diagnosisAreaId, string resolutionId, string repairStageId, string technicianNo, string description, string serviceComments)
+        public ActionResult CreateRepairLineItems(string serialNumberList, string conditionId, string symptomAreaId, string symptomCodeId, string diagnosisAreaId, string diagnosisCodeId, string resolutionId, string repairStageId, string technicianNo, string description, string serviceComments)
         {
             string userName = null;
             bool isSuccess = false;
@@ -152,7 +152,7 @@ namespace Coinco.SMS.Website.Controllers
 
                 userName = User.Identity.Name.ToString().Split('\\')[1];
                 RepairType repairType = new RepairType();
-                isSuccess = repairType.CreateRepairLineItems(Session["SID"].ToString(), serialNumberList, conditionId, symptomAreaId, symptomCodeId, diagonsisAreaId, diagnosisAreaId, resolutionId, repairStageId, technicianNo, description, serviceComments, userName);
+                isSuccess = repairType.CreateRepairLineItems(Session["SID"].ToString(), serialNumberList, conditionId, symptomAreaId, symptomCodeId, diagnosisAreaId, diagnosisCodeId, resolutionId, repairStageId, technicianNo, description, serviceComments, userName);
 
                 if (isSuccess)
                 {
@@ -171,7 +171,7 @@ namespace Coinco.SMS.Website.Controllers
         }
 
         [HttpPost]
-        public ActionResult UpdateRepairLineItems(string uniqueId, string serialNumberList, string serviceOrderRelation, string conditionId, string symptomAreaId, string symptomCodeId, string diagnosisAreaId, string diagonsisCodeId, string resolutionId, string repairStageId, string technicianNo, string description, string serviceComments)
+        public ActionResult UpdateRepairLineItems(string uniqueId, string serialNumberList, string serviceOrderRelation, string conditionId, string symptomAreaId, string symptomCodeId, string diagnosisAreaId, string diagnosisCodeId, string resolutionId, string repairStageId, string technicianNo, string description, string serviceComments)
         {
             string userName = null;
             bool isSuccess = false;
@@ -180,7 +180,7 @@ namespace Coinco.SMS.Website.Controllers
 
                 userName = User.Identity.Name.ToString().Split('\\')[1];
                 RepairType repairType = new RepairType();
-                isSuccess = repairType.UpdateRepairLineItems(uniqueId, Session["SID"].ToString(), serialNumberList, conditionId, symptomAreaId, symptomCodeId, diagnosisAreaId, diagonsisCodeId, resolutionId, repairStageId, technicianNo, description, serviceComments, userName);
+                isSuccess = repairType.UpdateRepairLineItems(uniqueId, Session["SID"].ToString(), serialNumberList, conditionId, symptomAreaId, symptomCodeId, diagnosisAreaId, diagnosisCodeId, resolutionId, repairStageId, technicianNo, description, serviceComments, userName);
 
                 if (isSuccess)
                 {

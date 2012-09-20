@@ -50,7 +50,6 @@
 <script type ="text/javascript">
 
     function onRowSelecting(e) {
-
         var uniqueId = e.row.cells[0].innerHTML;
         var technicianNo = e.row.cells[1].innerHTML;
         var serviceComments = e.row.cells[2].innerHTML;
@@ -64,6 +63,7 @@
         var resolutionId = e.row.cells[10].innerHTML;
         var repairStageId = e.row.cells[11].innerHTML;
 
+        $('#submit').text('Update');
         
 
         $("#serialNumberList").data("tComboBox").value(serialNumberList);
