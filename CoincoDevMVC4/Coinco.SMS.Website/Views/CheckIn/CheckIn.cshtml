@@ -4,7 +4,6 @@
 @{
     ViewBag.Title = "CheckIn";
 }
-
 @using (Html.BeginForm())
 {
 <div id="ServiceOrderAdditionDiv">
@@ -310,19 +309,7 @@
                       
                       var partNumberDropDownList = $('#partNumberDropDownList').data('tComboBox');
                       partNumberDropDownList.dataBind(serviceOrder.PartDetails.PartDetailsList);
-//                      partNumberDropDownList.dataBindAsTable({
-//                    data: serviceOrder.PartDetails.PartDetailsList,
-//                    displayFields: [{
-//                        fieldName: "ItemNumber",
-//                        style: "font-weight:bold"
-//                    },{
-//                        fieldName: "ProductName",
-//                        style: "color:Red;"
-//                    }],
-//                    separator: { visible: true, color: "Blue" },
-//                    selectedField: "ProductName",
-//                    valueField: "ItemNumber"
-//               });
+                    
                       $('#serviceTechnicianDropDownList').data('tComboBox').value('<--SELECT-->');
                       $('#serviceResponsibleDropDownList').data('tComboBox').value('<--SELECT-->');
                       $('#woClassificationDropDownList').data('tComboBox').value('<--SELECT-->');
