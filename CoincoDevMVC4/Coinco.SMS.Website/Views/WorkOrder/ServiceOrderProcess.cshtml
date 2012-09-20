@@ -51,8 +51,9 @@
             .ClientEvents(e => e.OnChange("ontransactionHide"))
             .HtmlAttributes(new { @class = "dropDownPropertiesSP" })
             .DropDownHtmlAttributes(new { @class = "dropDownPropertiesSP" })
+            .SelectedIndex(0)
            //.ClientEvents(events => events.OnChange("ontransactionTypeChange"))
-            .CascadeTo("specialtyCodeDropDownList")
+            //.CascadeTo("specialtyCodeDropDownList")
             .Render();
             }
             <span class="mandatory">*</span>
@@ -108,6 +109,7 @@
             .Placeholder("-- Select --")
             .HtmlAttributes(new { @class = "dropDownPropertiesSP" })
             .DropDownHtmlAttributes(new { @class = "dropDownPropertiesSP" })
+            .ClientEvents(events => events.OnError("ComboBox_OnError"))
             .SelectedIndex(0)
 
             .Render();
@@ -147,7 +149,7 @@
                 <span class="mandatory">*</span> @*@Html.DropDownListFor(x => x.Site.SiteID, new SelectList(""), "<--Select One-->", new { @class = "dropDownPropertiesSP", id = "LinePropertyDropDownList" })*@
                 @Html.Label("Warehouse:", new { @class = "labelHeaderSPView", id = "wareHouseHeadLabel" })
                 @{Html.Telerik().ComboBox().Name("wareHouseDropDownList")
-            .DataBinding(binding => binding.Ajax().Select("_GetDropDownWareHouse", "WorkOrder"))
+            //.DataBinding(binding => binding.Ajax().Select("_GetDropDownWareHouse", "WorkOrder"))
             .Placeholder("-- Select --")
             .HtmlAttributes(new { @class = "dropDownPropertiesSP" })
             .DropDownHtmlAttributes(new { @class = "dropDownPropertiesSP" })
@@ -237,37 +239,37 @@
         }
         else if (transactionType == "3") {
             $('#addLineRightcolumn').show();
+
+            var SelectedtransactionId = $('#transactionTypeDropDownList').val();
+            
+            if (SelectedtransactionId != "") {
+                var getSpecialtyCode = $('#specialtyCodeDropDownList').data('tComboBox');
+                getSpecialtyCode.loader.showBusy();
+
+                jQuery.ajax({
+                    url: "/WorkOrder/_GetDropDownListSpecialtyCode",
+                    type: 'GET',
+                    data: { transactionTypeDropDownList: SelectedtransactionId },
+                    success: function (result) {
+                        getSpecialtyCode.dataBind(result);
+                        getSpecialtyCode.loader.hideBusy();
+                        getSpecialtyCode.select(0);
+
+                    }
+
+
+                });
+            }
+
+            return false;
         }
-//            var Selectedtransaction = $('#transactionTypeDropDownList').val();
 
-//            var getSpecialityCode = $('#specialtyCodeDropDownList').data('tComboBox');
-//            $('#specialtyCodeDropDownList').data('tComboBox').value('--Select--');
-
-//            getSpecialityCode.loader.showBusy();
-
-//            jQuery.ajax({
-//                url: "/WorkOrder/_GetDropDownListSpecialtyCode",
-//                type: 'GET',
-//                data: { transactionTypeDropDownList: Selectedtransaction },
-//                success: function (result) {
-//                    getSpecialityCode.dataBind(result);
-//                    getSpecialityCode.loader.hideBusy();
-//                    getSpecialityCode.select(0);
-
-//                }
-
-
-//            });
-
-
-//            return false;
-//        }
     }
 
 
     jQuery('#submit').click(function () {
+    debugger
 
-     
         var serviceOrderNo = $('#serviceOrderViewlabel')[0].innerHTML;
 
         var transactionType = $('#transactionTypeDropDownList').val();
@@ -275,20 +277,27 @@
         var quantity = $('#quantityText').val();
         var specialityCode = $('#specialtyCodeDropDownList').val();
         var failureCode = $('#failureCodeDropDownList').val();
+       
         var lineProperty = $('#LinePropertyDropDownList').val();
         var description = $('#descriptionText').val();
+      
         var serviceComments = $('#commentsText').val();
+        
         var itemNumber = $('#itemNumberDropDownList').val();
+      
         var site = $('#siteComboBox').val();
         var wareHouse = $('#wareHouseDropDownList').val();
+       
         var locationId = $('#locationDropDownList').val();
+      
         var transSerialCodeNo = $('#trackingSerialNoDropDownList').val();
+      
         var serviceOrderRelation = $('#slNumberDropDownList').val();
         var uniqueId = $('#uniqueText').val();
 
         if (($.trim(serviceOrderRelation) == '') || (serviceOrderRelation == null) || (serviceOrderRelation == '--Select--')) {
             alert('Please select the Serial Number.');
-//             $('#slNumberDropDownList').addClass("input-validation-error");
+            //             $('#slNumberDropDownList').addClass("input-validation-error");
             $('#slNumberDropDownList').focus();
             return;
         }
@@ -330,6 +339,25 @@
                 return;
             }
         }
+
+        if (failureCode == '--Select--') {
+            failureCode = '';
+        }
+        if (description == '') {
+            description = '';
+        }
+        if (serviceComments == '') {
+            serviceComments = '';
+        }
+        if (wareHouse == '--Select--') {
+            wareHouse = '';
+        }
+        if (locationId == '--Select--') {
+            locationId = '';
+        }
+        if (transSerialCodeNo == '--Select--') {
+            transSerialCodeNo = '';
+        }
         $('#submit').attr('disabled', true);
         if (uniqueId == "") {
             jQuery.ajax({
@@ -341,6 +369,7 @@
                     jQuery('#ServicepartLines').html(result);
 
                     alert('Service Order Part Lines Created Successfully');
+                    $('#transactionTypeDropDownList').data('tComboBox').value('');
                     $('#transactionTypeDropDownList').data('tComboBox').value('--Select--');
                     $('#quantityText').val('');
                     $('#techniacianDropDownList').data('tComboBox').value('--Select--');
@@ -350,6 +379,7 @@
                     $('#itemNumberDropDownList').data('tComboBox').value('--Select--');
                     $('#wareHouseDropDownList').data('tComboBox').value('--Select--');
                     $('#locationDropDownList').data('tComboBox').value('--Select--');
+                    $('#trackingSerialNoDropDownList').data('tComboBox').value('');
                     $('#trackingSerialNoDropDownList').data('tComboBox').value('--Select--');
                     $('#descriptionText').val('');
                     $('#commentsText').val('');
@@ -422,58 +452,61 @@
     });
 
     function onItemNumberSiteChange(e) {
-
-
+    
+   
         var SelectedSiteId = $('#siteComboBox').val();
         var SelectedItemNumber = $('#itemNumberDropDownList').val();
-        var getwareHouse = $('#wareHouseDropDownList').data('tComboBox');
-        $('#wareHouseDropDownList').data('tComboBox').value('--Select--');
-        $('#locationDropDownList').data('tComboBox').value('--Select--');
-        $('#trackingSerialNoDropDownList').data('tComboBox').value('--Select--');
-        getwareHouse.loader.showBusy();
+        if (SelectedItemNumber != "" | SelectedSiteId != "") {
+            var getwareHouse = $('#wareHouseDropDownList').data('tComboBox');
+            $('#wareHouseDropDownList').data('tComboBox').value('--Select--');
+            $('#locationDropDownList').data('tComboBox').value('--Select--');
+            $('#trackingSerialNoDropDownList').data('tComboBox').value('--Select--');
+            getwareHouse.loader.showBusy();
 
-        jQuery.ajax({
-            url: "/WorkOrder/_GetDropDownWareHouse",
-            type: 'GET',
-            data: { partNumberDropDownList: SelectedItemNumber, siteComboBox: SelectedSiteId },
-            success: function (result) {
-                getwareHouse.dataBind(result);
-                getwareHouse.loader.hideBusy();
-                getwareHouse.select(0);
+            jQuery.ajax({
+                url: "/WorkOrder/_GetDropDownWareHouse",
+                type: 'GET',
+                data: { partNumberDropDownList: SelectedItemNumber, siteComboBox: SelectedSiteId },
+                success: function (result) {
+                    getwareHouse.dataBind(result);
+                    getwareHouse.loader.hideBusy();
+                    getwareHouse.select(0);
 
-            }
-
-
-        });
+                }
 
 
+            });
+
+        }
         return false;
 
     }
 
+    
 
     function onSpecialityCodeChange(e) {
-
-
+  
+  debugger
         var SelectedtransactionId = $('#transactionTypeDropDownList').val();
         var SelectedSpecialityCode = $('#specialtyCodeDropDownList').val();
-        var gettechniacian = $('#techniacianDropDownList').data('tComboBox');
-        gettechniacian.loader.showBusy();
+        if (SelectedtransactionId != "" & SelectedSpecialityCode != "") {
+            var gettechniacian = $('#techniacianDropDownList').data('tComboBox');
+            gettechniacian.loader.showBusy();
 
-        jQuery.ajax({
-            url: "/WorkOrder/_GetDropDownListTechnicianSpecialtyCode",
-            type: 'GET',
-            data: { transactionTypeDropDownList: SelectedtransactionId, specialtyCodeDropDownList: SelectedSpecialityCode },
-            success: function (result) {
-                gettechniacian.dataBind(result);
-                gettechniacian.loader.hideBusy();
-                gettechniacian.select(0);
+            jQuery.ajax({
+                url: "/WorkOrder/_GetDropDownListTechnicianSpecialtyCode",
+                type: 'GET',
+                data: { transactionTypeDropDownList: SelectedtransactionId, specialtyCodeDropDownList: SelectedSpecialityCode },
+                success: function (result) {
+                    gettechniacian.dataBind(result);
+                    gettechniacian.loader.hideBusy();
+                    gettechniacian.select(0);
 
-            }
+                }
 
 
-        });
-
+            });
+        }
 
         return false;
 
@@ -485,25 +518,27 @@
         var SelectedSiteId = $('#siteComboBox').val();
         var SelectedItemNumber = $('#itemNumberDropDownList').val();
         var SelectedwarehouseId = $('#wareHouseDropDownList').val();
-        var getLocation = $('#locationDropDownList').data('tComboBox');
-        $('#locationDropDownList').data('tComboBox').value('--Select--');
-        $('#trackingSerialNoDropDownList').data('tComboBox').value('--Select--');
-        getLocation.loader.showBusy();
-        jQuery.ajax({
-            url: "/WorkOrder/_GetLocationList",
-            type: 'GET',
-            data: { partNumberDropDownList: SelectedItemNumber, siteComboBox: SelectedSiteId, wareHouseDropDownList: SelectedwarehouseId },
-            success: function (result) {
+        if (SelectedItemNumber != "" | SelectedSiteId != "" | SelectedwarehouseId != "") {
+            var getLocation = $('#locationDropDownList').data('tComboBox');
+            $('#locationDropDownList').data('tComboBox').value('--Select--');
+            $('#trackingSerialNoDropDownList').data('tComboBox').value('--Select--');
+            getLocation.loader.showBusy();
 
-                getLocation.dataBind(result);
-                getLocation.loader.hideBusy();
-                getLocation.select(0);
-            }
+            jQuery.ajax({
+                url: "/WorkOrder/_GetLocationList",
+                type: 'GET',
+                data: { partNumberDropDownList: SelectedItemNumber, siteComboBox: SelectedSiteId, wareHouseDropDownList: SelectedwarehouseId },
+                success: function (result) {
+
+                    getLocation.dataBind(result);
+                    getLocation.loader.hideBusy();
+                    getLocation.select(0);
+                }
 
 
-        });
+            });
 
-
+        }
         return false;
 
     }
@@ -514,33 +549,54 @@
         var SelectedSiteId = $('#siteComboBox').val();
         var SelectedItemNumber = $('#itemNumberDropDownList').val();
         var SelectedwarehouseId = $('#wareHouseDropDownList').val();
-        var SelectedlocationId = $('#locationDropDownList').val();
-        var gettrackingSerialNo = $('#trackingSerialNoDropDownList').data('tComboBox');
-        $('#trackingSerialNoDropDownList').data('tComboBox').value('--Select--');
-        gettrackingSerialNo.loader.showBusy();
-        jQuery.ajax({
-            url: "/WorkOrder/_GetTransactionSerialNumberList",
-            type: 'GET',
-            data: { partNumberDropDownList: SelectedItemNumber, siteComboBox: SelectedSiteId, wareHouseDropDownList: SelectedwarehouseId, locationDropDownList: SelectedlocationId },
-            success: function (result) {
-
-                gettrackingSerialNo.dataBind(result);
-                gettrackingSerialNo.loader.hideBusy();
-                gettrackingSerialNo.select(0);
+        if (SelectedItemNumber != "" | SelectedSiteId != "" | SelectedwarehouseId != "") {
+            var SelectedlocationId = $('#locationDropDownList').val();
+            if (SelectedlocationId != "") {
+                SelectedlocationId = $('#locationDropDownList').val();
             }
+            else {
+                SelectedlocationId = "";
+            }
+                var gettrackingSerialNo = $('#trackingSerialNoDropDownList').data('tComboBox');
+            $('#trackingSerialNoDropDownList').data('tComboBox').value('--Select--');
+            gettrackingSerialNo.loader.showBusy();
+            jQuery.ajax({
+                url: "/WorkOrder/_GetTransactionSerialNumberList",
+                type: 'GET',
+                data: { partNumberDropDownList: SelectedItemNumber, siteComboBox: SelectedSiteId, wareHouseDropDownList: SelectedwarehouseId, locationDropDownList: SelectedlocationId },
+                success: function (result) {
+
+                    gettrackingSerialNo.dataBind(result);
+                    gettrackingSerialNo.loader.hideBusy();
+                    gettrackingSerialNo.select(0);
+                }
 
 
-        });
-
+            });
+        }
 
         return false;
 
     }
 
-//    $('#slNumberDropDownList').on('change', function () {
+    function ComboBox_OnError(e) {
+        var combobox = $(this).data('tComboBox'); // $(this) is equivalent to $('#ComboBox')
 
-//        $('#slNumberDropDownList').removeClass("input-validation-error");
-//       
-//    });
+        //the current XMLHttpRequest object
+        var xhr = e.XMLHttpRequest;
+        //the text status of the error - 'timeout', 'error' etc.
+        var status = e.textStatus;
+
+        if (status == 'error') {
+            //xhr.status is the HTTP code returned by the server
+            if (xhr.status == "404") {
+                alert("Select the Specailty Code")
+            }
+        }
+
+        //To prevent the default error handling (which is to alert the error message) you can call `preventDefault`
+
+        e.preventDefault();
+    }
 
 </script>
