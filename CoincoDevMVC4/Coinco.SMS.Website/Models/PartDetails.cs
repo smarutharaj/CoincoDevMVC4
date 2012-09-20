@@ -14,7 +14,7 @@ namespace Coinco.SMS.Website.Models
         public string ItemNumber { get; set; }
         public string ProductName { get; set; }
         public string ProductSubType { get; set; }
-
+       // public List<PartDetails> PartDetailsList1 { get; set; } 
         public SelectList PartDetailsList { get; set; } 
 
         public PartDetails()

@@ -27,10 +27,7 @@
         .SelectedIndex(0)
         .Render();
                                 }
-           @*@{  Html.Telerik().DropDownList()
-        .Name("dropdownlistTest")
-        .HtmlAttributes(new { style = "width: 425px" })
-        .Render();}*@
+           
                     </div>
                               
                 </div>
@@ -314,16 +311,16 @@
 
                       var partNumberDropDownList = $('#partNumberDropDownList').data('tComboBox');
                       partNumberDropDownList.dataBind(serviceOrder.PartDetails.PartDetailsList);
-//                      var testDropDown = $('#dropdownlistTest').data('tDropDownList');
+//                      var testDropDown = $('#dropdownlistTest').data('tComboBox');
 
 //                      testDropDown.dataBindAsTable({
 //                          data: serviceOrder.PartDetails.PartDetailsList1,
 //                          displayFields: [{
 //                              fieldName: "ItemNumber",
-//                              style: "font-weight:bold"
+//                              style = "font-size: 8pt; font-family: Verdana;"
 //                          }, {
 //                              fieldName: "ProductName",
-//                              style: "color:Red;"
+//                              style = "font-size: 8pt; font-family: Verdana;"
 //                          }],
 //                          separator: { visible: true, color: "Blue" },
 //                          selectedField: "ProductName",
