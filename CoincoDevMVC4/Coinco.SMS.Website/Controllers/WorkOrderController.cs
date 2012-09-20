@@ -54,11 +54,11 @@ namespace Coinco.SMS.Controllers
         }
 
         [GridAction]
-        public ActionResult _SelectionClientSide_SerialNumber(string serviceOrderId)
+        public ActionResult _SelectionClientSide_SerialNumber(string serviceOrderId, string serviceOrderStatus)
         {
             //serviceOrderId = serviceOrderId ?? "";
             Session["SID"] = serviceOrderId;
-           
+            Session["SOStatus"] = serviceOrderStatus;
             TempData["ServiceOrderId"] = serviceOrderId;
             TempData.Keep();
             return View(new GridModel<ServiceOrderLine>
