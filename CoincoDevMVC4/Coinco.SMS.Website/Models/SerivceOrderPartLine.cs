@@ -112,7 +112,7 @@ namespace Coinco.SMS.Website.Models
                     serviceObject.LineProperty = new Models.LineProperty(row["LineProperty"].ToString(), "");
                     serviceObject.Quantity = row["Qty"].ToString();
                     serviceObject.SalesPrice = row["SalesPrice"].ToString();
-                    serviceObject.ServiceTechnician = new Models.ServiceTechnician("", row["Technician"].ToString());
+                    serviceObject.ServiceTechnician = new Models.ServiceTechnician(row["Technician"].ToString(),"");
                     serviceObject.ServiceComments = row["ServiceComments"].ToString();
                     serviceObject.UniqueId = row["UniqueId"].ToString();
                     serviceObject.PartDetails = new Models.PartDetails(row["ItemNumber"].ToString(), "", "");
