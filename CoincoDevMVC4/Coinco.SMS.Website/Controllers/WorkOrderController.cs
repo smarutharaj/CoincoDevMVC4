@@ -418,7 +418,10 @@ namespace Coinco.SMS.Controllers
                 {
                     ViewData["ServiceOrderPartLines"] = GetServiceOrderPartLinesByServiceOrderID(serviceOrderNo);
                 }
+                else
+                {
 
+                }
                 //TempData.Keep();
             }
             catch (Exception ex)
@@ -445,7 +448,10 @@ namespace Coinco.SMS.Controllers
                 {
                     ViewData["ServiceOrderPartLines"] = GetServiceOrderPartLinesByServiceOrderID(serviceOrderNo);
                 }
-              
+                else
+                {
+
+                }
 
                 TempData.Keep();
             }
