@@ -83,7 +83,7 @@
             $('#quantityText').val(quanity);
 
             $('#specialtyCodeDropDownList').data('tComboBox').value(specialitycode);
-
+            $('#specialtyCodeDropDownList').attr('disabled', false);
             if (technician == '' || technician == '&nbsp;') {
                 $('#techniacianDropDownList').data('tComboBox').value('--Select--');
             }
