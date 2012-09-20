@@ -311,7 +311,7 @@ namespace Coinco.SMS.Controllers
             return Json(new SelectList(TransactionType.GetTransactionTypes(), "TransactionTypeID", "TransactionTypeName"), JsonRequestBehavior.AllowGet);
         }
 
-        [HttpPost]
+        [HttpGet]
         public JsonResult _GetDropDownListSpecialtyCode(int? transactionTypeDropDownList)
         {
 

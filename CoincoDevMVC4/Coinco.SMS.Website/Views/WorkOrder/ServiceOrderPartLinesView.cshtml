@@ -9,8 +9,8 @@
            })
         .Columns(columns =>
         {
-            
-            
+
+            columns.Bound(c => c.ServiceObjectRelation).Title("Serial Number").Width(100);
             columns.Bound(c => c.TransactionType.TransactionTypeName).Title("Transaction").Width(100);
             columns.Bound(c => c.Description).Width(100);
             columns.Bound(c => c.SpecialtyCode.SpecialityCodeNo).Title("SpecialtyCode").Width(120);
@@ -25,7 +25,7 @@
             columns.Bound(c => c.Location.LocationId).Title("Location").Width(100);
             columns.Bound(c => c.TransactionSerialNumber).Title("Dimension SerialNumber").Width(160);
             columns.Bound(c => c.UniqueId).Hidden();
-            columns.Bound(c => c.ServiceObjectRelation).Hidden();
+           
             columns.Command(commands =>
             {
                 commands.Delete().ButtonType(GridButtonType.Image);
@@ -59,40 +59,91 @@
           $('#submit').text('Update');
          
 
-            var uniqueId = e.row.cells[13].innerHTML;
+            var uniqueId = e.row.cells[14].innerHTML;
             
-            var itemtype = e.row.cells[0].innerHTML;
-            var description = e.row.cells[1].innerHTML;
-            var specialitycode = e.row.cells[2].innerHTML;
-            var failureCode = e.row.cells[3].innerHTML;
-            var lineProperty = e.row.cells[4].innerHTML;
-            var quanity = e.row.cells[5].innerHTML;
-            var technician = e.row.cells[6].innerHTML;
-            var comments = e.row.cells[7].innerHTML;
-            var itemnumber = e.row.cells[8].innerHTML;
-            var site = e.row.cells[9].innerHTML;
-            var warehouse = e.row.cells[10].innerHTML;
-            var location = e.row.cells[11].innerHTML;
-            var transactionSerialNumber = e.row.cells[12].innerHTML;
-            var SoNumber = e.row.cells[14].innerHTML;
+            var itemtype = e.row.cells[1].innerHTML;
+            var description = e.row.cells[2].innerHTML;
+            var specialitycode = e.row.cells[3].innerHTML;
+            var failureCode = e.row.cells[4].innerHTML;
+            var lineProperty = e.row.cells[5].innerHTML;
+            var quanity = e.row.cells[6].innerHTML;
+            var technician = e.row.cells[7].innerHTML;
+            var comments = e.row.cells[8].innerHTML;
+            var itemnumber = e.row.cells[9].innerHTML;
+            var site = e.row.cells[10].innerHTML;
+            var warehouse = e.row.cells[11].innerHTML;
+            var location = e.row.cells[12].innerHTML;
+            var transactionSerialNumber = e.row.cells[13].innerHTML;
+            var SoNumber = e.row.cells[0].innerHTML;
 
+            if (itemtype == "" | itemtype == "&nbsp;") {
+                itemtype = "--Select--";
+            }
 
+            if (description == "" | description == "&nbsp;") {
+                description = "";
+            }
+
+            if (specialitycode == "" | specialitycode == "&nbsp;") {
+                specialitycode = "--Select--";
+            }
+
+            if (failureCode == "" | failureCode == "&nbsp;") {
+                failureCode = "--Select--";
+            }
+
+            if (lineProperty == "" | lineProperty == "&nbsp;") {
+                lineProperty = "--Select--";
+            }
+
+            if (itemnumber == "" | itemnumber == "&nbsp;") {
+                itemnumber = "--Select--";
+            }
+
+            if (technician == "" | technician == "&nbsp;") {
+                technician = "--Select--";
+            }
+
+            if (site == "" | site == "&nbsp;") {
+                site = "--Select--";
+            }
+
+            if (quanity == "" | quanity == "&nbsp;") {
+                quanity = "";
+            }
+
+            if (comments == "" | comments == "&nbsp;") {
+                comments = "";
+            }
+
+            if (warehouse == "" | warehouse == "&nbsp;") {
+                warehouse = "--Select--";
+            }
+
+            if (location == "" | location == "&nbsp;") {
+                location = "--Select--";
+            }
+
+            if (transactionSerialNumber == "" | transactionSerialNumber == "&nbsp;") {
+                transactionSerialNumber = "--Select--";
+            }
+            if (SoNumber == "" | SoNumber == "&nbsp;") {
+                SoNumber = "--Select--";
+            }
             
+
             $('#transactionTypeDropDownList').data('tComboBox').value(itemtype);
             $('#descriptionText').val(description);
             $('#quantityText').val(quanity);
 
             $('#specialtyCodeDropDownList').data('tComboBox').value(specialitycode);
             $('#specialtyCodeDropDownList').attr('disabled', false);
-            if (technician == '' || technician == '&nbsp;') {
-                $('#techniacianDropDownList').data('tComboBox').value('--Select--');
-            }
-            else {
-                $('#techniacianDropDownList').data('tComboBox').value(technician);
-            }
+            $('#techniacianDropDownList').data('tComboBox').value(technician);
+          
 
             $('#failureCodeDropDownList').data('tComboBox').value(failureCode);
             $('#LinePropertyDropDownList').data('tComboBox').value(lineProperty);
+
             if (itemtype == 'Item') {
 
                 $('#itemNumberDropDownList').data('tComboBox').value(itemnumber);
