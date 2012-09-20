@@ -25,12 +25,18 @@
             columns.Bound(c => c.RepairStageId).Title("Repair Stage").Width(100);
             
 
+         if (@Session["SOStatus"].ToString() == "In Process")
+         { 
             columns.Command(commands =>
             {
                 commands.Delete().ButtonType(GridButtonType.Image);
             }).Width(60).Title("Delete");
+         }
+
         })
 
+               
+        
         .DataBinding(dataBinding =>
         {
             dataBinding.Ajax().OperationMode(GridOperationMode.Client).Select("_Selection_RepairLines", "RepairLines")
@@ -121,7 +127,6 @@
     }
 
     function onRowDelete(e) {
-
         $('#submit').text('Add');
         $('#submit').attr('disabled', false);
         $('#uniqueText').val('');
@@ -136,4 +141,6 @@
         $('#descriptionTextBox').val('');
         $('#commentsTextBox').val('');
     }
+
+
 </script>
