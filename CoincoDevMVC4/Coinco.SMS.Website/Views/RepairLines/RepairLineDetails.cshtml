@@ -24,6 +24,7 @@
             columns.Bound(c => c.ResolutionId).Title("Resolution").Width(85);
             columns.Bound(c => c.RepairStageId).Title("Repair Stage").Width(100);
             
+
             columns.Command(commands =>
             {
                 commands.Delete().ButtonType(GridButtonType.Image);
@@ -42,6 +43,7 @@
         .Pageable((pager => pager.PageSize(8)))
         .Sortable()
         .ClientEvents(e => e.OnRowSelect("onRowSelecting"))
+        .ClientEvents(e => e.OnDelete("onRowDelete"))
         .Selectable()
         .Filterable()
         .Render();
@@ -115,6 +117,23 @@
         $('#descriptionTextBox').val(description);
         $('#commentsTextBox').val(serviceComments);
         $('#uniqueText').val(uniqueId);
-      
+
+    }
+
+    function onRowDelete(e) {
+
+        $('#submit').text('Add');
+        $('#submit').attr('disabled', false);
+        $('#uniqueText').val('');
+        $('#conditionList').data("tComboBox").value("--Select--");
+        $('#symptomAreaList').data("tComboBox").value("--Select--");
+        $('#symptomCodeList').data("tComboBox").value("--Select--");
+        $('#diagnosisAreaList').data("tComboBox").value("--Select--");
+        $('#diagnosisCodeList').data("tComboBox").value("--Select--");
+        $('#resolutionList').data("tComboBox").value("--Select--");
+        $('#repairStageList').data("tComboBox").value("--Select--");
+        $('#technicianList').data("tComboBox").value("--Select--");
+        $('#descriptionTextBox').val('');
+        $('#commentsTextBox').val('');
     }
 </script>
