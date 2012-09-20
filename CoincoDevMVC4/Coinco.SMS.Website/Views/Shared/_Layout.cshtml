@@ -221,7 +221,9 @@
    @{Html.Telerik().ScriptRegistrar().DefaultGroup(group => group.Combined(false)
                                                          .CacheDurationInDays(5)
                                                          .Compress(false))
-                                     
+                                     .Scripts(scripts =>
+		scripts.AddGroup("LayoutGroup", group =>
+			group.Add("~/Scripts/telerik.extensions.js")))
                                                          .jQuery(false)
                                                          .Render();
                                                          

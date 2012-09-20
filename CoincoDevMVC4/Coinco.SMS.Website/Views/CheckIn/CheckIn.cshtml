@@ -27,8 +27,12 @@
         .SelectedIndex(0)
         .Render();
                                 }
-           
+           @*@{  Html.Telerik().DropDownList()
+        .Name("dropdownlistTest")
+        .HtmlAttributes(new { style = "width: 425px" })
+        .Render();}*@
                     </div>
+                              
                 </div>
             </div>
         </div>
@@ -204,6 +208,7 @@
                 .SelectedIndex(0)
                 .Render();
             }
+
         </div>
         
         <div id="AddButton" class="rightViewforThirdColumn" >
@@ -303,18 +308,33 @@
 
                       var serviceResponsibleDropDownList = $('#serviceResponsibleDropDownList').data('tComboBox');
                       serviceResponsibleDropDownList.dataBind(serviceOrder.ServiceResponsible.ServiceTechnicianList);
-                      
+
                       var woClassificationDropDownList = $('#woClassificationDropDownList').data('tComboBox');
                       woClassificationDropDownList.dataBind(serviceOrder.WOClassification.WOClassificationList);
-                      
+
                       var partNumberDropDownList = $('#partNumberDropDownList').data('tComboBox');
                       partNumberDropDownList.dataBind(serviceOrder.PartDetails.PartDetailsList);
-                    
+//                      var testDropDown = $('#dropdownlistTest').data('tDropDownList');
+
+//                      testDropDown.dataBindAsTable({
+//                          data: serviceOrder.PartDetails.PartDetailsList1,
+//                          displayFields: [{
+//                              fieldName: "ItemNumber",
+//                              style: "font-weight:bold"
+//                          }, {
+//                              fieldName: "ProductName",
+//                              style: "color:Red;"
+//                          }],
+//                          separator: { visible: true, color: "Blue" },
+//                          selectedField: "ProductName",
+//                          valueField: "ItemNumber"
+//                      });
+
                       $('#serviceTechnicianDropDownList').data('tComboBox').value('<--SELECT-->');
                       $('#serviceResponsibleDropDownList').data('tComboBox').value('<--SELECT-->');
                       $('#woClassificationDropDownList').data('tComboBox').value('<--SELECT-->');
                       $('#partNumberDropDownList').data('tComboBox').value('<--SELECT-->');
-                    
+
                       var billingAddressGrid = $("#BillingAddressGrid").data("tGrid");
                       var shippingAddressGrid = $("#ShippingAddressGrid").data("tGrid");
                       billingAddressGrid.dataBind(serviceOrder.BillingAddressList);
