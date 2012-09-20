@@ -29,7 +29,7 @@
             columns.Command(commands =>
             {
                 commands.Delete().ButtonType(GridButtonType.Image);
-            }).Width(80).Title("Commands");
+            }).Width(50).Title("Delete");
         })
 
         .DataBinding(dataBinding =>
@@ -44,6 +44,7 @@
         .Pageable((pager => pager.PageSize(8)))
         .Sortable()
         .ClientEvents(e => e.OnRowSelect("onRowSelecting"))
+        .ClientEvents(e => e.OnDelete("onRowDelete"))
         .Selectable()
         .Filterable()
         .Render();
@@ -137,7 +138,7 @@
             $('#quantityText').val(quanity);
 
             $('#specialtyCodeDropDownList').data('tComboBox').value(specialitycode);
-            $('#specialtyCodeDropDownList').attr('disabled', false);
+          
             $('#techniacianDropDownList').data('tComboBox').value(technician);
           
 
@@ -169,6 +170,22 @@
 
             }
 
-         
+            function onRowDelete(e) {
+                $('#transactionTypeDropDownList').data('tComboBox').value('--Select--');
+                $('#quantityText').val('1');
+                $('#techniacianDropDownList').data('tComboBox').value('--Select--');
+                $('#specialtyCodeDropDownList').data('tComboBox').value('--Select--');
+                $('#failureCodeDropDownList').data('tComboBox').value('--Select--');
+                $('#LinePropertyDropDownList').data('tComboBox').value('--Select--');
+                $('#itemNumberDropDownList').data('tComboBox').value('--Select--');
+                $('#wareHouseDropDownList').data('tComboBox').value('--Select--');
+                $('#locationDropDownList').data('tComboBox').value('--Select--');
+                $('#trackingSerialNoDropDownList').data('tComboBox').value('--Select--');
+                $('#descriptionText').val('');
+                $('#commentsText').val('');
+                $('#submit').text('Add');
+                $('#uniqueText').val('');
+
+            }
         
         </script>
