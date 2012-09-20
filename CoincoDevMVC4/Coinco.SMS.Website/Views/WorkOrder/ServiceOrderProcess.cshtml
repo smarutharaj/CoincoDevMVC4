@@ -18,7 +18,7 @@
     }
 </style>
 <div class="pageCointainer" id="pageCointainer">
-    <div id="serviceProcessDiv" class="serviceProcessDiv" >
+    <div id="serviceProcessDiv" class="serviceProcessDiv">
         <div class="leftcolumn">
             @Html.Label("Service Order:", new { @class = "labelHeaderView", id = "serviceOrderLabel" })
             @Html.Label(TempData["ServiceOrderId"].ToString(), new { @class = "labelViewSO", id = "serviceOrderViewlabel" })
@@ -33,35 +33,34 @@
             .SelectedIndex(0)
             .Render();
             }
-               <span class="mandatory">*</span>
+            <span class="mandatory">*</span>
             <br />
         </div>
         <div id="partNumberView">
             @{Html.RenderPartial("PartDetailsView", Model.ServiceOrderLine);}
         </div>
     </div>
-    <div class="addLinesDiv" id="addLinesDiv" >
+    <div class="addLinesDiv" id="addLinesDiv">
         <div class="addLineleftcolumn">
             <div class="header1">
                 Add Lines</div>
-            @Html.Label("Transaction Type:", new { @class = "labelHeaderSPView", id = "transactionHeadLabel" })  
-            
+            @Html.Label("Transaction Type:", new { @class = "labelHeaderSPView", id = "transactionHeadLabel" })
             @{Html.Telerik().ComboBox().Name("transactionTypeDropDownList")
             .DataBinding(binding => binding.Ajax().Select("_GetTransactionTypes", "WorkOrder"))
              .SelectedIndex(0)
             .ClientEvents(e => e.OnChange("ontransactionHide"))
             .HtmlAttributes(new { @class = "dropDownPropertiesSP" })
             .DropDownHtmlAttributes(new { @class = "dropDownPropertiesSP" })
+           //.ClientEvents(events => events.OnChange("ontransactionTypeChange"))
             .CascadeTo("specialtyCodeDropDownList")
             .Render();
             }
-               <span class="mandatory">*</span>
+            <span class="mandatory">*</span>
             <br />
-            @Html.Label("Description:", new { @class = "labelHeaderSPView", id = "descriptionHeadLabel" })  
+            @Html.Label("Description:", new { @class = "labelHeaderSPView", id = "descriptionHeadLabel" })
             @Html.TextAreaFor(x => x.Description, new { id = "descriptionText" })
             <br />
-           
-             @Html.Label("Failure Code:", new { @class = "labelHeaderSPView", id = "failureCodeeHeadLabel" }) 
+            @Html.Label("Failure Code:", new { @class = "labelHeaderSPView", id = "failureCodeeHeadLabel" })
             @{Html.Telerik().ComboBox().Name("failureCodeDropDownList")
             .BindTo((SelectList)ViewData["FailureCodeList"])
             .Placeholder("-- Select --")
@@ -72,7 +71,7 @@
             .Render();
             }
             <br />
-            @Html.Label("Specialty Code:", new { @class = "labelHeaderSPView", id = "specialtyCodeHeadLabel" })  
+            @Html.Label("Specialty Code:", new { @class = "labelHeaderSPView", id = "specialtyCodeHeadLabel" })
             @{Html.Telerik().ComboBox().Name("specialtyCodeDropDownList")
             .DataBinding(binding => binding.Ajax().Select("_GetDropDownListSpecialtyCode", "WorkOrder"))
             .Placeholder("-- Select --")
@@ -80,11 +79,11 @@
             .DropDownHtmlAttributes(new { @class = "dropDownPropertiesSP" })
             .SelectedIndex(0)
             .ClientEvents(events => events.OnChange("onSpecialityCodeChange"))
-            //.CascadeTo("techniacianDropDownList")
+                  //.CascadeTo("techniacianDropDownList")
             .Render();
             }
-               <span class="mandatory">*</span>
-            @Html.Label("LineProperty:", new { @class = "labelHeaderSPView", id = "linePropertyHeadLabel" })  
+            <span class="mandatory">*</span>
+            @Html.Label("LineProperty:", new { @class = "labelHeaderSPView", id = "linePropertyHeadLabel" })
             @{Html.Telerik().ComboBox().Name("LinePropertyDropDownList")
             .BindTo((SelectList)ViewData["LinePropertyList"])
             .Placeholder("-- Select --")
@@ -93,35 +92,38 @@
             .SelectedIndex(0)
             .Render();
             }
-               <span class="mandatory">*</span>
+            <span class="mandatory">*</span>
             <br />
         </div>
         <div class="addLinecentercolumn">
-            @Html.Label("Quantity:", new { @class = "labelHeaderSPView", id = "quantityHeadLabel" })  
-            @Html.TextBoxFor(x => x.Quantity, new { @class = "textBoxPropertiesSP", id = "quantityText" })<br />
-           @Html.Label("Technician:", new { @class = "labelHeaderView", id = "techniacianHeadLabel" }) 
+            @Html.Label("Quantity:", new { @class = "labelHeaderSPView",  id = "quantityHeadLabel" })
+          @*  @Html.TextBoxFor(x => x.Quantity,"1", new { @class = "textBoxPropertiesSP", @value="1", id = "quantityText" })*@
+            @Html.TextBox("quantityText", "1", new { @class = "textBoxPropertiesSP" }) 
+            <br />
+
+            @Html.Label("Technician:", new { @class = "labelHeaderSPView", id = "techniacianHeadLabel" })
             @{Html.Telerik().ComboBox().Name("techniacianDropDownList")
-            //.BindTo((SelectList)ViewData["ServiceTechnicianList"])
+                  //.BindTo((SelectList)ViewData["ServiceTechnicianList"])
             .DataBinding(binding => binding.Ajax().Select("_GetDropDownListTechnicianSpecialtyCode", "WorkOrder"))
             .Placeholder("-- Select --")
             .HtmlAttributes(new { @class = "dropDownPropertiesSP" })
             .DropDownHtmlAttributes(new { @class = "dropDownPropertiesSP" })
             .SelectedIndex(0)
-         
+
             .Render();
             }
             <br />
-           @Html.Label("Service Comments:", new { @class = "labelHeaderView", id = "commentsHeadLabel" }) 
+            @Html.Label("Service Comments:", new { @class = "labelHeaderSPView", id = "commentsHeadLabel" })
             @Html.TextAreaFor(x => x.ServiceComments, new { id = "commentsText" })
             <br />
             @Html.TextBoxFor(x => x.UniqueId, new { @class = "singleTextBox", id = "uniqueText", @type = "hidden" })<br />
         </div>
         <div class="addLineRightcolumn" id="addLineRightcolumn">
             <div class="topDimensioncolumn">
-               <div class="header1">
+                <div class="header1">
                     Storage Dimension</div>
-            @Html.Label("Item Number:", new { @class = "labelHeaderSPView", id = "itemNumberHeadLabel" }) 
-            @{Html.Telerik().ComboBox().Name("itemNumberDropDownList")
+                @Html.Label("Item Number:", new { @class = "labelHeaderSPView", id = "itemNumberHeadLabel" })
+                @{Html.Telerik().ComboBox().Name("itemNumberDropDownList")
             .BindTo((SelectList)ViewData["PartNumberList"])
             .Placeholder("-- Select --")
             .HtmlAttributes(new { @class = "dropDownPropertiesSP" })
@@ -132,7 +134,7 @@
             .Render();
                 }
                 <span class="mandatory">*</span>
-             @Html.Label("Site:", new { @class = "labelHeaderSPView", id = "siteHeadLabel" })   
+                @Html.Label("Site:", new { @class = "labelHeaderSPView", id = "siteHeadLabel" })
                 @{Html.Telerik().ComboBox().Name("siteComboBox")
             .BindTo((SelectList)ViewData["siteList"])
             .Placeholder("-- Select --")
@@ -142,9 +144,8 @@
 
             .Render();
                 }
-                   <span class="mandatory">*</span>
-                @*@Html.DropDownListFor(x => x.Site.SiteID, new SelectList(""), "<--Select One-->", new { @class = "dropDownPropertiesSP", id = "LinePropertyDropDownList" })*@
-             @Html.Label("Warehouse:", new { @class = "labelHeaderSPView", id = "wareHouseHeadLabel" })   
+                <span class="mandatory">*</span> @*@Html.DropDownListFor(x => x.Site.SiteID, new SelectList(""), "<--Select One-->", new { @class = "dropDownPropertiesSP", id = "LinePropertyDropDownList" })*@
+                @Html.Label("Warehouse:", new { @class = "labelHeaderSPView", id = "wareHouseHeadLabel" })
                 @{Html.Telerik().ComboBox().Name("wareHouseDropDownList")
             .DataBinding(binding => binding.Ajax().Select("_GetDropDownWareHouse", "WorkOrder"))
             .Placeholder("-- Select --")
@@ -154,7 +155,7 @@
             .ClientEvents(events => events.OnChange("onwareHouseChange"))
             .Render();
                 }
-             @Html.Label("Location:", new { @class = "labelHeaderSPView", id = "locationHeadLabel" })   
+                @Html.Label("Location:", new { @class = "labelHeaderSPView", id = "locationHeadLabel" })
                 @{Html.Telerik().ComboBox().Name("locationDropDownList")
              .Placeholder("-- Select --")
             .HtmlAttributes(new { @class = "dropDownPropertiesSP" })
@@ -165,9 +166,9 @@
                 }
             </div>
             <div class="centerDimensioncolumn">
-               <div class="header1">
-               Tracking Dimension</div>
-               @Html.Label("Serial Number:", new { @class = "labelHeaderSPView", id = "serialNoHeadLabel" })   
+                <div class="header1">
+                    Tracking Dimension</div>
+                @Html.Label("Serial Number:", new { @class = "labelHeaderSPView", id = "serialNoHeadLabel" })
                 @{Html.Telerik().ComboBox().Name("trackingSerialNoDropDownList")
              .Placeholder("-- Select --")
             .HtmlAttributes(new { @class = "dropDownPropertiesSP" })
@@ -180,10 +181,10 @@
         </div>
     </div>
     <div id="SubmitResult" class="submitResultServiceOrderProcess">
-        <button class="t-button" type="button" id="Add" value="Add">
+        <button class="t-button" type="button" id="submit" value="submit">
             Add</button>
-        <button class="t-button" type="button" id="Update" value="Update">
-            Update</button>
+        @*  <button class="t-button" type="button" id="Update" value="Update">
+            Update</button>*@
         <button class="t-button" type="button" id="Clear" value="Clear">
             Clear</button>
     </div>
@@ -223,7 +224,7 @@
 
 
     function ontransactionHide(e) {
-
+    
         var transactionType = e.currentTarget.value;
         if (transactionType == "1") {
             $('#addLineRightcolumn').hide();
@@ -237,13 +238,38 @@
         else if (transactionType == "3") {
             $('#addLineRightcolumn').show();
         }
+//            var Selectedtransaction = $('#transactionTypeDropDownList').val();
+
+//            var getSpecialityCode = $('#specialtyCodeDropDownList').data('tComboBox');
+//            $('#specialtyCodeDropDownList').data('tComboBox').value('--Select--');
+
+//            getSpecialityCode.loader.showBusy();
+
+//            jQuery.ajax({
+//                url: "/WorkOrder/_GetDropDownListSpecialtyCode",
+//                type: 'GET',
+//                data: { transactionTypeDropDownList: Selectedtransaction },
+//                success: function (result) {
+//                    getSpecialityCode.dataBind(result);
+//                    getSpecialityCode.loader.hideBusy();
+//                    getSpecialityCode.select(0);
+
+//                }
+
+
+//            });
+
+
+//            return false;
+//        }
     }
 
 
-    jQuery('#Add').click(function () {
-    
+    jQuery('#submit').click(function () {
+
+        debugger
         var serviceOrderNo = $('#serviceOrderViewlabel')[0].innerHTML;
-    
+
         var transactionType = $('#transactionTypeDropDownList').val();
         var technicinanNo = $('#techniacianDropDownList').val();
         var quantity = $('#quantityText').val();
@@ -258,10 +284,11 @@
         var locationId = $('#locationDropDownList').val();
         var transSerialCodeNo = $('#trackingSerialNoDropDownList').val();
         var serviceOrderRelation = $('#slNumberDropDownList').val();
+        var uniqueId = $('#uniqueText').val();
 
         if (($.trim(serviceOrderRelation) == '') || (serviceOrderRelation == null) || (serviceOrderRelation == '--Select--')) {
             alert('Please select the Serial Number.');
-           // $('#slNumberDropDownList').addClass("input-validation-error");
+//             $('#slNumberDropDownList').addClass("input-validation-error");
             $('#slNumberDropDownList').focus();
             return;
         }
@@ -288,106 +315,97 @@
             return;
         }
 
-        if (($.trim(itemNumber) == '') || (itemNumber == null) || (itemNumber == '--Select--')) {
-            alert('Please select the Item Number.');
-            //$('#itemNumberDropDownList').addClass("input-validation-error");
-            $('#itemNumberDropDownList').focus();
-            return;
-        }
-
-        if (($.trim(site) == '') || (site == null) || (site == '--Select--')) {
-            alert('Please select the Site.');
-            //$('#siteComboBox').addClass("input-validation-error");
-            $('#siteComboBox').focus();
-            return;
-        }
-
-
-        jQuery.ajax({
-            url: "/WorkOrder/CreateServiceOrderPartLines",
-            type: 'POST',
-
-            data: { serviceOrderNo: serviceOrderNo, transactionType: transactionType, technicinanNo: technicinanNo, quantity: quantity, specialityCode: specialityCode, failureCode: failureCode, lineProperty: lineProperty, serviceOrderRelation: serviceOrderRelation, description: description, serviceComments: serviceComments, itemNumber: itemNumber, site: site, wareHouse: wareHouse, transSerialCodeNo: transSerialCodeNo, locationId: locationId },
-            success: function (result) {
-                jQuery('#ServicepartLines').html(result);
-
-                alert('Service Order Part Lines Created Successfully');
-                $('#transactionTypeDropDownList').data('tComboBox').value('--Select--');
-                $('#quantityText').val('');
-                $('#techniacianDropDownList').data('tComboBox').value('--Select--');
-                $('#specialtyCodeDropDownList').data('tComboBox').value('--Select--');
-                $('#failureCodeDropDownList').data('tComboBox').value('--Select--');
-                $('#LinePropertyDropDownList').data('tComboBox').value('--Select--');
-                $('#itemNumberDropDownList').data('tComboBox').value('--Select--');
-                $('#wareHouseDropDownList').data('tComboBox').value('--Select--');
-                $('#locationDropDownList').data('tComboBox').value('--Select--');
-                $('#trackingSerialNoDropDownList').data('tComboBox').value('--Select--');
-                $('#descriptionText').val('');
-                $('#commentsText').val('');
-            },
-            error: function (result) {
-                alert('An error occured while creating the service order part lines. Please check the inputs and try again');
+        if (transactionType == '3') {
+            if (($.trim(itemNumber) == '') || (itemNumber == null) || (itemNumber == '--Select--')) {
+                alert('Please select the Item Number.');
+                //$('#itemNumberDropDownList').addClass("input-validation-error");
+                $('#itemNumberDropDownList').focus();
+                return;
             }
 
-        });
+            if (($.trim(site) == '') || (site == null) || (site == '--Select--')) {
+                alert('Please select the Site.');
+                //$('#siteComboBox').addClass("input-validation-error");
+                $('#siteComboBox').focus();
+                return;
+            }
+        }
+        $('#submit').attr('disabled', true);
+        if (uniqueId == "") {
+            jQuery.ajax({
+                url: "/WorkOrder/CreateServiceOrderPartLines",
+                type: 'POST',
+
+                data: { serviceOrderNo: serviceOrderNo, transactionType: transactionType, technicinanNo: technicinanNo, quantity: quantity, specialityCode: specialityCode, failureCode: failureCode, lineProperty: lineProperty, serviceOrderRelation: serviceOrderRelation, description: description, serviceComments: serviceComments, itemNumber: itemNumber, site: site, wareHouse: wareHouse, transSerialCodeNo: transSerialCodeNo, locationId: locationId },
+                success: function (result) {
+                    jQuery('#ServicepartLines').html(result);
+
+                    alert('Service Order Part Lines Created Successfully');
+                    $('#transactionTypeDropDownList').data('tComboBox').value('--Select--');
+                    $('#quantityText').val('');
+                    $('#techniacianDropDownList').data('tComboBox').value('--Select--');
+                    $('#specialtyCodeDropDownList').data('tComboBox').value('--Select--');
+                    $('#failureCodeDropDownList').data('tComboBox').value('--Select--');
+                    $('#LinePropertyDropDownList').data('tComboBox').value('--Select--');
+                    $('#itemNumberDropDownList').data('tComboBox').value('--Select--');
+                    $('#wareHouseDropDownList').data('tComboBox').value('--Select--');
+                    $('#locationDropDownList').data('tComboBox').value('--Select--');
+                    $('#trackingSerialNoDropDownList').data('tComboBox').value('--Select--');
+                    $('#descriptionText').val('');
+                    $('#commentsText').val('');
+                    $('#submit').text('Add');
+                    $('#uniqueText').val('');
+                    $('#submit').attr('disabled', false);
+                },
+                error: function (result) {
+                    alert('An error occured while creating the service order part lines. Please check the inputs and try again');
+                }
+
+            });
+        }
+        else {
+
+
+            jQuery.ajax({
+                url: "/WorkOrder/UpdateServiceOrderPartLines",
+                type: 'POST',
+
+                data: { uniqueId: uniqueId, serviceOrderNo: serviceOrderNo, transactionType: transactionType, technicinanNo: technicinanNo, quantity: quantity, specialityCode: specialityCode, failureCode: failureCode, lineProperty: lineProperty, serviceOrderRelation: serviceOrderRelation, description: description, serviceComments: serviceComments, itemNumber: itemNumber, site: site, wareHouse: wareHouse, transSerialCodeNo: transSerialCodeNo, locationId: locationId },
+                success: function (result) {
+                    jQuery('#ServicepartLines').html(result);
+
+                    alert('Service Order Part Lines Updated Successfully');
+                    $('#transactionTypeDropDownList').data('tComboBox').value('--Select--');
+                    $('#quantityText').val('1');
+                    $('#techniacianDropDownList').data('tComboBox').value('--Select--');
+                    $('#specialtyCodeDropDownList').data('tComboBox').value('--Select--');
+                    $('#failureCodeDropDownList').data('tComboBox').value('--Select--');
+                    $('#LinePropertyDropDownList').data('tComboBox').value('--Select--');
+                    $('#itemNumberDropDownList').data('tComboBox').value('--Select--');
+                    $('#wareHouseDropDownList').data('tComboBox').value('--Select--');
+                    $('#locationDropDownList').data('tComboBox').value('--Select--');
+                    $('#trackingSerialNoDropDownList').data('tComboBox').value('--Select--');
+                    $('#descriptionText').val('');
+                    $('#commentsText').val('');
+                    $('#submit').text('Add');
+                    $('#uniqueText').val('');
+                    $('#submit').attr('disabled', false);
+                },
+                error: function (result) {
+                    alert('An error occured while updating the service order part lines. Please check the inputs and try again');
+                }
+
+            });
+
+        }
         return false;
     });
 
-
-   
-
-    jQuery('#Update').click(function () {
-
-        var serviceOrderNo = $('#serviceOrderViewlabel')[0].innerHTML;
-        var transactionType = $('#transactionTypeDropDownList').val();
-        var technicinanNo = $('#techniacianDropDownList').val();
-        var quantity = $('#quantityText').val();
-        var specialityCode = $('#specialtyCodeDropDownList').val();
-        var failureCode = $('#failureCodeDropDownList').val();
-        var lineProperty = $('#LinePropertyDropDownList').val();
-        var description = $('#descriptionText').val();
-        var serviceComments = $('#commentsText').val();
-        var itemNumber = $('#itemNumberDropDownList').val();
-        var site = $('#siteComboBox').val();
-        var wareHouse = $('#wareHouseDropDownList').val();
-        var locationId = $('#locationDropDownList').val();
-        var transSerialCodeNo = $('#trackingSerialNoDropDownList').val();
-        var serviceOrderRelation = $('#slNumberDropDownList').val();
-        var uniqueId = $('#uniqueText').val();
-        jQuery.ajax({
-            url: "/WorkOrder/UpdateServiceOrderPartLines",
-            type: 'POST',
-
-            data: { uniqueId: uniqueId, serviceOrderNo: serviceOrderNo, transactionType: transactionType, technicinanNo: technicinanNo, quantity: quantity, specialityCode: specialityCode, failureCode: failureCode, lineProperty: lineProperty, serviceOrderRelation: serviceOrderRelation, description: description, serviceComments: serviceComments, itemNumber: itemNumber, site: site, wareHouse: wareHouse, transSerialCodeNo: transSerialCodeNo, locationId: locationId },
-            success: function (result) {
-                jQuery('#ServicepartLines').html(result);
-
-                alert('Service Order Part Lines Updated Successfully');
-                $('#transactionTypeDropDownList').data('tComboBox').value('--Select--');
-                $('#quantityText').val('');
-                $('#techniacianDropDownList').data('tComboBox').value('--Select--');
-                $('#specialtyCodeDropDownList').data('tComboBox').value('--Select--');
-                $('#failureCodeDropDownList').data('tComboBox').value('--Select--');
-                $('#LinePropertyDropDownList').data('tComboBox').value('--Select--');
-                $('#itemNumberDropDownList').data('tComboBox').value('--Select--');
-                $('#wareHouseDropDownList').data('tComboBox').value('--Select--');
-                $('#locationDropDownList').data('tComboBox').value('--Select--');
-                $('#trackingSerialNoDropDownList').data('tComboBox').value('--Select--');
-                $('#descriptionText').val('');
-                $('#commentsText').val('');
-            },
-            error: function (result) {
-                alert(result.responseText);
-            }
-
-        });
-        return false;
-    });
 
 
     jQuery('#Clear').click(function () {
         $('#transactionTypeDropDownList').data('tComboBox').value('--Select--');
-        $('#quantityText').val('');
+        $('#quantityText').val('1');
         $('#techniacianDropDownList').data('tComboBox').value('--Select--');
         $('#specialtyCodeDropDownList').data('tComboBox').value('--Select--');
         $('#failureCodeDropDownList').data('tComboBox').value('--Select--');
@@ -398,6 +416,8 @@
         $('#trackingSerialNoDropDownList').data('tComboBox').value('--Select--');
         $('#descriptionText').val('');
         $('#commentsText').val('');
+        $('#submit').text('Add');
+        $('#uniqueText').val('');
 
     });
 
@@ -407,6 +427,9 @@
         var SelectedSiteId = $('#siteComboBox').val();
         var SelectedItemNumber = $('#itemNumberDropDownList').val();
         var getwareHouse = $('#wareHouseDropDownList').data('tComboBox');
+        $('#wareHouseDropDownList').data('tComboBox').value('--Select--');
+        $('#locationDropDownList').data('tComboBox').value('--Select--');
+        $('#trackingSerialNoDropDownList').data('tComboBox').value('--Select--');
         getwareHouse.loader.showBusy();
 
         jQuery.ajax({
@@ -463,6 +486,8 @@
         var SelectedItemNumber = $('#itemNumberDropDownList').val();
         var SelectedwarehouseId = $('#wareHouseDropDownList').val();
         var getLocation = $('#locationDropDownList').data('tComboBox');
+        $('#locationDropDownList').data('tComboBox').value('--Select--');
+        $('#trackingSerialNoDropDownList').data('tComboBox').value('--Select--');
         getLocation.loader.showBusy();
         jQuery.ajax({
             url: "/WorkOrder/_GetLocationList",
@@ -491,6 +516,7 @@
         var SelectedwarehouseId = $('#wareHouseDropDownList').val();
         var SelectedlocationId = $('#locationDropDownList').val();
         var gettrackingSerialNo = $('#trackingSerialNoDropDownList').data('tComboBox');
+        $('#trackingSerialNoDropDownList').data('tComboBox').value('--Select--');
         gettrackingSerialNo.loader.showBusy();
         jQuery.ajax({
             url: "/WorkOrder/_GetTransactionSerialNumberList",
@@ -510,7 +536,11 @@
         return false;
 
     }
-  
-  
+
+//    $('#slNumberDropDownList').on('change', function () {
+
+//        $('#slNumberDropDownList').removeClass("input-validation-error");
+//       
+//    });
 
 </script>

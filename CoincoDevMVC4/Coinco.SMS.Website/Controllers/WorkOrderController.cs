@@ -340,11 +340,7 @@ namespace Coinco.SMS.Controllers
 
         private JsonResult _GetTechnicianSpecialtyCode(int TransactionTypeID,string specialCode)
         {
-            //ServiceTechnician serviceTechnician = new ServiceTechnician();
-            //serviceTechnician.ServiceTechnicianList = new SelectList(serviceTechnician.GetTechnicians(userName), "ServiceTechnicianNo", "ServiceTechnicianName", null);
-            //ViewData["ServiceTechnicianList"] = serviceTechnician.ServiceTechnicianList;
-
-
+           
             List<ServiceTechnician> ServiceTechnicianList = new List<ServiceTechnician> { };
 
             string userName = "";
@@ -368,7 +364,7 @@ namespace Coinco.SMS.Controllers
         {
             string userName = User.Identity.Name.ToString().Split('\\')[1];
             WareHouse wareHouseObject = new WareHouse();
-            return Json(new SelectList(wareHouseObject.GetWareHouses(itemNumber, site, userName), "WareHouseCode", "WareHouseCode"), JsonRequestBehavior.AllowGet);
+            return Json(new SelectList(wareHouseObject.GetWareHouses(itemNumber, site, userName), "WareHouseCode", "WareHouseandQty"), JsonRequestBehavior.AllowGet);
 
         }
 
@@ -385,7 +381,7 @@ namespace Coinco.SMS.Controllers
         {
             string userName = User.Identity.Name.ToString().Split('\\')[1];
             Location locationObject = new Location();
-            return Json(new SelectList(locationObject.GetLocations(itemNumber, site, warehouse, userName), "LocationId", "LocationId"), JsonRequestBehavior.AllowGet);
+            return Json(new SelectList(locationObject.GetLocations(itemNumber, site, warehouse, userName), "LocationId", "LocationandQty"), JsonRequestBehavior.AllowGet);
 
         }
 
@@ -476,9 +472,9 @@ namespace Coinco.SMS.Controllers
                 if (isSuccess)
                 {
                     ViewData["ServiceOrderPartLines"] = GetServiceOrderPartLinesByServiceOrderID(TempData["ServiceOrderId"].ToString());
-                    TempData.Keep();
+                    
                 }
-               
+                TempData.Keep();
             }
             catch (Exception ex)
             {

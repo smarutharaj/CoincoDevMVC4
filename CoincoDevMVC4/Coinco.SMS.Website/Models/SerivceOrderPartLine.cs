@@ -85,7 +85,7 @@ namespace Coinco.SMS.Website.Models
                 foreach (DataRow row in resultTable.Rows)
                 {
                     SerivceOrderPartLine serviceObject = new SerivceOrderPartLine();
-                    serviceObject.SerialNumber = row["SerialNumber"].ToString();
+                    serviceObject.SerialNumber = row["SORelationID"].ToString();
                     serviceObject.ServiceObjectRelation = row["SORelationID"].ToString();
                     transaction = row["TransactionType"].ToString();
                   
@@ -112,16 +112,16 @@ namespace Coinco.SMS.Website.Models
                     serviceObject.LineProperty = new Models.LineProperty(row["LineProperty"].ToString(), "");
                     serviceObject.Quantity = row["Qty"].ToString();
                     serviceObject.SalesPrice = row["SalesPrice"].ToString();
-                    serviceObject.ServiceTechnician = new Models.ServiceTechnician(row["Technician"].ToString(), "");
+                    serviceObject.ServiceTechnician = new Models.ServiceTechnician("", row["Technician"].ToString());
                     serviceObject.ServiceComments = row["ServiceComments"].ToString();
                     serviceObject.UniqueId = row["UniqueId"].ToString();
                     serviceObject.PartDetails = new Models.PartDetails(row["ItemNumber"].ToString(), "", "");
                     serviceObject.Site = new Models.Site("",row["Site"].ToString(),"","");
-                    serviceObject.WareHouse =new Models.WareHouse(row["WareHouse"].ToString(),"","");
+                    serviceObject.WareHouse =new Models.WareHouse(row["WareHouse"].ToString(),"","","");
                     serviceObject.SizeType = row["Size"].ToString();
                     serviceObject.ColorType = row["Color"].ToString();
                     serviceObject.ConfigType = row["Config"].ToString();
-                    serviceObject.Location = new Models.Location(row["LocationId"].ToString(),"","");
+                    serviceObject.Location = new Models.Location(row["LocationId"].ToString(),"","","");
                     serviceObject.TransactionSerialNumber = row["TransSerialNumber"].ToString();
                     if (status == "0")
                     {
