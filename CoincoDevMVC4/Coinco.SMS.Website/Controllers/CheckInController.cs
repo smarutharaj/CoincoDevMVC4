@@ -245,7 +245,7 @@ namespace Coinco.SMS.Website.Controllers
                     serviceOrder.ServiceResponsible = serviceTechnician;
                    
                     IEnumerable<PartDetails> partDetailsCollection = partDetails.GetItemNumbers(User.Identity.Name.ToString().Split('\\')[1]);
-                    partDetails.PartDetailsList1 = partDetailsCollection.ToList<PartDetails>();
+                    //partDetails.PartDetailsList1 = partDetailsCollection.ToList<PartDetails>();
                     partDetails.PartDetailsList = new SelectList(partDetailsCollection, "ItemNumber", "ItemNumber", null);
                     ViewData["PartNumberList"] = partDetails.PartDetailsList;
                     serviceOrder.PartDetails = partDetails;
