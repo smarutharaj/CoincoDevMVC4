@@ -443,7 +443,6 @@
     <Content Include="Scripts\2012.2.607\telerik.datetimepicker.min.js" />
     <Content Include="Scripts\2012.2.607\telerik.draganddrop.min.js" />
     <Content Include="Scripts\2012.2.607\telerik.editor.min.js" />
-    <Content Include="Scripts\2012.2.607\telerik.extensions.js" />
     <Content Include="Scripts\2012.2.607\telerik.grid.editing.min.js" />
     <Content Include="Scripts\2012.2.607\telerik.grid.filtering.min.js" />
     <Content Include="Scripts\2012.2.607\telerik.grid.grouping.min.js" />
