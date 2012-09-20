@@ -79,6 +79,8 @@
             .HtmlAttributes(new { @class = "dropDownPropertiesSP" })
             .DropDownHtmlAttributes(new { @class = "dropDownPropertiesSP" })
             .SelectedIndex(0)
+            .ClientEvents(events => events.OnChange("onSpecialityCodeChange"))
+            //.CascadeTo("techniacianDropDownList")
             .Render();
             }
                <span class="mandatory">*</span>
@@ -99,12 +101,13 @@
             @Html.TextBoxFor(x => x.Quantity, new { @class = "textBoxPropertiesSP", id = "quantityText" })<br />
            @Html.Label("Technician:", new { @class = "labelHeaderView", id = "techniacianHeadLabel" }) 
             @{Html.Telerik().ComboBox().Name("techniacianDropDownList")
-            .BindTo((SelectList)ViewData["ServiceTechnicianList"])
+            //.BindTo((SelectList)ViewData["ServiceTechnicianList"])
+            .DataBinding(binding => binding.Ajax().Select("_GetDropDownListTechnicianSpecialtyCode", "WorkOrder"))
             .Placeholder("-- Select --")
             .HtmlAttributes(new { @class = "dropDownPropertiesSP" })
             .DropDownHtmlAttributes(new { @class = "dropDownPropertiesSP" })
             .SelectedIndex(0)
-
+         
             .Render();
             }
             <br />
@@ -258,21 +261,21 @@
 
         if (($.trim(serviceOrderRelation) == '') || (serviceOrderRelation == null) || (serviceOrderRelation == '--Select--')) {
             alert('Please select the Serial Number.');
-            $('#slNumberDropDownList').addClass("input-validation-error");
+           // $('#slNumberDropDownList').addClass("input-validation-error");
             $('#slNumberDropDownList').focus();
             return;
         }
 
         if (($.trim(transactionType) == '') || (transactionType == null) || (transactionType == '--Select--')) {
             alert('Please select the Transaction Type.');
-            $('#transactionTypeDropDownList').addClass("input-validation-error");
+            //$('#transactionTypeDropDownList').addClass("input-validation-error");
             $('#transactionTypeDropDownList').focus();
             return;
         }
 
         if (($.trim(specialityCode) == '') || (specialityCode == null) || (specialityCode == '--Select--')) {
             alert('Please select the Speciality Code.');
-            $('#specialtyCodeDropDownList').addClass("input-validation-error");
+            //$('#specialtyCodeDropDownList').addClass("input-validation-error");
             $('#specialtyCodeDropDownList').focus();
             return;
         }
@@ -280,21 +283,21 @@
 
         if (($.trim(lineProperty) == '') || (lineProperty == null) || (lineProperty == '--Select--')) {
             alert('Please select the Line property.');
-            $('#LinePropertyDropDownList').addClass("input-validation-error");
+            //$('#LinePropertyDropDownList').addClass("input-validation-error");
             $('#LinePropertyDropDownList').focus();
             return;
         }
 
         if (($.trim(itemNumber) == '') || (itemNumber == null) || (itemNumber == '--Select--')) {
             alert('Please select the Item Number.');
-            $('#itemNumberDropDownList').addClass("input-validation-error");
+            //$('#itemNumberDropDownList').addClass("input-validation-error");
             $('#itemNumberDropDownList').focus();
             return;
         }
 
         if (($.trim(site) == '') || (site == null) || (site == '--Select--')) {
             alert('Please select the Site.');
-            $('#siteComboBox').addClass("input-validation-error");
+            //$('#siteComboBox').addClass("input-validation-error");
             $('#siteComboBox').focus();
             return;
         }
@@ -331,9 +334,7 @@
     });
 
 
-    jQuery('#slNumberDropDownList').keyup(function () {
-        $('#slNumberDropDownList').removeClass("input-validation-error");
-    });
+   
 
     jQuery('#Update').click(function () {
 
@@ -427,6 +428,35 @@
 
     }
 
+
+    function onSpecialityCodeChange(e) {
+
+
+        var SelectedtransactionId = $('#transactionTypeDropDownList').val();
+        var SelectedSpecialityCode = $('#specialtyCodeDropDownList').val();
+        var gettechniacian = $('#techniacianDropDownList').data('tComboBox');
+        gettechniacian.loader.showBusy();
+
+        jQuery.ajax({
+            url: "/WorkOrder/_GetDropDownListTechnicianSpecialtyCode",
+            type: 'GET',
+            data: { transactionTypeDropDownList: SelectedtransactionId, specialtyCodeDropDownList: SelectedSpecialityCode },
+            success: function (result) {
+                gettechniacian.dataBind(result);
+                gettechniacian.loader.hideBusy();
+                gettechniacian.select(0);
+
+            }
+
+
+        });
+
+
+        return false;
+
+    }
+
+
     function onwareHouseChange(e) {
 
         var SelectedSiteId = $('#siteComboBox').val();
@@ -479,7 +509,8 @@
 
         return false;
 
-    }   
-
+    }
+  
+  
 
 </script>
