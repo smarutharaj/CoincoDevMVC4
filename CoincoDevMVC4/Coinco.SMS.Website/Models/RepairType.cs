@@ -11,6 +11,8 @@ namespace Coinco.SMS.Website.Models
 {
     public class RepairType
     {
+        public ServiceOrderLine ServiceOrderLine { get; set; }
+
         public string RepServiceOrder { get; set; }
 
         public string SerialNumber { get; set; }
@@ -288,32 +290,32 @@ namespace Coinco.SMS.Website.Models
 
         }
 
-        public IQueryable<RepairType> GetServiceOrderLinesDetailsBySerialNumber(string serialNumber, string itemNumber, string userName)
-        {
-            IAXHelper axHelper = ObjectFactory.GetInstance<IAXHelper>();
-            List<RepairType> repairList = new List<RepairType>();
-            try
-            {
-                DataTable resultTable = axHelper.GetServiceOrderLinesDetailsBySerialNumber(serialNumber, itemNumber, userName);
+        //public IQueryable<RepairType> GetServiceOrderLinesDetailsBySerialNumber(string serialNumber, string itemNumber, string userName)
+        //{
+        //    IAXHelper axHelper = ObjectFactory.GetInstance<IAXHelper>();
+        //    List<RepairType> repairList = new List<RepairType>();
+        //    try
+        //    {
+        //        DataTable resultTable = axHelper.GetServiceOrderLinesDetailsBySerialNumber(serialNumber, itemNumber, userName);
 
 
-                foreach (DataRow row in resultTable.Rows)
-                {
-                    RepairType repairObject = new RepairType();
-                    //repairObject.SerialNumber = row["SerialNumber"].ToString();
-                    repairObject.PartNumber = row["PartNumber"].ToString();
-                    repairList.Add(repairObject);
+        //        foreach (DataRow row in resultTable.Rows)
+        //        {
+        //            RepairType repairObject = new RepairType();
+        //            //repairObject.SerialNumber = row["SerialNumber"].ToString();
+        //            repairObject.PartNumber = row["PartNumber"].ToString();
+        //            repairList.Add(repairObject);
 
-                }
-            }
-            catch (Exception e)
-            {
-                throw e;
+        //        }
+        //    }
+        //    catch (Exception e)
+        //    {
+        //        throw e;
 
-            }
-            return repairList.AsQueryable<RepairType>();
+        //    }
+        //    return repairList.AsQueryable<RepairType>();
 
-        }
+        //}
 
         public List<RepairType> GetRepairLineDetails(string serviceorderId, string userName)
         {

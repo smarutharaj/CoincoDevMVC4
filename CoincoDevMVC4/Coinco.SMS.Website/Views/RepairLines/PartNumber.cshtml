@@ -1,3 +1,13 @@
 ﻿@using Telerik.Web.Mvc.UI
-@model Coinco.SMS.Website.Models.RepairType
- <label id="lblPartNumber">Part Number:</label> @Html.DisplayFor(x => TempData["PartNum"])
+@model Coinco.SMS.Website.Models.ServiceOrderLine
+ @*<label id="lblPartNumber">Part Number:</label> @Html.DisplayFor(x => ViewData["PartNum"])*@
+  @Html.Label("Part Number:", new { id = "labelPartNumber" })
+
+    @if (Model.PartNumber != null)
+    {
+        @Html.Label(Model.PartNumber, new { id = "lblPartNumber" })
+    }
+    else
+    {
+        @Html.Label("", new { id = "lblPartNumber" })
+    }
