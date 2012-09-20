@@ -47,13 +47,13 @@
             @Html.Label("Transaction Type:", new { @class = "labelHeaderSPView", id = "transactionHeadLabel" })
             @{Html.Telerik().ComboBox().Name("transactionTypeDropDownList")
             .DataBinding(binding => binding.Ajax().Select("_GetTransactionTypes", "WorkOrder"))
-             .SelectedIndex(0)
+
             .ClientEvents(e => e.OnChange("ontransactionHide"))
             .HtmlAttributes(new { @class = "dropDownPropertiesSP" })
             .DropDownHtmlAttributes(new { @class = "dropDownPropertiesSP" })
             .SelectedIndex(0)
-           //.ClientEvents(events => events.OnChange("ontransactionTypeChange"))
-            //.CascadeTo("specialtyCodeDropDownList")
+                  //.ClientEvents(events => events.OnChange("ontransactionTypeChange"))
+                  //.CascadeTo("specialtyCodeDropDownList")
             .Render();
             }
             <span class="mandatory">*</span>
@@ -97,11 +97,9 @@
             <br />
         </div>
         <div class="addLinecentercolumn">
-            @Html.Label("Quantity:", new { @class = "labelHeaderSPView",  id = "quantityHeadLabel" })
-          @*  @Html.TextBoxFor(x => x.Quantity,"1", new { @class = "textBoxPropertiesSP", @value="1", id = "quantityText" })*@
-            @Html.TextBox("quantityText", "1", new { @class = "textBoxPropertiesSP" }) 
+            @Html.Label("Quantity:", new { @class = "labelHeaderSPView", id = "quantityHeadLabel" })
+            @Html.TextBox("quantityText", "1", new { @class = "textBoxPropertiesSP" })
             <br />
-
             @Html.Label("Technician:", new { @class = "labelHeaderSPView", id = "techniacianHeadLabel" })
             @{Html.Telerik().ComboBox().Name("techniacianDropDownList")
                   //.BindTo((SelectList)ViewData["ServiceTechnicianList"])
@@ -149,7 +147,7 @@
                 <span class="mandatory">*</span> @*@Html.DropDownListFor(x => x.Site.SiteID, new SelectList(""), "<--Select One-->", new { @class = "dropDownPropertiesSP", id = "LinePropertyDropDownList" })*@
                 @Html.Label("Warehouse:", new { @class = "labelHeaderSPView", id = "wareHouseHeadLabel" })
                 @{Html.Telerik().ComboBox().Name("wareHouseDropDownList")
-            //.DataBinding(binding => binding.Ajax().Select("_GetDropDownWareHouse", "WorkOrder"))
+                      //.DataBinding(binding => binding.Ajax().Select("_GetDropDownWareHouse", "WorkOrder"))
             .Placeholder("-- Select --")
             .HtmlAttributes(new { @class = "dropDownPropertiesSP" })
             .DropDownHtmlAttributes(new { @class = "dropDownPropertiesSP" })
@@ -183,12 +181,16 @@
         </div>
     </div>
     <div id="SubmitResult" class="submitResultServiceOrderProcess">
-        <button class="t-button" type="button" id="submit" value="submit">
-            Add</button>
-        @*  <button class="t-button" type="button" id="Update" value="Update">
-            Update</button>*@
-        <button class="t-button" type="button" id="Clear" value="Clear">
-            Clear</button>
+        @{
+            if (@Session["SOStatus"].ToString() == "In Process")
+            { 
+            <button class="t-button" type="button" id="submit" value="submit">
+                Add</button>
+       
+            <button class="t-button" type="button" id="Clear" value="Clear">
+                Clear</button>
+            }
+        }
     </div>
     <div class="partLinesDiv" id="ServicepartLines">
         @{Html.RenderPartial("ServiceOrderPartLinesView");}
@@ -226,7 +228,7 @@
 
 
     function ontransactionHide(e) {
-    
+
         var transactionType = e.currentTarget.value;
         if (transactionType == "1") {
             $('#addLineRightcolumn').hide();
@@ -241,7 +243,7 @@
             $('#addLineRightcolumn').show();
 
             var SelectedtransactionId = $('#transactionTypeDropDownList').val();
-            
+
             if (SelectedtransactionId != "") {
                 var getSpecialtyCode = $('#specialtyCodeDropDownList').data('tComboBox');
                 getSpecialtyCode.loader.showBusy();
@@ -268,7 +270,7 @@
 
 
     jQuery('#submit').click(function () {
-    debugger
+
 
         var serviceOrderNo = $('#serviceOrderViewlabel')[0].innerHTML;
 
@@ -277,21 +279,21 @@
         var quantity = $('#quantityText').val();
         var specialityCode = $('#specialtyCodeDropDownList').val();
         var failureCode = $('#failureCodeDropDownList').val();
-       
+
         var lineProperty = $('#LinePropertyDropDownList').val();
         var description = $('#descriptionText').val();
-      
+
         var serviceComments = $('#commentsText').val();
-        
+
         var itemNumber = $('#itemNumberDropDownList').val();
-      
+
         var site = $('#siteComboBox').val();
         var wareHouse = $('#wareHouseDropDownList').val();
-       
+
         var locationId = $('#locationDropDownList').val();
-      
+
         var transSerialCodeNo = $('#trackingSerialNoDropDownList').val();
-      
+
         var serviceOrderRelation = $('#slNumberDropDownList').val();
         var uniqueId = $('#uniqueText').val();
 
@@ -371,9 +373,10 @@
                     alert('Service Order Part Lines Created Successfully');
                     $('#transactionTypeDropDownList').data('tComboBox').value('');
                     $('#transactionTypeDropDownList').data('tComboBox').value('--Select--');
-                    $('#quantityText').val('');
-                    $('#techniacianDropDownList').data('tComboBox').value('--Select--');
+                    $('#quantityText').val('1');
+
                     $('#specialtyCodeDropDownList').data('tComboBox').value('--Select--');
+                    $('#techniacianDropDownList').data('tComboBox').value('--Select--');
                     $('#failureCodeDropDownList').data('tComboBox').value('--Select--');
                     $('#LinePropertyDropDownList').data('tComboBox').value('--Select--');
                     $('#itemNumberDropDownList').data('tComboBox').value('--Select--');
@@ -381,6 +384,7 @@
                     $('#locationDropDownList').data('tComboBox').value('--Select--');
                     $('#trackingSerialNoDropDownList').data('tComboBox').value('');
                     $('#trackingSerialNoDropDownList').data('tComboBox').value('--Select--');
+
                     $('#descriptionText').val('');
                     $('#commentsText').val('');
                     $('#submit').text('Add');
@@ -408,6 +412,7 @@
                     $('#transactionTypeDropDownList').data('tComboBox').value('--Select--');
                     $('#quantityText').val('1');
                     $('#techniacianDropDownList').data('tComboBox').value('--Select--');
+
                     $('#specialtyCodeDropDownList').data('tComboBox').value('--Select--');
                     $('#failureCodeDropDownList').data('tComboBox').value('--Select--');
                     $('#LinePropertyDropDownList').data('tComboBox').value('--Select--');
@@ -436,14 +441,22 @@
     jQuery('#Clear').click(function () {
         $('#transactionTypeDropDownList').data('tComboBox').value('--Select--');
         $('#quantityText').val('1');
+
+        $("#techniacianDropDownList").data('tComboBox').dataBind();
         $('#techniacianDropDownList').data('tComboBox').value('--Select--');
+        $("#specialtyCodeDropDownList").data('tComboBox').dataBind();
         $('#specialtyCodeDropDownList').data('tComboBox').value('--Select--');
+
         $('#failureCodeDropDownList').data('tComboBox').value('--Select--');
         $('#LinePropertyDropDownList').data('tComboBox').value('--Select--');
         $('#itemNumberDropDownList').data('tComboBox').value('--Select--');
+
         $('#wareHouseDropDownList').data('tComboBox').value('--Select--');
+        $("#wareHouseDropDownList").data('tComboBox').dataBind();
         $('#locationDropDownList').data('tComboBox').value('--Select--');
+        $("#locationDropDownList").data('tComboBox').dataBind();
         $('#trackingSerialNoDropDownList').data('tComboBox').value('--Select--');
+        $("#trackingSerialNoDropDownList").data('tComboBox').dataBind();
         $('#descriptionText').val('');
         $('#commentsText').val('');
         $('#submit').text('Add');
@@ -452,8 +465,8 @@
     });
 
     function onItemNumberSiteChange(e) {
-    
-   
+
+
         var SelectedSiteId = $('#siteComboBox').val();
         var SelectedItemNumber = $('#itemNumberDropDownList').val();
         if (SelectedItemNumber != "" | SelectedSiteId != "") {
@@ -482,11 +495,11 @@
 
     }
 
-    
+
 
     function onSpecialityCodeChange(e) {
-  
-  debugger
+
+
         var SelectedtransactionId = $('#transactionTypeDropDownList').val();
         var SelectedSpecialityCode = $('#specialtyCodeDropDownList').val();
         if (SelectedtransactionId != "" & SelectedSpecialityCode != "") {
@@ -557,7 +570,7 @@
             else {
                 SelectedlocationId = "";
             }
-                var gettrackingSerialNo = $('#trackingSerialNoDropDownList').data('tComboBox');
+            var gettrackingSerialNo = $('#trackingSerialNoDropDownList').data('tComboBox');
             $('#trackingSerialNoDropDownList').data('tComboBox').value('--Select--');
             gettrackingSerialNo.loader.showBusy();
             jQuery.ajax({
