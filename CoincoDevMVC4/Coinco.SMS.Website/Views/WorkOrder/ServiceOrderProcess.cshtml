@@ -52,8 +52,7 @@
             .HtmlAttributes(new { @class = "dropDownPropertiesSP" })
             .DropDownHtmlAttributes(new { @class = "dropDownPropertiesSP" })
             .SelectedIndex(0)
-                  //.ClientEvents(events => events.OnChange("ontransactionTypeChange"))
-                  //.CascadeTo("specialtyCodeDropDownList")
+    
             .Render();
             }
             <span class="mandatory">*</span>
@@ -80,7 +79,7 @@
             .DropDownHtmlAttributes(new { @class = "dropDownPropertiesSP" })
             .SelectedIndex(0)
             .ClientEvents(events => events.OnChange("onSpecialityCodeChange"))
-                  //.CascadeTo("techniacianDropDownList")
+          
             .Render();
             }
             <span class="mandatory">*</span>
@@ -102,7 +101,7 @@
             <br />
             @Html.Label("Technician:", new { @class = "labelHeaderSPView", id = "techniacianHeadLabel" })
             @{Html.Telerik().ComboBox().Name("techniacianDropDownList")
-                  //.BindTo((SelectList)ViewData["ServiceTechnicianList"])
+           
             .DataBinding(binding => binding.Ajax().Select("_GetDropDownListTechnicianSpecialtyCode", "WorkOrder"))
             .Placeholder("-- Select --")
             .HtmlAttributes(new { @class = "dropDownPropertiesSP" })
@@ -147,7 +146,7 @@
                 <span class="mandatory">*</span> @*@Html.DropDownListFor(x => x.Site.SiteID, new SelectList(""), "<--Select One-->", new { @class = "dropDownPropertiesSP", id = "LinePropertyDropDownList" })*@
                 @Html.Label("Warehouse:", new { @class = "labelHeaderSPView", id = "wareHouseHeadLabel" })
                 @{Html.Telerik().ComboBox().Name("wareHouseDropDownList")
-                      //.DataBinding(binding => binding.Ajax().Select("_GetDropDownWareHouse", "WorkOrder"))
+                   
             .Placeholder("-- Select --")
             .HtmlAttributes(new { @class = "dropDownPropertiesSP" })
             .DropDownHtmlAttributes(new { @class = "dropDownPropertiesSP" })
