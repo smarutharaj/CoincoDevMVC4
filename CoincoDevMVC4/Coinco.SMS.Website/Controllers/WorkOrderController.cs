@@ -131,7 +131,7 @@ namespace Coinco.SMS.Controllers
 
                 FailureCode failureCodeObject = new FailureCode();
                 IEnumerable<FailureCode> failureCodeCollection = failureCodeObject.GetFailureCode(userName);
-                failureCodeObject.FailureCodeList = new SelectList(failureCodeCollection, "FailureCodeNo", "FailureDescription", null);
+                failureCodeObject.FailureCodeList = new SelectList(failureCodeCollection, "FailureCodeNo", "FailureCodeNo", null);
                 ViewData["FailureCodeList"] = failureCodeObject.FailureCodeList;
 
                 PartDetails partDetails = new PartDetails();
@@ -140,7 +140,7 @@ namespace Coinco.SMS.Controllers
 
                 LineProperty LinePropertyObject = new LineProperty();
                 IEnumerable<LineProperty> LinePropertyCollection = LinePropertyObject.GetLineProperty(userName);
-                LinePropertyObject.LinePropertyList = new SelectList(LinePropertyCollection, "LinePropertyCode", "LinePropertyDescription", null);
+                LinePropertyObject.LinePropertyList = new SelectList(LinePropertyCollection, "LinePropertyCode", "LinePropertyCode", null);
                 ViewData["LinePropertyList"] = LinePropertyObject.LinePropertyList;
 
 
@@ -327,7 +327,7 @@ namespace Coinco.SMS.Controllers
             userName = User.Identity.Name.ToString().Split('\\')[1];
             string _transactionTypeId = TransactionTypeID.ToString();
             specialtyCodeList = (new SpecialtyCode()).GetSpecialCodes(userName, _transactionTypeId);
-            return Json(new SelectList(specialtyCodeList, "SpecialityCodeNo", "SpecialityDescription"), JsonRequestBehavior.AllowGet);
+            return Json(new SelectList(specialtyCodeList, "SpecialityCodeNo", "SpecialityCodeNo"), JsonRequestBehavior.AllowGet);
 
         }
 
