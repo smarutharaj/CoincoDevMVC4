@@ -10,8 +10,8 @@
      <div class="addLineleftcolumnRL">
      <h6>Identification</h6>
      <br />
-        <label>Service Order:</label>
-               @Html.DisplayFor(x => TempData["ServiceOrderId"], new { id = "serviceOrderNo" })
+        @Html.Label("Service Order:", new {@class = "labelHeaderView", id = "serviceOrderLabel" })
+        @Html.Label(TempData["ServiceOrderId"].ToString(), new { @class = "labelViewSO", id = "serviceOrderNo" })
          <br />
          <label> Serial Number:</label>
                @{Html.Telerik().ComboBox().Name("serialNumberList")
@@ -23,10 +23,11 @@
                  .SelectedIndex(0)
                  .Render();
                 }
+                <span class="mandatory">*</span>
             <br />
           
             <div id = "partNumber" >
-                 @{Html.RenderPartial("PartNumber");}
+                 @{Html.RenderPartial("PartNumber", Model.ServiceOrderLine);}
             </div>
          <br />
      </div>
@@ -150,7 +151,7 @@
   <br />
 
     <div id="SubmitResult" class="centercolumnSubmitRL">
-        <button class="t-button" type="button" id="submit" value="submit"">Add</button>
+        <button class="t-button" type="button" id="submit" value="submit" disabled="true">Add</button>
         @*<button class="t-button" type="button" id="Update" value="Update"">Update</button>*@
         <button class="t-button" type="button" id="Clear" value="Clear"">Clear</button>
     </div>
@@ -165,8 +166,18 @@
 
 
     function onSerialNumberChange(e) {
+    debugger
         if (e != null) {
             var serialNumber = e.currentTarget.value;
+            if (serialNumber == "") 
+            {
+                $('#submit').attr('disabled', true);
+            }
+            else 
+            {
+                $('#submit').attr('disabled', false);
+            }
+
             jQuery.ajax({
                 url: "/RepairLines/getPartNumber",
                 type: 'GET',
@@ -186,7 +197,9 @@
     }
 
     jQuery('#submit').click(function () {
-        $('#submit').attr('disabled', true);
+    $('#submit').attr('disabled', true);
+
+        var serviceOrderNo = $('#serviceOrderNo')[0].innerHTML;
         var serialNumberList = $("#serialNumberList").val();
         var conditionId = $('#conditionList').val();
         var symptomAreaId = $('#symptomAreaList').val();
@@ -199,13 +212,14 @@
         var description = $('#descriptionTextBox').val();
         var serviceComments = $('#commentsTextBox').val();
         var uniqueId = $('#uniqueText').val();
-
+       
         if (uniqueId == "") {
             jQuery.ajax({
                 url: "/RepairLines/CreateRepairLineItems",
                 type: 'POST',
 
                 data: {
+                    serviceOrderNo: serviceOrderNo,
                     serialNumberList: serialNumberList,
                     conditionId: conditionId,
                     symptomAreaId: symptomAreaId,
@@ -221,8 +235,8 @@
                 success: function (result) {
                     jQuery('#divRepairLinesGrid').html(result);
                     alert('Repair Line Created Successfully');
-//                    $('#serialNumberList').data("tComboBox").value("--Select--");
-//                    $('#lblPartNumber').val('');
+                    //                    $('#serialNumberList').data("tComboBox").value("--Select--");
+                    //                    $('#lblPartNumber').val('');
                     $('#conditionList').data("tComboBox").value("--Select--");
                     $('#symptomAreaList').data("tComboBox").value("--Select--");
                     $('#symptomCodeList').data("tComboBox").value("--Select--");
@@ -248,6 +262,7 @@
 
                 data: {
                     uniqueId: uniqueId,
+                    serviceOrderNo: serviceOrderNo,
                     serialNumberList: serialNumberList,
                     conditionId: conditionId,
                     symptomAreaId: symptomAreaId,
@@ -264,8 +279,8 @@
                     jQuery('#divRepairLinesGrid').html(result);
 
                     alert('Repair Line Updated Successfully');
-//                    $('#serialNumberList').data("tComboBox").value("--Select--");
-//                    $('#lblPartNumber').val('');
+                    //                    $('#serialNumberList').data("tComboBox").value("--Select--");
+                    //                    $('#lblPartNumber').val('');
                     $('#conditionList').data("tComboBox").value("--Select--");
                     $('#symptomAreaList').data("tComboBox").value("--Select--");
                     $('#symptomCodeList').data("tComboBox").value("--Select--");
@@ -303,11 +318,11 @@
         $('#technicianList').data("tComboBox").value("--Select--");
         $('#descriptionTextBox').val('');
         $('#commentsTextBox').val('');
-        jQuery.ajax({
-            url: "/RepairLines/RepairLines",
-            type: 'POST'
-        });
-        return true;
+//        jQuery.ajax({
+//            url: "/RepairLines/RepairLines",
+//            type: 'POST'
+//        });
+//        return true;
     });
 
 
