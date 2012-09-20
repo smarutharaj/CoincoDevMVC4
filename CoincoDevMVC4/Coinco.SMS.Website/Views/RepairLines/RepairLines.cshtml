@@ -23,7 +23,7 @@
                  .SelectedIndex(0)
                  .Render();
                 }
-                <span class="mandatory">*</span>
+                <span class="mandatory" style = "vertical-align:text-top">*</span>
             <br />
           
             <div id = "partNumber" >
@@ -200,7 +200,6 @@
     }
 
     jQuery('#submit').click(function () {
-    debugger
     $('#submit').attr('disabled', true);
             var serviceOrderNo = $('#serviceOrderNo')[0].innerHTML;
             var serialNumberList = $("#serialNumberList").val();
