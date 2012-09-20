@@ -227,6 +227,7 @@
         })
         .Columns(columns =>
         {
+           
             columns.Command(commands => commands
                     .Custom("getSalesHistoryDetails").ButtonType(GridButtonType.Image)
                     .DataRouteValues(route => route.Add(c => c.SerialNumber).RouteKey("serialNo"))
@@ -290,7 +291,8 @@
   <script type="text/javascript">
 
       function onCustomerAccountDropDownListChange(e) {
-      
+        
+
           if (e != null) {
               var customerAccount = e.currentTarget.value;
               jQuery.ajax({
@@ -299,6 +301,7 @@
                   contentType: "application/json; charset=utf-8",
                   data: { customerAccount: customerAccount },
                   success: function (result) {
+                  
 
                       var serviceOrder = result;
                       var serviceTechnicianDropDownList = $('#serviceTechnicianDropDownList').data('tComboBox');
@@ -459,8 +462,7 @@
               return;
           }
 
-          $("#Add").attr("disabled", "disabled");
-          $("#Add").prop("disabled", true);
+          $("#Add").prop("disabled", "disabled");
 
           jQuery.ajax({
               url: "/CheckIn/GetServiceOrderLinesHistoryBySerialNumberPartNumber",
@@ -526,9 +528,9 @@
               alert('Please add atleast one service order line to create an order.');
               return;
           }
+          $("#Create").prop("disabled", "disabled");
+         // $('#Add').prop("disabled", true);
 
-          $("#Add").prop("disabled", true);
-          $("#Create").prop("disabled", true);
           jQuery.ajax({
               url: "/CheckIn/CreateServiceOrder",
               type: 'GET',
@@ -555,8 +557,8 @@
                   shippingAddressGrid.dataBind(testData);
                   alert('Service order created successfully.');
 
-                  $("#Add").prop("disabled", false);
-                  $("#Create").prop("disabled", false);
+                  $("#Create").prop("disabled", "");
+
               },
               error: function (result) {
                   alert('An error occured while creating the service order. Please check the inputs and try again');
