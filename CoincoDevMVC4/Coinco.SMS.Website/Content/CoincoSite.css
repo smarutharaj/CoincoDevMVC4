@@ -14,7 +14,7 @@
 .imgClass
 {
     padding: 10;
-    width: 65px;
+    width: 60px;
     height: 65px;
     text-align: justify;
     border:none;
@@ -36,7 +36,7 @@ cursor:pointer;
 text-align:center;
 background-color:#FAE186;
 width:70px;
-height:65px;
+height:62px;
 float:left;
 }
 
@@ -1065,13 +1065,13 @@ h5, h6 {
        
     }
 
-    .featured + .main-content {
+   /* .featured + .main-content {
         background: url("../Images/heroAccent.png") no-repeat;
     }
 header .content-wrapper {
     padding-top: 2px;
     
-}
+}*/
 
 /*footer {
     clear: both;
@@ -1167,7 +1167,7 @@ ul#menu {
     background-color: #fff;
 }*/
 
-    .featured .content-wrapper {
+/*    .featured .content-wrapper {
         background-color: #7ac0da;
         background-image: -ms-linear-gradient(left, #7ac0da 0%, #a4d4e6 100%);
         background-image: -o-linear-gradient(left, #7ac0da 0%, #a4d4e6 100%);
@@ -1185,7 +1185,7 @@ ul#menu {
         .featured p {
             font-size: 1.1em;
         }
-
+*/
 /* page titles */
 hgroup.title {
     margin-bottom: 10px;
@@ -1562,7 +1562,7 @@ input[type="checkbox"].input-validation-error {
 
     /* main layout
     ----------------------------------------------------------*/
-    .main-content,
+/*    .main-content,
     .featured + .main-content {
         background-position: 10px 0;
     }
@@ -1574,7 +1574,7 @@ input[type="checkbox"].input-validation-error {
 
     .featured .content-wrapper {
         padding: 0px;
-    }
+    }*/
 
     /* page content */
     article, aside {
@@ -1607,7 +1607,7 @@ input[type="checkbox"].input-validation-error {
             }
 
      /* features */
-     section.feature {
+  /*   section.feature {
         float: none;
         padding: 10px;
         width: auto;
@@ -1618,7 +1618,7 @@ input[type="checkbox"].input-validation-error {
             content: attr(alt);
             font-size: 1.5em;
             font-weight: 600;
-        }
+        }*/
 
     /* forms */
     input {
