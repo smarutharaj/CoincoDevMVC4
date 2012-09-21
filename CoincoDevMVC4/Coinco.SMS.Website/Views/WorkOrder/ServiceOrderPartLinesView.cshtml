@@ -177,8 +177,17 @@
             $('#slNumberDropDownList').data('tComboBox').value(SoNumber);
             $('#commentsText').val(comments);
             $('#uniqueText').val(uniqueId);
+
+            $("#transactionTypeDropDownList").data("tComboBox").disable();
             $('#transactionTypeDropDownList').addClass('t-state-disabled').attr('disabled',
                 'disabled');
+            $('#specialtyCodeDropDownList').data('tComboBox').disable();
+            $('#specialtyCodeDropDownList').addClass('t-state-disabled').attr('disabled',
+                'disabled');
+            $('#techniacianDropDownList').data("tComboBox").disable();
+            $('#techniacianDropDownList').addClass('t-state-disabled').attr('disabled',
+                'disabled');
+
             }
 
             function onRowDelete(e) {
