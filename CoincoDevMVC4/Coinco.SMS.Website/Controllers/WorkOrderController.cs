@@ -123,65 +123,70 @@ namespace Coinco.SMS.Controllers
             List<ServiceOrderLine> serviceOrderLineList = new List<ServiceOrderLine>();
             try
             {
-                
-
-
-                serivceOrderLineObject.ServiceOrderLineList = serviceOrderLineList;
-                serivceOrderPartLineObject.ServiceOrderLine = serivceOrderLineObject;
-
-                FailureCode failureCodeObject = new FailureCode();
-                IEnumerable<FailureCode> failureCodeCollection = failureCodeObject.GetFailureCode(userName);
-                failureCodeObject.FailureCodeList = new SelectList(failureCodeCollection, "FailureCodeNo", "FailureCodeNo", null);
-                ViewData["FailureCodeList"] = failureCodeObject.FailureCodeList;
-
-                PartDetails partDetails = new PartDetails();
-                partDetails.PartDetailsList = new SelectList(partDetails.GetItemNumbers(userName), "ItemNumber", "ItemNumber", null);
-                ViewData["PartNumberList"] = partDetails.PartDetailsList;
-
-                LineProperty LinePropertyObject = new LineProperty();
-                IEnumerable<LineProperty> LinePropertyCollection = LinePropertyObject.GetLineProperty(userName);
-                LinePropertyObject.LinePropertyList = new SelectList(LinePropertyCollection, "LinePropertyCode", "LinePropertyCode", null);
-                ViewData["LinePropertyList"] = LinePropertyObject.LinePropertyList;
-
-
-
-                IEnumerable<SerivceOrderPartLine> serviceOrderPartLineCollection = null;
-                serviceOrderPartLineCollection = serivceOrderPartLineObject.GetSerialNumberByServiceOrder(TempData["ServiceOrderId"].ToString(), userName);
-                serivceOrderPartLineObject.ServiceOrderPartLineList = new SelectList(serviceOrderPartLineCollection, "SerialNumber", "SerialNumber", null);
-
-                ViewData["SORelationList"] = serivceOrderPartLineObject.ServiceOrderPartLineList;
-                ViewData["WorkSerialNumberList"] = serivceOrderPartLineObject.ServiceOrderPartLineList;
-                ViewData["ServiceOrderPartLines"] = GetServiceOrderPartLinesByServiceOrderID(TempData["ServiceOrderId"].ToString());
-
-  
-                ServiceOrder ServiceOrder=new ServiceOrder();
-                ServiceOrder.ServiceOrderList= GetServiceOrderDetailsByServiceOrder(TempData["WorkOrderSiteId"].ToString(), TempData["ServiceOrderId"].ToString());
-                serivceOrderPartLineObject.ServiceOrders=ServiceOrder;
-                ViewData["ServiceOrderLineinProcess"] = serivceOrderPartLineObject.ServiceOrders.ServiceOrderList;
-                
-                //ServiceTechnician serviceTechnician = new ServiceTechnician();
-                //serviceTechnician.ServiceTechnicianList = new SelectList(serviceTechnician.GetTechnicians(userName), "ServiceTechnicianNo", "ServiceTechnicianName", null);
-                //ViewData["ServiceTechnicianList"] = serviceTechnician.ServiceTechnicianList;
-
-
-                
-                Site site = new Site();
-                IEnumerable<Site> siteCollection = null;
-                siteCollection = site.GetSites(userName);
-                if (!String.IsNullOrEmpty(TempData["WorkOrderSiteId"].ToString()))
+                if (!String.IsNullOrEmpty(TempData["ServiceOrderId"].ToString()))
                 {
-                    site.SiteList = new SelectList(siteCollection, "SiteId", "SiteName", siteCollection.First<Site>().SiteID = TempData["WorkOrderSiteId"].ToString());
+
+                    serivceOrderLineObject.ServiceOrderLineList = serviceOrderLineList;
+                    serivceOrderPartLineObject.ServiceOrderLine = serivceOrderLineObject;
+
+                    FailureCode failureCodeObject = new FailureCode();
+                    IEnumerable<FailureCode> failureCodeCollection = failureCodeObject.GetFailureCode(userName);
+                    failureCodeObject.FailureCodeList = new SelectList(failureCodeCollection, "FailureCodeNo", "FailureCodeNo", null);
+                    ViewData["FailureCodeList"] = failureCodeObject.FailureCodeList;
+
+                    PartDetails partDetails = new PartDetails();
+                    partDetails.PartDetailsList = new SelectList(partDetails.GetItemNumbers(userName), "ItemNumber", "ItemNumber", null);
+                    ViewData["PartNumberList"] = partDetails.PartDetailsList;
+
+                    LineProperty LinePropertyObject = new LineProperty();
+                    IEnumerable<LineProperty> LinePropertyCollection = LinePropertyObject.GetLineProperty(userName);
+                    LinePropertyObject.LinePropertyList = new SelectList(LinePropertyCollection, "LinePropertyCode", "LinePropertyCode", null);
+                    ViewData["LinePropertyList"] = LinePropertyObject.LinePropertyList;
+
+
+
+                    IEnumerable<SerivceOrderPartLine> serviceOrderPartLineCollection = null;
+                    serviceOrderPartLineCollection = serivceOrderPartLineObject.GetSerialNumberByServiceOrder(TempData["ServiceOrderId"].ToString(), userName);
+                    serivceOrderPartLineObject.ServiceOrderPartLineList = new SelectList(serviceOrderPartLineCollection, "SerialNumber", "SerialNumber", null);
+
+                    ViewData["SORelationList"] = serivceOrderPartLineObject.ServiceOrderPartLineList;
+                    ViewData["WorkSerialNumberList"] = serivceOrderPartLineObject.ServiceOrderPartLineList;
+                    ViewData["ServiceOrderPartLines"] = GetServiceOrderPartLinesByServiceOrderID(TempData["ServiceOrderId"].ToString());
+
+
+                    ServiceOrder ServiceOrder = new ServiceOrder();
+                    ServiceOrder.ServiceOrderList = GetServiceOrderDetailsByServiceOrder(TempData["WorkOrderSiteId"].ToString(), TempData["ServiceOrderId"].ToString());
+                    serivceOrderPartLineObject.ServiceOrders = ServiceOrder;
+                    ViewData["ServiceOrderLineinProcess"] = serivceOrderPartLineObject.ServiceOrders.ServiceOrderList;
+
+                    //ServiceTechnician serviceTechnician = new ServiceTechnician();
+                    //serviceTechnician.ServiceTechnicianList = new SelectList(serviceTechnician.GetTechnicians(userName), "ServiceTechnicianNo", "ServiceTechnicianName", null);
+                    //ViewData["ServiceTechnicianList"] = serviceTechnician.ServiceTechnicianList;
+
+
+
+                    Site site = new Site();
+                    IEnumerable<Site> siteCollection = null;
+                    siteCollection = site.GetSites(userName);
+                    if (!String.IsNullOrEmpty(TempData["WorkOrderSiteId"].ToString()))
+                    {
+                        site.SiteList = new SelectList(siteCollection, "SiteId", "SiteName", siteCollection.First<Site>().SiteID = TempData["WorkOrderSiteId"].ToString());
+                    }
+                    else
+                    {
+                        site.SiteList = new SelectList(siteCollection, "SiteId", "SiteName", siteCollection.First<Site>().SiteID);
+                    }
+
+
+                    ViewData["siteList"] = site.SiteList;
+                    ViewData["TranasactionTypes"] = TransactionType.GetTransactionTypes();
+                    TempData.Keep();
                 }
                 else
                 {
-                    site.SiteList = new SelectList(siteCollection, "SiteId", "SiteName", siteCollection.First<Site>().SiteID);
-                }
 
-                    
-                ViewData["siteList"] = site.SiteList;
-                ViewData["TranasactionTypes"] = TransactionType.GetTransactionTypes();
-                TempData.Keep();
-      
+                    throw new Exception("Select the service order number in Service Order with history page");
+                }
             }
             catch (Exception ex)
             {
