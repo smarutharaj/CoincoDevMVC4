@@ -25,7 +25,7 @@
             columns.Bound(c => c.Location.LocationId).Title("Location").Width(100);
             columns.Bound(c => c.TransactionSerialNumber).Title("Dimension SerialNumber").Width(160);
             columns.Bound(c => c.UniqueId).Hidden();
-           
+            columns.Bound(c => c.ServiceTechnician.ServiceTechnicianNo).Hidden();
             columns.Command(commands =>
             {
                 commands.Delete().ButtonType(GridButtonType.Image);
@@ -76,7 +76,9 @@
             var location = e.row.cells[12].innerHTML;
             var transactionSerialNumber = e.row.cells[13].innerHTML;
             var SoNumber = e.row.cells[0].innerHTML;
-
+            var technicianNo = e.row.cells[15].innerHTML;
+        
+            
             if (itemtype == "" | itemtype == "&nbsp;") {
                 itemtype = "--Select--";
             }
@@ -131,16 +133,19 @@
             if (SoNumber == "" | SoNumber == "&nbsp;") {
                 SoNumber = "--Select--";
             }
-            
+            if (technicianNo == "" | technicianNo == "&nbsp;") {
+                technicianNo = "--Select--";
+            }
 
             $('#transactionTypeDropDownList').data('tComboBox').value(itemtype);
             $('#descriptionText').val(description);
             $('#quantityText').val(quanity);
 
             $('#specialtyCodeDropDownList').data('tComboBox').value(specialitycode);
-          
-            $('#techniacianDropDownList').data('tComboBox').value(technician);
-          
+
+         
+            $('#techniacianDropDownList').data("tComboBox").value(technicianNo);
+            $('#techniacianDropDownList').data("tComboBox").text(technician);
 
             $('#failureCodeDropDownList').data('tComboBox').value(failureCode);
             $('#LinePropertyDropDownList').data('tComboBox').value(lineProperty);

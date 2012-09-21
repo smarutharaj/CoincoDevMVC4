@@ -79,7 +79,7 @@
             .DropDownHtmlAttributes(new { @class = "dropDownPropertiesSP" })
             .SelectedIndex(0)
             .ClientEvents(events => events.OnChange("onSpecialityCodeChange"))
-          
+           .ClientEvents(events => events.OnError("SpecialityCode_OnError"))
             .Render();
             }
             <span class="mandatory">*</span>
@@ -602,7 +602,7 @@
         if (status == 'error') {
             //xhr.status is the HTTP code returned by the server
             if (xhr.status == "404") {
-                alert("Select the Specailty Code")
+                alert("Select the Transaction Type and Specailty Code to choose Technician")
             }
         }
 
@@ -610,5 +610,26 @@
 
         e.preventDefault();
     }
+
+    function SpecialityCode_OnError(e) {
+        var combobox = $(this).data('tComboBox'); // $(this) is equivalent to $('#ComboBox')
+
+        //the current XMLHttpRequest object
+        var xhr = e.XMLHttpRequest;
+        //the text status of the error - 'timeout', 'error' etc.
+        var status = e.textStatus;
+
+        if (status == 'error') {
+            //xhr.status is the HTTP code returned by the server
+            if (xhr.status == "404") {
+                alert("Select the Transaction Type to choose Specailty Code")
+            }
+        }
+
+        //To prevent the default error handling (which is to alert the error message) you can call `preventDefault`
+
+        e.preventDefault();
+    }
+
 
 </script>
