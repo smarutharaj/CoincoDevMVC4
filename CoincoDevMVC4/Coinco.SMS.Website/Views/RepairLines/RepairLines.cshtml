@@ -329,7 +329,7 @@
                         $('#commentsTextBox').val('');
                         $('#submit').text('Add');
                         $('#uniqueText').val('');
-//                        $('#submit').attr('disabled', false);
+                        $('#submit').attr('disabled', false);
                     },
                     error: function (result) {
                         alert(result.responseText);
@@ -338,7 +338,7 @@
                 });
 
             }
-            $('#submit').attr('disabled', false);
+            
             return false;
        }
     });
