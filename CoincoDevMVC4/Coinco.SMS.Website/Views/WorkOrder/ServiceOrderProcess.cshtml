@@ -152,6 +152,7 @@
             .DropDownHtmlAttributes(new { @class = "dropDownPropertiesSP" })
             .SelectedIndex(0)
             .ClientEvents(events => events.OnChange("onwareHouseChange"))
+            
             .Render();
                 }
                 @Html.Label("Location:", new { @class = "labelHeaderSPView", id = "locationHeadLabel" })
