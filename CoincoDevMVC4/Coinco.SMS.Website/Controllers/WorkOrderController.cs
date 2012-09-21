@@ -420,9 +420,9 @@ namespace Coinco.SMS.Controllers
                 }
                 else
                 {
-
+                    throw new Exception("Service Order Part Lines creation failed");
                 }
-                //TempData.Keep();
+                TempData.Keep();
             }
             catch (Exception ex)
             {
@@ -450,7 +450,7 @@ namespace Coinco.SMS.Controllers
                 }
                 else
                 {
-
+                    throw new Exception("Service Order Part Lines updation failed");
                 }
 
                 TempData.Keep();
