@@ -208,7 +208,7 @@
         if (e != null) {
             var serialNumber = e.currentTarget.value;
             jQuery.ajax({
-                url: "/WorkOrder/GetServiceOrderLineBySerialNumberOrderProcess",
+                url: "../WorkOrder/GetServiceOrderLineBySerialNumberOrderProcess",
                 type: 'GET',
                 data: { serialNumber: serialNumber },
                 success: function (result) {
@@ -240,7 +240,7 @@
                 getSpecialtyCode.loader.showBusy();
 
                 jQuery.ajax({
-                    url: "/WorkOrder/_GetDropDownListSpecialtyCode",
+                    url: "../WorkOrder/_GetDropDownListSpecialtyCode",
                     type: 'GET',
                     data: { transactionTypeDropDownList: SelectedtransactionId },
                     success: function (result) {
@@ -263,7 +263,7 @@
                 getSpecialtyCode.loader.showBusy();
 
                 jQuery.ajax({
-                    url: "/WorkOrder/_GetDropDownListSpecialtyCode",
+                    url: "../WorkOrder/_GetDropDownListSpecialtyCode",
                     type: 'GET',
                     data: { transactionTypeDropDownList: SelectedtransactionId },
                     success: function (result) {
@@ -286,7 +286,7 @@
                 getSpecialtyCode.loader.showBusy();
 
                 jQuery.ajax({
-                    url: "/WorkOrder/_GetDropDownListSpecialtyCode",
+                    url: "../WorkOrder/_GetDropDownListSpecialtyCode",
                     type: 'GET',
                     data: { transactionTypeDropDownList: SelectedtransactionId },
                     success: function (result) {
@@ -310,7 +310,7 @@
                 getSpecialtyCode.loader.showBusy();
 
                 jQuery.ajax({
-                    url: "/WorkOrder/_GetDropDownListSpecialtyCode",
+                    url: "../WorkOrder/_GetDropDownListSpecialtyCode",
                     type: 'GET',
                     data: { transactionTypeDropDownList: SelectedtransactionId },
                     success: function (result) {
@@ -332,7 +332,7 @@
 
     jQuery('#submit').click(function () {
 
-        debugger
+       
         var serviceOrderNo = $('#serviceOrderViewlabel')[0].innerHTML;
 
         var transactionType = $('#transactionTypeDropDownList').val();
@@ -440,7 +440,7 @@
         $('#submit').attr('disabled', true);
         if (uniqueId == "") {
             jQuery.ajax({
-                url: "/WorkOrder/CreateServiceOrderPartLines",
+                url: "../WorkOrder/CreateServiceOrderPartLines",
                 type: 'POST',
 
                 data: { serviceOrderNo: serviceOrderNo, transactionType: transactionType, technicinanNo: technicinanNo, quantity: quantity, specialityCode: specialityCode, failureCode: failureCode, lineProperty: lineProperty, serviceOrderRelation: serviceOrderRelation, description: description, serviceComments: serviceComments, itemNumber: itemNumber, site: site, wareHouse: wareHouse, transSerialCodeNo: transSerialCodeNo, locationId: locationId },
@@ -478,7 +478,7 @@
 
 
             jQuery.ajax({
-                url: "/WorkOrder/UpdateServiceOrderPartLines",
+                url: "../WorkOrder/UpdateServiceOrderPartLines",
                 type: 'POST',
 
                 data: { uniqueId: uniqueId, serviceOrderNo: serviceOrderNo, transactionType: transactionType, technicinanNo: technicinanNo, quantity: quantity, specialityCode: specialityCode, failureCode: failureCode, lineProperty: lineProperty, serviceOrderRelation: serviceOrderRelation, description: description, serviceComments: serviceComments, itemNumber: itemNumber, site: site, wareHouse: wareHouse, transSerialCodeNo: transSerialCodeNo, locationId: locationId },
@@ -556,7 +556,7 @@
             getwareHouse.loader.showBusy();
 
             jQuery.ajax({
-                url: "/WorkOrder/_GetDropDownWareHouse",
+                url: "../WorkOrder/_GetDropDownWareHouse",
                 type: 'GET',
                 data: { partNumberDropDownList: SelectedItemNumber, siteComboBox: SelectedSiteId },
                 success: function (result) {
@@ -586,7 +586,7 @@
             gettechniacian.loader.showBusy();
 
             jQuery.ajax({
-                url: "/WorkOrder/_GetDropDownListTechnicianSpecialtyCode",
+                url: "../WorkOrder/_GetDropDownListTechnicianSpecialtyCode",
                 type: 'GET',
                 data: { transactionTypeDropDownList: SelectedtransactionId, specialtyCodeDropDownList: SelectedSpecialityCode },
                 success: function (result) {
@@ -617,7 +617,7 @@
             getLocation.loader.showBusy();
 
             jQuery.ajax({
-                url: "/WorkOrder/_GetLocationList",
+                url: "../WorkOrder/_GetLocationList",
                 type: 'GET',
                 data: { partNumberDropDownList: SelectedItemNumber, siteComboBox: SelectedSiteId, wareHouseDropDownList: SelectedwarehouseId },
                 success: function (result) {
@@ -653,7 +653,7 @@
             $('#trackingSerialNoDropDownList').data('tComboBox').value('--Select--');
             gettrackingSerialNo.loader.showBusy();
             jQuery.ajax({
-                url: "/WorkOrder/_GetTransactionSerialNumberList",
+                url: "../WorkOrder/_GetTransactionSerialNumberList",
                 type: 'GET',
                 data: { partNumberDropDownList: SelectedItemNumber, siteComboBox: SelectedSiteId, wareHouseDropDownList: SelectedwarehouseId, locationDropDownList: SelectedlocationId },
                 success: function (result) {
