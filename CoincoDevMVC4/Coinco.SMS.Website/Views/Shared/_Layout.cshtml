@@ -45,36 +45,42 @@
                         <div id="InProcess" class="ribbonIconBarClass" >
                                 <a href="@Url.Action("ServiceOrderWithHistory", "WorkOrder", new { siteid = "", process = "0" })" style = "text-decoration:none;">
                                     <img class="imgClass" src="@Url.Content("../../Images/WorkOrder-Open.png")" alt="" />
-                                    <p  class= "imgTitle">In Process</p></a>
+                                    @*<p  class= "imgTitle">In Process</p>*@
+                                    </a>
                         </div>
                         <div id="Posted" class="ribbonIconBarClass" >
                                 <a href="@Url.Action("ServiceOrderWithHistory", "WorkOrder", new { siteid = "", process = "1" })" style = "text-decoration:none;">
                                     <img class="imgClass" src="@Url.Content("../../Images/WorkOrder-Posted.png")" alt=""/>
-                                    <p  class= "imgTitle">Posted</p></a>
+                                   @* <p  class= "imgTitle">Posted</p>*@
+                                    </a>
                         </div>
                
                         <div id="Canceled" class="ribbonIconBarClass">
                                 <a href="@Url.Action("ServiceOrderWithHistory", "WorkOrder", new { siteid = "", process = "2" })" style = "text-decoration:none;">
                                 <img class="imgClass" src="@Url.Content("../../Images/WorkOrder-Closed.png")" alt=""/>  
-                                <p class= "imgTitle">Canceled</p></a>  
+                                @*<p class= "imgTitle">Canceled</p>*@
+                                </a>  
                        
                         </div>
 
                         <div id="CheckIN" class="ribbonIconBarClass" >
                                 <a href="@Url.Action("CheckIn", "CheckIn")" style = "text-decoration:none;">
                                     <img class="imgClass" src="@Url.Content("../../Images/WorkOrder.png")" alt="" />
-                                    <p  class= "imgTitle">Check In</p></a>
+                                    @*<p  class= "imgTitle">Check In</p>*@
+                                    </a>
                         </div>
                         <div id="RepairLines" class="ribbonIconBarClass">
 
                               <a id ="a_RepairLine" style = "text-decoration:none;">
                               <img class="imgClass" src="@Url.Content("../../Images/RepairLines.png")" alt=""/>
-                              <p class= "imgTitle">Repair Lines</p></a>
+                              @*<p class= "imgTitle">Repair Lines</p>*@
+                              </a>
                         </div>
                         <div id="OrderProcess" class="ribbonIconBarClass">
                                   <a id ="a_OrderProcess" style = "text-decoration:none;">
                                 <img class="imgClass" src="@Url.Content("../../Images/new.png")" alt="" />  
-                                <p class= "imgTitle">Order Process</p></a> 
+                               @* <p class= "imgTitle">Order Process</p>*@
+                                </a> 
                         </div>
                 </div>
 @*    </div>*@
