@@ -43,6 +43,7 @@
                  .SelectedIndex(0)
                  .Render();
                     }
+                     <span class="mandatory" style = "vertical-align:text-top">*</span>
             <br />
             <label>Symptom Area:</label>
                  @{Html.Telerik().ComboBox().Name("symptomAreaList")
@@ -54,6 +55,7 @@
                  .SelectedIndex(0)
                  .Render();
                     }
+                     <span class="mandatory" style = "vertical-align:text-top">*</span>
             <br />
             <label>Symptom Code:</label>
              @{Html.Telerik().ComboBox().Name("symptomCodeList")
@@ -64,6 +66,7 @@
                  .SelectedIndex(0)
                  .Render();
                     }
+                     <span class="mandatory" style = "vertical-align:text-top">*</span>
             <br />
      </div>
      <div class="addLineRightcolumnRL">
@@ -104,6 +107,7 @@
      <br />
         <label>Description:</label>
                 @Html.TextAreaFor(x => x.Description, new {id = "descriptionTextBox" })
+                 <span class="mandatory" style = "vertical-align:text-top">*</span>
          <br />
          @Html.TextBoxFor(x => x.UniqueId, new { @class = "singleTextBox" , id = "uniqueText", @type="hidden" })
      </div>
@@ -200,28 +204,52 @@
     }
 
     jQuery('#submit').click(function () {
-            
-            $('#submit').attr('disabled', true);
-            var serviceOrderNo = $('#serviceOrderNo')[0].innerHTML;
-            var serialNumberList = $("#serialNumberList").val();
-            var conditionId = $('#conditionList').val();
-            var symptomAreaId = $('#symptomAreaList').val();
-            var symptomCodeId = $('#symptomCodeList').val();
-            var diagnosisAreaId = $('#diagnosisAreaList').val();
-            var diagnosisCodeId = $('#diagnosisCodeList').val();
-            var resolutionId = $('#resolutionList').val();
-            var repairStageId = $('#repairStageList').val();
-            var technicianNo = $('#technicianList').val();
-            var description = $('#descriptionTextBox').val();
-            var serviceComments = $('#commentsTextBox').val();
-            var uniqueId = $('#uniqueText').val();
+
+        $('#submit').attr('disabled', true);
+        var serviceOrderNo = $('#serviceOrderNo')[0].innerHTML;
+        var serialNumberList = $("#serialNumberList").val();
+        var conditionId = $('#conditionList').val();
+        var symptomAreaId = $('#symptomAreaList').val();
+        var symptomCodeId = $('#symptomCodeList').val();
+        var diagnosisAreaId = $('#diagnosisAreaList').val();
+        var diagnosisCodeId = $('#diagnosisCodeList').val();
+        var resolutionId = $('#resolutionList').val();
+        var repairStageId = $('#repairStageList').val();
+        var technicianNo = $('#technicianList').val();
+        var description = $('#descriptionTextBox').val();
+        var serviceComments = $('#commentsTextBox').val();
+        var uniqueId = $('#uniqueText').val();
+
         if (serialNumberList == "--Select--" | serialNumberList == "") {
             alert('Please select the Serial Number.');
             $('#submit').attr('disabled', false);
             return
         }
-        else 
-        {
+        else if (conditionId == "--Select--" | conditionId == "") {
+
+            alert('Please select the Codition.');
+            $('#submit').attr('disabled', false);
+            return
+        }
+        else if (symptomAreaId == "--Select--" | symptomAreaId == "") {
+
+            alert('Please select the Symptom Area.');
+            $('#submit').attr('disabled', false);
+            return
+        }
+        else if (symptomCodeId == "--Select--" | symptomCodeId == "") {
+
+            alert('Please select the Symptom Code.');
+            $('#submit').attr('disabled', false);
+            return
+        }
+        else if (description == "") {
+            alert('Please provide the Description.');
+            $('#submit').attr('disabled', false);
+            return
+        }
+        
+        else {
             if (conditionId == "--Select--") {
                 conditionId = "";
             }
@@ -247,8 +275,7 @@
                 technicianNo = "";
             }
 
-            if (uniqueId == "") 
-            {
+            if (uniqueId == "") {
                 jQuery.ajax({
                     url: "../RepairLines/CreateRepairLineItems",
                     type: 'POST',
@@ -290,8 +317,7 @@
 
                 });
             }
-            else 
-            {
+            else {
                 jQuery.ajax({
                     url: "../RepairLines/UpdateRepairLineItems",
                     type: 'POST',
@@ -338,9 +364,9 @@
                 });
 
             }
-            
+
             return false;
-       }
+        }
     });
 
     jQuery('#Clear').click(function () {
