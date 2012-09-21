@@ -182,7 +182,7 @@
 //            }
 
             jQuery.ajax({
-                url: "/RepairLines/getPartNumber",
+                url: "../RepairLines/getPartNumber",
                 type: 'GET',
                 data: { serialNumber: serialNumber },
                 success: function (result) {
@@ -250,7 +250,7 @@
             if (uniqueId == "") 
             {
                 jQuery.ajax({
-                    url: "/RepairLines/CreateRepairLineItems",
+                    url: "../RepairLines/CreateRepairLineItems",
                     type: 'POST',
 
                     data: {
@@ -293,7 +293,7 @@
             else 
             {
                 jQuery.ajax({
-                    url: "/RepairLines/UpdateRepairLineItems",
+                    url: "../RepairLines/UpdateRepairLineItems",
                     type: 'POST',
 
                     data: {
