@@ -29,8 +29,8 @@
                                 }
            
                     </div>
-                              
                 </div>
+                                    <span style = "font-size: 8pt; font-family: Verdana;FONT-WEIGHT: bold;COLOR:Red" >*</span>  
             </div>
         </div>
         
@@ -296,7 +296,7 @@
           if (e != null) {
               var customerAccount = e.currentTarget.value;
               jQuery.ajax({
-                  url: "/CheckIn/GetOtherDetails",
+                  url: "../CheckIn/GetOtherDetails",
                   type: 'GET',
                   contentType: "application/json; charset=utf-8",
                   data: { customerAccount: customerAccount },
@@ -342,7 +342,7 @@
 
                       // jQuery('#OtherDetailsView').html(result);
                       jQuery.ajax({
-                          url: "/CheckIn/ClearServiceOrderLines",
+                          url: "../CheckIn/ClearServiceOrderLines",
                           type: 'POST',
                           success: function (result) {
                               var serviceOrderLineGrid = $("#ServiceOrderLineGrid").data("tGrid");
@@ -403,7 +403,7 @@
                       return;
                   }
                   jQuery.ajax({
-                      url: "/CheckIn/GetServiceOrderLinesHistoryBySerialNumberPartNumber",
+                      url: "../CheckIn/GetServiceOrderLinesHistoryBySerialNumberPartNumber",
                       type: 'GET',
                       contentType: "application/json; charset=utf-8",
                       data: { partNumber: partNumber, serialNumber: serialNumber },
@@ -465,7 +465,7 @@
           $("#Add").prop("disabled", "disabled");
 
           jQuery.ajax({
-              url: "/CheckIn/GetServiceOrderLinesHistoryBySerialNumberPartNumber",
+              url: "../CheckIn/GetServiceOrderLinesHistoryBySerialNumberPartNumber",
               type: 'GET',
               contentType: "application/json; charset=utf-8",
               data: { partNumber: partNumber, serialNumber: serialNumber },
@@ -532,10 +532,10 @@
          // $('#Add').prop("disabled", true);
 
           jQuery.ajax({
-              url: "/CheckIn/CreateServiceOrder",
+              url: "../CheckIn/CreateServiceOrder",
               type: 'GET',
               contentType: "application/json; charset=utf-8",
-
+              
               data: { customerAccount: customerAccount, customerPo: customerPo, addressId: addressId, technicinanNo: technicinanNo, responsibleNo: responsibleNo, woClassification: woClassification, customerComments: customerComments },
               success: function (result) {
 
@@ -588,7 +588,7 @@
 
           //$('#partNumberDropDownList').val('');
           jQuery.ajax({
-              url: "/CheckIn/ClearServiceOrderLines",
+              url: "../CheckIn/ClearServiceOrderLines",
               type: 'GET',
               datatype: 'jsonp',
               contentType: "application/json; charset=utf-8",
