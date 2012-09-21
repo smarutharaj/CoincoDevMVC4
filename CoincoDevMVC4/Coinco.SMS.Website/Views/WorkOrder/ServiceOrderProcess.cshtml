@@ -83,7 +83,7 @@
             .Render();
             }
             <span class="mandatory">*</span>
-            @Html.Label("LineProperty:", new { @class = "labelHeaderSPView", id = "linePropertyHeadLabel" })
+            @Html.Label("Line Property:", new { @class = "labelHeaderSPView", id = "linePropertyHeadLabel" })
             @{Html.Telerik().ComboBox().Name("LinePropertyDropDownList")
             .BindTo((SelectList)ViewData["LinePropertyList"])
             .Placeholder("-- Select --")
@@ -111,6 +111,7 @@
 
             .Render();
             }
+            <span class="mandatory">*</span>
             <br />
             @Html.Label("Service Comments:", new { @class = "labelHeaderSPView", id = "commentsHeadLabel" })
             @Html.TextAreaFor(x => x.ServiceComments, new { id = "commentsText" })
@@ -383,6 +384,13 @@
             alert('Please select the Line property.');
             //$('#LinePropertyDropDownList').addClass("input-validation-error");
             $('#LinePropertyDropDownList').focus();
+            return;
+        }
+
+        if (($.trim(technicinanNo) == '') || (technicinanNo == null) || (technicinanNo == '--Select--')) {
+            alert('Please select the Technician.');
+            //$('#LinePropertyDropDownList').addClass("input-validation-error");
+            $('#techniacianDropDownList').focus();
             return;
         }
 
