@@ -200,7 +200,8 @@
     }
 
     jQuery('#submit').click(function () {
-    $('#submit').attr('disabled', true);
+            
+            $('#submit').attr('disabled', true);
             var serviceOrderNo = $('#serviceOrderNo')[0].innerHTML;
             var serialNumberList = $("#serialNumberList").val();
             var conditionId = $('#conditionList').val();
@@ -328,7 +329,7 @@
                         $('#commentsTextBox').val('');
                         $('#submit').text('Add');
                         $('#uniqueText').val('');
-                        $('#submit').attr('disabled', false);
+//                        $('#submit').attr('disabled', false);
                     },
                     error: function (result) {
                         alert(result.responseText);
