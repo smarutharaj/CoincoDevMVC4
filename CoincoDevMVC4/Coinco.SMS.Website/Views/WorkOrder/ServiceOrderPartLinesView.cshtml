@@ -26,12 +26,17 @@
             columns.Bound(c => c.TransactionSerialNumber).Title("Dimension SerialNumber").Width(160);
             columns.Bound(c => c.UniqueId).Hidden();
             columns.Bound(c => c.ServiceTechnician.ServiceTechnicianNo).Hidden();
+            
+         if (@Session["SOStatus"].ToString() == "In Process")
+         { 
             columns.Command(commands =>
             {
                 commands.Delete().ButtonType(GridButtonType.Image);
             }).Width(50).Title("Delete");
-        })
+            }
 
+        })
+   
         .DataBinding(dataBinding =>
         {
             dataBinding.Ajax().OperationMode(GridOperationMode.Client).Select("_SelectionClientSide_serviceOrderPartLines", "WorkOrder")
