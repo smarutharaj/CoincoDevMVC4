@@ -232,12 +232,72 @@
         var transactionType = e.currentTarget.value;
         if (transactionType == "1") {
             $('#addLineRightcolumn').hide();
+            var SelectedtransactionId = $('#transactionTypeDropDownList').val();
+
+            if (SelectedtransactionId != "") {
+                var getSpecialtyCode = $('#specialtyCodeDropDownList').data('tComboBox');
+                getSpecialtyCode.loader.showBusy();
+
+                jQuery.ajax({
+                    url: "/WorkOrder/_GetDropDownListSpecialtyCode",
+                    type: 'GET',
+                    data: { transactionTypeDropDownList: SelectedtransactionId },
+                    success: function (result) {
+                        getSpecialtyCode.dataBind(result);
+                        getSpecialtyCode.loader.hideBusy();
+                        getSpecialtyCode.select(0);
+
+                    }
+
+
+                });
+            }
         }
         else if (transactionType == "2") {
             $('#addLineRightcolumn').hide();
+            var SelectedtransactionId = $('#transactionTypeDropDownList').val();
+
+            if (SelectedtransactionId != "") {
+                var getSpecialtyCode = $('#specialtyCodeDropDownList').data('tComboBox');
+                getSpecialtyCode.loader.showBusy();
+
+                jQuery.ajax({
+                    url: "/WorkOrder/_GetDropDownListSpecialtyCode",
+                    type: 'GET',
+                    data: { transactionTypeDropDownList: SelectedtransactionId },
+                    success: function (result) {
+                        getSpecialtyCode.dataBind(result);
+                        getSpecialtyCode.loader.hideBusy();
+                        getSpecialtyCode.select(0);
+
+                    }
+
+
+                });
+            }
         }
         else if (transactionType == "4") {
             $('#addLineRightcolumn').hide();
+            var SelectedtransactionId = $('#transactionTypeDropDownList').val();
+
+            if (SelectedtransactionId != "") {
+                var getSpecialtyCode = $('#specialtyCodeDropDownList').data('tComboBox');
+                getSpecialtyCode.loader.showBusy();
+
+                jQuery.ajax({
+                    url: "/WorkOrder/_GetDropDownListSpecialtyCode",
+                    type: 'GET',
+                    data: { transactionTypeDropDownList: SelectedtransactionId },
+                    success: function (result) {
+                        getSpecialtyCode.dataBind(result);
+                        getSpecialtyCode.loader.hideBusy();
+                        getSpecialtyCode.select(0);
+
+                    }
+
+
+                });
+            }
         }
         else if (transactionType == "3") {
             $('#addLineRightcolumn').show();
@@ -271,7 +331,7 @@
 
     jQuery('#submit').click(function () {
 
-  
+  debugger
         var serviceOrderNo = $('#serviceOrderViewlabel')[0].innerHTML;
 
         var transactionType = $('#transactionTypeDropDownList').val();
@@ -345,6 +405,10 @@
         if (failureCode == '--Select--') {
             failureCode = '';
         }
+        if (technicinanNo == '--Select--') {
+            technicinanNo = '';
+        }
+
         if (description == '') {
             description = '';
         }
@@ -461,7 +525,7 @@
         $('#commentsText').val('');
         $('#submit').text('Add');
         $('#uniqueText').val('');
-
+        $('#submit').attr('disabled', false);
     });
 
     function onItemNumberSiteChange(e) {
