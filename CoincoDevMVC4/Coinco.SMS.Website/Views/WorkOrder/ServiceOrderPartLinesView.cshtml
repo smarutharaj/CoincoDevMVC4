@@ -10,7 +10,7 @@
         .Columns(columns =>
         {
 
-            columns.Bound(c => c.ServiceObjectRelation).Title("Serial Number").Width(100);
+            columns.Bound(c => c.ServiceObjectRelation).Title("Serial Number").Width(120);
             columns.Bound(c => c.TransactionType.TransactionTypeName).Title("Transaction").Width(100);
             columns.Bound(c => c.Description).Width(100);
             columns.Bound(c => c.SpecialtyCode.SpecialityCodeNo).Title("SpecialtyCode").Width(120);
@@ -23,7 +23,7 @@
             columns.Bound(c => c.Site.SiteID).Title("Site").Width(50);
             columns.Bound(c => c.WareHouse.WareHouseCode).Title("WareHouse").Width(100);
             columns.Bound(c => c.Location.LocationId).Title("Location").Width(100);
-            columns.Bound(c => c.TransactionSerialNumber).Title("Dimension SerialNumber").Width(160);
+            columns.Bound(c => c.TransactionSerialNumber).Title("Dimension SerialNumber").Width(180);
             columns.Bound(c => c.UniqueId).Hidden();
             columns.Bound(c => c.ServiceTechnician.ServiceTechnicianNo).Hidden();
             
