@@ -503,8 +503,12 @@
                     $('#submit').text('Add');
                     $('#uniqueText').val('');
                     $('#submit').attr('disabled', false);
-                   
+                    $("#transactionTypeDropDownList").data("tComboBox").enable();
                     $('#transactionTypeDropDownList').removeClass('t-state-disabled').removeAttr('disabled');
+                    $('#specialtyCodeDropDownList').data('tComboBox').enable();
+                    $('#specialtyCodeDropDownList')).removeClass('t-state-disabled').removeAttr('disabled');
+                    $('#techniacianDropDownList').data("tComboBox").enable();
+                    $('#techniacianDropDownList')).removeClass('t-state-disabled').removeAttr('disabled');
                 },
                 error: function (result) {
                     alert('An error occured while updating the service order part lines. Please check the inputs and try again');
@@ -542,7 +546,14 @@
         $('#submit').text('Add');
         $('#uniqueText').val('');
         $('#submit').attr('disabled', false);
+        $("#transactionTypeDropDownList").data("tComboBox").enable();
         $('#transactionTypeDropDownList').removeClass('t-state-disabled').removeAttr('disabled');
+        $('#specialtyCodeDropDownList').data('tComboBox').enable();
+        $('#specialtyCodeDropDownList')).removeClass('t-state-disabled').removeAttr('disabled');
+        $('#techniacianDropDownList').data("tComboBox").enable();
+        $('#techniacianDropDownList')).removeClass('t-state-disabled').removeAttr('disabled');
+                
+
     });
 
     function onItemNumberSiteChange(e) {
