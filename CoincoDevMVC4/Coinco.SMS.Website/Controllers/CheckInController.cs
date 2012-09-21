@@ -118,13 +118,20 @@ namespace Coinco.SMS.Website.Controllers
         {List<ServiceOrderLine> serviceOrderLineExistingList =new List<ServiceOrderLine>();
             try
             {
-                serviceOrderLineExistingList = TempData["ServiceOrderLine"] as List<ServiceOrderLine>;
-                ServiceOrderLine serviceOrderLineExisting = (from item in serviceOrderLineExistingList
-                                                             where item.SerialNumber == serialNumber
-                                                             select item).First();
+                if (TempData["ServiceOrderLine"] != null)
+                {
+                    serviceOrderLineExistingList = TempData["ServiceOrderLine"] as List<ServiceOrderLine>;
+                    ServiceOrderLine serviceOrderLineExisting = (from item in serviceOrderLineExistingList
+                                                                 where item.SerialNumber == serialNumber
+                                                                 select item).First();
 
-                TryUpdateModel(serviceOrderLineExisting);
-                TempData["ServiceOrderLine"] = serviceOrderLineExistingList;
+                    TryUpdateModel(serviceOrderLineExisting);
+                    TempData["ServiceOrderLine"] = serviceOrderLineExistingList;
+                }
+                else
+                {
+                    
+                }
                 TempData.Keep();
             }
             catch (Exception ex)
@@ -309,7 +316,7 @@ namespace Coinco.SMS.Website.Controllers
             List<ServiceOrderLine> serviceOrderLineEmptyList = new List<ServiceOrderLine>();
             try
             {
-                TempData["ServiceOrderLine"] = null;
+                TempData["ServiceOrderLine"] = serviceOrderLineEmptyList;
                 ViewData["ServiceOrderLine"] = serviceOrderLineEmptyList;
                 serviceOrderLine.ServiceOrderLineList=serviceOrderLineEmptyList;
                 serviceOrder.ServiceOrderLine = serviceOrderLine;
@@ -339,7 +346,7 @@ namespace Coinco.SMS.Website.Controllers
                     }
                     else
                     {
-                        ViewData["ServiceOrderLine"] = serviceOrderLineNewList;
+                        ViewData["ServiceOrderLine"] = serviceOrderLineNewList[0];
                     }
                 }
                 else
