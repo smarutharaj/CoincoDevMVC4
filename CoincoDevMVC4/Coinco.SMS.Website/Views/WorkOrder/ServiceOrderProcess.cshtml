@@ -97,7 +97,7 @@
         </div>
         <div class="addLinecentercolumn">
             @Html.Label("Quantity:", new { @class = "labelHeaderSPView", id = "quantityHeadLabel" })
-            @Html.TextBox("quantityText", "1", new { @class = "textBoxPropertiesSP" })
+            @Html.TextBox("quantityText", "1", new { @class = "textBoxPropertiesSP", maxlength = "5" })
             <br />
             @Html.Label("Technician:", new { @class = "labelHeaderSPView", id = "techniacianHeadLabel" })
             @{Html.Telerik().ComboBox().Name("techniacianDropDownList")
