@@ -63,8 +63,8 @@
   
                 //var partLineGrid = $("#PartLinesGrid").data('tgrid');
                 $('#submit').text('Update');
-       
-
+          
+            
             var uniqueId = e.row.cells[14].innerHTML;
             
             var itemtype = e.row.cells[1].innerHTML;
@@ -176,8 +176,8 @@
 
             $('#slNumberDropDownList').data('tComboBox').value(SoNumber);
             $('#commentsText').val(comments);
-            $('#uniqueText').val(uniqueId); 
-
+            $('#uniqueText').val(uniqueId);
+            $('#transactionTypeDropDownList').attr('disabled', 'disabled');
             }
 
             function onRowDelete(e) {
