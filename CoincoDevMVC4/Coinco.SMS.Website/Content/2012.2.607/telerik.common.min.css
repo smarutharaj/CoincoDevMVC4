@@ -193,7 +193,7 @@ div.t-grid-header .t-header{border-bottom-width:0}
 .t-group-footer td{border-width:1px 0;border-style:solid}
 .t-grid-footer{border-style:solid;border-width:1px 0 0}
 .t-grid-footer td{border-top-width:0}
-.t-grid .t-status{float:left;margin:-.2em .6em -.2em -.6em;padding:.2em .6em;height:1.85em;border-right-width:1px;border-right-style:solid}
+.t-grid .t-status{float:left;margin:-.2em .6em -.2em -.6em;padding:.2em .6em;height:1.85em;border-right-width:1px;border-right-style:solid;visibility:hidden}
 .t-grid .t-pager{float:left;cursor:default}
 .t-grid .t-status-text{float:right;margin-right:.2em}
 .t-pager .t-link{text-decoration:none;padding:1px;margin-top:.2em;border-width:0;line-height:16px}
