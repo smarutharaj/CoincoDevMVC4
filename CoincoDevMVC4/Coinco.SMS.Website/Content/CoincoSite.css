@@ -485,8 +485,8 @@ footer
     padding-left: 5px;
     padding-top:0px;
     padding-right:10px;
-    max-width: 420px;
-    width:410px;
+    max-width: 425px;
+    width:425px;
     height: 25px;
     vertical-align:middle;
     font-family:  Verdana;
@@ -497,7 +497,7 @@ footer
 .leftView
 {
    float:left;
-   width:130px;
+   width:180px;
    text-align: left;
    vertical-align:middle;
    font-family:  Verdana;
@@ -507,7 +507,7 @@ footer
 
 .leftadjacentView
 {
-   float:right;
+   float:left;
    width:230px;
    max-width:230px;
    text-align: left;

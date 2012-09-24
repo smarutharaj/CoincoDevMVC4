@@ -185,11 +185,13 @@
 
         <div id="SerialNumberTextBox" class="leftadjacentView">
                  @Html.TextBox("serialNumberTextBox", "", new { @class = "textBoxProperties" })
-                
-        </div>
 
+        </div>
+        <div style = "font-size: 8pt; font-family: Verdana;FONT-WEIGHT: bold;COLOR:Red;float:right;width:15px;height:15px;position:inherit">
+             <span style = "font-size: 8pt; font-family: Verdana;FONT-WEIGHT: bold;COLOR:Red;float:right" >*</span>
+        </div>
     </div>
-     <span style = "font-size: 8pt; font-family: Verdana;FONT-WEIGHT: bold;COLOR:Red" >*</span>
+
     <div id="PartNumber" class="rightViewClassforThirdColumn"> 
         <div id="PartNumberLabel" class="rightView" >
             @Html.Label("Part Number", new { @class = "rightView" })
