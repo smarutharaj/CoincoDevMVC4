@@ -415,12 +415,12 @@
                           serviceOrderLineGrid.dataBind(result);
                       },
                       error: function (result) {
-                          var response = result.responseText;
-                          var start = result.responseText.search("<title>") + 7;
-                          var end = result.responseText.search("</title>");
+//                          var response = result.responseText;
+//                          var start = result.responseText.search("<title>") + 7;
+//                          var end = result.responseText.search("</title>");
 
-                          if (start > 0 && end > 0)
-                              alert(" " + result.responseText.substring(start, end) + ".");
+                         // if (start > 0 && end > 0)
+                              alert("No service order lines found for the entered serial number.");
                           //alert('An error occured while adding the service order lines. Please check the inputs and try again');
 
                       }
@@ -476,12 +476,12 @@
                   $("#Add").prop("disabled", false);
               },
               error: function (result) {
-                  var response = result.responseText;
-                  var start = result.responseText.search("<title>") + 7;
-                  var end = result.responseText.search("</title>");
+//                  var response = result.responseText;
+//                  var start = result.responseText.search("<title>") + 7;
+//                  var end = result.responseText.search("</title>");
 
-                  if (start > 0 && end > 0)
-                      alert(" " + result.responseText.substring(start, end) + ".");
+                //  if (start > 0 && end > 0)
+                      alert("No service order lines found for the entered serial number.");
                   $("#Add").prop("disabled", false);
 
               }
