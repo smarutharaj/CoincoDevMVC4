@@ -35,7 +35,7 @@ namespace Coinco.SMS.Controllers
             }
             ViewData["ServiceOrder"] = GetServiceOrders(TempData["SiteId"].ToString(), process);
             ViewData["ServiceOrderLine"] = GetServiceOrderLinesByServiceOrderID("");
-            return View();
+            return View("ServiceOrderWithHistory");
         }
 
         [GridAction]
