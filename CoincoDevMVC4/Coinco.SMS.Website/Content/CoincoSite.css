@@ -457,8 +457,8 @@ footer
     padding-bottom:10px;
     padding-right:10px;
     max-width: 410px;
-    width:410px;
-    max-height: 50px;
+    width:408px;
+    max-height: 55px;
     vertical-align:middle;
    font-family:  Verdana;
    font-size:8pt;
@@ -497,7 +497,7 @@ footer
 .leftView
 {
    float:left;
-   width:180px;
+   width:178px;
    text-align: left;
    vertical-align:middle;
    font-family:  Verdana;
@@ -511,7 +511,7 @@ footer
    width:230px;
    max-width:230px;
    text-align: left;
-   height: 25px;
+   max-height: 50px;
    vertical-align:middle;
    font-family:  Verdana;
    font-size:8pt;
@@ -745,6 +745,12 @@ footer
 #viewSalesHistory .t-icon
 {
     background: transparent url('Images/SalesHistory.png') no-repeat 0 0;
+}
+
+.t-combobox .t-input 
+{ 
+    border-top-width: 1px; 
+    border-bottom-width: 1px; 
 }
 
 /************************************************************/
