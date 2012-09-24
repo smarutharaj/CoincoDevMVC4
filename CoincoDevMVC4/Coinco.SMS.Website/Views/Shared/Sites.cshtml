@@ -15,8 +15,9 @@
 <script type="text/javascript">
 
     function onChange(e) {
-   
-        var siteId = e.currentTarget.value;
+    debugger
+   var siteId = e.currentTarget.value;
+   e.preventDefault();
         if (siteId != null)
         {
            $.ajax({
@@ -26,8 +27,9 @@
                 dataType: 'html',
                 success: function (result) {
                     $('#SOWH').html(result);
+                   // $('#SOWH').html(result).load('<%= Url.Action("ServiceOrderWithHistory", "WorkOrder") %>')
                 }
-
+              
             });
         }
         return false;
