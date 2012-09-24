@@ -13,17 +13,18 @@
         }
 
 <script type="text/javascript">
-
+    var rootPath = '@HttpContext.Current.Request.Url.GetLeftPart(UriPartial.Authority)' + '@HttpContext.Current.Request.ApplicationPath';
     function onChange(e) {
 
    var siteId = e.currentTarget.value;
 //   var found = $("#SOWH").find("span")
    if (siteId != null) {
             var pathname = window.location.pathname;
-
+            debugger
             if (pathname != "/WorkOrder/ServiceOrderWithHistory") {
-                window.location.href = document.URL + "/WorkOrder/ServiceOrderWithHistory?siteId=" + siteId + "&" + "process=" + "-1";
-  
+                //var rootPath=GetVirtualDirectory();
+                window.location.href = rootPath + "WorkOrder/ServiceOrderWithHistory?siteId=" + siteId + "&" + "process=" + "-1";
+                
             }
             else {
                 $.ajax({
@@ -41,6 +42,20 @@
       }
         
         return false;
+    }
+
+    function GetVirtualDirectory() {
+
+        var url = window.location.href;
+
+        var url_parts = url.split('//');
+
+        url_parts[url_parts.length - 1] = '';
+
+        var current_page_virtual_path = url_parts.join('//');
+
+        return current_page_virtual_path;
+
     }
 
 //    $(function GetServiceOrders(e) {
