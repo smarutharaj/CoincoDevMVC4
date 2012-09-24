@@ -18,15 +18,12 @@
 
    var siteId = e.currentTarget.value;
 //   var found = $("#SOWH").find("span")
-        if (siteId != null) {
-
+   if (siteId != null) {
             var pathname = window.location.pathname;
 
             if (pathname != "/WorkOrder/ServiceOrderWithHistory") {
-                var urlValue = '<%= Url.Action("ServiceOrderWithHistory", "WorkOrder", new { siteid = -999,  process = "-1" }) %>'.replace('-999', siteId);
-                //                    window.location.href = '@Url.Action("ServiceOrderWithHistory","WorkOrder", new { siteid =  "siteId" , process = "-1" })';
-                window.location.href = "../WorkOrder/ServiceOrderWithHistory?siteId=" + siteId + "&" + "process=" + "-1";
-
+                window.location.href = document.URL + "/WorkOrder/ServiceOrderWithHistory?siteId=" + siteId + "&" + "process=" + "-1";
+  
             }
             else {
                 $.ajax({
