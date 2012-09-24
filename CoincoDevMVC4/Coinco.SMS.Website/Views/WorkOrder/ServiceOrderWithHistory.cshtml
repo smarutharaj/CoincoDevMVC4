@@ -87,8 +87,12 @@
 
         var serviceOrderLineGrid = $('#ServiceOrderLineGrid').data('tGrid');
 
-        $('#a_RepairLine').attr('href', '../RepairLines/RepairLines');
-        $('#a_OrderProcess').attr('href', '../WorkOrder/ServiceOrderProcess');
+//        $('#a_RepairLine').attr('href', '../RepairLines/RepairLines');
+//        $('#a_OrderProcess').attr('href', '../WorkOrder/ServiceOrderProcess');
+
+        $('#a_RepairLine').attr('href', "@Url.Action("RepairLines", "RepairLines")");
+        $('#a_OrderProcess').attr('href', "@Url.Action("ServiceOrderProcess", "WorkOrder")");
+
 
         serviceOrderNumber = e.row.cells[0].innerHTML;
         serviceOrderStatus = e.row.cells[4].innerHTML;
