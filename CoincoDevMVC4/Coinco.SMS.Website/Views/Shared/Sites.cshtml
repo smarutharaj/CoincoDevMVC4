@@ -18,21 +18,31 @@
 
    var siteId = e.currentTarget.value;
 //   var found = $("#SOWH").find("span")
-        if (siteId != null)
-        {
-            $.ajax({
-                url: "../WorkOrder/ServiceOrderWithHistory",
-                type: 'GET',
-                data: { siteId: siteId, process: -1 },
-                dataType: 'html',
-                success: function (result) {
-                  
-                      window.location.href = "@Url.Action("ServiceOrderWithHistory","WorkOrder")";
+        if (siteId != null) {
+
+            var pathname = window.location.pathname;
+
+            if (pathname != "/WorkOrder/ServiceOrderWithHistory") {
+                var urlValue = '<%= Url.Action("ServiceOrderWithHistory", "WorkOrder", new { siteid = -999,  process = "-1" }) %>'.replace('-999', siteId);
+                //                    window.location.href = '@Url.Action("ServiceOrderWithHistory","WorkOrder", new { siteid =  "siteId" , process = "-1" })';
+                window.location.href = "../WorkOrder/ServiceOrderWithHistory?siteId=" + siteId + "&" + "process=" + "-1";
+
+            }
+            else {
+                $.ajax({
+                    url: "../WorkOrder/ServiceOrderWithHistory",
+                    type: 'GET',
+                    data: { siteId: siteId, process: -1 },
+                    dataType: 'html',
+                    success: function (result) {
+
                         $('#SOWH').html(result);
-                }
-            });
-            e.preventDefault();
-        }
+
+                    }
+                });
+            }
+      }
+        
         return false;
     }
 

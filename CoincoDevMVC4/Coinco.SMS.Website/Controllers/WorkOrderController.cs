@@ -31,6 +31,10 @@ namespace Coinco.SMS.Controllers
             {
                 TempData["SiteId"] = siteId;
                 Session["SiteID"] = siteId;
+                Site site = new Site();
+                IEnumerable<Site> existingSites = (IEnumerable<Site>)TempData["AllSites"];
+                site.SiteList = new SelectList(existingSites, "SiteId", "SiteName", siteId);
+                TempData["FeaturedSites"] = site.SiteList;
                 TempData.Keep();
             }
             ViewData["ServiceOrder"] = GetServiceOrders(TempData["SiteId"].ToString(), process);
@@ -83,6 +87,7 @@ namespace Coinco.SMS.Controllers
             }
             TempData["SiteId"] = siteCollection.First<Site>().SiteID;
             Session["SiteID"] = TempData["SiteId"];
+            TempData["AllSites"] = siteCollection;
             TempData["FeaturedSites"] = site.SiteList;
             TempData.Keep();
 
