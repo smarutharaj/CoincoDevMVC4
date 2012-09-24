@@ -15,22 +15,23 @@
 <script type="text/javascript">
 
     function onChange(e) {
-    debugger
+
    var siteId = e.currentTarget.value;
-   e.preventDefault();
+//   var found = $("#SOWH").find("span")
         if (siteId != null)
         {
-           $.ajax({
+            $.ajax({
                 url: "../WorkOrder/ServiceOrderWithHistory",
                 type: 'GET',
                 data: { siteId: siteId, process: -1 },
                 dataType: 'html',
                 success: function (result) {
-                    $('#SOWH').html(result);
-                   // $('#SOWH').html(result).load('<%= Url.Action("ServiceOrderWithHistory", "WorkOrder") %>')
+                  
+                      window.location.href = "@Url.Action("ServiceOrderWithHistory","WorkOrder")";
+                        $('#SOWH').html(result);
                 }
-              
             });
+            e.preventDefault();
         }
         return false;
     }
