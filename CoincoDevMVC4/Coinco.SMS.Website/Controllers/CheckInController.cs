@@ -57,6 +57,7 @@ namespace Coinco.SMS.Website.Controllers
             }
             catch(Exception ex)
             {
+                TempData.Keep();
                 throw (ex);
             }
 
@@ -79,6 +80,7 @@ namespace Coinco.SMS.Website.Controllers
             }
             catch(Exception ex)
             {
+                TempData.Keep();
                 throw ex;
             }
             return View(new GridModel<ServiceOrderLine>
@@ -102,6 +104,7 @@ namespace Coinco.SMS.Website.Controllers
             }
             catch (Exception ex)
             {
+                TempData.Keep();
                 throw ex;
             }
             return View(new GridModel<SalesHistory>
@@ -136,7 +139,7 @@ namespace Coinco.SMS.Website.Controllers
             }
             catch (Exception ex)
             {
-
+                TempData.Keep();
                 throw ex;
             }
             return View(new GridModel(serviceOrderLineExistingList));
@@ -170,6 +173,7 @@ namespace Coinco.SMS.Website.Controllers
             }
             catch (Exception ex)
             {
+                TempData.Keep();
                 throw ex;
             }
             return View(new GridModel<ServiceOrderLine>
@@ -263,7 +267,7 @@ namespace Coinco.SMS.Website.Controllers
             }
             catch (Exception ex)
             {
-
+                TempData.Keep();
                 throw ex;
             }
             return Json(serviceOrder, JsonRequestBehavior.AllowGet);
@@ -298,7 +302,7 @@ namespace Coinco.SMS.Website.Controllers
             }
             catch (Exception ex)
             {
-
+                TempData.Keep();
                 throw ex;
             }
             return Json(salesHistory);
@@ -324,7 +328,7 @@ namespace Coinco.SMS.Website.Controllers
             }
             catch (Exception ex)
             {
-
+                TempData.Keep();
                 throw ex;
             }
             return Json(serviceOrder, JsonRequestBehavior.AllowGet);
@@ -355,7 +359,15 @@ namespace Coinco.SMS.Website.Controllers
                     List<ServiceOrderLine> serviceOrderLineNewList = GetServiceOrderLinesBySerialNumberPartNumber(partNumber, serialNumber, "");
                     if (serviceOrderLineNewList.Count > 0)
                     {
-                        serviceOrderLineExistingList.Add(serviceOrderLineNewList.First());
+                        if (serviceOrderLineExistingList != null)
+                        {
+                            serviceOrderLineExistingList.Add(serviceOrderLineNewList.First());
+                        }
+                        else
+                        {
+                            serviceOrderLineExistingList = new List<ServiceOrderLine>();
+                            serviceOrderLineExistingList.Add(serviceOrderLineNewList.First());
+                        }
                     }
                     else
                     {
@@ -368,7 +380,9 @@ namespace Coinco.SMS.Website.Controllers
             }
             catch (Exception ex)
             {
+                TempData.Keep();
                 throw ex;
+
             }
             return Json(ViewData["ServiceOrderLine"], JsonRequestBehavior.AllowGet);
         }
@@ -404,6 +418,7 @@ namespace Coinco.SMS.Website.Controllers
             }
             catch (Exception ex)
             {
+                TempData.Keep();
                 throw ex;
             }
             return Json(ViewData["ServiceOrderLine"], JsonRequestBehavior.AllowGet);
@@ -424,6 +439,7 @@ namespace Coinco.SMS.Website.Controllers
             }
             catch (Exception ex)
             {
+                TempData.Keep();
                 throw ex;
             }   
             return serviceOrderLine;
