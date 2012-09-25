@@ -399,6 +399,13 @@ namespace Coinco.SMS.Website.Controllers
             {
                 userName = User.Identity.Name.ToString().Split('\\')[1];
 
+                if (HttpContext.Session != null)
+                {
+                    if (Session.IsNewSession)
+                    {                   
+                            Response.Redirect("ServiceOrderWithHistory");
+                    }
+                }
                 isSuccess = serviceOrder.CreateServiceOrder(TempData["SiteId"].ToString(), customerAccount, addressId == null ? null : addressId.ToString(), customerPo, technicinanNo, responsibleNo, woClassification, customerComments, out newSerivceOrder, userName);
                 if (isSuccess)
                 {
