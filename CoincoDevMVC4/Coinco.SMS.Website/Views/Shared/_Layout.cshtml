@@ -43,21 +43,58 @@
             
                 <div class ="smsMenuHeader">
                         <div id="InProcess" class="ribbonIconBarClass" >
-                                <a href="@Url.Action("ServiceOrderWithHistory", "WorkOrder", new { siteid = "", process = "0" })" style = "text-decoration:none;">
+                        @{
+                            if (TempData["SiteId"]!=null){
+                                    <a href="@Url.Action("ServiceOrderWithHistory", "WorkOrder", new { siteid = TempData["SiteId"].ToString(), process = "0" })" style = "text-decoration:none;">
                                     <img class="imgClass" src="@Url.Content("~/Images/WorkOrder-Open.png")" alt="" />
                                     </a>
+                            }
+                            else
+                            {
+                                     <a href="@Url.Action("ServiceOrderWithHistory", "WorkOrder", new { siteid = "", process = "0" })" style = "text-decoration:none;">
+                                    <img class="imgClass" src="@Url.Content("~/Images/WorkOrder-Open.png")" alt="" />
+                                    </a>
+
+                            }
+                           
+                            
+                        }
+
                         </div>
                         <div id="Posted" class="ribbonIconBarClass" >
+                           @{
+                               if (TempData["SiteId"] != null)
+                               {
+                                <a href="@Url.Action("ServiceOrderWithHistory", "WorkOrder", new { siteid = TempData["SiteId"].ToString(), process = "1" })" style = "text-decoration:none;">
+                                    <img class="imgClass" src="@Url.Content("~/Images/WorkOrder-Posted.png")" alt=""/>
+                                    </a>
+                               }
+                               else
+                               {
                                 <a href="@Url.Action("ServiceOrderWithHistory", "WorkOrder", new { siteid = "", process = "1" })" style = "text-decoration:none;">
                                     <img class="imgClass" src="@Url.Content("~/Images/WorkOrder-Posted.png")" alt=""/>
                                     </a>
+                               }
+                               }
                         </div>
                
                         <div id="Canceled" class="ribbonIconBarClass">
+                            @{
+                                if (TempData["SiteId"] != null)
+                                {
+                               <a href="@Url.Action("ServiceOrderWithHistory", "WorkOrder", new { siteid = TempData["SiteId"].ToString(), process = "2" })" style = "text-decoration:none;">
+                                <img class="imgClass" src="@Url.Content("~/Images/WorkOrder-Closed.png")" alt=""/>  
+                                </a>  
+                                }
+                                else
+                                {
+
+
                                 <a href="@Url.Action("ServiceOrderWithHistory", "WorkOrder", new { siteid = "", process = "2" })" style = "text-decoration:none;">
                                 <img class="imgClass" src="@Url.Content("~/Images/WorkOrder-Closed.png")" alt=""/>  
                                 </a>  
-                       
+                                }
+                                }
                         </div>
 
                         <div id="CheckIN" class="ribbonIconBarClass" >
@@ -99,7 +136,7 @@
                         @Html.Label("Serial Number", new { @class = "leftView" })
                     </div>
                     <div id="SerialNumberResult" class="leftadjacentSalesView">
-                        @Html.Label("Serial Number", new { @class = "leftView" , id="serialNumberLabel"})                  
+                        @Html.Label("Serial Number", new { @class = "leftView", id = "serialNumberLabel" })                  
                     </div>
                 </div>
                  
@@ -108,7 +145,7 @@
                         @Html.Label("Name", new { @class = "rightView" })
                     </div>
                     <div id="nameResult" class="rightadjacentSalesView">                  
-                          @Html.Label("Name", new { @class = "leftView" , id="nameLabel"})     
+                          @Html.Label("Name", new { @class = "leftView", id = "nameLabel" })     
                     </div>
                 </div>
 
@@ -120,7 +157,7 @@
                         @Html.Label("Item Number", new { @class = "leftView" })
                     </div>
                     <div id="ItemNumberResult" class="leftadjacentSalesView">                  
-                        @Html.Label("Item Number", new { @class = "leftView" , id="itemNumberLabel"})     
+                        @Html.Label("Item Number", new { @class = "leftView", id = "itemNumberLabel" })     
                     </div>
                 </div>
                  
@@ -141,7 +178,7 @@
                         @Html.Label("Sales Order", new { @class = "leftView" })
                     </div>
                     <div id="SalesOrderResult" class="leftadjacentSalesView">                  
-                        @Html.Label("Sales Order", new { @class = "leftView" , id="salesOrderLabel"})     
+                        @Html.Label("Sales Order", new { @class = "leftView", id = "salesOrderLabel" })     
                     </div>
                 </div>
                  
@@ -166,22 +203,22 @@
     
            Html.Telerik().Grid<Coinco.SMS.Website.Models.SalesHistory>((IEnumerable<Coinco.SMS.Website.Models.SalesHistory>)ViewData["ServiceInformation"])
         .Name("ServiceInformationGrid")
-        
+
         .Columns(columns =>
         {
-            columns.Bound(c => c.SalesServiceOrder).Title("Service Order").Width(120).ReadOnly();                                                                                                                                
+            columns.Bound(c => c.SalesServiceOrder).Title("Service Order").Width(120).ReadOnly();
             columns.Bound(c => c.SalesPrice).Title("Service Amount").Width(130).ReadOnly();
             columns.Bound(c => c.DateExecution).Title("Date").Width(110).ReadOnly();
-            columns.Bound(c => c.Description).Title("Description").ReadOnly();              
+            columns.Bound(c => c.Description).Title("Description").ReadOnly();
         })
 
         .DataBinding(dataBinding =>
         {
             dataBinding.Ajax().OperationMode(GridOperationMode.Client).Select("_SelectionClientSide_ServiceInfoLines", "CheckIn")
                 .Enabled(true);
-        } 
+        }
         )
-        
+
         .HtmlAttributes(new { style = "font-size: 8pt; font-family: Verdana;" })
         .Scrollable(c => c.Height("180px"))
         .Pageable((pager => pager.PageSize(10)))
@@ -194,7 +231,7 @@
       
         
         </text>)
-        
+
         .Buttons(b => b.Close())
         .Visible(false)
         .Width(790)
@@ -222,8 +259,8 @@
                                                          .CacheDurationInDays(5)
                                                          .Compress(false))
                                      .Scripts(scripts =>
-		scripts.AddGroup("LayoutGroup", group =>
-			group.Add("~/Scripts/telerik.extensions.js")))
+        scripts.AddGroup("LayoutGroup", group =>
+            group.Add("~/Scripts/telerik.extensions.js")))
                                                          .jQuery(true)
                                                          .Render();
                                                          
