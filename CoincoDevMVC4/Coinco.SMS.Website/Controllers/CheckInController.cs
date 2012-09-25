@@ -121,6 +121,13 @@ namespace Coinco.SMS.Website.Controllers
         {List<ServiceOrderLine> serviceOrderLineExistingList =new List<ServiceOrderLine>();
             try
             {
+                if (HttpContext.Session != null)
+                {
+                    if (Session["SID"] == null)
+                    {
+                        RedirectToAction("ServiceOrderWithHistory", "WorkOrder");
+                    }
+                }
                 if (TempData["ServiceOrderLine"] != null)
                 {
                     serviceOrderLineExistingList = TempData["ServiceOrderLine"] as List<ServiceOrderLine>;
@@ -153,6 +160,13 @@ namespace Coinco.SMS.Website.Controllers
             try
             {         
             userName = User.Identity.Name.ToString().Split('\\')[1];
+            if (HttpContext.Session != null)
+            {
+                if (Session["SID"] == null)
+                {
+                    RedirectToAction("ServiceOrderWithHistory", "WorkOrder");
+                }
+            }
             if (TempData["ServiceOrderLine"] != null)
             {
                 
@@ -341,6 +355,14 @@ namespace Coinco.SMS.Website.Controllers
             try
             {
                 userName = User.Identity.Name.ToString().Split('\\')[1];
+                if (HttpContext.Session != null)
+                {
+                    if (Session["SID"] == null)
+                    {
+                        RedirectToAction("ServiceOrderWithHistory", "WorkOrder");
+                        return Json("");
+                    }
+                }
                 if (TempData["ServiceOrderLine"] == null)
                 {
                     List<ServiceOrderLine> serviceOrderLineNewList= GetServiceOrderLinesBySerialNumberPartNumber(partNumber, serialNumber, "");
