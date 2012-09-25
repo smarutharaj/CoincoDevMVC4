@@ -401,7 +401,7 @@ namespace Coinco.SMS.Website.Controllers
 
                 if (HttpContext.Session != null)
                 {
-                    if (Session.IsNewSession)
+                    if (Session["SID"]==null)
                     {
                         RedirectToAction("ServiceOrderWithHistory", "WorkOrder");
                     }
