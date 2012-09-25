@@ -775,7 +775,7 @@ footer
 {
    padding:10px;
    width:780px;
-   height:470px;
+   height:450px;
    vertical-align:middle;
 
 }
@@ -837,7 +837,7 @@ footer
     padding-top:5px;
     padding-right:5px;
     max-width: 780px;
-    height: 220px;
+    height: 200px;
     vertical-align:middle;
     font-weight:normal;
 }
@@ -847,9 +847,9 @@ footer
     padding-left: 370px;
     padding-top:5px;
     padding-right:370px;
-    padding-bottom:10px;
+    padding-bottom:15px;
     max-width: 780px;
-    height: 20px;
+    height: 30px;
     vertical-align:middle;
      font-weight:normal;
     
