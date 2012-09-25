@@ -16,6 +16,7 @@ namespace Coinco.SMS.Controllers
         // GET: /WorkOrder/
         #region "ServiceOrderWith History"
 
+         [OutputCache(Duration = 0)] 
         [HttpGet]
         public ActionResult ServiceOrderWithHistory(string siteId, string process)
         {
