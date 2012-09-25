@@ -19,8 +19,8 @@
    var siteId = e.currentTarget.value;
 //   var found = $("#SOWH").find("span")
    if (siteId != null) {
-            var pathname = window.location.pathname;
-            debugger
+       var pathname = location.href;     //window.location.pathname;
+        
             if (pathname != "/WorkOrder/ServiceOrderWithHistory") {
                 //var rootPath=GetVirtualDirectory();
                 window.location.href = rootPath + "WorkOrder/ServiceOrderWithHistory?siteId=" + siteId + "&" + "process=" + "-1";
