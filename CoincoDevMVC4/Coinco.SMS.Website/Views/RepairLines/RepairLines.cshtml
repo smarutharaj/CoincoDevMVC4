@@ -13,12 +13,12 @@
         @Html.Label("Service Order:", new {@class = "labelHeaderView", id = "serviceOrderLabel" })
         @Html.Label(TempData["ServiceOrderId"].ToString(), new { @class = "labelViewSO", id = "serviceOrderNo" })
          <br />
-         <label> Serial Number:</label>
+         @Html.Label("Serial Number:", new { @class = "labelHeaderSPView", id = "serialHeadLabel" })
                @{Html.Telerik().ComboBox().Name("serialNumberList")
                      .BindTo((SelectList)ViewData["SerialNumberList"])
                      .Placeholder("--Select--")
-                 .HtmlAttributes(new { style = "font-size: 8pt; font-family: Calibri; width=50px;" })
-                 .DropDownHtmlAttributes(new { style = "font-size: 8pt; font-family: Calibri;" })
+                 .HtmlAttributes(new { @class = "dropDownPropertiesSP" })
+                 .DropDownHtmlAttributes(new { @class = "dropDownPropertiesSP" })
                  .ClientEvents(e => e.OnChange("onSerialNumberChange"))
                  .SelectedIndex(0)
                  .Render();
@@ -34,35 +34,37 @@
      <div class="addLinecentercolumnRL">
       <h6>Symptom</h6>
       <br />
-            <label>Condition:</label>
+            @Html.Label("Condition:", new { @class = "labelHeaderSPView", id = "conditionHeadLabel" })
                   @{Html.Telerik().ComboBox().Name("conditionList")
                         .BindTo((SelectList)ViewData["Condition"])
                         .Placeholder("--Select--")
-                 .HtmlAttributes(new { style = "font-size: 8pt; font-family: Calibri; width=50px;" })
-                 .DropDownHtmlAttributes(new { style = "font-size: 8pt; font-family: Calibri;" })
+                 .HtmlAttributes(new { @class = "dropDownPropertiesSP" })
+                 .DropDownHtmlAttributes(new { @class = "dropDownPropertiesSP" })
                  .SelectedIndex(0)
                  .Render();
                     }
                      <span class="mandatory" style = "vertical-align:text-top">*</span>
             <br />
-            <label>Symptom Area:</label>
+             @Html.Label("Symptom Area:", new { @class = "labelHeaderSPView", id = "SymptomHeadLabel" })
+           
                  @{Html.Telerik().ComboBox().Name("symptomAreaList")
                        .BindTo((SelectList)ViewData["SymptomArea"])
                        .Placeholder("--Select--")
-                 .HtmlAttributes(new { style = "font-size: 8pt; font-family: Calibri; width=50px;" })
-                 .DropDownHtmlAttributes(new { style = "font-size: 8pt; font-family: Calibri;" })
+                 .HtmlAttributes(new { @class = "dropDownPropertiesSP" })
+                 .DropDownHtmlAttributes(new { @class = "dropDownPropertiesSP" })
                  .CascadeTo("symptomCodeList")
                  .SelectedIndex(0)
                  .Render();
                     }
                      <span class="mandatory" style = "vertical-align:text-top">*</span>
             <br />
-            <label>Symptom Code:</label>
+            @Html.Label("Symptom Code:", new { @class = "labelHeaderSPView", id = "SymptomCodeHeadLabel" })
+            
              @{Html.Telerik().ComboBox().Name("symptomCodeList")
                        .DataBinding(binding => binding.Ajax().Select("_GetDropDownSymptomCode", "RepairLines"))
                        .Placeholder("--Select--")
-                 .HtmlAttributes(new { style = "font-size: 8pt; font-family: Calibri; width=50px;" })
-                 .DropDownHtmlAttributes(new { style = "font-size: 8pt; font-family: Calibri;" })
+                 .HtmlAttributes(new { @class = "dropDownPropertiesSP" })
+                 .DropDownHtmlAttributes(new { @class = "dropDownPropertiesSP" })
                  .SelectedIndex(0)
                  .Render();
                     }
@@ -72,29 +74,30 @@
      <div class="addLineRightcolumnRL">
      <h6>Execution</h6>
      <br />
-            <label>Repair Stage:</label>
+      @Html.Label("Repair Stage:", new { @class = "labelHeaderSPView", id = "RepairHeadLabel" })
+          
                @{Html.Telerik().ComboBox().Name("repairStageList")
                      .BindTo((SelectList)ViewData["RepairStage"])
                      .Placeholder("--Select--")
-                 .HtmlAttributes(new { style = "font-size: 8pt; font-family: Calibri; width=50px;" })
-                 .DropDownHtmlAttributes(new { style = "font-size: 8pt; font-family: Calibri;" })
+                 .HtmlAttributes(new { @class = "dropDownPropertiesSP" })
+                 .DropDownHtmlAttributes(new { @class = "dropDownPropertiesSP" })
                  .SelectedIndex(0)
                  .Render();
                     }
             <br />
        
-            <label>Technician:</label>
+           @Html.Label("Technician:", new { @class = "labelHeaderSPView", id = "techniacianRepairHeadLabel" })
                @{Html.Telerik().ComboBox().Name("technicianList")
                      .BindTo((SelectList)ViewData["ServiceTechnicianList"])
                      .Placeholder("--Select--")
-                 .HtmlAttributes(new { style = "font-size: 8pt; font-family: Calibri; width=50px;" })
-                 .DropDownHtmlAttributes(new { style = "font-size: 8pt; font-family: Calibri;" })
+                 .HtmlAttributes(new { @class = "dropDownPropertiesSP" })
+                 .DropDownHtmlAttributes(new { @class = "dropDownPropertiesSP" })
                  .SelectedIndex(0)
                  .Render();
                     }
             <br />
              
-            <label>Comments:</label>
+          @Html.Label("Comments:", new { @class = "labelHeaderSPView", id = "commentsHeadLabel" })
                @Html.TextAreaFor(x => x.Comments, new { id = "commentsTextBox" }) 
             <br />
      </div>
@@ -105,7 +108,8 @@
      <br />
      <h6>Description</h6>
      <br />
-        <label>Description:</label>
+      @Html.Label("Description:", new { @class = "labelHeaderSPView", id = "DescriptionHeadLabel" })
+       
                 @Html.TextAreaFor(x => x.Description, new {id = "descriptionTextBox" })
                  <span class="mandatory" style = "vertical-align:text-top">*</span>
          <br />
@@ -115,33 +119,37 @@
      <br />
       <h6>Diagnosis</h6>
       <br />
-            <label>Diagnosis Area:</label>
+        @Html.Label("Diagnosis Area:", new { @class = "labelHeaderSPView", id = "DiagnosisHeadLabel" })
+          
                   @{Html.Telerik().ComboBox().Name("diagnosisAreaList")
                        .BindTo((SelectList)ViewData["DiagnosisArea"])
-                       .Placeholder("--Select--") 
-                 .HtmlAttributes(new { style = "font-size: 8pt; font-family: Calibri; width=50px;" })
-                 .DropDownHtmlAttributes(new { style = "font-size: 8pt; font-family: Calibri;" })
+                       .Placeholder("--Select--")
+                 .HtmlAttributes(new { @class = "dropDownPropertiesSP" })
+                 .DropDownHtmlAttributes(new { @class = "dropDownPropertiesSP" })
                  .CascadeTo("diagnosisCodeList")
                  .SelectedIndex(0)
                  .Render();
                     }
             <br />
-            <label>Diagnosis Code:</label>
+             @Html.Label("Diagnosis Code:", new { @class = "labelHeaderSPView", id = "DiagnosisCodeHeadLabel" })
+           
                  @{Html.Telerik().ComboBox().Name("diagnosisCodeList")
                        .DataBinding(binding => binding.Ajax().Select("_GetDropDownDiagnosisCode", "RepairLines"))
                        .Placeholder("--Select--")
-                 .HtmlAttributes(new { style = "font-size: 8pt; font-family: Calibri; width=50px;" })
-                 .DropDownHtmlAttributes(new { style = "font-size: 8pt; font-family: Calibri;" })
+                 .HtmlAttributes(new { @class = "dropDownPropertiesSP" })
+                 .DropDownHtmlAttributes(new { @class = "dropDownPropertiesSP" })
                  .SelectedIndex(0)
                  .Render();
                     }
             <br />
-            <label>Resolution:</label>
+             @Html.Label("Resolution:", new { @class = "labelHeaderSPView", id = "ResolutuinHeadLabel" })
+           
+            
                @{Html.Telerik().ComboBox().Name("resolutionList")
                      .BindTo((SelectList)ViewData["Resolution"])
                      .Placeholder("--Select--")
-                 .HtmlAttributes(new { style = "font-size: 8pt; font-family: Calibri; width=50px;" })
-                 .DropDownHtmlAttributes(new { style = "font-size: 8pt; font-family: Calibri;" })
+                 .HtmlAttributes(new { @class = "dropDownPropertiesSP" })
+                 .DropDownHtmlAttributes(new { @class = "dropDownPropertiesSP" })
                  .SelectedIndex(0)
                  .Render();
                     }
