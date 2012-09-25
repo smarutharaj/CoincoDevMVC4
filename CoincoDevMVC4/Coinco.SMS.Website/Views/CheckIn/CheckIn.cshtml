@@ -628,7 +628,7 @@
               var detailWindow = $("#SalesDetailsHistory").data("tWindow");
               var saleshistory = e.response;
               if (saleshistory.SalesSerialNumber != null) {
-                  $('#serialNumberLabel').text(saleshistory.CustomerName);
+                  $('#serialNumberLabel').text(saleshistory.SalesSerialNumber);
               }
               else {
                   $('#serialNumberLabel').text('');
@@ -654,15 +654,15 @@
                   $('#invoiceNumberLabel').text('');
               }
 
-              if (saleshistory.ItemNumber != null) {
-                  $('#salesOrderLabel').text(saleshistory.ItemNumber);
+              if (saleshistory.SalesOrderNumber != null) {
+                  $('#salesOrderLabel').text(saleshistory.SalesOrderNumber);
               }
               else {
                   $('#salesOrderLabel').text('');
               }
 
-              if (saleshistory.InvoiceNumber != null) {
-                  $('#invoiceDateLabel').text(saleshistory.InvoiceNumber);
+              if (saleshistory.InvoiceDate != null) {
+                  $('#invoiceDateLabel').text(saleshistory.InvoiceDate);
               }
               else {
                   $('#invoiceDateLabel').text('');

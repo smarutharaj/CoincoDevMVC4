@@ -402,8 +402,8 @@ namespace Coinco.SMS.Website.Controllers
                 if (HttpContext.Session != null)
                 {
                     if (Session.IsNewSession)
-                    {                   
-                            Response.Redirect("ServiceOrderWithHistory");
+                    {
+                        RedirectToAction("ServiceOrderWithHistory", "WorkOrder");
                     }
                 }
                 isSuccess = serviceOrder.CreateServiceOrder(TempData["SiteId"].ToString(), customerAccount, addressId == null ? null : addressId.ToString(), customerPo, technicinanNo, responsibleNo, woClassification, customerComments, out newSerivceOrder, userName);
