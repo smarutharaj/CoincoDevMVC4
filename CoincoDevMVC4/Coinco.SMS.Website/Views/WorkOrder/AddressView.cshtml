@@ -48,7 +48,7 @@
               }
                </div>
              <br />
-             @Html.Label("Customer PO:", new { @class = "labelHeaderView", id = "customerpoHeadLabel" })  
+              @Html.Label("Customer PO:", new { @class = "labelHeaderView", id = "customerpoHeadLabel" })  
            
               <div class="labelViewSO">
               @{if (Model.ServiceOrderList[0].CustomerPO != null)
@@ -61,10 +61,10 @@
               }
               }
                </div>
-             <br />
           
         </div>
         <div class="centercolumn">
+      
             @Html.Label("Billing Address:", new { @class = "labelHeaderView", id = "billingHeadLabel" })  
               @{if (Model.ServiceOrderList[0].WOBillingAddress.AddresswithDesc != null)
               {
@@ -75,9 +75,12 @@
                 @Html.Label("", new { @class = "labelViewSO", id = "billingLabel" })     
               }
               }
-           <br />
+          
+         
+          
         </div>
         <div class="addLineRightcolumn">
+           
               @Html.Label("Shipping Address:", new { @class = "labelHeaderView", id = "shippingHeadLabel" })  
               @{if (Model.ServiceOrderList[0].WOShippingAddress.AddresswithDesc != null)
               {
