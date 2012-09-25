@@ -1,6 +1,6 @@
 ﻿@using Telerik.Web.Mvc.UI
 @model Coinco.SMS.Website.Models.ServiceOrderLine
-  @Html.Label("Part Number:", new { id = "labelPartNumber" })
+  @Html.Label("Part Number:", new { @class = "labelHeaderSPView", id = "labelPartNumber" })
 
     @if (Model.PartNumber != null)
     {
