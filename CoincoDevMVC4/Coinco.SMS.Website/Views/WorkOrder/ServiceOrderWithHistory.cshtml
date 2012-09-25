@@ -17,7 +17,7 @@
             columns.Bound(c => c.ServiceOrderId).Title("Service Order").Width(120);
             columns.Bound(c => c.Customer.CustomerAccount).Title("Customer").Width(100);
             columns.Bound(c => c.Customer.CustomerName).Width(200).HtmlAttributes(new { @class = "iqNameTooltip" });
-            columns.Bound(c => c.Comments).Width(100).HtmlAttributes(new { @class = "iqNameTooltip" });
+            columns.Bound(c => c.Description).Title("Comments").Width(100).HtmlAttributes(new { @class = "iqNameTooltip" });
             columns.Bound(c => c.Status).Width(100);
             columns.Bound(c => c.WOClassification.WOClassificationName).Title("Classification").Width(100);
             columns.Bound(c => c.ServiceTechnician.ServiceTechnicianName).Title("Technician").Width(100).HtmlAttributes(new { @class = "iqNameTooltip" });
@@ -120,9 +120,9 @@
 
     $(".iqNameTooltip").live("mouseover",
     function () {
-    var fieldValue = null;
-    fieldValue = $(this).context.firstChild.nodeValue
-//         fieldValue = $(this).context.innerText;
+        var fieldValue = null;
+        fieldValue = $(this).context.firstChild.nodeValue;
+        //         fieldValue = $(this).context.innerText;
         $('<div class="iqTooltip t-group" />')
                 .html(fieldValue)
                 .appendTo(this)
