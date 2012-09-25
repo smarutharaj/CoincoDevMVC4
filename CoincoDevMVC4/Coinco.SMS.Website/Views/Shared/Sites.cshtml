@@ -14,14 +14,15 @@
 
 <script type="text/javascript">
     var rootPath = '@HttpContext.Current.Request.Url.GetLeftPart(UriPartial.Authority)' + '@HttpContext.Current.Request.ApplicationPath';
+    var title='@ViewBag.Title'
     function onChange(e) {
 
    var siteId = e.currentTarget.value;
 //   var found = $("#SOWH").find("span")
    if (siteId != null) {
-       var pathname = location.href;     //window.location.pathname;
-        
-            if (pathname != "/WorkOrder/ServiceOrderWithHistory") {
+       var pathname = window.location.pathname;
+       debugger
+        if (title != "Service Orders With History") {
                 //var rootPath=GetVirtualDirectory();
                 window.location.href = rootPath + "WorkOrder/ServiceOrderWithHistory?siteId=" + siteId + "&" + "process=" + "-1";
                 
