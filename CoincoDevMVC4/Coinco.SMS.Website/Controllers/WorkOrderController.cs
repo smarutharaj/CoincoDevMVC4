@@ -8,7 +8,7 @@ using Coinco.SMS.Website.Models;
 using Telerik.Web.Mvc;
 using System.Text;
 
-namespace Coinco.SMS.Controllers
+namespace Coinco.SMS.Website.Controllers
 {
     public class WorkOrderController : Controller
     {

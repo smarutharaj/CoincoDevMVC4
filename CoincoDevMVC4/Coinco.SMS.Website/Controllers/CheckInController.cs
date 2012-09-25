@@ -237,7 +237,7 @@ namespace Coinco.SMS.Website.Controllers
                     List<Address> addressBilling = (from item1 in addressList
                                                     where item1.IsBilling == "1"
                                                     select item1).ToList<Address>();
-                    if (addressShipping.Count > 1)
+                    if (addressShipping.Count >= 1)
                     {
                         for (int i=0; i <= addressShipping.Count-1; i++)
                         {
