@@ -1489,7 +1489,7 @@ namespace Coinco.SMS.AXWrapper
                 using (axRecord = ax.CreateAxaptaRecord("SMASymptomCode"))
                 {
                     // Execute the query on the table.
-                    axRecord.ExecuteStmt("select Name, SMASymptomAreaId, SMASymptomCodeId from %1 where %1.DataAreaID=='" + axCompany + "'");
+                    axRecord.ExecuteStmt("select Name, SMASymptomAreaId, SMASymptomCodeId from %1 where %1.DataAreaID=='" + axCompany + "' && %1.SMASymptomAreaId=='" + symptomArea + "'");
                     // Loop through the set of retrieved records.
                     while (axRecord.Found)
                     {
@@ -1581,7 +1581,7 @@ namespace Coinco.SMS.AXWrapper
                 using (axRecord = ax.CreateAxaptaRecord("SMADiagnosisCode"))
                 {
                     // Execute the query on the table.
-                    axRecord.ExecuteStmt("select Name, DiagnosisCodeId, DiagnosisAreaId from %1 where %1.DataAreaID=='" + axCompany + "'");
+                    axRecord.ExecuteStmt("select Name, DiagnosisCodeId, DiagnosisAreaId from %1 where %1.DataAreaID=='" + axCompany + "' &&  %1.DiagnosisAreaId=='" + diagnosisArea + "'");
                     // Loop through the set of retrieved records.
                     while (axRecord.Found)
                     {
