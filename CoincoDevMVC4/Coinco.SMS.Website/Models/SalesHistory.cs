@@ -46,7 +46,7 @@ namespace Coinco.SMS.Website.Models
                     salesObject.InvoiceDate = row["InvoiceDate"].ToString();
                     salesObject.CustomerName = row["Name"].ToString();
                     salesObject.ItemNumber = row["ItemNumber"].ToString();
-
+                    salesObject.SalesSerialNumber = serialNumber;
 
 
                     salesList.Add(salesObject);
