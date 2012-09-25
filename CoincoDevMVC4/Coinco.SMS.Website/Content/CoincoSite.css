@@ -32,6 +32,7 @@ float:left;
 
 .ribbonIconBarClass:hover {
 
+cursor:text;
 text-align:center;
 background-color:#FAE186;
 width:70px;
