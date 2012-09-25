@@ -359,8 +359,7 @@ namespace Coinco.SMS.Website.Controllers
                 {
                     if (Session["SID"] == null)
                     {
-                        RedirectToAction("ServiceOrderWithHistory", "WorkOrder");
-                        return Json("");
+                        return Json("SessionExpired", JsonRequestBehavior.AllowGet);
                     }
                 }
                 if (TempData["ServiceOrderLine"] == null)
@@ -425,7 +424,7 @@ namespace Coinco.SMS.Website.Controllers
                 {
                     if (Session["SID"]==null)
                     {
-                        RedirectToAction("ServiceOrderWithHistory", "WorkOrder");
+                        return Json("SessionExpired", JsonRequestBehavior.AllowGet);
                     }
                 }
                 isSuccess = serviceOrder.CreateServiceOrder(TempData["SiteId"].ToString(), customerAccount, addressId == null ? null : addressId.ToString(), customerPo, technicinanNo, responsibleNo, woClassification, customerComments, out newSerivceOrder, userName);
