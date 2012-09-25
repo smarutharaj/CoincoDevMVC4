@@ -236,6 +236,7 @@ footer
     width: 300px;
     margin-left: 310px;
     position: absolute;
+    margin-top:3px;
 } 
 
 .rightcolumn
@@ -248,7 +249,7 @@ footer
 .pageCointainer
 {
     width: 960px;
-    max-height: 740px;
+    max-height: 730px;
    
 }
 .serviceProcessDiv
@@ -305,7 +306,7 @@ footer
     width: 300px;
     float: left;
     position: absolute;
-    padding: 5px;
+    padding: 1px;
 }
 
 .addLinecentercolumn
@@ -371,7 +372,7 @@ footer
     margin-top: 10px; 
     padding-top:10px;
     max-width: 960px;
-    height: 250px;
+    height: 230px;
     
    
 }
@@ -391,9 +392,9 @@ footer
 
 .addressDiv
 {
-    margin-top: 5px; 
+    margin-top: 3px; 
     max-width: 960px;
-    height: 300px;
+    height: 150px;
        
 }
 
@@ -433,6 +434,7 @@ footer
     font-family: Verdana;
     font-size: 8pt;
     font-weight: normal;
+    padding-left:2px;
 }
 
 
@@ -1402,7 +1404,7 @@ label.checkbox {
 
 input, textarea
 {
-    border: 1px solid #e2e2e2;
+    border: 1px solid #D6DFEA;
     background: #fff;
     color: #333;
     font-size: 0.8em;
@@ -1414,6 +1416,7 @@ textarea {
     font-family: inherit;
     width: 145px;
     height:30px;
+    
   
 }
 
