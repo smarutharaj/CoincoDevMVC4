@@ -251,7 +251,7 @@
             {
                 commands.Edit().ButtonType(GridButtonType.Image);
                 commands.Delete().ButtonType(GridButtonType.Image);
-            }).Width(80).Title("Commands") ;
+            }).Width(80).Title("Edit/Delete") ;
 
 
         })
@@ -291,7 +291,7 @@
 </div>
 }
   <script type="text/javascript">
-
+      var rootPath = '@HttpContext.Current.Request.Url.GetLeftPart(UriPartial.Authority)' + '@HttpContext.Current.Request.ApplicationPath';
       function onCustomerAccountDropDownListChange(e) {
         
 
@@ -411,16 +411,23 @@
                       data: { partNumber: partNumber, serialNumber: serialNumber },
                       success: function (result) {
                           // jQuery('#ServiceOrderGridDiv').html(result);
-                          var serviceOrderLineGrid = $("#ServiceOrderLineGrid").data("tGrid");
-                          serviceOrderLineGrid.dataBind(result);
+                          if (result.toString() == 'SessionExpired') {
+                              alert('Session got expired. The system will redirect to home page.');
+                              window.location.href = rootPath + "WorkOrder?siteId=" + "" + "&" + "process=" + "-1";
+                          }
+                          else {
+                              var serviceOrderLineGrid = $("#ServiceOrderLineGrid").data("tGrid");
+                              serviceOrderLineGrid.dataBind(result);
+                              $("#Add").prop("disabled", false);
+                          }
                       },
                       error: function (result) {
-//                          var response = result.responseText;
-//                          var start = result.responseText.search("<title>") + 7;
-//                          var end = result.responseText.search("</title>");
+                          //                          var response = result.responseText;
+                          //                          var start = result.responseText.search("<title>") + 7;
+                          //                          var end = result.responseText.search("</title>");
 
-                         // if (start > 0 && end > 0)
-                              alert("No service order lines found for the entered serial number.");
+                          // if (start > 0 && end > 0)
+                          alert("No service order lines found for the entered serial number.");
                           //alert('An error occured while adding the service order lines. Please check the inputs and try again');
 
                       }
@@ -471,8 +478,14 @@
               contentType: "application/json; charset=utf-8",
               data: { partNumber: partNumber, serialNumber: serialNumber },
               success: function (result) {
-                  var serviceOrderLineGrid = $("#ServiceOrderLineGrid").data("tGrid");
-                  serviceOrderLineGrid.dataBind(result);
+                  if (result.toString() == 'SessionExpired') {
+                      alert('Session got expired. The system will redirect to home page.');
+                      window.location.href = rootPath + "WorkOrder?siteId=" + "" + "&" + "process=" + "-1";
+                  }
+                  else {
+                      var serviceOrderLineGrid = $("#ServiceOrderLineGrid").data("tGrid");
+                      serviceOrderLineGrid.dataBind(result);
+                  }
                   $("#Add").prop("disabled", false);
               },
               error: function (result) {
@@ -530,36 +543,41 @@
               return;
           }
           $("#Create").prop("disabled", "disabled");
-         // $('#Add').prop("disabled", true);
+          // $('#Add').prop("disabled", true);
 
           jQuery.ajax({
               url: "../CheckIn/CreateServiceOrder",
               type: 'GET',
               contentType: "application/json; charset=utf-8",
-              
+
               data: { customerAccount: customerAccount, customerPo: customerPo, addressId: addressId, technicinanNo: technicinanNo, responsibleNo: responsibleNo, woClassification: woClassification, customerComments: customerComments },
               success: function (result) {
+                  if (result.toString() == 'SessionExpired') {
+                      alert('Session got expired. The system will redirect to home page.');
+                      window.location.href = rootPath + "WorkOrder?siteId=" + "" + "&" + "process=" + "-1";
+                  }
+                  else {
 
-                  serviceOrderLineGrid.data = null;
-                  serviceOrderLineGrid.dataSource = null;
-                  serviceOrderLineGrid.dataBind();
-                  $('#customerAccountDropDownList').data('tComboBox').value('<--SELECT-->');
-                  $('#customerPOTextBox').val('');
-                  $('#serviceTechnicianDropDownList').data('tComboBox').value('<--SELECT-->');
-                  $('#serviceResponsibleDropDownList').data('tComboBox').value('<--SELECT-->');
-                  $('#woClassificationDropDownList').data('tComboBox').value('<--SELECT-->');
-                  $('#customerCommentTextArea').val('');
-                  $('#serialNumberTextBox').val('');
-                  $('#partNumberDropDownList').data('tComboBox').value('<--SELECT-->');
-                  var billingAddressGrid = $("#BillingAddressGrid").data("tGrid");
-                  var shippingAddressGrid = $("#ShippingAddressGrid").data("tGrid");
-                  var testData;
-                  billingAddressGrid.dataBind(testData);
-                  shippingAddressGrid.dataBind(testData);
-                  alert('Service order created successfully.');
+                      serviceOrderLineGrid.data = null;
+                      serviceOrderLineGrid.dataSource = null;
+                      serviceOrderLineGrid.dataBind();
+                      $('#customerAccountDropDownList').data('tComboBox').value('<--SELECT-->');
+                      $('#customerPOTextBox').val('');
+                      $('#serviceTechnicianDropDownList').data('tComboBox').value('<--SELECT-->');
+                      $('#serviceResponsibleDropDownList').data('tComboBox').value('<--SELECT-->');
+                      $('#woClassificationDropDownList').data('tComboBox').value('<--SELECT-->');
+                      $('#customerCommentTextArea').val('');
+                      $('#serialNumberTextBox').val('');
+                      $('#partNumberDropDownList').data('tComboBox').value('<--SELECT-->');
+                      var billingAddressGrid = $("#BillingAddressGrid").data("tGrid");
+                      var shippingAddressGrid = $("#ShippingAddressGrid").data("tGrid");
+                      var testData;
+                      billingAddressGrid.dataBind(testData);
+                      shippingAddressGrid.dataBind(testData);
+                      alert('Service order created successfully.');
 
-                  $("#Create").prop("disabled", "");
-
+                      $("#Create").prop("disabled", "");
+                  }
               },
               error: function (result) {
                   alert('An error occured while creating the service order. Please check the inputs and try again');
