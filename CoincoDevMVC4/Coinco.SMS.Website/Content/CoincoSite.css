@@ -32,7 +32,7 @@ float:left;
 
 .ribbonIconBarClass:hover {
 
-cursor:text;
+cursor:auto;
 text-align:center;
 background-color:#FAE186;
 width:70px;
@@ -171,7 +171,7 @@ body
 
 .iqNameTooltip
 {
-cursor: help;
+cursor:default;
 border-bottom: dotted 1px brown;
 }
 
