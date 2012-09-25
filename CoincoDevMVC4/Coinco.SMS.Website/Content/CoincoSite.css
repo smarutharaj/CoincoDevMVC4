@@ -1400,14 +1400,14 @@ label.checkbox {
     display: inline;
 }
 
-input, textarea {
+input, textarea
+{
     border: 1px solid #e2e2e2;
     background: #fff;
     color: #333;
     font-size: 0.8em;
-    margin:15px 0px 0 3px 0;
+    margin: 15px 0px 0 3px 0;
     width: 145px;
-  
 }
 
 textarea {
