@@ -10,7 +10,7 @@
         .Columns(columns =>
         {
 
-            columns.Bound(c => c.ServiceObjectRelation).Title("Serial Number").Width(120);
+            columns.Bound(c => c.SerialNumber).Title("Serial Number").Width(120);
             columns.Bound(c => c.TransactionType.TransactionTypeName).Title("Transaction").Width(100);
             columns.Bound(c => c.Description).Width(100);
             columns.Bound(c => c.SpecialtyCode.SpecialityCodeNo).Title("SpecialtyCode").Width(120);
@@ -26,6 +26,7 @@
             columns.Bound(c => c.TransactionSerialNumber).Title("Dimension SerialNumber").Width(180);
             columns.Bound(c => c.UniqueId).Hidden();
             columns.Bound(c => c.ServiceTechnician.ServiceTechnicianNo).Hidden();
+            columns.Bound(c => c.ServiceObjectRelation).Hidden();
             
          if (@Session["SOStatus"].ToString() == "In Process")
          { 
@@ -82,7 +83,7 @@
             var transactionSerialNumber = e.row.cells[13].innerHTML;
             var SoNumber = e.row.cells[0].innerHTML;
             var technicianNo = e.row.cells[15].innerHTML;
-        
+            var SObjectNumber = e.row.cells[16].innerHTML;
             
             if (itemtype == "" | itemtype == "&nbsp;") {
                 itemtype = "--Select--";
@@ -177,7 +178,7 @@
             $('#slNumberDropDownList').data('tComboBox').value(SoNumber);
             $('#commentsText').val(comments);
             $('#uniqueText').val(uniqueId);
-
+            $('#serviceObjectText').val(SObjectNumber);
             $("#transactionTypeDropDownList").data("tComboBox").disable();
             $('#transactionTypeDropDownList').addClass('t-state-disabled').attr('disabled',
                 'disabled');
@@ -210,7 +211,7 @@
                 $('#commentsText').val('');
                 $('#submit').text('Add');
                 $('#uniqueText').val('');
-
+                $('#serviceObjectText').val('');
             }
         
         </script>
