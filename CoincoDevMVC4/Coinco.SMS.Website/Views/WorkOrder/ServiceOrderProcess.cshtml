@@ -509,6 +509,12 @@
                     $('#specialtyCodeDropDownList').removeClass('t-state-disabled').removeAttr('disabled');
                     $('#techniacianDropDownList').data("tComboBox").enable();
                     $('#techniacianDropDownList').removeClass('t-state-disabled').removeAttr('disabled');
+                    $('#itemNumberDropDownList').data('tComboBox').enable();
+                    $('#itemNumberDropDownList').removeClass('t-state-disabled').removeAttr('disabled',
+                    'disabled');
+                        $('#siteComboBox').data('tComboBox').enable();
+                        $('#siteComboBox').removeClass('t-state-disabled').removeAttr('disabled',
+                    'disabled');          
                 },
                 error: function (result) {
                     alert('Service Order Part Lines Updation failed');
@@ -552,7 +558,12 @@
         $('#specialtyCodeDropDownList').removeClass('t-state-disabled').removeAttr('disabled');
         $('#techniacianDropDownList').data("tComboBox").enable();
         $('#techniacianDropDownList').removeClass('t-state-disabled').removeAttr('disabled');
-                
+        $('#itemNumberDropDownList').data('tComboBox').enable();
+        $('#itemNumberDropDownList').removeClass('t-state-disabled').removeAttr('disabled',
+                'disabled');
+        $('#siteComboBox').data('tComboBox').enable();
+        $('#siteComboBox').removeClass('t-state-disabled').removeAttr('disabled',
+                'disabled');          
 
     });
 
