@@ -79,7 +79,8 @@ namespace Coinco.SMS.Website.Models
                 {
                     SalesHistory salesObject = new SalesHistory();
                     salesObject.SalesServiceOrder = row["ServiceOrderId"].ToString();
-                    salesObject.SalesPrice = row["SalesPrice"].ToString();
+                    salesObject.SalesPrice = string.Format("{0:C#,##0.00}", row["SalesPrice"].ToString());
+
                     salesObject.DateExecution = row["DateExecution"].ToString();
                     salesObject.Description = row["Description"].ToString();
 
