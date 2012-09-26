@@ -169,8 +169,12 @@ namespace Coinco.SMS.Website.Controllers
 
 
                     IEnumerable<SerivceOrderPartLine> serviceOrderPartLineCollection = null;
+                   
                     serviceOrderPartLineCollection = serivceOrderPartLineObject.GetSerialNumberByServiceOrder(TempData["ServiceOrderId"].ToString(), userName);
+                   
+                  
                     serivceOrderPartLineObject.ServiceOrderPartLineList = new SelectList(serviceOrderPartLineCollection, "ServiceObjectRelation", "SerialNumber", null);
+                   
 
                     ViewData["SORelationList"] = serivceOrderPartLineObject.ServiceOrderPartLineList;
                     ViewData["WorkSerialNumberList"] = serivceOrderPartLineObject.ServiceOrderPartLineList;
