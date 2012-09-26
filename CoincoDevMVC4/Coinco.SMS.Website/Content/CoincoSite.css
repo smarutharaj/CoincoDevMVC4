@@ -762,12 +762,12 @@ footer
 .fullViewforSalesHistoryClass
 {
     padding-left: 10px;
-    padding-top:10px;
+    padding-top:5px;
     padding-right:10px;
     padding-bottom:5px;
     max-width: 790px;
     width:790px;
-    height: 25px;
+    height: 18px;
     vertical-align:middle;
      font-weight:normal;
     
@@ -777,7 +777,7 @@ footer
 {
    padding:10px;
    width:780px;
-   height:450px;
+   height:430px;
    vertical-align:middle;
 
 }
@@ -849,16 +849,19 @@ footer
     padding-left: 370px;
     padding-top:5px;
     padding-right:370px;
-    padding-bottom:15px;
+    padding-bottom:10px;
     max-width: 780px;
-    height: 30px;
+    height: 20px;
     vertical-align:middle;
      font-weight:normal;
     
 }
 .labelHeadingClass
 {
-    padding:10px;
+    padding-right:10px;
+    padding-left:10px;
+    padding-top:5px;
+    padding-bottom:10px;
     max-width: 750px;
     width: 750px;
     height: 10px; 

@@ -133,7 +133,7 @@
 
                 <div id="SerialNumberParentDiv" class="leftSalesViewClass"> 
                     <div id="SerialNumberDiv" class="leftView" >
-                        @Html.Label("Serial Number", new { @class = "leftView" })
+                        @Html.Label("Serial Number", new { style = "font-size: 8pt; font-family: Verdana;font-weight:bold;" })
                     </div>
                     <div id="SerialNumberResult" class="leftadjacentSalesView">
                         @Html.Label("Serial Number", new { @class = "leftView", id = "serialNumberLabel" })                  
@@ -142,7 +142,7 @@
                  
                  <div id="Name" class="rightSalesViewClass"> 
                     <div id="nameDiv" class="rightView" >
-                        @Html.Label("Name", new { @class = "rightView" })
+                        @Html.Label("Name", new { style = "font-size: 8pt; font-family: Verdana;font-weight:bold;" })
                     </div>
                     <div id="nameResult" class="rightadjacentSalesView">                  
                           @Html.Label("Name", new { @class = "leftView", id = "nameLabel" })     
@@ -154,7 +154,7 @@
             <div id="secondSalesInfo" class="fullViewforSalesHistoryClass">
                 <div id="ItemNumber" class="leftSalesViewClass"> 
                     <div id="ItemNumberDiv" class="leftView" >
-                        @Html.Label("Item Number", new { @class = "leftView" })
+                        @Html.Label("Item Number", new { style = "font-size: 8pt; font-family: Verdana;font-weight:bold;" })
                     </div>
                     <div id="ItemNumberResult" class="leftadjacentSalesView">                  
                         @Html.Label("Item Number", new { @class = "leftView", id = "itemNumberLabel" })     
@@ -163,7 +163,7 @@
                  
                  <div id="InvoiceNumber" class="rightSalesViewClass"> 
                     <div id="invoiceNumberDiv" class="rightView" >
-                        @Html.Label("Invoice Number", new { @class = "rightView" })
+                        @Html.Label("Invoice Number", new { style = "font-size: 8pt; font-family: Verdana;font-weight:bold;" })
                     </div>
                     <div id="invoiceNumberResult" class="rightadjacentSalesView">                  
                                     @Html.Label("Invoice Number", new { @class = "leftView", id = "invoiceNumberLabel" })     
@@ -171,11 +171,11 @@
                 </div>
 
             </div>
-
+            
             <div id="thirdSalesInfo" class="fullViewforSalesHistoryClass">
                 <div id="SalesOrder" class="leftSalesViewClass"> 
                     <div id="salesOrderDiv" class="leftView" >
-                        @Html.Label("Sales Order", new { @class = "leftView" })
+                        @Html.Label("Sales Order", new { style = "font-size: 8pt; font-family: Verdana;font-weight:bold;" })
                     </div>
                     <div id="SalesOrderResult" class="leftadjacentSalesView">                  
                         @Html.Label("Sales Order", new { @class = "leftView", id = "salesOrderLabel" })     
@@ -184,7 +184,7 @@
                  
                  <div id="InvoiceDate" class="rightSalesViewClass"> 
                     <div id="invoiceDateDiv" class="rightView" >
-                        @Html.Label("Invoice Date", new { @class = "rightView" })
+                        @Html.Label("Invoice Date", new { style = "font-size: 8pt; font-family: Verdana;font-weight:bold;" })
                     </div>
                     <div id="invoiceDateResult" class="rightadjacentSalesView">                  
                                     @Html.Label("Invoice Date", new { @class = "leftView", id = "invoiceDateLabel" })     
@@ -193,9 +193,6 @@
 
             </div>
 
-            <div>
-            
-                 </div>
            <label class="labelHeadingClass">Service Information</label>
 
             <div id ="serviceInfoGridDiv" class="serviceOrderInfoGridClass" >
@@ -207,7 +204,7 @@
         .Columns(columns =>
         {
             columns.Bound(c => c.SalesServiceOrder).Title("Service Order").Width(120).ReadOnly();
-            columns.Bound(c => c.SalesPrice).Title("Service Amount").Width(130).ReadOnly();
+            columns.Bound(c => c.SalesPrice).Title("Service Amount").Width(130).ReadOnly().HtmlAttributes(new { style = "text-align:right;" });
             columns.Bound(c => c.DateExecution).Title("Date").Width(110).ReadOnly();
             columns.Bound(c => c.Description).Title("Description").ReadOnly();
         })
@@ -221,30 +218,30 @@
 
         .HtmlAttributes(new { style = "font-size: 8pt; font-family: Verdana;" })
         .Scrollable(c => c.Height("180px"))
-        //.Pageable((pager => pager.PageSize(10)))
+        .Pageable((pager => pager.PageSize(10)))
         .Sortable()
         //.Selectable()
         .Filterable()
        .Render();
     
         }
-      
+            <div id="closeButtonDiv" class="submitButtonClass">
+                <button class="t-button" type="button" id="Close" value="Close">Close</button>     
+            </div>
         
         </text>)
 
         .Buttons(b => b.Close())
         .Visible(false)
         .Width(790)
-        .Height(450)
+        .Height(440)
         .Scrollable(false)
         .Render();
         
 }
   </div> 
 
-            <div id="closeButtonDiv" class="submitButtonClass">
-                <button class="t-button" type="button" id="Close" value="Close">Close</button>     
-            </div>
+
 
 </div>
                 @RenderBody()
