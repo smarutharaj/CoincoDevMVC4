@@ -346,44 +346,70 @@
             transactionType = transactionTypedata.Value;
         }
         else {
+         
+         
             transactionType = "";
         }
-        var technicinanNodata = $('#techniacianDropDownList').data('tComboBox').data;
-        var technicinanNo = technicinanNodata[0].Value;
 
+        
+        
+
+        var technicinanNo = $('#techniacianDropDownList').val();
         var quantity = $('#quantityText').val();
+        var specialityCode = $('#specialtyCodeDropDownList').val();
+        var failureCode = $('#failureCodeDropDownList').val();
 
-        var specialityCodedata = $('#specialtyCodeDropDownList').data('tComboBox').data;
-        var specialityCode = specialityCodedata[0].Value;
-
-        var failureCodedata = $('#failureCodeDropDownList').data('tComboBox').data;
-        var failureCode = failureCodedata[0].Value;
-
-
-        var linePropertydata = $('#LinePropertyDropDownList').data('tComboBox').data;
-        var lineProperty = linePropertydata[0].Value;
-
+        var lineProperty = $('#LinePropertyDropDownList').val();
         var description = $('#descriptionText').val();
 
         var serviceComments = $('#commentsText').val();
 
-        var itemNumberdata = $('#itemNumberDropDownList').data('tComboBox').data;
-        var itemNumber = itemNumberdata[0].Value;
+        var itemNumber = $('#itemNumberDropDownList').val();
 
-        var sitedata = $('#itemNumberDropDownList').data('tComboBox').data;
-        var site = sitedata[0].Value;
-
-
+        var site = $('#siteComboBox').val();
         var wareHouse = $('#wareHouseDropDownList').val();
 
         var locationId = $('#locationDropDownList').val();
 
         var transSerialCodeNo = $('#trackingSerialNoDropDownList').val();
 
+        var serviceOrderRelation = $('#slNumberDropDownList').val();
+//        var technicinanNodata = $('#techniacianDropDownList').data('tComboBox').data;
+//        var technicinanNo = technicinanNodata[0].Value;
+
+//        var quantity = $('#quantityText').val();
+
+//        var specialityCodedata = $('#specialtyCodeDropDownList').data('tComboBox').data;
+//        var specialityCode = specialityCodedata[0].Value;
+
+//        var failureCodedata = $('#failureCodeDropDownList').data('tComboBox').data;
+//        var failureCode = failureCodedata[0].Value;
 
 
-        var serviceOrderRelationdata = $('#slNumberDropDownList').data('tComboBox').data;
-        var serviceOrderRelation = serviceOrderRelationdata[0].Value;
+//        var linePropertydata = $('#LinePropertyDropDownList').data('tComboBox').data;
+//        var lineProperty = linePropertydata[0].Value;
+
+//        var description = $('#descriptionText').val();
+
+//        var serviceComments = $('#commentsText').val();
+
+//        var itemNumberdata = $('#itemNumberDropDownList').data('tComboBox').data;
+//        var itemNumber = itemNumberdata[0].Value;
+
+//        var sitedata = $('#itemNumberDropDownList').data('tComboBox').data;
+//        var site = sitedata[0].Value;
+
+
+//        var wareHouse = $('#wareHouseDropDownList').val();
+
+//        var locationId = $('#locationDropDownList').val();
+
+//        var transSerialCodeNo = $('#trackingSerialNoDropDownList').val();
+
+
+
+//        var serviceOrderRelationdata = $('#slNumberDropDownList').data('tComboBox').data;
+//        var serviceOrderRelation = serviceOrderRelationdata[0].Value;
 
         var uniqueId = $('#uniqueText').val();
         var updateServiceOrderRelation = $('#serviceObjectText').val();
