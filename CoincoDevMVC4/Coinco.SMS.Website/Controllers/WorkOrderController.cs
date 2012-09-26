@@ -134,6 +134,7 @@ namespace Coinco.SMS.Website.Controllers
 
         #region "ServiceOrderProcess"
         // GET: /ServiceOrderProcess/
+    
         public ActionResult ServiceOrderProcess()
         {
             string userName = "";
@@ -236,7 +237,7 @@ namespace Coinco.SMS.Website.Controllers
             return View("ServiceOrderPartLinesView");
         }
 
-      
+        [OutputCache(Duration = 0)] 
         [HttpGet]
         public ActionResult GetServiceOrderLineBySerialNumberOrderProcess(string serialNumber)
         {
