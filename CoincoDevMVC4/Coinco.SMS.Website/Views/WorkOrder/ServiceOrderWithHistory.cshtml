@@ -63,7 +63,7 @@
             columns.Bound(c => c.Quantity).Width(100);
             columns.Bound(c => c.RepairType).Width(100);
             columns.Bound(c => c.Warranty).Width(100);
-            columns.Bound(c => c.Comments).Width(100);
+            columns.Bound(c => c.Comments);
         })
             //.DataBinding(dataBinding => dataBinding.Ajax().Select("_SelectionClientSide_SerialNumber", "ServiceOrderLineGrid", new
             //{
