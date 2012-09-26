@@ -123,7 +123,7 @@ namespace Coinco.SMS.Website.Controllers
             {
                 if (HttpContext.Session != null)
                 {
-                    if (Session["SID"] == null)
+                    if (Session["SiteID"] == null)
                     {
                         RedirectToAction("ServiceOrderWithHistory", "WorkOrder");
                     }
@@ -162,7 +162,7 @@ namespace Coinco.SMS.Website.Controllers
             userName = User.Identity.Name.ToString().Split('\\')[1];
             if (HttpContext.Session != null)
             {
-                if (Session["SID"] == null)
+                if (Session["SiteID"] == null)
                 {
                     RedirectToAction("ServiceOrderWithHistory", "WorkOrder");
                 }
@@ -357,7 +357,7 @@ namespace Coinco.SMS.Website.Controllers
                 userName = User.Identity.Name.ToString().Split('\\')[1];
                 if (HttpContext.Session != null)
                 {
-                    if (Session["SID"] == null)
+                    if (Session["SiteID"] == null)
                     {
                         return Json("SessionExpired", JsonRequestBehavior.AllowGet);
                     }
@@ -422,7 +422,7 @@ namespace Coinco.SMS.Website.Controllers
 
                 if (HttpContext.Session != null)
                 {
-                    if (Session["SID"]==null)
+                    if (Session["SiteID"] == null)
                     {
                         return Json("SessionExpired", JsonRequestBehavior.AllowGet);
                     }
