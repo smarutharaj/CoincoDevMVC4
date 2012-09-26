@@ -117,6 +117,7 @@
             @Html.TextAreaFor(x => x.ServiceComments, new { id = "commentsText" })
             <br />
             @Html.TextBoxFor(x => x.UniqueId, new { @class = "singleTextBox", id = "uniqueText", @type = "hidden" })<br />
+            @Html.TextBoxFor(x => x.ServiceObjectRelation, new { @class = "singleTextBox", id = "serviceObjectText", @type = "hidden" })<br />
         </div>
         <div class="addLineRightcolumn" id="addLineRightcolumn">
             <div class="topDimensioncolumn">
@@ -332,7 +333,7 @@
 
     jQuery('#submit').click(function () {
 
-       
+       debugger
         var serviceOrderNo = $('#serviceOrderViewlabel')[0].innerHTML;
 
         var transactionType = $('#transactionTypeDropDownList').val();
@@ -357,6 +358,7 @@
 
         var serviceOrderRelation = $('#slNumberDropDownList').val();
         var uniqueId = $('#uniqueText').val();
+        var updateServiceOrderRelation = $('#serviceObjectText').val();
 
         if (($.trim(serviceOrderRelation) == '') || (serviceOrderRelation == null) || (serviceOrderRelation == '--Select--')) {
             alert('Please select the Serial Number.');
@@ -466,6 +468,7 @@
                     $('#commentsText').val('');
                     $('#submit').text('Add');
                     $('#uniqueText').val('');
+                    $('#serviceObjectText').val('');
                     $('#submit').attr('disabled', false);
 
                 },
@@ -482,7 +485,7 @@
                 url: "../WorkOrder/UpdateServiceOrderPartLines",
                 type: 'POST',
 
-                data: { uniqueId: uniqueId, serviceOrderNo: serviceOrderNo, transactionType: transactionType, technicinanNo: technicinanNo, quantity: quantity, specialityCode: specialityCode, failureCode: failureCode, lineProperty: lineProperty, serviceOrderRelation: serviceOrderRelation, description: description, serviceComments: serviceComments, itemNumber: itemNumber, site: site, wareHouse: wareHouse, transSerialCodeNo: transSerialCodeNo, locationId: locationId },
+                data: { uniqueId: uniqueId, serviceOrderNo: serviceOrderNo, transactionType: transactionType, technicinanNo: technicinanNo, quantity: quantity, specialityCode: specialityCode, failureCode: failureCode, lineProperty: lineProperty, serviceOrderRelation: updateServiceOrderRelation, description: description, serviceComments: serviceComments, itemNumber: itemNumber, site: site, wareHouse: wareHouse, transSerialCodeNo: transSerialCodeNo, locationId: locationId },
                 success: function (result) {
                     jQuery('#ServicepartLines').html(result);
 
@@ -502,6 +505,7 @@
                     $('#commentsText').val('');
                     $('#submit').text('Add');
                     $('#uniqueText').val('');
+                    $('#serviceObjectText').val('');
                     $('#submit').attr('disabled', false);
                     $("#transactionTypeDropDownList").data("tComboBox").enable();
                     $('#transactionTypeDropDownList').removeClass('t-state-disabled').removeAttr('disabled');
@@ -551,6 +555,7 @@
         $('#commentsText').val('');
         $('#submit').text('Add');
         $('#uniqueText').val('');
+        $('#serviceObjectText').val('');
         $('#submit').attr('disabled', false);
         $("#transactionTypeDropDownList").data("tComboBox").enable();
         $('#transactionTypeDropDownList').removeClass('t-state-disabled').removeAttr('disabled');

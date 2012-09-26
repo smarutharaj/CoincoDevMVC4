@@ -20,26 +20,34 @@ namespace Coinco.SMS.Website.Controllers
         [HttpGet]
         public ActionResult ServiceOrderWithHistory(string siteId, string process)
         {
-            if (siteId == null)
+            try
             {
-                GetSites();
-                if (process == null)
+                if (siteId == null)
                 {
-                    process = "-1";
+                    GetSites();
+                    if (process == null)
+                    {
+                        process = "-1";
+                    }
                 }
+                else
+                {
+                    TempData["SiteId"] = siteId;
+                    Session["SiteID"] = siteId;
+                    Site site = new Site();
+                    IEnumerable<Site> existingSites = (IEnumerable<Site>)TempData["AllSites"];
+                    site.SiteList = new SelectList(existingSites, "SiteId", "SiteName", siteId);
+                    TempData["FeaturedSites"] = site.SiteList;
+                    TempData.Keep();
+                }
+                ViewData["ServiceOrder"] = GetServiceOrders(TempData["SiteId"].ToString(), process);
+                ViewData["ServiceOrderLine"] = GetServiceOrderLinesByServiceOrderID("");
             }
-            else
+            catch (Exception ex)
             {
-                TempData["SiteId"] = siteId;
-                Session["SiteID"] = siteId;
-                Site site = new Site();
-                IEnumerable<Site> existingSites = (IEnumerable<Site>)TempData["AllSites"];
-                site.SiteList = new SelectList(existingSites, "SiteId", "SiteName", siteId);
-                TempData["FeaturedSites"] = site.SiteList;
                 TempData.Keep();
+                throw ex;
             }
-            ViewData["ServiceOrder"] = GetServiceOrders(TempData["SiteId"].ToString(), process);
-            ViewData["ServiceOrderLine"] = GetServiceOrderLinesByServiceOrderID("");
             return View("ServiceOrderWithHistory");
         }
 
@@ -75,23 +83,31 @@ namespace Coinco.SMS.Website.Controllers
         //Get Sites for the authenticated user
         private string GetSites()
         {
+
             Site site = new Site();
             IEnumerable<Site> siteCollection = null;
-            if (site.SiteList == null)
+            try
             {
-                string userName = null;
-                userName = User.Identity.Name.ToString().Split('\\')[1];
+                if (site.SiteList == null)
+                {
+                    string userName = null;
+                    userName = User.Identity.Name.ToString().Split('\\')[1];
 
-                siteCollection = site.GetSitesListByUsername(userName);
-                site.SiteList = new SelectList(siteCollection, "SiteId", "SiteName", siteCollection.First<Site>().SiteID);
+                    siteCollection = site.GetSitesListByUsername(userName);
+                    site.SiteList = new SelectList(siteCollection, "SiteId", "SiteName", siteCollection.First<Site>().SiteID);
 
+                }
+                TempData["SiteId"] = siteCollection.First<Site>().SiteID;
+                Session["SiteID"] = TempData["SiteId"];
+                TempData["AllSites"] = siteCollection;
+                TempData["FeaturedSites"] = site.SiteList;
+                TempData.Keep();
             }
-            TempData["SiteId"] = siteCollection.First<Site>().SiteID;
-            Session["SiteID"] = TempData["SiteId"];
-            TempData["AllSites"] = siteCollection;
-            TempData["FeaturedSites"] = site.SiteList;
-            TempData.Keep();
-
+            catch (Exception ex)
+            {
+                TempData.Keep();
+                throw ex;
+            }
             return siteCollection.First<Site>().SiteID;
         }
 
@@ -153,7 +169,7 @@ namespace Coinco.SMS.Website.Controllers
 
                     IEnumerable<SerivceOrderPartLine> serviceOrderPartLineCollection = null;
                     serviceOrderPartLineCollection = serivceOrderPartLineObject.GetSerialNumberByServiceOrder(TempData["ServiceOrderId"].ToString(), userName);
-                    serivceOrderPartLineObject.ServiceOrderPartLineList = new SelectList(serviceOrderPartLineCollection, "SerialNumber", "SerialNumber", null);
+                    serivceOrderPartLineObject.ServiceOrderPartLineList = new SelectList(serviceOrderPartLineCollection, "ServiceObjectRelation", "SerialNumber", null);
 
                     ViewData["SORelationList"] = serivceOrderPartLineObject.ServiceOrderPartLineList;
                     ViewData["WorkSerialNumberList"] = serivceOrderPartLineObject.ServiceOrderPartLineList;
@@ -196,6 +212,7 @@ namespace Coinco.SMS.Website.Controllers
             }
             catch (Exception ex)
             {
+                TempData.Keep();
                 throw ex;
             }
             
@@ -252,7 +269,7 @@ namespace Coinco.SMS.Website.Controllers
             }
             catch (Exception ex)
             {
-
+                TempData.Keep();
                 throw ex;
             }
             return View("PartDetailsView", serviceOrderLineObject);
@@ -294,7 +311,7 @@ namespace Coinco.SMS.Website.Controllers
             }
             catch (Exception ex)
             {
-
+                TempData.Keep();
                 throw ex;
             }
             return serviceOrderList;
@@ -437,6 +454,7 @@ namespace Coinco.SMS.Website.Controllers
             }
             catch (Exception ex)
             {
+                TempData.Keep();
                 throw ex;
             }
             return View("ServiceOrderPartLinesView");
@@ -468,6 +486,7 @@ namespace Coinco.SMS.Website.Controllers
             }
             catch (Exception ex)
             {
+                TempData.Keep();
                 throw ex;
             }
             return View("ServiceOrderPartLinesView");
@@ -495,7 +514,7 @@ namespace Coinco.SMS.Website.Controllers
             }
             catch (Exception ex)
             {
-
+                TempData.Keep();
                 throw ex;
             }
             return View(new GridModel<SerivceOrderPartLine>

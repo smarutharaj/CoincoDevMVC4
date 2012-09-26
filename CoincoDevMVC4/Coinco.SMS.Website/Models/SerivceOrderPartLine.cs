@@ -85,7 +85,7 @@ namespace Coinco.SMS.Website.Models
                 foreach (DataRow row in resultTable.Rows)
                 {
                     SerivceOrderPartLine serviceObject = new SerivceOrderPartLine();
-                    serviceObject.SerialNumber = row["SORelationID"].ToString();
+                    serviceObject.SerialNumber = row["SerialNumber"].ToString();
                     serviceObject.ServiceObjectRelation = row["SORelationID"].ToString();
                     transaction = row["TransactionType"].ToString();
                   
