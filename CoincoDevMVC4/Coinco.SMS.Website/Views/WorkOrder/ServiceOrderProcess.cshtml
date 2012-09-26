@@ -333,7 +333,7 @@
 
     jQuery('#submit').click(function () {
 
-       debugger
+        debugger
         var serviceOrderNo = $('#serviceOrderViewlabel')[0].innerHTML;
 
         var transactionType = $('#transactionTypeDropDownList').val();
@@ -410,6 +410,15 @@
                 $('#siteComboBox').focus();
                 return;
             }
+        }
+
+
+        if (itemNumber == '--Select--') {
+            itemNumber = '';
+        }
+
+        if (site == '--Select--') {
+            site = '';
         }
 
         if (failureCode == '--Select--') {
@@ -516,9 +525,9 @@
                     $('#itemNumberDropDownList').data('tComboBox').enable();
                     $('#itemNumberDropDownList').removeClass('t-state-disabled').removeAttr('disabled',
                     'disabled');
-                        $('#siteComboBox').data('tComboBox').enable();
-                        $('#siteComboBox').removeClass('t-state-disabled').removeAttr('disabled',
-                    'disabled');          
+                    $('#siteComboBox').data('tComboBox').enable();
+                    $('#siteComboBox').removeClass('t-state-disabled').removeAttr('disabled',
+                    'disabled');
                 },
                 error: function (result) {
                     alert('Service Order Part Lines Updation failed');
