@@ -86,7 +86,7 @@
             var SObjectNumber = e.row.cells[16].innerHTML;
             
             if (itemtype == "" | itemtype == "&nbsp;") {
-                itemtype = "--Select--";
+                itemtype = "-- Select --";
             }
 
             if (description == "" | description == "&nbsp;") {
@@ -94,27 +94,27 @@
             }
 
             if (specialitycode == "" | specialitycode == "&nbsp;") {
-                specialitycode = "--Select--";
+                specialitycode = "-- Select --";
             }
 
             if (failureCode == "" | failureCode == "&nbsp;") {
-                failureCode = "--Select--";
+                failureCode = "-- Select --";
             }
 
             if (lineProperty == "" | lineProperty == "&nbsp;") {
-                lineProperty = "--Select--";
+                lineProperty = "-- Select --";
             }
 
             if (itemnumber == "" | itemnumber == "&nbsp;") {
-                itemnumber = "--Select--";
+                itemnumber = "-- Select --";
             }
 
             if (technician == "" | technician == "&nbsp;") {
-                technician = "--Select--";
+                technician = "-- Select --";
             }
 
             if (site == "" | site == "&nbsp;") {
-                site = "--Select--";
+                site = "-- Select --";
             }
 
             if (quanity == "" | quanity == "&nbsp;") {
@@ -126,21 +126,21 @@
             }
 
             if (warehouse == "" | warehouse == "&nbsp;") {
-                warehouse = "--Select--";
+                warehouse = "-- Select --";
             }
 
             if (location == "" | location == "&nbsp;") {
-                location = "--Select--";
+                location = "-- Select --";
             }
 
             if (transactionSerialNumber == "" | transactionSerialNumber == "&nbsp;") {
-                transactionSerialNumber = "--Select--";
+                transactionSerialNumber = "-- Select --";
             }
             if (SoNumber == "" | SoNumber == "&nbsp;") {
-                SoNumber = "--Select--";
+                SoNumber = "-- Select --";
             }
             if (technicianNo == "" | technicianNo == "&nbsp;") {
-                technicianNo = "--Select--";
+                technicianNo = "-- Select --";
             }
 
             $('#transactionTypeDropDownList').data('tComboBox').value(itemtype);
@@ -167,11 +167,11 @@
             }
             else {
 
-                $('#itemNumberDropDownList').data('tComboBox').value('--Select--');
-                $('#wareHouseDropDownList').data('tComboBox').value('--Select--');
-                $('#siteComboBox').data('tComboBox').value('--Select--')
-                $('#locationDropDownList').data('tComboBox').value('--Select--');
-                $('#trackingSerialNoDropDownList').data('tComboBox').value('--Select--');
+                $('#itemNumberDropDownList').data('tComboBox').value('-- Select --');
+                $('#wareHouseDropDownList').data('tComboBox').value('-- Select --');
+                $('#siteComboBox').data('tComboBox').value('-- Select --')
+                $('#locationDropDownList').data('tComboBox').value('-- Select --');
+                $('#trackingSerialNoDropDownList').data('tComboBox').value('-- Select --');
                 $('#addLineRightcolumn').hide();
             }
 
@@ -197,16 +197,16 @@
             }
 
             function onRowDelete(e) {
-                $('#transactionTypeDropDownList').data('tComboBox').value('--Select--');
+                $('#transactionTypeDropDownList').data('tComboBox').value('-- Select --');
                 $('#quantityText').val('1');
-                $('#techniacianDropDownList').data('tComboBox').value('--Select--');
-                $('#specialtyCodeDropDownList').data('tComboBox').value('--Select--');
-                $('#failureCodeDropDownList').data('tComboBox').value('--Select--');
-                $('#LinePropertyDropDownList').data('tComboBox').value('--Select--');
-                $('#itemNumberDropDownList').data('tComboBox').value('--Select--');
-                $('#wareHouseDropDownList').data('tComboBox').value('--Select--');
-                $('#locationDropDownList').data('tComboBox').value('--Select--');
-                $('#trackingSerialNoDropDownList').data('tComboBox').value('--Select--');
+                $('#techniacianDropDownList').data('tComboBox').value('-- Select --');
+                $('#specialtyCodeDropDownList').data('tComboBox').value('-- Select --');
+                $('#failureCodeDropDownList').data('tComboBox').value('-- Select --');
+                $('#LinePropertyDropDownList').data('tComboBox').value('-- Select --');
+                $('#itemNumberDropDownList').data('tComboBox').value('-- Select --');
+                $('#wareHouseDropDownList').data('tComboBox').value('-- Select --');
+                $('#locationDropDownList').data('tComboBox').value('-- Select --');
+                $('#trackingSerialNoDropDownList').data('tComboBox').value('-- Select --');
                 $('#descriptionText').val('');
                 $('#commentsText').val('');
                 $('#submit').text('Add');
