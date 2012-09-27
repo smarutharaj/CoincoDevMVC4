@@ -401,6 +401,19 @@ footer
 .labelHeaderView
 {
    float:left;
+   width:130px;
+   text-align: left;
+   vertical-align:middle;
+   font-family:  Verdana;
+   font-size:8pt;
+   font-weight:bold;
+
+
+}
+
+.labelHeaderViewAddress
+{
+   float:left;
    width:135px;
    text-align: left;
    vertical-align:middle;
@@ -437,6 +450,18 @@ footer
     padding-left:2px;
 }
 
+.labelViewSOTop
+{
+    float: left;
+    width: 150px;
+    height:24px;
+    text-align: left;
+    vertical-align:middle;
+    font-family: Verdana;
+    font-size: 8pt;
+    font-weight: normal;
+    padding-left:0px;
+}
 
 .mandatory
 {

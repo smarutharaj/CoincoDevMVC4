@@ -1105,7 +1105,7 @@ namespace Coinco.SMS.AXWrapper
             object axObject;
             bool flagValue;
             bool isSuccess = false;
-            string salesPrice = "";
+            string salesPrice = "0.00";
             try
             {
                 ax = new Axapta();
@@ -1168,7 +1168,7 @@ namespace Coinco.SMS.AXWrapper
             object axObject;
             bool flagValue;
             bool isSuccess = false;
-            string salesPrice = "";
+            string salesPrice = "0.00";
             try
             {
                 ax = new Axapta();
@@ -1337,7 +1337,7 @@ namespace Coinco.SMS.AXWrapper
             salesTable.Columns.Add("SalesPrice", typeof(String));
             salesTable.Columns.Add("DateExecution", typeof(String));
             salesTable.Columns.Add("Description", typeof(String));
-
+            salesTable.Columns.Add("CustomerName", typeof(String));
 
 
             try
@@ -1357,9 +1357,8 @@ namespace Coinco.SMS.AXWrapper
                     row["SalesPrice"] = axRecord.get_Field("ProjSalesPrice");
                     row["DateExecution"] = axRecord.get_Field("DateExecution");
                     row["Description"] = axRecord.get_Field("DescriptionService");
-
-
-
+                    row["CustomerName"] = axRecord.get_Field("custname");
+                    
 
 
                     salesTable.Rows.Add(row);
@@ -1752,7 +1751,7 @@ namespace Coinco.SMS.AXWrapper
                     row["DiagnosisCodeId"] = axRecord.get_Field("DiagnosisCodeId");
                     row["ResolutionId"] = axRecord.get_Field("ResolutionId");
                     row["RepairStageId"] = axRecord.get_Field("RepairStageId");
-                    row["TechnicianNo"] = axRecord.get_Field("Worker");
+                    row["TechnicianNo"] = axRecord.get_Field("workernumber");
                     row["TechnicianName"] = axRecord.get_Field("WorkerName");
                     row["ServiceComments"] = axRecord.get_Field("Name");
 

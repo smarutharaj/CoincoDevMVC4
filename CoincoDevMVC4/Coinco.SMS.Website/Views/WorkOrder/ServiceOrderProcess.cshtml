@@ -52,7 +52,7 @@
             .HtmlAttributes(new { @class = "dropDownPropertiesSP" })
             .DropDownHtmlAttributes(new { @class = "dropDownPropertiesSP" })
             .SelectedIndex(0)
-    
+
             .Render();
             }
             <span class="mandatory">*</span>
@@ -101,7 +101,7 @@
             <br />
             @Html.Label("Technician:", new { @class = "labelHeaderSPView", id = "techniacianHeadLabel" })
             @{Html.Telerik().ComboBox().Name("techniacianDropDownList")
-           
+
             .DataBinding(binding => binding.Ajax().Select("_GetDropDownListTechnicianSpecialtyCode", "WorkOrder"))
             .Placeholder("-- Select --")
             .HtmlAttributes(new { @class = "dropDownPropertiesSP" })
@@ -148,7 +148,7 @@
                 <span class="mandatory">*</span> @*@Html.DropDownListFor(x => x.Site.SiteID, new SelectList(""), "<--Select One-->", new { @class = "dropDownPropertiesSP", id = "LinePropertyDropDownList" })*@
                 @Html.Label("Warehouse:", new { @class = "labelHeaderSPView", id = "wareHouseHeadLabel" })
                 @{Html.Telerik().ComboBox().Name("wareHouseDropDownList")
-                   
+
             .Placeholder("-- Select --")
             .HtmlAttributes(new { @class = "dropDownPropertiesSP" })
             .DropDownHtmlAttributes(new { @class = "dropDownPropertiesSP" })
@@ -205,11 +205,11 @@
 
 
     function onserialNumberDropDownChange(e) {
-   
-    if (e != null) {
-//            var serialNumber = e.currentTarget.value;
 
-        var serialNumber = $('#slNumberDropDownList').data('tComboBox').text();
+        if (e != null) {
+            //            var serialNumber = e.currentTarget.value;
+
+            var serialNumber = $('#slNumberDropDownList').data('tComboBox').text();
             jQuery.ajax({
                 url: "../WorkOrder/GetServiceOrderLineBySerialNumberOrderProcess",
                 type: 'GET',
@@ -335,237 +335,237 @@
 
     jQuery('#submit').click(function () {
 
-        debugger
-        var serviceOrderNo = $('#serviceOrderViewlabel')[0].innerHTML;
 
 
-        if ($('#transactionTypeDropDownList').data('tComboBox').value() && $('#transactionTypeDropDownList').data('tComboBox').selectedIndex != -1) {
-        var transactionTypedata = $('#transactionTypeDropDownList').data('tComboBox').data[$('#transactionTypeDropDownList').data('tComboBox').selectedIndex];
-        var transactionType;
-     
-            transactionType = transactionTypedata.Value;
-        }
-        else {
-         
-         
-            transactionType = "";
-        }
-
-        var technicinanNodata = $('#techniacianDropDownList').data('tComboBox').data[$('#techniacianDropDownList').data('tComboBox').selectedIndex];
-        var technicinanNo;
-        if ($('#techniacianDropDownList').data('tComboBox').selectedIndex != -1) {
-            technicinanNo = technicinanNodata.Value;
-        }
-        else {
-
-
-            technicinanNo = "";
-        }
-
-        var specialityCodedata = $('#specialtyCodeDropDownList').data('tComboBox').data[$('#specialtyCodeDropDownList').data('tComboBox').selectedIndex];
-        var specialityCode;
-        if ($('#specialtyCodeDropDownList').data('tComboBox').selectedIndex != -1) {
-            specialityCode = specialityCodedata.Value;
-        }
-        else {
-
-
-            specialityCode = "";
-        }
-
-
-        var quantity = $('#quantityText').val();
-
-        var failureCodedata = $('#failureCodeDropDownList').data('tComboBox').data[$('#failureCodeDropDownList').data('tComboBox').selectedIndex];
-        var failureCode;
-        if ($('#failureCodeDropDownList').data('tComboBox').selectedIndex != -1) {
-            failureCode = failureCodedata.Value;
-        }
-        else {
-
-
-            failureCode = "";
-        }
-
-        var linePropertydata = $('#LinePropertyDropDownList').data('tComboBox').data[$('#LinePropertyDropDownList').data('tComboBox').selectedIndex];
-        var lineProperty;
-        if ($('#LinePropertyDropDownList').data('tComboBox').selectedIndex != -1) {
-            lineProperty = linePropertydata.Value;
-        }
-        else {
-
-
-            lineProperty = "";
-        }
-        
-
-        var description = $('#descriptionText').val();
-
-        var serviceComments = $('#commentsText').val();
-
-        var itemNumberdata = $('#itemNumberDropDownList').data('tComboBox').data[$('#itemNumberDropDownList').data('tComboBox').selectedIndex];
-        var itemNumber;
-        if ($('#itemNumberDropDownList').data('tComboBox').selectedIndex != -1) {
-            itemNumber = itemNumberdata.Value;
-        }
-        else {
-
-
-            itemNumber = "";
-        }
-
-        var sitedata = $('#siteComboBox').data('tComboBox').data[$('#siteComboBox').data('tComboBox').selectedIndex];
-        var site;
-        if ($('#siteComboBox').data('tComboBox').selectedIndex != -1) {
-            site = sitedata.Value;
-        }
-        else {
-
-
-            sitedata = "";
-        }
-
-        var wareHousedata = $('#wareHouseDropDownList').data('tComboBox').data[$('#wareHouseDropDownList').data('tComboBox').selectedIndex];
-        var wareHouse;
-        if ($('#wareHouseDropDownList').data('tComboBox').selectedIndex != -1) {
-            wareHouse = wareHousedata.Value;
-        }
-        else {
-
-            wareHouse = "";
-        }
-
-        var locationIddata = $('#locationDropDownList').data('tComboBox').data[$('#locationDropDownList').data('tComboBox').selectedIndex];
-        var locationId;
-        if ($('#locationDropDownList').data('tComboBox').selectedIndex != -1) {
-            locationId = locationIddata.Value;
-        }
-        else {
-
-            locationId = "";
-        }
-
-        var transSerialCodeNodata = $('#trackingSerialNoDropDownList').data('tComboBox').data[$('#trackingSerialNoDropDownList').data('tComboBox').selectedIndex];
-        var transSerialCodeNo;
-        if ($('#trackingSerialNoDropDownList').data('tComboBox').selectedIndex != -1) {
-            transSerialCodeNo = transSerialCodeNodata.Value;
-        }
-        else {
-            transSerialCodeNo = "";
-        }
-
-        var serviceOrderRelationdata = $('#slNumberDropDownList').data('tComboBox').data[$('#slNumberDropDownList').data('tComboBox').selectedIndex];
-        var serviceOrderRelation;
-        if ($('#slNumberDropDownList').data('tComboBox').selectedIndex != -1) {
-            serviceOrderRelation = serviceOrderRelationdata.Value;
-        }
-        else {
-            serviceOrderRelation = "";
-        }
-
- 
-
-        var uniqueId = $('#uniqueText').val();
-        var updateServiceOrderRelation = $('#serviceObjectText').val();
-
-        if ((serviceOrderRelation.toString() == "-- Select --") || (serviceOrderRelation == "")) {
-            alert('Please select the Serial Number.');
-            $('#slNumberDropDownList').focus();
-
-            return;
-
-        }
-
-        if ((transactionType == '') || (transactionType == null) || (transactionType == "-- Select --")) {
-            alert('Please select the Transaction Type.');
-            //$('#transactionTypeDropDownList').addClass("input-validation-error");
-            $('#transactionTypeDropDownList').focus();
-
-            return;
-
-        }
-
-        if ((specialityCode == '') || (specialityCode == null) || (specialityCode == "-- Select --")) {
-            alert('Please select the Specialty Code.');
-            //$('#specialtyCodeDropDownList').addClass("input-validation-error");
-            $('#specialtyCodeDropDownList').focus();
-
-            return;
-        }
-
-
-        if ((lineProperty == '') || (lineProperty == null) || (lineProperty == "-- Select --")) {
-            alert('Please select the Line property.');
-            //$('#LinePropertyDropDownList').addClass("input-validation-error");
-            $('#LinePropertyDropDownList').focus();
-
-            return;
-        }
-
-        if (($.trim(technicinanNo) == '') || (technicinanNo == null) || (technicinanNo == "-- Select --")) {
-            alert('Please select the Technician.');
-            //$('#LinePropertyDropDownList').addClass("input-validation-error");
-            $('#techniacianDropDownList').focus();
-
-            return;
-        }
-
-        if (transactionType == '3') {
-            if (($.trim(itemNumber) == '') || (itemNumber == null) || (itemNumber == "-- Select --")) {
-                alert('Please select the Item Number.');
-                //$('#itemNumberDropDownList').addClass("input-validation-error");
-                $('#itemNumberDropDownList').focus();
-
-                return;
-            }
-
-            if (($.trim(site) == '') || (site == null) || (site == "-- Select --")) {
-                alert('Please select the Site.');
-                //$('#siteComboBox').addClass("input-validation-error");
-                $('#siteComboBox').focus();
-
-                return;
-            }
-        }
-
-
-        if (itemNumber == '-- Select --') {
-            itemNumber = '';
-        }
-
-        if (site == '-- Select --') {
-            site = '';
-        }
-
-        if (failureCode == '-- Select --') {
-            failureCode = '';
-        }
-        if (technicinanNo == '-- Select --') {
-            technicinanNo = '';
-        }
-
-        if (description == '') {
-            description = '';
-        }
-        if (serviceComments == '') {
-            serviceComments = '';
-        }
-        if (wareHouse == '-- Select --') {
-            wareHouse = '';
-        }
-        if (locationId == '-- Select --') {
-            locationId = '';
-        }
-        if (transSerialCodeNo == '-- Select --') {
-            transSerialCodeNo = '';
-        }
-        if (quantity == null) {
-
-            quantity = '1';
-        }
 
         $('#submit').attr('disabled', true);
-        if (uniqueId == "") {
+        var uniqueId = $('#uniqueText').val();
+        if (uniqueId == '') {
+
+            var serviceOrderNo = $('#serviceOrderViewlabel')[0].innerHTML;
+
+            var transactionType;
+            if ($('#transactionTypeDropDownList').data('tComboBox').value() && $('#transactionTypeDropDownList').data('tComboBox').selectedIndex != -1) {
+                var transactionTypedata = $('#transactionTypeDropDownList').data('tComboBox').data[$('#transactionTypeDropDownList').data('tComboBox').selectedIndex];
+
+                transactionType = transactionTypedata.Value;
+            }
+            else {
+
+                transactionType = "";
+            }
+
+            var technicinanNo;
+            if ($('#techniacianDropDownList').data('tComboBox').value() && $('#techniacianDropDownList').data('tComboBox').selectedIndex != -1) {
+                var technicinanNodata = $('#techniacianDropDownList').data('tComboBox').data[$('#techniacianDropDownList').data('tComboBox').selectedIndex];
+
+                technicinanNo = technicinanNodata.Value;
+            }
+            else {
+                technicinanNo = "";
+            }
+
+            var specialityCode;
+            if ($('#specialtyCodeDropDownList').data('tComboBox').value() && $('#specialtyCodeDropDownList').data('tComboBox').selectedIndex != -1) {
+                var specialityCodedata = $('#specialtyCodeDropDownList').data('tComboBox').data[$('#specialtyCodeDropDownList').data('tComboBox').selectedIndex];
+                specialityCode = specialityCodedata.Value;
+            }
+            else {
+                specialityCode = "";
+            }
+
+
+            var quantity = $('#quantityText').val();
+
+            var failureCode;
+            if ($('#failureCodeDropDownList').data('tComboBox').value() && $('#failureCodeDropDownList').data('tComboBox').selectedIndex != -1) {
+                var failureCodedata = $('#failureCodeDropDownList').data('tComboBox').data[$('#failureCodeDropDownList').data('tComboBox').selectedIndex];
+                failureCode = failureCodedata.Value;
+            }
+            else {
+                failureCode = "";
+            }
+
+            var lineProperty;
+            if ($('#LinePropertyDropDownList').data('tComboBox').value() && $('#LinePropertyDropDownList').data('tComboBox').selectedIndex != -1) {
+                var linePropertydata = $('#LinePropertyDropDownList').data('tComboBox').data[$('#LinePropertyDropDownList').data('tComboBox').selectedIndex];
+                lineProperty = linePropertydata.Value;
+            }
+            else {
+                lineProperty = "";
+            }
+
+
+            var description = $('#descriptionText').val();
+
+            var serviceComments = $('#commentsText').val();
+
+            if (transactionType == '3') {
+                var itemNumber;
+                if ($('#itemNumberDropDownList').data('tComboBox').value() && $('#itemNumberDropDownList').data('tComboBox').selectedIndex != -1) {
+                    var itemNumberdata = $('#itemNumberDropDownList').data('tComboBox').data[$('#itemNumberDropDownList').data('tComboBox').selectedIndex];
+
+                    itemNumber = itemNumberdata.Value;
+                }
+                else {
+                    itemNumber = "";
+                }
+
+                if ($('#siteComboBox').data('tComboBox').selectedIndex != -1) {
+                    var sitedata = $('#siteComboBox').data('tComboBox').data[$('#siteComboBox').data('tComboBox').selectedIndex];
+                    site = sitedata.Value;
+                }
+                else {
+                    site = "";
+                }
+
+
+                var wareHouse;
+                if ($('#wareHouseDropDownList').data('tComboBox').value() && $('#wareHouseDropDownList').data('tComboBox').selectedIndex != -1) {
+                    var wareHousedata = $('#wareHouseDropDownList').data('tComboBox').data[$('#wareHouseDropDownList').data('tComboBox').selectedIndex];
+
+                    wareHouse = wareHousedata.Value;
+                }
+                else {
+
+                    wareHouse = "";
+                }
+
+                var locationId;
+                if ($('#locationDropDownList').data('tComboBox').value() && $('#locationDropDownList').data('tComboBox').selectedIndex != -1) {
+                    var locationIddata = $('#locationDropDownList').data('tComboBox').data[$('#locationDropDownList').data('tComboBox').selectedIndex];
+
+                    locationId = locationIddata.Value;
+                }
+                else {
+
+                    locationId = "";
+                }
+
+                var transSerialCodeNo;
+                if ($('#trackingSerialNoDropDownList').data('tComboBox').value() && $('#trackingSerialNoDropDownList').data('tComboBox').selectedIndex != -1) {
+                    var transSerialCodeNodata = $('#trackingSerialNoDropDownList').data('tComboBox').data[$('#trackingSerialNoDropDownList').data('tComboBox').selectedIndex];
+                    transSerialCodeNo = transSerialCodeNodata.Value;
+                }
+                else {
+                    transSerialCodeNo = "";
+                }
+            }
+            debugger
+            var updateServiceOrderRelation = $('#serviceObjectText').val();
+            if (updateServiceOrderRelation == "") {
+                var serviceOrderRelation;
+                if ($('#slNumberDropDownList').data('tComboBox').value() && $('#slNumberDropDownList').data('tComboBox').selectedIndex != -1) {
+                    var serviceOrderRelationdata = $('#slNumberDropDownList').data('tComboBox').data[$('#slNumberDropDownList').data('tComboBox').selectedIndex];
+                    serviceOrderRelation = serviceOrderRelationdata.Value;
+                }
+                else {
+                    serviceOrderRelation = "";
+                }
+            }
+
+
+
+            var uniqueId = $('#uniqueText').val();
+
+
+            if ((serviceOrderRelation == "-- Select --")) {
+                alert('Please select the Serial Number.');
+                $('#slNumberDropDownList').focus();
+
+                return;
+
+            }
+
+            if ((transactionType == '') || (transactionType == null) || (transactionType == "-- Select --")) {
+                alert('Please select the Transaction Type.');
+                //$('#transactionTypeDropDownList').addClass("input-validation-error");
+                $('#transactionTypeDropDownList').focus();
+
+                return;
+
+            }
+
+            if ((specialityCode == '') || (specialityCode == null) || (specialityCode == "-- Select --")) {
+                alert('Please select the Specialty Code.');
+                //$('#specialtyCodeDropDownList').addClass("input-validation-error");
+                $('#specialtyCodeDropDownList').focus();
+
+                return;
+            }
+
+
+            if ((lineProperty == '') || (lineProperty == null) || (lineProperty == "-- Select --")) {
+                alert('Please select the Line property.');
+                //$('#LinePropertyDropDownList').addClass("input-validation-error");
+                $('#LinePropertyDropDownList').focus();
+
+                return;
+            }
+
+            if (($.trim(technicinanNo) == '') || (technicinanNo == null) || (technicinanNo == "-- Select --")) {
+                alert('Please select the Technician.');
+                //$('#LinePropertyDropDownList').addClass("input-validation-error");
+                $('#techniacianDropDownList').focus();
+
+                return;
+            }
+
+            if (transactionType == '3') {
+                if (($.trim(itemNumber) == '') || (itemNumber == null) || (itemNumber == "-- Select --")) {
+                    alert('Please select the Item Number.');
+                    //$('#itemNumberDropDownList').addClass("input-validation-error");
+                    $('#itemNumberDropDownList').focus();
+
+                    return;
+                }
+
+                if (($.trim(site) == '') || (site == null) || (site == "-- Select --")) {
+                    alert('Please select the Site.');
+                    //$('#siteComboBox').addClass("input-validation-error");
+                    $('#siteComboBox').focus();
+
+                    return;
+                }
+            }
+
+
+            if (itemNumber == '-- Select --') {
+                itemNumber = '';
+            }
+
+            if (site == '-- Select --') {
+                site = '';
+            }
+
+            if (failureCode == '-- Select --') {
+                failureCode = '';
+            }
+            if (technicinanNo == '-- Select --') {
+                technicinanNo = '';
+            }
+
+            if (description == '') {
+                description = '';
+            }
+            if (serviceComments == '') {
+                serviceComments = '';
+            }
+            if (wareHouse == '-- Select --') {
+                wareHouse = '';
+            }
+            if (locationId == '-- Select --') {
+                locationId = '';
+            }
+            if (transSerialCodeNo == '-- Select --') {
+                transSerialCodeNo = '';
+            }
+            if (quantity == null) {
+
+                quantity = '1';
+            }
+
+
             jQuery.ajax({
                 url: "../WorkOrder/CreateServiceOrderPartLines",
                 type: 'POST',
@@ -605,7 +605,127 @@
         }
         else {
 
+            var serviceOrderNo = $('#serviceOrderViewlabel')[0].innerHTML;
 
+            var transactionType = $('#transactionTypeDropDownList').val();
+            var technicinanNo = $('#techniacianDropDownList').val();
+            var quantity = $('#quantityText').val();
+            var specialityCode = $('#specialtyCodeDropDownList').val();
+            var failureCode = $('#failureCodeDropDownList').val();
+
+            var lineProperty = $('#LinePropertyDropDownList').val();
+            var description = $('#descriptionText').val();
+
+            var serviceComments = $('#commentsText').val();
+
+            var itemNumber = $('#itemNumberDropDownList').val();
+
+            var site = $('#siteComboBox').val();
+            var wareHouse = $('#wareHouseDropDownList').val();
+
+            var locationId = $('#locationDropDownList').val();
+
+            var transSerialCodeNo = $('#trackingSerialNoDropDownList').val();
+
+            var serviceOrderRelation = $('#slNumberDropDownList').val();
+            var uniqueId = $('#uniqueText').val();
+            var updateServiceOrderRelation = $('#serviceObjectText').val();
+
+            //            if ((serviceOrderRelation.toString() == "-- Select --") || (serviceOrderRelation == "")) {
+            //                alert('Please select the Serial Number.');
+            //                $('#slNumberDropDownList').focus();
+
+            //                return;
+
+            //            }
+
+            //            if ((transactionType == '') || (transactionType == null) || (transactionType == "-- Select --")) {
+            //                alert('Please select the Transaction Type.');
+            //                //$('#transactionTypeDropDownList').addClass("input-validation-error");
+            //                $('#transactionTypeDropDownList').focus();
+
+            //                return;
+
+            //            }
+
+            //            if ((specialityCode == '') || (specialityCode == null) || (specialityCode == "-- Select --")) {
+            //                alert('Please select the Specialty Code.');
+            //                //$('#specialtyCodeDropDownList').addClass("input-validation-error");
+            //                $('#specialtyCodeDropDownList').focus();
+
+            //                return;
+            //            }
+
+
+            //            if (($.trim(lineProperty) == '') || (lineProperty == null) || (lineProperty == "-- Select --")) {
+            //                alert('Please select the Line property.');
+            //                //$('#LinePropertyDropDownList').addClass("input-validation-error");
+            //                $('#LinePropertyDropDownList').focus();
+
+            //                return;
+            //            }
+
+            //            if (($.trim(technicinanNo) == '') || (technicinanNo == null) || (technicinanNo == "-- Select --")) {
+            //                alert('Please select the Technician.');
+            //                //$('#LinePropertyDropDownList').addClass("input-validation-error");
+            //                $('#techniacianDropDownList').focus();
+
+            //                return;
+            //            }
+
+            //            if (transactionType == '3') {
+            //                if (($.trim(itemNumber) == '') || (itemNumber == null) || (itemNumber == "-- Select --")) {
+            //                    alert('Please select the Item Number.');
+            //                    //$('#itemNumberDropDownList').addClass("input-validation-error");
+            //                    $('#itemNumberDropDownList').focus();
+
+            //                    return;
+            //                }
+
+            //                if (($.trim(site) == '') || (site == null) || (site == "-- Select --")) {
+            //                    alert('Please select the Site.');
+            //                    //$('#siteComboBox').addClass("input-validation-error");
+            //                    $('#siteComboBox').focus();
+
+            //                    return;
+            //                }
+            //            }
+
+
+            if (itemNumber == '-- Select --') {
+                itemNumber = '';
+            }
+
+            if (site == '-- Select --') {
+                site = '';
+            }
+
+            if (failureCode == '-- Select --') {
+                failureCode = '';
+            }
+            if (technicinanNo == '-- Select --') {
+                technicinanNo = '';
+            }
+
+            if (description == '') {
+                description = '';
+            }
+            if (serviceComments == '') {
+                serviceComments = '';
+            }
+            if (wareHouse == '-- Select --') {
+                wareHouse = '';
+            }
+            if (locationId == '-- Select --') {
+                locationId = '';
+            }
+            if (transSerialCodeNo == '-- Select --') {
+                transSerialCodeNo = '';
+            }
+            if (quantity == null) {
+
+                quantity = '1';
+            }
             jQuery.ajax({
                 url: "../WorkOrder/UpdateServiceOrderPartLines",
                 type: 'POST',
@@ -661,9 +781,9 @@
         $('#transactionTypeDropDownList').data('tComboBox').value('-- Select --');
         $('#quantityText').val('1');
 
-     
+
         $('#techniacianDropDownList').data('tComboBox').value('-- Select --');
-     
+
         $('#specialtyCodeDropDownList').data('tComboBox').value('-- Select --');
 
         $('#failureCodeDropDownList').data('tComboBox').value('-- Select --');
@@ -671,11 +791,11 @@
         $('#itemNumberDropDownList').data('tComboBox').value('-- Select --');
 
         $('#wareHouseDropDownList').data('tComboBox').value('-- Select --');
-     
+
         $('#locationDropDownList').data('tComboBox').value('-- Select --');
 
         $('#trackingSerialNoDropDownList').data('tComboBox').value('-- Select --');
-    
+
         $('#descriptionText').val('');
         $('#commentsText').val('');
         $('#submit').text('Add');
@@ -693,7 +813,7 @@
                 'disabled');
         $('#siteComboBox').data('tComboBox').enable();
         $('#siteComboBox').removeClass('t-state-disabled').removeAttr('disabled',
-                'disabled');          
+                'disabled');
 
     });
 
