@@ -351,7 +351,16 @@
             transactionType = "";
         }
 
-        
+        var technicinanNodata = $('#techniacianDropDownList').data('tComboBox').data[$('#techniacianDropDownList').data('tComboBox').selectedIndex];
+        var technicinanNo;
+        if ($('#techniacianDropDownList').data('tComboBox').selectedIndex != -1) {
+            technicinanNo = technicinanNodata.Value;
+        }
+        else {
+
+
+            technicinanNo = "";
+        }
         
 
         var technicinanNo = $('#techniacianDropDownList').val();
