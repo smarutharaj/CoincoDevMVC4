@@ -5,7 +5,7 @@
         <h6>
             Address and Contact</h6>
         <div class="addLineleftcolumn">
-            @Html.Label("Customer Name:", new { @class = "labelHeaderView", id = "customerNameHeadLabel" })  
+            @Html.Label("Customer Name:", new { @class = "labelHeaderViewAddress", id = "customerNameHeadLabel" })  
            
                <div class="labelViewSO">
               @{if (Model.ServiceOrderList[0].Customer.CustomerName != null)
@@ -20,7 +20,7 @@
               }
               </div>
              <br />
-             @Html.Label("Service Technician:", new { @class = "labelHeaderView", id = "technicianHeadLabel" })  
+             @Html.Label("Service Technician:", new { @class = "labelHeaderViewAddress", id = "technicianHeadLabel" })  
            
               <div class="labelViewSO">
               @{if (Model.ServiceOrderList[0].ServiceTechnician.ServiceTechnicianName != null)
@@ -34,7 +34,7 @@
               }
                </div>
              <br />
-             @Html.Label("Service Responsible:", new { @class = "labelHeaderView", id = "responsibleHeadLabel" })  
+             @Html.Label("Service Responsible:", new { @class = "labelHeaderViewAddress", id = "responsibleHeadLabel" })  
            
               <div class="labelViewSO">
               @{if (Model.ServiceOrderList[0].ServiceResponsible.ServiceTechnicianName != null)
@@ -48,7 +48,7 @@
               }
                </div>
              <br />
-              @Html.Label("Customer PO:", new { @class = "labelHeaderView", id = "customerpoHeadLabel" })  
+              @Html.Label("Customer PO:", new { @class = "labelHeaderViewAddress", id = "customerpoHeadLabel" })  
            
               <div class="labelViewSO">
               @{if (Model.ServiceOrderList[0].CustomerPO != null)
@@ -65,7 +65,7 @@
         </div>
         <div class="centercolumn">
       
-            @Html.Label("Billing Address:", new { @class = "labelHeaderView", id = "billingHeadLabel" })  
+            @Html.Label("Billing Address:", new { @class = "labelHeaderViewAddress", id = "billingHeadLabel" })  
               @{if (Model.ServiceOrderList[0].WOBillingAddress.AddresswithDesc != null)
               {
                 @Html.Label(Model.ServiceOrderList[0].WOBillingAddress.AddresswithDesc, new { @class = "labelViewSO", id = "billingLabel" })     
@@ -81,7 +81,7 @@
         </div>
         <div class="addLineRightcolumn">
            
-              @Html.Label("Shipping Address:", new { @class = "labelHeaderView", id = "shippingHeadLabel" })  
+              @Html.Label("Shipping Address:", new { @class = "labelHeaderViewAddress", id = "shippingHeadLabel" })  
               @{if (Model.ServiceOrderList[0].WOShippingAddress.AddresswithDesc != null)
               {
                 @Html.Label(Model.ServiceOrderList[0].WOShippingAddress.AddresswithDesc, new { @class = "labelViewSO", id = "shippingLabel" })     
