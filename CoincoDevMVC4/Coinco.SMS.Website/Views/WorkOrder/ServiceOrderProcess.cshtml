@@ -411,14 +411,14 @@
                     itemNumber = "";
                 }
 
-                if ($('#siteComboBox').data('tComboBox').text() && $('#siteComboBox').data('tComboBox').selectedIndex != -1) {
-                    var sitedata = $('#siteComboBox').data('tComboBox').data[$('#siteComboBox').data('tComboBox').selectedIndex];
-                    site = sitedata.Value;
-                }
-                else {
-                    site = "";
-                }
-
+                //                if ($('#siteComboBox').data('tComboBox').text() && $('#siteComboBox').data('tComboBox').selectedIndex != -1) {
+                //                    var sitedata = $('#siteComboBox').data('tComboBox').data[$('#siteComboBox').data('tComboBox').selectedIndex];
+                //                    site = sitedata.Value;
+                //                }
+                //                else {
+                //                    site = "";
+                //                }
+                var site = $('#siteComboBox').val();
 
                 var wareHouse;
                 if ($('#wareHouseDropDownList').data('tComboBox').value() && $('#wareHouseDropDownList').data('tComboBox').selectedIndex != -1) {
@@ -451,7 +451,7 @@
                     transSerialCodeNo = "";
                 }
             }
-         
+
             var updateServiceOrderRelation = $('#serviceObjectText').val();
             if (updateServiceOrderRelation == "") {
                 var serviceOrderRelation;
@@ -576,9 +576,9 @@
 
                     alert('Service Order Part Lines Created Successfully');
                     $('#transactionTypeDropDownList').data('tComboBox').value('');
-                    $('#transactionTypeDropDownList').data('tComboBox').value('--Select--');
+                    $('#slNumberDropDownList').data('tComboBox').value('-- Select --');
                     $('#quantityText').val('1');
-
+                    $('#transactionTypeDropDownList').data('tComboBox').value('-- Select --');
                     $('#specialtyCodeDropDownList').data('tComboBox').value('-- Select --');
                     $('#techniacianDropDownList').data('tComboBox').value('-- Select --');
                     $('#failureCodeDropDownList').data('tComboBox').value('-- Select --');
@@ -594,6 +594,9 @@
                     $('#submit').text('Add');
                     $('#uniqueText').val('');
                     $('#serviceObjectText').val('');
+                    $('#partNumberLabel').text("");
+                    $('#repairTypeLabel').text("");
+                    $('#warrantyLabel').text("");
                     $('#submit').attr('disabled', false);
 
                 },
@@ -738,7 +741,7 @@
                     $('#transactionTypeDropDownList').data('tComboBox').value('-- Select --');
                     $('#quantityText').val('1');
                     $('#techniacianDropDownList').data('tComboBox').value('-- Select --');
-
+                    $('#slNumberDropDownList').data('tComboBox').value('-- Select --');
                     $('#specialtyCodeDropDownList').data('tComboBox').value('-- Select --');
                     $('#failureCodeDropDownList').data('tComboBox').value('-- Select --');
                     $('#LinePropertyDropDownList').data('tComboBox').value('-- Select --');
@@ -764,6 +767,9 @@
                     $('#siteComboBox').data('tComboBox').enable();
                     $('#siteComboBox').removeClass('t-state-disabled').removeAttr('disabled',
                     'disabled');
+                    $('#partNumberLabel').text("");
+                    $('#repairTypeLabel').text("");
+                    $('#warrantyLabel').text("");
                 },
                 error: function (result) {
                     alert('Service Order Part Lines Updation failed');
@@ -780,7 +786,7 @@
     jQuery('#Clear').click(function () {
         $('#transactionTypeDropDownList').data('tComboBox').value('-- Select --');
         $('#quantityText').val('1');
-
+        $('#slNumberDropDownList').data('tComboBox').value('-- Select --');
 
         $('#techniacianDropDownList').data('tComboBox').value('-- Select --');
 
@@ -814,7 +820,10 @@
         $('#siteComboBox').data('tComboBox').enable();
         $('#siteComboBox').removeClass('t-state-disabled').removeAttr('disabled',
                 'disabled');
-
+        $('#partNumberLabel').text("");
+        $('#repairTypeLabel').text("");
+        $('#warrantyLabel').text("");
+        
     });
 
     function onItemNumberSiteChange(e) {
