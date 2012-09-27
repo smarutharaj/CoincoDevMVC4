@@ -411,7 +411,7 @@
                     itemNumber = "";
                 }
 
-                if ($('#siteComboBox').data('tComboBox').selectedIndex != -1) {
+                if ($('#siteComboBox').data('tComboBox').text() && $('#siteComboBox').data('tComboBox').selectedIndex != -1) {
                     var sitedata = $('#siteComboBox').data('tComboBox').data[$('#siteComboBox').data('tComboBox').selectedIndex];
                     site = sitedata.Value;
                 }
@@ -451,11 +451,11 @@
                     transSerialCodeNo = "";
                 }
             }
-            debugger
+         
             var updateServiceOrderRelation = $('#serviceObjectText').val();
             if (updateServiceOrderRelation == "") {
                 var serviceOrderRelation;
-                if ($('#slNumberDropDownList').data('tComboBox').value() && $('#slNumberDropDownList').data('tComboBox').selectedIndex != -1) {
+                if ($('#slNumberDropDownList').data('tComboBox').text() && $('#slNumberDropDownList').data('tComboBox').selectedIndex != -1) {
                     var serviceOrderRelationdata = $('#slNumberDropDownList').data('tComboBox').data[$('#slNumberDropDownList').data('tComboBox').selectedIndex];
                     serviceOrderRelation = serviceOrderRelationdata.Value;
                 }
@@ -469,10 +469,10 @@
             var uniqueId = $('#uniqueText').val();
 
 
-            if ((serviceOrderRelation == "-- Select --")) {
+            if ((serviceOrderRelation == "-- Select --") || (serviceOrderRelation == null) || (serviceOrderRelation == '')) {
                 alert('Please select the Serial Number.');
                 $('#slNumberDropDownList').focus();
-
+                $('#submit').attr('disabled', false);
                 return;
 
             }
@@ -481,7 +481,7 @@
                 alert('Please select the Transaction Type.');
                 //$('#transactionTypeDropDownList').addClass("input-validation-error");
                 $('#transactionTypeDropDownList').focus();
-
+                $('#submit').attr('disabled', false);
                 return;
 
             }
@@ -490,7 +490,7 @@
                 alert('Please select the Specialty Code.');
                 //$('#specialtyCodeDropDownList').addClass("input-validation-error");
                 $('#specialtyCodeDropDownList').focus();
-
+                $('#submit').attr('disabled', false);
                 return;
             }
 
@@ -499,7 +499,7 @@
                 alert('Please select the Line property.');
                 //$('#LinePropertyDropDownList').addClass("input-validation-error");
                 $('#LinePropertyDropDownList').focus();
-
+                $('#submit').attr('disabled', false);
                 return;
             }
 
@@ -507,7 +507,7 @@
                 alert('Please select the Technician.');
                 //$('#LinePropertyDropDownList').addClass("input-validation-error");
                 $('#techniacianDropDownList').focus();
-
+                $('#submit').attr('disabled', false);
                 return;
             }
 
@@ -516,7 +516,7 @@
                     alert('Please select the Item Number.');
                     //$('#itemNumberDropDownList').addClass("input-validation-error");
                     $('#itemNumberDropDownList').focus();
-
+                    $('#submit').attr('disabled', false);
                     return;
                 }
 
@@ -524,7 +524,7 @@
                     alert('Please select the Site.');
                     //$('#siteComboBox').addClass("input-validation-error");
                     $('#siteComboBox').focus();
-
+                    $('#submit').attr('disabled', false);
                     return;
                 }
             }
