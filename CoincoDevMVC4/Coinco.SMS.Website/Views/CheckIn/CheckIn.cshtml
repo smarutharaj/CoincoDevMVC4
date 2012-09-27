@@ -408,6 +408,7 @@
                         else {
                             var serviceOrderLineGrid = $("#ServiceOrderLineGrid").data("tGrid");
                             serviceOrderLineGrid.dataBind(result);
+                            $('#serialNumberTextBox').val('');
                             $("#Add").prop("disabled", false);
                         }
                     },
