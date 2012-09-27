@@ -494,9 +494,10 @@
     });
 
     jQuery('#Create').click(function () {
-        debugger
+      
 
         var customerAccount = $('#customerAccountDropDownList').val();
+        var woClassification = $('#woClassificationDropDownList').val();
         var customerPo = $('#customerPOTextBox').val();
         if (($.trim(customerPo) == '<--SELECT-->') || (customerPo == null)) {
             customerPo = '';
@@ -538,7 +539,7 @@
             alert('Please add atleast one service order line to create an order.');
             return;
         }
-        var woClassification = $('#woClassificationDropDownList').val();
+      
         $("#Create").prop("disabled", "disabled");
         // $('#Add').prop("disabled", true);
 
