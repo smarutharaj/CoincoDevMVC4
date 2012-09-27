@@ -5,6 +5,7 @@ using System.Web;
 using System.Data;
 using Coinco.SMS.AXWrapper;
 using StructureMap;
+using System.Text;
 
 namespace Coinco.SMS.Website.Models
 {
@@ -20,6 +21,7 @@ namespace Coinco.SMS.Website.Models
         public string SalesPrice { get; set; }
         public string DateExecution { get; set; }
         public string InvoiceNumber { get; set; }
+      
         public List<SalesHistory> ServiceInfoList { get; set; }
 
         public SalesHistory()
@@ -70,6 +72,7 @@ namespace Coinco.SMS.Website.Models
 
             IAXHelper axHelper = ObjectFactory.GetInstance<IAXHelper>();
             List<SalesHistory> salesList = new List<SalesHistory>();
+            string salesprice;
             try
             {
                 DataTable resultTable = axHelper.GetSalesHistory(serialNumber, userName);
@@ -79,12 +82,12 @@ namespace Coinco.SMS.Website.Models
                 {
                     SalesHistory salesObject = new SalesHistory();
                     salesObject.SalesServiceOrder = row["ServiceOrderId"].ToString();
-                    salesObject.SalesPrice = string.Format("{0:C}", row["SalesPrice"].ToString());
+                    salesprice=row["SalesPrice"].ToString();
+                    salesObject.SalesPrice = string.Format("{0:c}", salesprice);
 
                     salesObject.DateExecution = row["DateExecution"].ToString();
                     salesObject.Description = row["Description"].ToString();
-
-
+                    salesObject.CustomerName = row["CustomerName"].ToString();
 
 
                     salesList.Add(salesObject);

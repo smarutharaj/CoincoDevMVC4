@@ -339,10 +339,10 @@
         var serviceOrderNo = $('#serviceOrderViewlabel')[0].innerHTML;
 
 
-
+        if ($('#transactionTypeDropDownList').data('tComboBox').value() && $('#transactionTypeDropDownList').data('tComboBox').selectedIndex != -1) {
         var transactionTypedata = $('#transactionTypeDropDownList').data('tComboBox').data[$('#transactionTypeDropDownList').data('tComboBox').selectedIndex];
         var transactionType;
-        if ($('#transactionTypeDropDownList').data('tComboBox').selectedIndex != -1) {
+     
             transactionType = transactionTypedata.Value;
         }
         else {
@@ -361,64 +361,109 @@
 
             technicinanNo = "";
         }
+
+        var specialityCodedata = $('#specialtyCodeDropDownList').data('tComboBox').data[$('#specialtyCodeDropDownList').data('tComboBox').selectedIndex];
+        var specialityCode;
+        if ($('#specialtyCodeDropDownList').data('tComboBox').selectedIndex != -1) {
+            specialityCode = specialityCodedata.Value;
+        }
+        else {
+
+
+            specialityCode = "";
+        }
+
+
+        var quantity = $('#quantityText').val();
+
+        var failureCodedata = $('#failureCodeDropDownList').data('tComboBox').data[$('#failureCodeDropDownList').data('tComboBox').selectedIndex];
+        var failureCode;
+        if ($('#failureCodeDropDownList').data('tComboBox').selectedIndex != -1) {
+            failureCode = failureCodedata.Value;
+        }
+        else {
+
+
+            failureCode = "";
+        }
+
+        var linePropertydata = $('#LinePropertyDropDownList').data('tComboBox').data[$('#LinePropertyDropDownList').data('tComboBox').selectedIndex];
+        var lineProperty;
+        if ($('#LinePropertyDropDownList').data('tComboBox').selectedIndex != -1) {
+            lineProperty = linePropertydata.Value;
+        }
+        else {
+
+
+            lineProperty = "";
+        }
         
 
-        var technicinanNo = $('#techniacianDropDownList').val();
-        var quantity = $('#quantityText').val();
-        var specialityCode = $('#specialtyCodeDropDownList').val();
-        var failureCode = $('#failureCodeDropDownList').val();
-
-        var lineProperty = $('#LinePropertyDropDownList').val();
         var description = $('#descriptionText').val();
 
         var serviceComments = $('#commentsText').val();
 
-        var itemNumber = $('#itemNumberDropDownList').val();
-
-        var site = $('#siteComboBox').val();
-        var wareHouse = $('#wareHouseDropDownList').val();
-
-        var locationId = $('#locationDropDownList').val();
-
-        var transSerialCodeNo = $('#trackingSerialNoDropDownList').val();
-
-        var serviceOrderRelation = $('#slNumberDropDownList').val();
-//        var technicinanNodata = $('#techniacianDropDownList').data('tComboBox').data;
-//        var technicinanNo = technicinanNodata[0].Value;
-
-//        var quantity = $('#quantityText').val();
-
-//        var specialityCodedata = $('#specialtyCodeDropDownList').data('tComboBox').data;
-//        var specialityCode = specialityCodedata[0].Value;
-
-//        var failureCodedata = $('#failureCodeDropDownList').data('tComboBox').data;
-//        var failureCode = failureCodedata[0].Value;
+        var itemNumberdata = $('#itemNumberDropDownList').data('tComboBox').data[$('#itemNumberDropDownList').data('tComboBox').selectedIndex];
+        var itemNumber;
+        if ($('#itemNumberDropDownList').data('tComboBox').selectedIndex != -1) {
+            itemNumber = itemNumberdata.Value;
+        }
+        else {
 
 
-//        var linePropertydata = $('#LinePropertyDropDownList').data('tComboBox').data;
-//        var lineProperty = linePropertydata[0].Value;
+            itemNumber = "";
+        }
 
-//        var description = $('#descriptionText').val();
-
-//        var serviceComments = $('#commentsText').val();
-
-//        var itemNumberdata = $('#itemNumberDropDownList').data('tComboBox').data;
-//        var itemNumber = itemNumberdata[0].Value;
-
-//        var sitedata = $('#itemNumberDropDownList').data('tComboBox').data;
-//        var site = sitedata[0].Value;
+        var sitedata = $('#siteComboBox').data('tComboBox').data[$('#siteComboBox').data('tComboBox').selectedIndex];
+        var site;
+        if ($('#siteComboBox').data('tComboBox').selectedIndex != -1) {
+            site = sitedata.Value;
+        }
+        else {
 
 
-//        var wareHouse = $('#wareHouseDropDownList').val();
+            sitedata = "";
+        }
 
-//        var locationId = $('#locationDropDownList').val();
+        var wareHousedata = $('#wareHouseDropDownList').data('tComboBox').data[$('#wareHouseDropDownList').data('tComboBox').selectedIndex];
+        var wareHouse;
+        if ($('#wareHouseDropDownList').data('tComboBox').selectedIndex != -1) {
+            wareHouse = wareHousedata.Value;
+        }
+        else {
 
-//        var transSerialCodeNo = $('#trackingSerialNoDropDownList').val();
+            wareHouse = "";
+        }
 
+        var locationIddata = $('#locationDropDownList').data('tComboBox').data[$('#locationDropDownList').data('tComboBox').selectedIndex];
+        var locationId;
+        if ($('#locationDropDownList').data('tComboBox').selectedIndex != -1) {
+            locationId = locationIddata.Value;
+        }
+        else {
 
+            locationId = "";
+        }
 
-//        var serviceOrderRelationdata = $('#slNumberDropDownList').data('tComboBox').data;
-//        var serviceOrderRelation = serviceOrderRelationdata[0].Value;
+        var transSerialCodeNodata = $('#trackingSerialNoDropDownList').data('tComboBox').data[$('#trackingSerialNoDropDownList').data('tComboBox').selectedIndex];
+        var transSerialCodeNo;
+        if ($('#trackingSerialNoDropDownList').data('tComboBox').selectedIndex != -1) {
+            transSerialCodeNo = transSerialCodeNodata.Value;
+        }
+        else {
+            transSerialCodeNo = "";
+        }
+
+        var serviceOrderRelationdata = $('#slNumberDropDownList').data('tComboBox').data[$('#slNumberDropDownList').data('tComboBox').selectedIndex];
+        var serviceOrderRelation;
+        if ($('#slNumberDropDownList').data('tComboBox').selectedIndex != -1) {
+            serviceOrderRelation = serviceOrderRelationdata.Value;
+        }
+        else {
+            serviceOrderRelation = "";
+        }
+
+ 
 
         var uniqueId = $('#uniqueText').val();
         var updateServiceOrderRelation = $('#serviceObjectText').val();
@@ -449,7 +494,7 @@
         }
 
 
-        if (($.trim(lineProperty) == '') || (lineProperty == null) || (lineProperty == "-- Select --")) {
+        if ((lineProperty == '') || (lineProperty == null) || (lineProperty == "-- Select --")) {
             alert('Please select the Line property.');
             //$('#LinePropertyDropDownList').addClass("input-validation-error");
             $('#LinePropertyDropDownList').focus();
