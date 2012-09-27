@@ -206,7 +206,8 @@
             columns.Bound(c => c.SalesServiceOrder).Title("Service Order").Width(120).ReadOnly();
             columns.Bound(c => c.SalesPrice).Title("Service Amount").Width(130).ReadOnly().HtmlAttributes(new { style = "text-align:right;" });
             columns.Bound(c => c.DateExecution).Title("Date").Width(110).ReadOnly();
-            columns.Bound(c => c.Description).Title("Description").ReadOnly();
+            columns.Bound(c => c.Description).Title("Description").Width(150).ReadOnly();
+            columns.Bound(c => c.CustomerName).Title("CustomerName").ReadOnly();
         })
 
         .DataBinding(dataBinding =>
@@ -218,7 +219,7 @@
 
         .HtmlAttributes(new { style = "font-size: 8pt; font-family: Verdana;" })
         .Scrollable(c => c.Height("180px"))
-        .Pageable((pager => pager.PageSize(10)))
+        //.Pageable((pager => pager.PageSize(10)))
         .Sortable()
         //.Selectable()
         .Filterable()
