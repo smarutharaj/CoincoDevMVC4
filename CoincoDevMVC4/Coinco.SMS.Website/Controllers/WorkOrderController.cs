@@ -192,13 +192,13 @@ namespace Coinco.SMS.Website.Controllers
 
                     if (!String.IsNullOrEmpty(TempData["Technician"].ToString()))
                     {
-                        serviceTechnician.ServiceTechnicianList = new SelectList(serviceTechnicianCollection, "ServiceTechnicianNo", "ServiceTechnicianName", serviceTechnicianCollection.First<ServiceTechnician>().ServiceTechnicianName = TempData["Technician"].ToString());
+                        serviceTechnician.ServiceTechnicianList = new SelectList(serviceTechnicianCollection, "ServiceTechnicianNo", "ServiceTechnicianName", serviceTechnicianCollection.First<ServiceTechnician>().ServiceTechnicianNo = TempData["Technician"].ToString());
                     }
                     else
                     {
-                        serviceTechnician.ServiceTechnicianList = new SelectList(serviceTechnicianCollection, "ServiceTechnicianNo", "ServiceTechnicianName", serviceTechnicianCollection.First<ServiceTechnician>().ServiceTechnicianName);
+                        serviceTechnician.ServiceTechnicianList = new SelectList(serviceTechnicianCollection, "ServiceTechnicianNo", "ServiceTechnicianName", serviceTechnicianCollection.First<ServiceTechnician>().ServiceTechnicianNo);
                     }
-                    ViewData["ServiceTechnicianList"] = serviceTechnician.ServiceTechnicianList;
+                    ViewData["ServiceTechnicianLoadList"] = serviceTechnician.ServiceTechnicianList;
 
                     Site site = new Site();
                     IEnumerable<Site> siteCollection = null;
@@ -219,14 +219,16 @@ namespace Coinco.SMS.Website.Controllers
                 }
                 else
                 {
-
                     throw new Exception("Select the service order number in Service Order with history page");
+                    
                 }
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 TempData.Keep();
-                throw ex;
+                //throw new Exception("Select the service order number in Service Order with history page");
+               return Json("Select the service order number in Service Order with history page",JsonRequestBehavior.AllowGet);
+            
             }
             
             return View(serivceOrderPartLineObject);
@@ -306,14 +308,14 @@ namespace Coinco.SMS.Website.Controllers
                     {
                         serviceOrderObject.CustomerPO = serviceOrderList[0].CustomerPO;
                         serviceOrderObject.Customer = new Customer("",serviceOrderList[0].Customer.CustomerName);
-                        serviceOrderObject.ServiceTechnician = new ServiceTechnician(serviceOrderList[0].ServiceTechnician.ServiceTechnicianName,"") ;
+                        serviceOrderObject.ServiceTechnician = new ServiceTechnician(serviceOrderList[0].ServiceTechnician.ServiceTechnicianName, serviceOrderList[0].ServiceTechnician.ServiceTechnicianNo);
                         serviceOrderObject.ServiceResponsible = new ServiceTechnician(serviceOrderList[0].ServiceResponsible.ServiceTechnicianName, "");
 
                         serviceOrderObject.WOBillingAddress = new Address(serviceOrderList[0].WOBillingAddress.AddresswithDesc);
                         serviceOrderObject.WOShippingAddress = new Address(serviceOrderList[0].WOShippingAddress.AddresswithDesc);
                         ViewData["ServiceOrderDetailsinProcess"] = serviceOrderList;
-                        ViewData["Technician"] = serviceOrderList[0].ServiceTechnician.ServiceTechnicianName.ToString();
-                        TempData["Technician"] = serviceOrderList[0].ServiceTechnician.ServiceTechnicianName.ToString();
+                        ViewData["Technician"] = serviceOrderList[0].ServiceTechnician.ServiceTechnicianNo.ToString();
+                        TempData["Technician"] = serviceOrderList[0].ServiceTechnician.ServiceTechnicianNo.ToString();
                     }
 
                 }

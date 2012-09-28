@@ -56,7 +56,7 @@ namespace Coinco.SMS.Website.Models
                     serviceObject.Description = row["Description"].ToString();
                     status = row["Status"].ToString();
                     serviceObject.WOClassification = new Models.WOClassification("",row["WOClassification"].ToString());
-                    serviceObject.ServiceTechnician = new Models.ServiceTechnician(row["ServiceTechnician"].ToString(),"");
+                    serviceObject.ServiceTechnician = new Models.ServiceTechnician(row["ServiceTechnician"].ToString(), row["ServiceTechnicianNo"].ToString());
                     serviceObject.ServiceResponsible = new Models.ServiceTechnician(row["ServiceResponsible"].ToString(), "");
                     serviceObject.ServiceOrderDate = Convert.ToDateTime(row["EntryDate"].ToString());
                     serviceObject.WOBillingAddress = new Models.Address(row["BillingAddress"].ToString());

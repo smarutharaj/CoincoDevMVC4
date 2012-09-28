@@ -216,6 +216,23 @@
                 $('#submit').text('Add');
                 $('#uniqueText').val('');
                 $('#serviceObjectText').val('');
+
+
+                $("#transactionTypeDropDownList").data("tComboBox").enable();
+                $('#transactionTypeDropDownList').removeClass('t-state-disabled').removeAttr('disabled');
+                $('#specialtyCodeDropDownList').data('tComboBox').enable();
+                $('#specialtyCodeDropDownList').removeClass('t-state-disabled').removeAttr('disabled');
+                $('#techniacianDropDownList').data("tComboBox").enable();
+                $('#techniacianDropDownList').removeClass('t-state-disabled').removeAttr('disabled');
+                $('#itemNumberDropDownList').data('tComboBox').enable();
+                $('#itemNumberDropDownList').removeClass('t-state-disabled').removeAttr('disabled',
+                'disabled');
+                $('#siteComboBox').data('tComboBox').enable();
+                $('#siteComboBox').removeClass('t-state-disabled').removeAttr('disabled',
+                'disabled');
+                $('#LinePropertyDropDownList').data('tComboBox').enable();
+                $('#LinePropertyDropDownList').removeClass('t-state-disabled').removeAttr('disabled',
+                   'disabled');
             }
         
         </script>
