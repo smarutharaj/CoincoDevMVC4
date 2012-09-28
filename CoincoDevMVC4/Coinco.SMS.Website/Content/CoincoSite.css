@@ -6,7 +6,7 @@
 
 .page
 {
-    max-width: 960px;
+    width: 960px;
     margin-left: auto;
     margin-right: auto;
 }
@@ -1438,6 +1438,7 @@ input, textarea
     font-size: 0.8em;
     margin: 15px 0px 0 3px 0;
     width: 145px;
+    font-family: Verdana;
 }
 
 textarea {

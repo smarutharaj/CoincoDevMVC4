@@ -78,7 +78,7 @@
             .HtmlAttributes(new { @class = "dropDownPropertiesSP" })
             .DropDownHtmlAttributes(new { @class = "dropDownPropertiesSP" })
             .SelectedIndex(0)
-            .ClientEvents(events => events.OnChange("onSpecialityCodeChange"))
+            //.ClientEvents(events => events.OnChange("onSpecialityCodeChange"))
            .ClientEvents(events => events.OnError("SpecialityCode_OnError"))
             .Render();
             }
@@ -99,14 +99,15 @@
             @Html.Label("Quantity:", new { @class = "labelHeaderSPView", id = "quantityHeadLabel" })
             @Html.TextBox("quantityText", "1", new { @class = "textBoxPropertiesSP", maxlength = "5" })
             <br />
+
             @Html.Label("Technician:", new { @class = "labelHeaderSPView", id = "techniacianHeadLabel" })
             @{Html.Telerik().ComboBox().Name("techniacianDropDownList")
-
-            .DataBinding(binding => binding.Ajax().Select("_GetDropDownListTechnicianSpecialtyCode", "WorkOrder"))
+            .BindTo((SelectList)ViewData["ServiceTechnicianList"])
+            //.DataBinding(binding => binding.Ajax().Select("_GetDropDownListTechnicianSpecialtyCode", "WorkOrder"))
             .Placeholder("-- Select --")
             .HtmlAttributes(new { @class = "dropDownPropertiesSP" })
             .DropDownHtmlAttributes(new { @class = "dropDownPropertiesSP" })
-            .ClientEvents(events => events.OnError("ComboBox_OnError"))
+            //.ClientEvents(events => events.OnError("ComboBox_OnError"))
             .SelectedIndex(0)
 
             .Render();
@@ -411,14 +412,15 @@
                     itemNumber = "";
                 }
 
-                //                if ($('#siteComboBox').data('tComboBox').text() && $('#siteComboBox').data('tComboBox').selectedIndex != -1) {
-                //                    var sitedata = $('#siteComboBox').data('tComboBox').data[$('#siteComboBox').data('tComboBox').selectedIndex];
-                //                    site = sitedata.Value;
-                //                }
-                //                else {
-                //                    site = "";
-                //                }
-                var site = $('#siteComboBox').val();
+                if ($('#siteComboBox').data('tComboBox').text() && $('#siteComboBox').data('tComboBox').selectedIndex != -1) {
+                    var sitedata = $('#siteComboBox').data('tComboBox').data[$('#siteComboBox').data('tComboBox').selectedIndex];
+                    site = sitedata.Value;
+                }
+                else {
+                    site = "";
+                }
+
+
 
                 var wareHouse;
                 if ($('#wareHouseDropDownList').data('tComboBox').value() && $('#wareHouseDropDownList').data('tComboBox').selectedIndex != -1) {
@@ -614,7 +616,15 @@
             var technicinanNo = $('#techniacianDropDownList').val();
             var quantity = $('#quantityText').val();
             var specialityCode = $('#specialtyCodeDropDownList').val();
-            var failureCode = $('#failureCodeDropDownList').val();
+//            var failureCode = $('#failureCodeDropDownList').val();
+            var failureCode;
+            if ($('#failureCodeDropDownList').data('tComboBox').value() && $('#failureCodeDropDownList').data('tComboBox').selectedIndex != -1) {
+                var failureCodedata = $('#failureCodeDropDownList').data('tComboBox').data[$('#failureCodeDropDownList').data('tComboBox').selectedIndex];
+                failureCode = failureCodedata.Value;
+            }
+            else {
+                failureCode = "";
+            }
 
             var lineProperty = $('#LinePropertyDropDownList').val();
             var description = $('#descriptionText').val();
@@ -634,47 +644,6 @@
             var uniqueId = $('#uniqueText').val();
             var updateServiceOrderRelation = $('#serviceObjectText').val();
 
-            //            if ((serviceOrderRelation.toString() == "-- Select --") || (serviceOrderRelation == "")) {
-            //                alert('Please select the Serial Number.');
-            //                $('#slNumberDropDownList').focus();
-
-            //                return;
-
-            //            }
-
-            //            if ((transactionType == '') || (transactionType == null) || (transactionType == "-- Select --")) {
-            //                alert('Please select the Transaction Type.');
-            //                //$('#transactionTypeDropDownList').addClass("input-validation-error");
-            //                $('#transactionTypeDropDownList').focus();
-
-            //                return;
-
-            //            }
-
-            //            if ((specialityCode == '') || (specialityCode == null) || (specialityCode == "-- Select --")) {
-            //                alert('Please select the Specialty Code.');
-            //                //$('#specialtyCodeDropDownList').addClass("input-validation-error");
-            //                $('#specialtyCodeDropDownList').focus();
-
-            //                return;
-            //            }
-
-
-            //            if (($.trim(lineProperty) == '') || (lineProperty == null) || (lineProperty == "-- Select --")) {
-            //                alert('Please select the Line property.');
-            //                //$('#LinePropertyDropDownList').addClass("input-validation-error");
-            //                $('#LinePropertyDropDownList').focus();
-
-            //                return;
-            //            }
-
-            //            if (($.trim(technicinanNo) == '') || (technicinanNo == null) || (technicinanNo == "-- Select --")) {
-            //                alert('Please select the Technician.');
-            //                //$('#LinePropertyDropDownList').addClass("input-validation-error");
-            //                $('#techniacianDropDownList').focus();
-
-            //                return;
-            //            }
 
             //            if (transactionType == '3') {
             //                if (($.trim(itemNumber) == '') || (itemNumber == null) || (itemNumber == "-- Select --")) {
@@ -767,6 +736,9 @@
                     $('#siteComboBox').data('tComboBox').enable();
                     $('#siteComboBox').removeClass('t-state-disabled').removeAttr('disabled',
                     'disabled');
+                    $('#LinePropertyDropDownList').data('tComboBox').enable();
+                    $('#LinePropertyDropDownList').removeClass('t-state-disabled').removeAttr('disabled',
+                   'disabled');
                     $('#partNumberLabel').text("");
                     $('#repairTypeLabel').text("");
                     $('#warrantyLabel').text("");
@@ -820,6 +792,9 @@
         $('#siteComboBox').data('tComboBox').enable();
         $('#siteComboBox').removeClass('t-state-disabled').removeAttr('disabled',
                 'disabled');
+        $('#LinePropertyDropDownList').data('tComboBox').enable();
+        $('#LinePropertyDropDownList').removeClass('t-state-disabled').removeAttr('disabled',
+                   'disabled');
         $('#partNumberLabel').text("");
         $('#repairTypeLabel').text("");
         $('#warrantyLabel').text("");
