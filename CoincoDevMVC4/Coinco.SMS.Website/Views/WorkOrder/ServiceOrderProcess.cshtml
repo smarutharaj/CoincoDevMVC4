@@ -344,7 +344,7 @@
             var serviceOrderNo = $('#serviceOrderViewlabel')[0].innerHTML;
 
             var transactionType;
-            if ($('#transactionTypeDropDownList').data('tComboBox').value() && $('#transactionTypeDropDownList').data('tComboBox').selectedIndex != -1) {
+            if ($('#transactionTypeDropDownList').data('tComboBox').value() != null && $('#transactionTypeDropDownList').data('tComboBox').value() != "" && $('#transactionTypeDropDownList').data('tComboBox').selectedIndex != -1) {
                 var transactionTypedata = $('#transactionTypeDropDownList').data('tComboBox').data[$('#transactionTypeDropDownList').data('tComboBox').selectedIndex];
 
                 transactionType = transactionTypedata.Value;
@@ -354,18 +354,10 @@
                 transactionType = "";
             }
 
-            var technicinanNo;
-            if ($('#techniacianDropDownList').data('tComboBox').value() && $('#techniacianDropDownList').data('tComboBox').selectedIndex != -1) {
-                var technicinanNodata = $('#techniacianDropDownList').data('tComboBox').data[$('#techniacianDropDownList').data('tComboBox').selectedIndex];
 
-                technicinanNo = technicinanNodata.Value;
-            }
-            else {
-                technicinanNo = "";
-            }
 
             var specialityCode;
-            if ($('#specialtyCodeDropDownList').data('tComboBox').value() && $('#specialtyCodeDropDownList').data('tComboBox').selectedIndex != -1) {
+            if ($('#specialtyCodeDropDownList').data('tComboBox').value() != null && $('#specialtyCodeDropDownList').data('tComboBox').value() != "" && $('#specialtyCodeDropDownList').data('tComboBox').selectedIndex != -1) {
                 var specialityCodedata = $('#specialtyCodeDropDownList').data('tComboBox').data[$('#specialtyCodeDropDownList').data('tComboBox').selectedIndex];
                 specialityCode = specialityCodedata.Value;
             }
@@ -376,10 +368,10 @@
 
             var quantity = $('#quantityText').val();
 
-           
+
 
             var lineProperty;
-            if ($('#LinePropertyDropDownList').data('tComboBox').value() && $('#LinePropertyDropDownList').data('tComboBox').selectedIndex != -1) {
+            if ($('#LinePropertyDropDownList').data('tComboBox').value() != null && $('#LinePropertyDropDownList').data('tComboBox').value() != "" && $('#LinePropertyDropDownList').data('tComboBox').selectedIndex != -1) {
                 var linePropertydata = $('#LinePropertyDropDownList').data('tComboBox').data[$('#LinePropertyDropDownList').data('tComboBox').selectedIndex];
                 lineProperty = linePropertydata.Value;
             }
@@ -394,7 +386,7 @@
 
             if (transactionType == '3') {
                 var itemNumber;
-                if ($('#itemNumberDropDownList').data('tComboBox').value() && $('#itemNumberDropDownList').data('tComboBox').selectedIndex != -1) {
+                if ($('#itemNumberDropDownList').data('tComboBox').value() != null && $('#itemNumberDropDownList').data('tComboBox').value() != "" && $('#itemNumberDropDownList').data('tComboBox').selectedIndex != -1) {
                     var itemNumberdata = $('#itemNumberDropDownList').data('tComboBox').data[$('#itemNumberDropDownList').data('tComboBox').selectedIndex];
 
                     itemNumber = itemNumberdata.Value;
@@ -403,9 +395,14 @@
                     itemNumber = "";
                 }
 
-                if ($('#siteComboBox').data('tComboBox').text() && $('#siteComboBox').data('tComboBox').selectedIndex != -1) {
-                    var sitedata = $('#siteComboBox').data('tComboBox').data[$('#siteComboBox').data('tComboBox').selectedIndex];
-                    site = sitedata.Value;
+                if ($('#siteComboBox').data('tComboBox').value() != null && $('#siteComboBox').data('tComboBox').value() != "" && $('#siteComboBox').data('tComboBox').selectedIndex != -1) {
+                    if ($('#techniacianDropDownList').data('tComboBox').selectedIndex != undefined) {
+                        var sitedata = $('#siteComboBox').data('tComboBox').data[$('#siteComboBox').data('tComboBox').selectedIndex];
+                        site = sitedata.Value;
+                    }
+                    else {
+                        site = $('#siteComboBox').data('tComboBox').value();
+                    }
                 }
                 else {
                     site = "";
@@ -419,16 +416,33 @@
             var updateServiceOrderRelation = $('#serviceObjectText').val();
             if (updateServiceOrderRelation == "") {
                 var serviceOrderRelation;
-                if ($('#slNumberDropDownList').data('tComboBox').text() && $('#slNumberDropDownList').data('tComboBox').selectedIndex != -1) {
+                if ($('#slNumberDropDownList').data('tComboBox').value() != null && $('#slNumberDropDownList').data('tComboBox').value() != "" && $('#slNumberDropDownList').data('tComboBox').selectedIndex != -1) {
+
                     var serviceOrderRelationdata = $('#slNumberDropDownList').data('tComboBox').data[$('#slNumberDropDownList').data('tComboBox').selectedIndex];
                     serviceOrderRelation = serviceOrderRelationdata.Value;
+
+
                 }
                 else {
                     serviceOrderRelation = "";
                 }
             }
 
+            debugger
+            var technicinanNo;
+            if ($('#techniacianDropDownList').data('tComboBox').value() != null && $('#techniacianDropDownList').data('tComboBox').value() != "" && $('#techniacianDropDownList').data('tComboBox').selectedIndex != -1) {
+                if ($('#techniacianDropDownList').data('tComboBox').selectedIndex != undefined) {
+                    var technicinanNodata = $('#techniacianDropDownList').data('tComboBox').data[$('#techniacianDropDownList').data('tComboBox').selectedIndex];
+                    technicinanNo = technicinanNodata.Value;
+                }
+                else {
+                    technicinanNo = $('#techniacianDropDownList').data('tComboBox').value();
+                }
 
+            }
+            else {
+                technicinanNo = "";
+            }
 
             var uniqueId = $('#uniqueText').val();
 
@@ -494,7 +508,7 @@
             }
 
             var failureCode;
-            if ($('#failureCodeDropDownList').data('tComboBox').value() && $('#failureCodeDropDownList').data('tComboBox').selectedIndex != -1) {
+            if ($('#failureCodeDropDownList').data('tComboBox').value() != null && $('#failureCodeDropDownList').data('tComboBox').value() != "" && $('#failureCodeDropDownList').data('tComboBox').selectedIndex != -1) {
                 var failureCodedata = $('#failureCodeDropDownList').data('tComboBox').data[$('#failureCodeDropDownList').data('tComboBox').selectedIndex];
                 failureCode = failureCodedata.Value;
             }
@@ -506,7 +520,7 @@
 
             if (transactionType == '3') {
                 var wareHouse;
-                if ($('#wareHouseDropDownList').data('tComboBox').value() && $('#wareHouseDropDownList').data('tComboBox').selectedIndex != -1) {
+                if ($('#wareHouseDropDownList').data('tComboBox').value() != null && $('#wareHouseDropDownList').data('tComboBox').value() != "" && $('#wareHouseDropDownList').data('tComboBox').selectedIndex != -1) {
                     var wareHousedata = $('#wareHouseDropDownList').data('tComboBox').data[$('#wareHouseDropDownList').data('tComboBox').selectedIndex];
 
                     wareHouse = wareHousedata.Value;
@@ -517,7 +531,7 @@
                 }
 
                 var locationId;
-                if ($('#locationDropDownList').data('tComboBox').value() && $('#locationDropDownList').data('tComboBox').selectedIndex != -1) {
+                if ($('#locationDropDownList').data('tComboBox').value() != null && $('#locationDropDownList').data('tComboBox').value() != "" && $('#locationDropDownList').data('tComboBox').selectedIndex != -1) {
                     var locationIddata = $('#locationDropDownList').data('tComboBox').data[$('#locationDropDownList').data('tComboBox').selectedIndex];
 
                     locationId = locationIddata.Value;
@@ -528,7 +542,7 @@
                 }
 
                 var transSerialCodeNo;
-                if ($('#trackingSerialNoDropDownList').data('tComboBox').value() && $('#trackingSerialNoDropDownList').data('tComboBox').selectedIndex != -1) {
+                if ($('#trackingSerialNoDropDownList').data('tComboBox').value() != null && $('#trackingSerialNoDropDownList').data('tComboBox').value() != "" && $('#trackingSerialNoDropDownList').data('tComboBox').selectedIndex != -1) {
                     var transSerialCodeNodata = $('#trackingSerialNoDropDownList').data('tComboBox').data[$('#trackingSerialNoDropDownList').data('tComboBox').selectedIndex];
                     transSerialCodeNo = transSerialCodeNodata.Value;
                 }
@@ -622,7 +636,8 @@
             var technicinanNo = $('#techniacianDropDownList').val();
             var quantity = $('#quantityText').val();
             var specialityCode = $('#specialtyCodeDropDownList').val();
-            //            var failureCode = $('#failureCodeDropDownList').val();
+            var failureCode = $('#failureCodeDropDownList').val();
+
             var failureCode;
             if ($('#failureCodeDropDownList').data('tComboBox').value() && $('#failureCodeDropDownList').data('tComboBox').selectedIndex != -1) {
                 var failureCodedata = $('#failureCodeDropDownList').data('tComboBox').data[$('#failureCodeDropDownList').data('tComboBox').selectedIndex];
@@ -749,22 +764,17 @@
 
 
     jQuery('#Clear').click(function () {
+
         $('#transactionTypeDropDownList').data('tComboBox').value('-- Select --');
         $('#quantityText').val('1');
         $('#slNumberDropDownList').data('tComboBox').value('-- Select --');
-
         $('#techniacianDropDownList').data('tComboBox').value('-- Select --');
-
         $('#specialtyCodeDropDownList').data('tComboBox').value('-- Select --');
-
         $('#failureCodeDropDownList').data('tComboBox').value('-- Select --');
         $('#LinePropertyDropDownList').data('tComboBox').value('-- Select --');
         $('#itemNumberDropDownList').data('tComboBox').value('-- Select --');
-
         $('#wareHouseDropDownList').data('tComboBox').value('-- Select --');
-
         $('#locationDropDownList').data('tComboBox').value('-- Select --');
-
         $('#trackingSerialNoDropDownList').data('tComboBox').value('-- Select --');
 
         $('#descriptionText').val('');

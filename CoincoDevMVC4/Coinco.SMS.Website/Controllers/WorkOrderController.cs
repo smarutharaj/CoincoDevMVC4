@@ -43,10 +43,10 @@ namespace Coinco.SMS.Website.Controllers
                 ViewData["ServiceOrder"] = GetServiceOrders(TempData["SiteId"].ToString(), process);
                 ViewData["ServiceOrderLine"] = GetServiceOrderLinesByServiceOrderID("");
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 TempData.Keep();
-                throw ex;
+                return RedirectToAction("ServiceOrderWithHistory");
             }
             return View("ServiceOrderWithHistory");
         }
@@ -154,7 +154,7 @@ namespace Coinco.SMS.Website.Controllers
 
                     FailureCode failureCodeObject = new FailureCode();
                     IEnumerable<FailureCode> failureCodeCollection = failureCodeObject.GetFailureCode(userName);
-                    failureCodeObject.FailureCodeList = new SelectList(failureCodeCollection, "FailureCodeNo", "FailureCodeNo", null);
+                    failureCodeObject.FailureCodeList = new SelectList(failureCodeCollection, "FailureCodeNo", "FailureDescription", null);
                     ViewData["FailureCodeList"] = failureCodeObject.FailureCodeList;
 
                     PartDetails partDetails = new PartDetails();
@@ -163,7 +163,7 @@ namespace Coinco.SMS.Website.Controllers
 
                     LineProperty LinePropertyObject = new LineProperty();
                     IEnumerable<LineProperty> LinePropertyCollection = LinePropertyObject.GetLineProperty(userName);
-                    LinePropertyObject.LinePropertyList = new SelectList(LinePropertyCollection, "LinePropertyCode", "LinePropertyCode", null);
+                    LinePropertyObject.LinePropertyList = new SelectList(LinePropertyCollection, "LinePropertyCode", "LinePropertyDescription", null);
                     ViewData["LinePropertyList"] = LinePropertyObject.LinePropertyList;
 
 
@@ -196,7 +196,7 @@ namespace Coinco.SMS.Website.Controllers
                     }
                     else
                     {
-                        serviceTechnician.ServiceTechnicianList = new SelectList(serviceTechnicianCollection, "ServiceTechnicianNo", "ServiceTechnicianName", serviceTechnicianCollection.First<ServiceTechnician>().ServiceTechnicianNo);
+                        serviceTechnician.ServiceTechnicianList = new SelectList(serviceTechnicianCollection, "ServiceTechnicianNo", "ServiceTechnicianName", null);
                     }
                     ViewData["ServiceTechnicianLoadList"] = serviceTechnician.ServiceTechnicianList;
 
@@ -375,7 +375,7 @@ namespace Coinco.SMS.Website.Controllers
             userName = User.Identity.Name.ToString().Split('\\')[1];
             string _transactionTypeId = TransactionTypeID.ToString();
             specialtyCodeList = (new SpecialtyCode()).GetSpecialCodes(userName, _transactionTypeId);
-            return Json(new SelectList(specialtyCodeList, "SpecialityCodeNo", "SpecialityCodeNo"), JsonRequestBehavior.AllowGet);
+            return Json(new SelectList(specialtyCodeList, "SpecialityCodeNo", "SpecialityDescription"), JsonRequestBehavior.AllowGet);
 
         }
 
