@@ -186,11 +186,19 @@ namespace Coinco.SMS.Website.Controllers
                     serivceOrderPartLineObject.ServiceOrders = ServiceOrder;
                     ViewData["ServiceOrderLineinProcess"] = serivceOrderPartLineObject.ServiceOrders.ServiceOrderList;
 
-                    //ServiceTechnician serviceTechnician = new ServiceTechnician();
-                    //serviceTechnician.ServiceTechnicianList = new SelectList(serviceTechnician.GetTechnicians(userName), "ServiceTechnicianNo", "ServiceTechnicianName", null);
-                    //ViewData["ServiceTechnicianList"] = serviceTechnician.ServiceTechnicianList;
+                    ServiceTechnician serviceTechnician = new ServiceTechnician();
+                    IEnumerable<ServiceTechnician> serviceTechnicianCollection = null;
+                    serviceTechnicianCollection=serviceTechnician.GetTechnicians(userName);
 
-
+                    if (!String.IsNullOrEmpty(TempData["Technician"].ToString()))
+                    {
+                        serviceTechnician.ServiceTechnicianList = new SelectList(serviceTechnicianCollection, "ServiceTechnicianNo", "ServiceTechnicianName", serviceTechnicianCollection.First<ServiceTechnician>().ServiceTechnicianName = TempData["Technician"].ToString());
+                    }
+                    else
+                    {
+                        serviceTechnician.ServiceTechnicianList = new SelectList(serviceTechnicianCollection, "ServiceTechnicianNo", "ServiceTechnicianName", serviceTechnicianCollection.First<ServiceTechnician>().ServiceTechnicianName);
+                    }
+                    ViewData["ServiceTechnicianList"] = serviceTechnician.ServiceTechnicianList;
 
                     Site site = new Site();
                     IEnumerable<Site> siteCollection = null;
@@ -304,6 +312,8 @@ namespace Coinco.SMS.Website.Controllers
                         serviceOrderObject.WOBillingAddress = new Address(serviceOrderList[0].WOBillingAddress.AddresswithDesc);
                         serviceOrderObject.WOShippingAddress = new Address(serviceOrderList[0].WOShippingAddress.AddresswithDesc);
                         ViewData["ServiceOrderDetailsinProcess"] = serviceOrderList;
+                        ViewData["Technician"] = serviceOrderList[0].ServiceTechnician.ServiceTechnicianName.ToString();
+                        TempData["Technician"] = serviceOrderList[0].ServiceTechnician.ServiceTechnicianName.ToString();
                     }
 
                 }
@@ -364,25 +374,25 @@ namespace Coinco.SMS.Website.Controllers
 
         }
 
-        [HttpGet]
-        public JsonResult _GetDropDownListTechnicianSpecialtyCode(int? transactionTypeDropDownList,string specialtyCodeDropDownList)
-        {
+        //[HttpGet]
+        //public JsonResult _GetDropDownListTechnicianSpecialtyCode(int? transactionTypeDropDownList, string specialtyCodeDropDownList)
+        //{
 
-            return _GetTechnicianSpecialtyCode(transactionTypeDropDownList.Value,specialtyCodeDropDownList);
-        }
+        //    return _GetTechnicianSpecialtyCode(transactionTypeDropDownList.Value, specialtyCodeDropDownList);
+        //}
 
-        private JsonResult _GetTechnicianSpecialtyCode(int TransactionTypeID,string specialCode)
-        {
-           
-            List<ServiceTechnician> ServiceTechnicianList = new List<ServiceTechnician> { };
+        //private JsonResult _GetTechnicianSpecialtyCode(int TransactionTypeID, string specialCode)
+        //{
 
-            string userName = "";
-            userName = User.Identity.Name.ToString().Split('\\')[1];
-            string _transactionTypeId = TransactionTypeID.ToString();
-            ServiceTechnicianList = (new ServiceTechnician()).GetTechniciansServiceOrderProcess(_transactionTypeId, specialCode, userName);
-            return Json(new SelectList(ServiceTechnicianList, "ServiceTechnicianNo", "ServiceTechnicianName"), JsonRequestBehavior.AllowGet);
+        //    List<ServiceTechnician> ServiceTechnicianList = new List<ServiceTechnician> { };
 
-        }
+        //    string userName = "";
+        //    userName = User.Identity.Name.ToString().Split('\\')[1];
+        //    string _transactionTypeId = TransactionTypeID.ToString();
+        //    ServiceTechnicianList = (new ServiceTechnician()).GetTechniciansServiceOrderProcess(_transactionTypeId, specialCode, userName);
+        //    return Json(new SelectList(ServiceTechnicianList, "ServiceTechnicianNo", "ServiceTechnicianName"), JsonRequestBehavior.AllowGet);
+
+        //}
 
 
         [HttpGet]
