@@ -41,7 +41,7 @@ namespace Coinco.SMS.Website.Models
                 {
                     FailureCode failureCodeObject = new FailureCode();
                     failureCodeObject.FailureCodeNo = row["FailureCode"].ToString();
-                    failureCodeObject.FailureDescription = row["FailureDescription"].ToString();
+                    failureCodeObject.FailureDescription = row["FailureCode"].ToString() + " - " + row["FailureDescription"].ToString();
 
                     failureCodeList.Add(failureCodeObject);
 

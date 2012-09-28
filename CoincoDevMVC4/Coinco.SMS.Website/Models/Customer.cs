@@ -42,7 +42,7 @@ namespace Coinco.SMS.Website.Models
                 {
                     Customer customerObject = new Customer();
                     customerObject.CustomerAccount = row["CustomerAccount"].ToString();
-                    customerObject.CustomerName = row["CustomerName"].ToString() + " - " + row["CustomerAccount"].ToString();
+                    customerObject.CustomerName = row["CustomerAccount"].ToString() + " - " + row["CustomerName"].ToString();
 
                     customerList.Add(customerObject);
 
