@@ -41,7 +41,7 @@ namespace Coinco.SMS.Website.Models
                 {
                     WOClassification woObject = new WOClassification();
                     woObject.WOClassificationCode = row["WOCode"].ToString();
-                    woObject.WOClassificationName = row["WODescription"].ToString();
+                    woObject.WOClassificationName = row["WOCode"].ToString() + " - " + row["WODescription"].ToString();
 
                     woClassificationList.Add(woObject);
 
