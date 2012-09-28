@@ -40,7 +40,7 @@ namespace Coinco.SMS.Website.Models
                 {
                     SpecialtyCode SpecialtyCodeObject = new SpecialtyCode();
                     SpecialtyCodeObject.SpecialityCodeNo = row["SpecialityCode"].ToString();
-                    SpecialtyCodeObject.SpecialityDescription = row["SpecialityDescription"].ToString();
+                    SpecialtyCodeObject.SpecialityDescription = row["SpecialityCode"].ToString() + "-" + row["SpecialityDescription"].ToString();
 
                     SpecialtyCodeList.Add(SpecialtyCodeObject);
 
