@@ -22,7 +22,7 @@ namespace Coinco.SMS.Website.Controllers
         {
             try
             {
-                if (siteId == null)
+                if (String.IsNullOrEmpty(siteId))
                 {
                     GetSites();
                     if (process == null)
@@ -219,7 +219,9 @@ namespace Coinco.SMS.Website.Controllers
                 }
                 else
                 {
-                    throw new Exception("Select the service order number in Service Order with history page");
+                   return RedirectToAction("ServiceOrderWithHistory");
+                   // return View("ServiceOrderWithHistory", serivceOrderPartLineObject);
+                    //throw new Exception("Select the service order number in Service Order with history page");
                     
                 }
             }
@@ -227,7 +229,8 @@ namespace Coinco.SMS.Website.Controllers
             {
                 TempData.Keep();
                 //throw new Exception("Select the service order number in Service Order with history page");
-               return Json("Select the service order number in Service Order with history page",JsonRequestBehavior.AllowGet);
+                Response.Redirect("~");
+              // return Json("Select the service order number in Service Order with history page",JsonRequestBehavior.AllowGet);
             
             }
             
