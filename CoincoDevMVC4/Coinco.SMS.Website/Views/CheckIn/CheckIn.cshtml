@@ -496,7 +496,7 @@
 
     jQuery('#Create').click(function () {
       
-
+      debugger
         var customerAccount = $('#customerAccountDropDownList').val();
         var woClassification = $('#woClassificationDropDownList').val();
         var customerPo = $('#customerPOTextBox').val();
@@ -513,7 +513,7 @@
             responsibleNo = '';
         }
 
-        if (($.trim(woClassification) == '<--SELECT-->') || (woClassification == null)) {
+        if (($.trim(woClassification) == '<--SELECT-->') || (woClassification == null) || (woClassification == "")) {
             alert('Please select the WO Classification.');
             $('#woClassificationDropDownList').focus();
             return;
