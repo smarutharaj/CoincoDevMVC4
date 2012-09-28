@@ -523,13 +523,17 @@ namespace Coinco.SMS.Website.Controllers
 
             try
             {
-                SerivceOrderPartLine serviceOrderPartLine = new SerivceOrderPartLine();
-                isSuccess = serviceOrderPartLine.DeleteServiceOrderPartItemLines(uniqueId, userName);
-                if (isSuccess)
-                {
-                    ViewData["ServiceOrderPartLines"] = GetServiceOrderPartLinesByServiceOrderID(TempData["ServiceOrderId"].ToString());
-                    
-                }
+               
+                    SerivceOrderPartLine serviceOrderPartLine = new SerivceOrderPartLine();
+                    isSuccess = serviceOrderPartLine.DeleteServiceOrderPartItemLines(uniqueId, userName);
+
+                    if (isSuccess)
+                    {
+                        
+                        ViewData["ServiceOrderPartLines"] = GetServiceOrderPartLinesByServiceOrderID(TempData["ServiceOrderId"].ToString());
+
+                    }
+                
                 TempData.Keep();
             }
             catch (Exception ex)
