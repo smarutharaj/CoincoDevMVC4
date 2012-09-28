@@ -496,7 +496,7 @@
 
     jQuery('#Create').click(function () {
       
-      debugger
+     
         var customerAccount = $('#customerAccountDropDownList').val();
         var woClassification = $('#woClassificationDropDownList').val();
         var customerPo = $('#customerPOTextBox').val();
@@ -513,13 +513,7 @@
             responsibleNo = '';
         }
 
-        if (($.trim(woClassification) == '<--SELECT-->') || (woClassification == null) || (woClassification == "")) {
-            alert('Please select the WO Classification.');
-            $('#woClassificationDropDownList').focus();
-            return;
-
-
-        }
+        
 
         var customerComments = $('#customerCommentTextArea').val();
         var $checkedRecords = $(':checked');
@@ -528,6 +522,15 @@
             alert('Please select atleast one shipping address.');
             return;
         }
+
+        if (($.trim(woClassification) == '<--SELECT-->') || (woClassification == null) || (woClassification == "")) {
+            alert('Please select the WO Classification.');
+            $('#woClassificationDropDownList').focus();
+            return;
+
+
+        }
+
         $checkedRecords.each(function (index, domEle) {
             // domEle == this
             if ($checkedRecords[index].checked = true) {

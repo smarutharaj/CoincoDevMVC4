@@ -41,7 +41,7 @@ namespace Coinco.SMS.Website.Models
                 {
                     LineProperty LinePropertyObject = new LineProperty();
                     LinePropertyObject.LinePropertyCode = row["LinePropertyCode"].ToString();
-                    LinePropertyObject.LinePropertyDescription =  row["LinePropertyCode"].ToString() + "-" + row["LinePropertyName"].ToString();
+                    LinePropertyObject.LinePropertyDescription =  row["LinePropertyName"].ToString();
 
                     LinePropertyList.Add(LinePropertyObject);
 

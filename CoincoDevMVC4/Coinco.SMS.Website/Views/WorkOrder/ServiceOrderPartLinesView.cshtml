@@ -203,6 +203,7 @@
             function onRowDelete(e) {
                 $('#transactionTypeDropDownList').data('tComboBox').value('-- Select --');
                 $('#quantityText').val('1');
+                $('#slNumberDropDownList').data('tComboBox').value('-- Select --');
                 $('#techniacianDropDownList').data('tComboBox').value('-- Select --');
                 $('#specialtyCodeDropDownList').data('tComboBox').value('-- Select --');
                 $('#failureCodeDropDownList').data('tComboBox').value('-- Select --');
@@ -217,6 +218,9 @@
                 $('#uniqueText').val('');
                 $('#serviceObjectText').val('');
 
+                $('#partNumberLabel').text("");
+                $('#repairTypeLabel').text("");
+                $('#warrantyLabel').text("");
 
                 $("#transactionTypeDropDownList").data("tComboBox").enable();
                 $('#transactionTypeDropDownList').removeClass('t-state-disabled').removeAttr('disabled');
