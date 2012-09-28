@@ -1435,14 +1435,15 @@ input, textarea
     border: 1px solid #D6DFEA;
     background: #fff;
     color: #333;
-    font-size: 0.8em;
+    font-size:8pt;
     margin: 15px 0px 0 3px 0;
     width: 145px;
     font-family: Verdana;
 }
 
 textarea {
-    font-family: inherit;
+    font-family: Verdana;
+    font-size:8pt;
     width: 145px;
     height:30px;
     
