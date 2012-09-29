@@ -229,7 +229,7 @@ namespace Coinco.SMS.Website.Controllers
             {
                 TempData.Keep();
                 //throw new Exception("Select the service order number in Service Order with history page");
-                Response.Redirect("~");
+                return RedirectToAction("ServiceOrderWithHistory");
               // return Json("Select the service order number in Service Order with history page",JsonRequestBehavior.AllowGet);
             
             }

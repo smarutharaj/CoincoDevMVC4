@@ -13,7 +13,7 @@
                 <div id="IdentificationDetails" class="fullViewforSmallerHeightClass">
                     <div id="CustomerAccount" class="leftViewClass">
                         <div id="CustomerAccountLabel" class="leftView">
-                            @Html.Label("Customer Account", new { @class = "leftView" })
+                            @Html.Label("Customer Account:", new { @class = "leftView" })
                         </div>
                         <div id="CustomerAccountDropDown" class="leftadjacentView">
                             @{
@@ -95,7 +95,7 @@
                 <div id="OtherDetails" class="fullViewforMediumHeightClass">
                     <div id="CustomerComments" class="leftViewClass">
                         <div id="CustomerCommentLabel" class="leftView">
-                            @Html.Label("Customer Comments", new { @class = "leftView" })
+                            @Html.Label("Customer Comments:", new { @class = "leftView" })
                         </div>
                         <div id="CustomerCommentTextBox" class="leftadjacentView">
                             @Html.TextAreaFor(p => p.Comments, new { @class = "textAreaProperties", id = "customerCommentTextArea" })
@@ -103,7 +103,7 @@
                     </div>
                     <div id="CustomerPO" class="rightViewClass">
                         <div id="CustomerPOLabel" class="rightView">
-                            @Html.Label("Customer PO", new { @class = "rightView" })
+                            @Html.Label("Customer PO:", new { @class = "rightView" })
                         </div>
                         <div id="CustomerPOTextBox" class="rightadjacentView">
                             @Html.TextBoxFor(p => p.CustomerPO, new { @class = "textBoxProperties", id = "customerPOTextBox" })
@@ -111,7 +111,7 @@
                     </div>
                     <div id="ServiceTechnician" class="rightViewClass">
                         <div id="ServiceTechnicianLabel" class="rightView">
-                            @Html.Label("Service Technician", new { @class = "rightView" })
+                            @Html.Label("Service Technician:", new { @class = "rightView" })
                         </div>
                         <div id="ServiceTechnicianDropDown" class="rightadjacentView">
                             @{
@@ -128,7 +128,7 @@
                    
                     <div id="WOClassification" class="leftViewClassforThirdColumn">
                         <div id="WOClassificationLabel" class="leftView">
-                            @Html.Label("WO Classification", new { @class = "leftView" })
+                            @Html.Label("WO Classification:", new { @class = "leftView" })
                         </div>
                         <div id="WOClassificationDropDown" class="leftadjacentView">
                             @{
@@ -153,7 +153,7 @@
               
                     <div id="ServiceResponsible" class="rightViewClass">
                         <div id="ServiceResponsibleLabel" class="rightView">
-                            @Html.Label("Service Responsible", new { @class = "rightView" })
+                            @Html.Label("Service Responsible:", new { @class = "rightView" })
                         </div>
                         <div id="ServiceResponsibleDropDown" class="rightadjacentView">
                             @{
@@ -173,7 +173,7 @@
                 <div id="CheckInData" class="fullViewThreeColumnforSmallerHeightClass">
                     <div id="SerialNumber" class="leftViewClassforThirdColumn">
                         <div id="SerialNumberLabel" class="leftView">
-                            @Html.Label("Serial Number", new { @class = "leftView" })
+                            @Html.Label("Serial Number:", new { @class = "leftView" })
                         </div>
                         <div id="SerialNumberTextBox" class="leftadjacentView">
                             @Html.TextBox("serialNumberTextBox", "", new { @class = "textBoxProperties" })
@@ -186,7 +186,7 @@
                     </div>
                     <div id="PartNumber" class="rightViewClassforThirdColumn">
                         <div id="PartNumberLabel" class="rightView">
-                            @Html.Label("Part Number", new { @class = "rightView" })
+                            @Html.Label("Part Number:", new { @class = "rightView" })
                         </div>
                         <div id="PartNumberDropDown" class="rightadjacentView">
                             @{
