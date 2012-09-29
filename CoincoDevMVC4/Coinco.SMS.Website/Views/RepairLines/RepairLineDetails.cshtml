@@ -123,6 +123,22 @@
         $('#descriptionTextBox').val(description);
         $('#commentsTextBox').val(serviceComments);
         $('#uniqueText').val(uniqueId);
+        $("#serialNumberList").data("tComboBox").disable();
+        $('#serialNumberList').addClass('t-state-disabled').attr('disabled',
+                'disabled');
+        $('#conditionList').data('tComboBox').disable();
+        $('#conditionList').addClass('t-state-disabled').attr('disabled',
+                'disabled');
+        $('#symptomAreaList').data("tComboBox").disable();
+        $('#symptomAreaList').addClass('t-state-disabled').attr('disabled',
+                'disabled');
+        $('#symptomCodeList').data('tComboBox').disable();
+        $('#symptomCodeList').addClass('t-state-disabled').attr('disabled',
+                'disabled');
+//        $('#technicianList').data('tComboBox').disable();
+//        $('#technicianList').addClass('t-state-disabled').attr('disabled',
+//                'disabled');
+      
 
     }
 
@@ -140,6 +156,21 @@
         $('#technicianList').data("tComboBox").value("--Select--");
         $('#descriptionTextBox').val('');
         $('#commentsTextBox').val('');
+        $("#serialNumberList").data("tComboBox").enable();
+        $('#serialNumberList').removeClass('t-state-disabled').removeAttr('disabled',
+                'disabled');
+        $('#conditionList').data('tComboBox').enable();
+        $('#conditionList').removeClass('t-state-disabled').removeAttr('disabled',
+                'disabled');
+        $('#symptomAreaList').data("tComboBox").enable();
+        $('#symptomAreaList').removeClass('t-state-disabled').removeAttr('disabled',
+                'disabled');
+        $('#symptomCodeList').data('tComboBox').enable();
+        $('#symptomCodeList').removeClass('t-state-disabled').removeAttr('disabled',
+                'disabled');
+//        $('#technicianList').data('tComboBox').enable();
+//        $('#technicianList').removeClass('t-state-disabled').removeAttr('disabled',
+//                'disabled');
     }
 
 

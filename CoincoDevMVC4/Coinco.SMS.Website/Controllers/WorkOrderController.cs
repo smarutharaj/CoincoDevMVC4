@@ -514,7 +514,7 @@ namespace Coinco.SMS.Website.Controllers
 
         [AcceptVerbs(HttpVerbs.Post)]
         [GridAction]
-        public ActionResult _DeleteServiceOrderPartLines(string uniqueId)
+        public ActionResult _DeleteServiceOrderPartLines(string uniqueId, string serviceOrderId)
         {
             string userName = null;
 
@@ -526,11 +526,11 @@ namespace Coinco.SMS.Website.Controllers
                
                     SerivceOrderPartLine serviceOrderPartLine = new SerivceOrderPartLine();
                     isSuccess = serviceOrderPartLine.DeleteServiceOrderPartItemLines(uniqueId, userName);
-
+                    //TempData["ServiceOrderId"] = Session["SID"].ToString();
                     if (isSuccess)
                     {
-                        
-                        ViewData["ServiceOrderPartLines"] = GetServiceOrderPartLinesByServiceOrderID(TempData["ServiceOrderId"].ToString());
+
+                        ViewData["ServiceOrderPartLines"] = GetServiceOrderPartLinesByServiceOrderID(serviceOrderId);
 
                     }
                 

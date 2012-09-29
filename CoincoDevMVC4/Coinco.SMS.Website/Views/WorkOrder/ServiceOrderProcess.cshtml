@@ -428,7 +428,7 @@
                 }
             }
 
-            debugger
+
             var technicinanNo;
             if ($('#techniacianDropDownList').data('tComboBox').value() != null && $('#techniacianDropDownList').data('tComboBox').value() != "" && $('#techniacianDropDownList').data('tComboBox').selectedIndex != -1) {
                 if ($('#techniacianDropDownList').data('tComboBox').selectedIndex != undefined) {
@@ -506,16 +506,18 @@
                     return;
                 }
             }
-
+         
             var failureCode;
             if ($('#failureCodeDropDownList').data('tComboBox').value() != null && $('#failureCodeDropDownList').data('tComboBox').value() != "" && $('#failureCodeDropDownList').data('tComboBox').selectedIndex != -1) {
                 var failureCodedata = $('#failureCodeDropDownList').data('tComboBox').data[$('#failureCodeDropDownList').data('tComboBox').selectedIndex];
                 failureCode = failureCodedata.Value;
             }
             else {
-                alert('Invalid Failure Code.');
-                $('#submit').attr('disabled', false);
-                return;
+                if ($('#failureCodeDropDownList').data('tComboBox').value() != "-- Select --" && $('#failureCodeDropDownList').data('tComboBox').value() != "") {
+                    alert('Invalid Failure Code.');
+                    $('#submit').attr('disabled', false);
+                    return;
+                }
             }
 
             if (transactionType == '3') {
@@ -637,16 +639,18 @@
             var quantity = $('#quantityText').val();
             var specialityCode = $('#specialtyCodeDropDownList').val();
             var failureCode = $('#failureCodeDropDownList').val();
-
+      
             var failureCode;
             if ($('#failureCodeDropDownList').data('tComboBox').value() && $('#failureCodeDropDownList').data('tComboBox').selectedIndex != -1) {
                 var failureCodedata = $('#failureCodeDropDownList').data('tComboBox').data[$('#failureCodeDropDownList').data('tComboBox').selectedIndex];
                 failureCode = failureCodedata.Value;
             }
             else {
-                alert('Invalid Failure Code.');
-                $('#submit').attr('disabled', false);
-                return;
+               
+                    alert('Invalid Failure Code.');
+                    $('#submit').attr('disabled', false);
+                    return;
+             
             }
 
             var lineProperty = $('#LinePropertyDropDownList').val();
