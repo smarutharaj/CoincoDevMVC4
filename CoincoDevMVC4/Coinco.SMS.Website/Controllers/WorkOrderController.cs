@@ -106,6 +106,7 @@ namespace Coinco.SMS.Website.Controllers
             catch (Exception ex)
             {
                 TempData.Keep();
+                throw ex;
                 //return Json("Select the service order number in Service Order with history page", JsonRequestBehavior.AllowGet);
             }
             return siteCollection.First<Site>().SiteID;
