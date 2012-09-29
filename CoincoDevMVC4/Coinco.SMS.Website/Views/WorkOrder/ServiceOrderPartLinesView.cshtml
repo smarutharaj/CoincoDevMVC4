@@ -5,8 +5,8 @@
         .Name("PartLinesGrid")
            .DataKeys(keys =>
            {
-               keys.Add(c => c.UniqueId).RouteKey("UniqueId");
-               keys.Add(c => c.ServiceOrder).RouteKey("ServiceOrder");
+               keys.Add(c => c.UniqueId).RouteKey("uniqueId");
+               keys.Add(c => c.ServiceOrder).RouteKey("serviceOrderId");
            })
         .Columns(columns =>
         {
