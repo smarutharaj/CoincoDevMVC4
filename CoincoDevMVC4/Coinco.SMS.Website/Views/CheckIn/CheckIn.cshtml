@@ -495,10 +495,23 @@
     });
 
     jQuery('#Create').click(function () {
-      
-     
+
+
         var customerAccount = $('#customerAccountDropDownList').val();
-        var woClassification = $('#woClassificationDropDownList').val();
+
+
+        //var woClassification = $('#woClassificationDropDownList').val();
+        var woClassification;
+        if ($('#woClassificationDropDownList').data('tComboBox').value() != null && $('#woClassificationDropDownList').data('tComboBox').value() != "" && $('#woClassificationDropDownList').data('tComboBox').selectedIndex != -1) {
+            var woClassificationdata = $('#woClassificationDropDownList').data('tComboBox').data[$('#woClassificationDropDownList').data('tComboBox').selectedIndex];
+
+            woClassification = woClassificationdata.Value;
+        }
+        else {
+
+            woClassification = "";
+        }
+
         var customerPo = $('#customerPOTextBox').val();
         if (($.trim(customerPo) == '<--SELECT-->') || (customerPo == null)) {
             customerPo = '';
@@ -508,7 +521,6 @@
             technicinanNo = '';
         }
         var responsibleNo = $('#serviceResponsibleDropDownList').val();
-
         if (($.trim(responsibleNo) == '<--SELECT-->') || (responsibleNo == null)) {
             responsibleNo = '';
         }
@@ -523,13 +535,7 @@
             return;
         }
 
-        if (($.trim(woClassification) == '<--SELECT-->') || (woClassification == null) || (woClassification == "")) {
-            alert('Please select the WO Classification.');
-            $('#woClassificationDropDownList').focus();
-            return;
-
-
-        }
+     
 
         $checkedRecords.each(function (index, domEle) {
             // domEle == this
@@ -538,6 +544,14 @@
             }
 
         });
+
+        if (($.trim(woClassification) == '<--SELECT-->') || (woClassification == null) || (woClassification == "")) {
+            alert('Please select the WO Classification.');
+            $('#woClassificationDropDownList').focus();
+            return;
+
+
+        }
         var serviceOrderLineGrid = $("#ServiceOrderLineGrid").data("tGrid");
         if (serviceOrderLineGrid.data.length < 1) {
             alert('Please add atleast one service order line to create an order.');
