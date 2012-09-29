@@ -516,15 +516,34 @@
         if (($.trim(customerPo) == '<--SELECT-->') || (customerPo == null)) {
             customerPo = '';
         }
-        var technicinanNo = $('#serviceTechnicianDropDownList').val();
-        if (($.trim(technicinanNo) == '<--SELECT-->') || (technicinanNo == null)) {
-            technicinanNo = '';
-        }
-        var responsibleNo = $('#serviceResponsibleDropDownList').val();
-        if (($.trim(responsibleNo) == '<--SELECT-->') || (responsibleNo == null)) {
-            responsibleNo = '';
-        }
+        var technicinanNo;
+        if ($('#serviceTechnicianDropDownList').data('tComboBox').value() != null && $('#serviceTechnicianDropDownList').data('tComboBox').value() != "" && $('#serviceTechnicianDropDownList').data('tComboBox').selectedIndex != -1) {
+            var technicinanNodata = $('#serviceTechnicianDropDownList').data('tComboBox').data[$('#serviceTechnicianDropDownList').data('tComboBox').selectedIndex];
 
+            technicinanNo = technicinanNodata.Value;
+        }
+        else {
+
+            technicinanNo = "";
+        }
+//        var technicinanNo = $('#serviceTechnicianDropDownList').val();
+//        if (($.trim(technicinanNo) == '<--SELECT-->') || (technicinanNo == null)) {
+//            technicinanNo = '';
+//        }
+//        var responsibleNo = $('#serviceResponsibleDropDownList').val();
+//        if (($.trim(responsibleNo) == '<--SELECT-->') || (responsibleNo == null)) {
+//            responsibleNo = '';
+//        }
+        var responsibleNo;
+        if ($('#serviceResponsibleDropDownList').data('tComboBox').value() != null && $('#serviceResponsibleDropDownList').data('tComboBox').value() != "" && $('#serviceResponsibleDropDownList').data('tComboBox').selectedIndex != -1) {
+            var responsibleNodata = $('#serviceResponsibleDropDownList').data('tComboBox').data[$('#serviceResponsibleDropDownList').data('tComboBox').selectedIndex];
+
+            responsibleNo = responsibleNodata.Value;
+        }
+        else {
+
+            responsibleNo = "";
+        }
         
 
         var customerComments = $('#customerCommentTextArea').val();
