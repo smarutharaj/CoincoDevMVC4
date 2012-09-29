@@ -132,7 +132,7 @@ namespace Coinco.SMS.Website.Models
                     {
                         serviceObject.Status = "Posted";
                     }
-
+                    serviceObject.ServiceOrder = serviceorderId;
 
 
                     serviceOrderList.Add(serviceObject);

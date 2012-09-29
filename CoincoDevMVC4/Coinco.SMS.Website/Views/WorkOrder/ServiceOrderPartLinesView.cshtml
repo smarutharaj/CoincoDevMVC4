@@ -6,7 +6,7 @@
            .DataKeys(keys =>
            {
                keys.Add(c => c.UniqueId).RouteKey("UniqueId");
-               
+               keys.Add(c => c.ServiceOrder).RouteKey("ServiceOrder");
            })
         .Columns(columns =>
         {
@@ -28,6 +28,7 @@
             columns.Bound(c => c.UniqueId).Hidden();
             columns.Bound(c => c.ServiceTechnician.ServiceTechnicianNo).Hidden();
             columns.Bound(c => c.ServiceObjectRelation).Hidden();
+            columns.Bound(c => c.ServiceOrder).Hidden();
             
          if (@Session["SOStatus"].ToString() == "In Process")
          { 
@@ -85,7 +86,8 @@
             var SoNumber = e.row.cells[0].innerHTML;
             var technicianNo = e.row.cells[15].innerHTML;
             var SObjectNumber = e.row.cells[16].innerHTML;
-            
+        
+            var serviceOrder = e.row.cells[17].innerHTML;
             if (itemtype == "" | itemtype == "&nbsp;") {
                 itemtype = "-- Select --";
             }
