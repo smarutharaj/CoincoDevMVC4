@@ -133,6 +133,7 @@
     <Compile Include="Controllers\CheckInController.cs" />
     <Compile Include="Controllers\RepairLinesController.cs" />
     <Compile Include="Controllers\WorkOrderController.cs" />
+    <Compile Include="ExceptionLog.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
