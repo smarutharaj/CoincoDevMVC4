@@ -107,15 +107,78 @@
             repairStageId = "--Select--";
         }
 
+        if (serialNumberList != null) {
+            var serialNumber = serialNumberList;
+            jQuery.ajax({
+                url: "../RepairLines/getPartNumber",
+                type: 'GET',
+                data: { serialNumber: serialNumber },
+                success: function (result) {
+                    jQuery('#partNumber').html(result);
+                },
+                error: function (result) {
+                    alert(result.responseText);
+                }
+
+            });
+        }
+
+        if (symptomAreaId != "") {
+          
+
+            
+            var getSymtomCode = $('#symptomCodeList').data('tComboBox');
+            getSymtomCode.loader.showBusy();
+
+            jQuery.ajax({
+                url: "../RepairLines/_GetDropDownSymptomCode",
+                type: 'GET',
+                data: { symptomAreaList: symptomAreaId },
+                success: function (result) {
+                    getSymtomCode.dataBind(result);
+                    getSymtomCode.loader.hideBusy();
+                    $('#symptomCodeList').data("tComboBox").value(symptomCodeId)
+
+                    }
+
+
+                });
+            
+        }
+
+
+        if (diagnosisAreaId != "") {
+
+
+
+            var getdiagnosisCode = $('#diagnosisCodeList').data('tComboBox');
+            getdiagnosisCode.loader.showBusy();
+
+            jQuery.ajax({
+                url: "../RepairLines/_GetDropDownDiagnosisCode",
+                type: 'GET',
+                data: { diagnosisAreaList: diagnosisAreaId },
+                success: function (result) {
+                    getdiagnosisCode.dataBind(result);
+                    getdiagnosisCode.loader.hideBusy();
+                    $('#diagnosisCodeList').data("tComboBox").value(diagonsisCodeId)
+
+                }
+
+
+            });
+
+        }
+
         $('#submit').text('Update');
         $('#submit').attr('disabled', false);
 
         $("#serialNumberList").data("tComboBox").value(serialNumberList);
         $('#conditionList').data("tComboBox").value(conditionId);
         $('#symptomAreaList').data("tComboBox").value(symptomAreaId);
-        $('#symptomCodeList').data("tComboBox").value(symptomCodeId);
+//        $('#symptomCodeList').data("tComboBox").value(symptomCodeId);
         $('#diagnosisAreaList').data("tComboBox").value(diagnosisAreaId);
-        $('#diagnosisCodeList').data("tComboBox").value(diagonsisCodeId);
+        //$('#diagnosisCodeList').data("tComboBox").value(diagonsisCodeId);
         $('#resolutionList').data("tComboBox").value(resolutionId);
         $('#repairStageList').data("tComboBox").value(repairStageId);
         $('#technicianList').data("tComboBox").value(technicianNo);

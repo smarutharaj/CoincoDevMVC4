@@ -213,8 +213,7 @@ namespace Coinco.SMS.Website.Models
             try
             {
                 DataTable resultTable = axHelper.GetDiagnosisCodeList(diagnosisArea, userName);
-
-
+                
                 foreach (DataRow row in resultTable.Rows)
                 {
                     RepairType repairObject = new RepairType();

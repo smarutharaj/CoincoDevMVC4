@@ -51,7 +51,8 @@
                        .Placeholder("--Select--")
                  .HtmlAttributes(new { @class = "dropDownPropertiesSP" })
                  .DropDownHtmlAttributes(new { @class = "dropDownPropertiesSP" })
-                 .CascadeTo("symptomCodeList")
+                // .CascadeTo("symptomCodeList")
+                  .ClientEvents(events => events.OnChange("onSymtomAreaChange"))
                  .SelectedIndex(0)
                  .Render();
             }
@@ -63,6 +64,7 @@
                        .Placeholder("--Select--")
                  .HtmlAttributes(new { @class = "dropDownPropertiesSP" })
                  .DropDownHtmlAttributes(new { @class = "dropDownPropertiesSP" })
+                   .ClientEvents(events => events.OnError("onSymtomArea_OnError"))
                  .SelectedIndex(0)
                  .Render();
             }
@@ -121,7 +123,8 @@
                        .Placeholder("--Select--")
                  .HtmlAttributes(new { @class = "dropDownPropertiesSP" })
                  .DropDownHtmlAttributes(new { @class = "dropDownPropertiesSP" })
-                 .CascadeTo("diagnosisCodeList")
+                 //.CascadeTo("diagnosisCodeList")
+                  .ClientEvents(events => events.OnChange("ondiagnosisCodeChange"))
                  .SelectedIndex(0)
                  .Render();
             }
@@ -133,6 +136,7 @@
                  .HtmlAttributes(new { @class = "dropDownPropertiesSP" })
                  .DropDownHtmlAttributes(new { @class = "dropDownPropertiesSP" })
                  .SelectedIndex(0)
+                  .ClientEvents(events => events.OnError("ondiagnosisCode_OnError"))
                  .Render();
             }
             <br />
@@ -677,5 +681,100 @@
 //                'disabled');
     });
 
+    function onSymtomAreaChange(e) {
 
+   
+        var symptomArea = $('#symptomAreaList').val();
+
+        if (symptomArea != "") {
+            var getSymtomCode = $('#symptomCodeList').data('tComboBox');
+            getSymtomCode.loader.showBusy();
+
+            jQuery.ajax({
+                url: "../RepairLines/_GetDropDownSymptomCode",
+                type: 'GET',
+                data: { symptomAreaList: symptomArea },
+                success: function (result) {
+                    getSymtomCode.dataBind(result);
+                    getSymtomCode.loader.hideBusy();
+                    getSymtomCode.select(0);
+
+                }
+
+
+            });
+        }
+
+        return false;
+
+    }
+
+
+    function onSymtomArea_OnError(e) {
+        var combobox = $(this).data('tComboBox'); // $(this) is equivalent to $('#ComboBox')
+
+        //the current XMLHttpRequest object
+        var xhr = e.XMLHttpRequest;
+        //the text status of the error - 'timeout', 'error' etc.
+        var status = e.textStatus;
+
+        if (status == 'error') {
+            //xhr.status is the HTTP code returned by the server
+            if (xhr.status == "404") {
+                //                alert("Select the Specailty Code")
+            }
+        }
+
+        //To prevent the default error handling (which is to alert the error message) you can call `preventDefault`
+
+        e.preventDefault();
+    }
+
+    function ondiagnosisCodeChange(e) {
+
+
+        var diagnosisArea = $('#diagnosisAreaList').val();
+
+        if (diagnosisArea != "") {
+            var getdiagnosisCode = $('#diagnosisCodeList').data('tComboBox');
+            getdiagnosisCode.loader.showBusy();
+
+            jQuery.ajax({
+                url: "../RepairLines/_GetDropDownDiagnosisCode",
+                type: 'GET',
+                data: { diagnosisAreaList: diagnosisArea },
+                success: function (result) {
+                    getdiagnosisCode.dataBind(result);
+                    getdiagnosisCode.loader.hideBusy();
+                    getdiagnosisCode.select(0);
+
+                }
+
+
+            });
+        }
+
+        return false;
+
+    }
+
+    function ondiagnosisCode_OnError(e) {
+        var combobox = $(this).data('tComboBox'); // $(this) is equivalent to $('#ComboBox')
+
+        //the current XMLHttpRequest object
+        var xhr = e.XMLHttpRequest;
+        //the text status of the error - 'timeout', 'error' etc.
+        var status = e.textStatus;
+
+        if (status == 'error') {
+            //xhr.status is the HTTP code returned by the server
+            if (xhr.status == "404") {
+                //                alert("Select the Specailty Code")
+            }
+        }
+
+        //To prevent the default error handling (which is to alert the error message) you can call `preventDefault`
+
+        e.preventDefault();
+    }
 </script>
