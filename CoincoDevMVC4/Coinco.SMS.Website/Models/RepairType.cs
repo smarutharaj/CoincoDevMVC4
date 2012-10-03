@@ -64,7 +64,7 @@ namespace Coinco.SMS.Website.Models
         public ServiceTechnician Technician { get; set; }
 
         public string Comments { get; set; }
-
+        public ServiceOrder ServiceOrders { get; set; }
 
         public string UniqueId { get; set; }
         public string ServiceObjectRelation { get; set; }
