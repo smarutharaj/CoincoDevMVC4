@@ -78,8 +78,8 @@
             .HtmlAttributes(new { @class = "dropDownPropertiesSP" })
             .DropDownHtmlAttributes(new { @class = "dropDownPropertiesSP" })
             .SelectedIndex(0)
-            //.ClientEvents(events => events.OnChange("onSpecialityCodeChange"))
-           .ClientEvents(events => events.OnError("SpecialityCode_OnError"))
+                  //.ClientEvents(events => events.OnChange("onSpecialityCodeChange"))
+            .ClientEvents(events => events.OnError("SpecialityCode_OnError"))
             .Render();
             }
             <span class="mandatory">*</span>
@@ -99,11 +99,10 @@
             @Html.Label("Quantity:", new { @class = "labelHeaderSPView", id = "quantityHeadLabel" })
             @Html.TextBox("quantityText", "1", new { @class = "textBoxPropertiesSP", maxlength = "5" })
             <br />
-
             @Html.Label("Technician:", new { @class = "labelHeaderSPView", id = "techniacianHeadLabel" })
             @{Html.Telerik().ComboBox().Name("techniacianDropDownList")
             .BindTo((SelectList)ViewData["ServiceTechnicianLoadList"])
-            
+
             .Placeholder("-- Select --")
             .HtmlAttributes(new { @class = "dropDownPropertiesSP" })
             .DropDownHtmlAttributes(new { @class = "dropDownPropertiesSP" })
@@ -506,7 +505,7 @@
                     return;
                 }
             }
-         
+
             var failureCode;
             if ($('#failureCodeDropDownList').data('tComboBox').value() != null && $('#failureCodeDropDownList').data('tComboBox').value() != "" && $('#failureCodeDropDownList').data('tComboBox').selectedIndex != -1) {
                 var failureCodedata = $('#failureCodeDropDownList').data('tComboBox').data[$('#failureCodeDropDownList').data('tComboBox').selectedIndex];
@@ -604,7 +603,7 @@
                     $('#quantityText').val('1');
                     $('#transactionTypeDropDownList').data('tComboBox').value('-- Select --');
                     $('#specialtyCodeDropDownList').data('tComboBox').value('-- Select --');
-                    $('#techniacianDropDownList').data('tComboBox').value('-- Select --');
+                    //                    $('#techniacianDropDownList').data('tComboBox').value('-- Select --');
                     $('#failureCodeDropDownList').data('tComboBox').value('-- Select --');
                     $('#LinePropertyDropDownList').data('tComboBox').value('-- Select --');
                     $('#itemNumberDropDownList').data('tComboBox').value('-- Select --');
@@ -633,29 +632,151 @@
         else {
 
             var serviceOrderNo = $('#serviceOrderViewlabel')[0].innerHTML;
+            debugger
+            var transactionType;
+            //            if ($('#transactionTypeDropDownList').data('tComboBox').value() != null && $('#transactionTypeDropDownList').data('tComboBox').value() != "" && $('#transactionTypeDropDownList').data('tComboBox').selectedIndex != -1) {
+            //                if ($('#transactionTypeDropDownList').data('tComboBox').selectedIndex != undefined) {
+            //                    var transactionTypedata = $('#transactionTypeDropDownList').data('tComboBox').data[$('#transactionTypeDropDownList').data('tComboBox').selectedIndex];
 
-            var transactionType = $('#transactionTypeDropDownList').val();
-            var technicinanNo = $('#techniacianDropDownList').val();
+            //                    transactionType = transactionTypedata.Value;
+            //                }
+            //            }
+            //            else {
+
+            //                transactionType = $('#transactionTypeDropDownList').data('tComboBox').value();
+            //            }
+
+            if ($('#transactionTypeDropDownList').data('tComboBox').value() == 'Hour') {
+                transactionType = '1';
+            }
+            else if ($('#transactionTypeDropDownList').data('tComboBox').value() == 'Fee') {
+                transactionType = '2';
+            }
+            else if ($('#transactionTypeDropDownList').data('tComboBox').value() == 'Item') {
+                transactionType = '3';
+            }
+            else if ($('#transactionTypeDropDownList').data('tComboBox').value() == 'Expense') {
+                transactionType = '4';
+            }
+            var technicinanNo;
+            if ($('#techniacianDropDownList').data('tComboBox').value() != null && $('#techniacianDropDownList').data('tComboBox').value() != "" && $('#techniacianDropDownList').data('tComboBox').selectedIndex != -1) {
+                if ($('#techniacianDropDownList').data('tComboBox').selectedIndex != undefined) {
+                    var technicinanNodata = $('#techniacianDropDownList').data('tComboBox').data[$('#techniacianDropDownList').data('tComboBox').selectedIndex];
+                    technicinanNo = technicinanNodata.Value;
+                }
+                else {
+                    alert('Invalid Technician.');
+                    $('#submit').attr('disabled', false);
+                    return;
+                }
+
+            }
+
+
+            var specialityCode;
+            if ($('#specialtyCodeDropDownList').data('tComboBox').value() != null && $('#specialtyCodeDropDownList').data('tComboBox').value() != "" && $('#specialtyCodeDropDownList').data('tComboBox').selectedIndex != -1) {
+                var specialityCodedata = $('#specialtyCodeDropDownList').data('tComboBox').data[$('#specialtyCodeDropDownList').data('tComboBox').selectedIndex];
+                specialityCode = specialityCodedata.Value;
+            }
+            else {
+                alert('Invalid Specialty Code.');
+                $('#submit').attr('disabled', false);
+                return;
+            }
+
+
             var quantity = $('#quantityText').val();
-            var specialityCode = $('#specialtyCodeDropDownList').val();
-            var failureCode = $('#failureCodeDropDownList').val();
-      
+
+            var lineProperty;
+            if ($('#LinePropertyDropDownList').data('tComboBox').value() != null && $('#LinePropertyDropDownList').data('tComboBox').value() != "" && $('#LinePropertyDropDownList').data('tComboBox').selectedIndex != -1) {
+                var linePropertydata = $('#LinePropertyDropDownList').data('tComboBox').data[$('#LinePropertyDropDownList').data('tComboBox').selectedIndex];
+                lineProperty = linePropertydata.Value;
+            }
+            else {
+                alert('Invalid line Property.');
+                $('#submit').attr('disabled', false);
+                return;
+            }
+
+
+
+            var description = $('#descriptionText').val();
+
+            var serviceComments = $('#commentsText').val();
+
+            if (transactionType == '3') {
+       
+
+                var itemNumber = $('#itemNumberDropDownList').val();
+
+                if ($('#siteComboBox').data('tComboBox').value() != null && $('#siteComboBox').data('tComboBox').value() != "" && $('#siteComboBox').data('tComboBox').selectedIndex != -1) {
+                    if ($('#siteComboBox').data('tComboBox').selectedIndex != undefined) {
+                        var sitedata = $('#siteComboBox').data('tComboBox').data[$('#siteComboBox').data('tComboBox').selectedIndex];
+                        site = sitedata.Value;
+                    }
+                    else
+                    {
+                        alert('Invalid Site Selection.');
+                        $('#submit').attr('disabled', false);
+                        return;
+                    }
+                }
+
+                var wareHouse;
+                if ($('#wareHouseDropDownList').data('tComboBox').value() != null && $('#wareHouseDropDownList').data('tComboBox').value() != "" && $('#wareHouseDropDownList').data('tComboBox').selectedIndex != -1) {
+                    var wareHousedata = $('#wareHouseDropDownList').data('tComboBox').data[$('#wareHouseDropDownList').data('tComboBox').selectedIndex];
+
+                    wareHouse = wareHousedata.Value;
+                }
+                else {
+
+                    alert('Invalid Ware House.');
+                    $('#submit').attr('disabled', false);
+                    return;
+                }
+
+                var locationId;
+                if ($('#locationDropDownList').data('tComboBox').value() != null && $('#locationDropDownList').data('tComboBox').value() != "" && $('#locationDropDownList').data('tComboBox').selectedIndex != -1) {
+                    var locationIddata = $('#locationDropDownList').data('tComboBox').data[$('#locationDropDownList').data('tComboBox').selectedIndex];
+
+                    locationId = locationIddata.Value;
+                }
+                else {
+
+                    alert('Invalid location.');
+                    $('#submit').attr('disabled', false);
+                    return;
+                }
+
+                var transSerialCodeNo;
+                if ($('#trackingSerialNoDropDownList').data('tComboBox').value() != null && $('#trackingSerialNoDropDownList').data('tComboBox').value() != "" && $('#trackingSerialNoDropDownList').data('tComboBox').selectedIndex != -1) {
+                    var transSerialCodeNodata = $('#trackingSerialNoDropDownList').data('tComboBox').data[$('#trackingSerialNoDropDownList').data('tComboBox').selectedIndex];
+                    transSerialCodeNo = transSerialCodeNodata.Value;
+                }
+                else {
+                    alert('Invalid Tracking Serial Number .');
+                    $('#submit').attr('disabled', false);
+                    return;
+                }
+
+
+            }
+        
+
             var failureCode;
-            if ($('#failureCodeDropDownList').data('tComboBox').value() && $('#failureCodeDropDownList').data('tComboBox').selectedIndex != -1) {
+            if ($('#failureCodeDropDownList').data('tComboBox').value() != null && $('#failureCodeDropDownList').data('tComboBox').value() != "" && $('#failureCodeDropDownList').data('tComboBox').selectedIndex != -1) {
                 var failureCodedata = $('#failureCodeDropDownList').data('tComboBox').data[$('#failureCodeDropDownList').data('tComboBox').selectedIndex];
                 failureCode = failureCodedata.Value;
             }
             else {
-               
-                    alert('Invalid Failure Code.');
-                    $('#submit').attr('disabled', false);
-                    return;
-             
+
+                alert('Invalid Failure Code.');
+                $('#submit').attr('disabled', false);
+                return;
+
             }
 
-            var lineProperty = $('#LinePropertyDropDownList').val();
-            var description = $('#descriptionText').val();
-
+          
             var serviceComments = $('#commentsText').val();
 
             var itemNumber = $('#itemNumberDropDownList').val();
@@ -721,7 +842,7 @@
                     alert('Service Order Part Lines Updated Successfully');
                     $('#transactionTypeDropDownList').data('tComboBox').value('-- Select --');
                     $('#quantityText').val('1');
-                    $('#techniacianDropDownList').data('tComboBox').value('-- Select --');
+                    //                    $('#techniacianDropDownList').data('tComboBox').value('-- Select --');
                     $('#slNumberDropDownList').data('tComboBox').value('-- Select --');
                     $('#specialtyCodeDropDownList').data('tComboBox').value('-- Select --');
                     $('#failureCodeDropDownList').data('tComboBox').value('-- Select --');
@@ -738,19 +859,19 @@
                     $('#submit').attr('disabled', false);
                     $("#transactionTypeDropDownList").data("tComboBox").enable();
                     $('#transactionTypeDropDownList').removeClass('t-state-disabled').removeAttr('disabled');
-                    $('#specialtyCodeDropDownList').data('tComboBox').enable();
-                    $('#specialtyCodeDropDownList').removeClass('t-state-disabled').removeAttr('disabled');
-                    $('#techniacianDropDownList').data("tComboBox").enable();
-                    $('#techniacianDropDownList').removeClass('t-state-disabled').removeAttr('disabled');
+                    $('#slNumberDropDownList').data('tComboBox').enable();
+                    $('#slNumberDropDownList').removeClass('t-state-disabled').removeAttr('disabled');
+                    //                    $('#techniacianDropDownList').data("tComboBox").enable();
+                    //                    $('#techniacianDropDownList').removeClass('t-state-disabled').removeAttr('disabled');
                     $('#itemNumberDropDownList').data('tComboBox').enable();
                     $('#itemNumberDropDownList').removeClass('t-state-disabled').removeAttr('disabled',
                     'disabled');
-                    $('#siteComboBox').data('tComboBox').enable();
-                    $('#siteComboBox').removeClass('t-state-disabled').removeAttr('disabled',
-                    'disabled');
-                    $('#LinePropertyDropDownList').data('tComboBox').enable();
-                    $('#LinePropertyDropDownList').removeClass('t-state-disabled').removeAttr('disabled',
-                   'disabled');
+                    //                    $('#siteComboBox').data('tComboBox').enable();
+                    //                    $('#siteComboBox').removeClass('t-state-disabled').removeAttr('disabled',
+                    //                    'disabled');
+                    //                    $('#LinePropertyDropDownList').data('tComboBox').enable();
+                    //                    $('#LinePropertyDropDownList').removeClass('t-state-disabled').removeAttr('disabled',
+                    //                   'disabled');
                     $('#partNumberLabel').text("");
                     $('#repairTypeLabel').text("");
                     $('#warrantyLabel').text("");
@@ -780,7 +901,8 @@
         $('#wareHouseDropDownList').data('tComboBox').value('-- Select --');
         $('#locationDropDownList').data('tComboBox').value('-- Select --');
         $('#trackingSerialNoDropDownList').data('tComboBox').value('-- Select --');
-
+        $('#slNumberDropDownList').data('tComboBox').enable();
+        $('#slNumberDropDownList').removeClass('t-state-disabled').removeAttr('disabled');
         $('#descriptionText').val('');
         $('#commentsText').val('');
         $('#submit').text('Add');
@@ -789,23 +911,23 @@
         $('#submit').attr('disabled', false);
         $("#transactionTypeDropDownList").data("tComboBox").enable();
         $('#transactionTypeDropDownList').removeClass('t-state-disabled').removeAttr('disabled');
-        $('#specialtyCodeDropDownList').data('tComboBox').enable();
-        $('#specialtyCodeDropDownList').removeClass('t-state-disabled').removeAttr('disabled');
-        $('#techniacianDropDownList').data("tComboBox").enable();
-        $('#techniacianDropDownList').removeClass('t-state-disabled').removeAttr('disabled');
+        //        $('#specialtyCodeDropDownList').data('tComboBox').enable();
+        //        $('#specialtyCodeDropDownList').removeClass('t-state-disabled').removeAttr('disabled');
+        //        $('#techniacianDropDownList').data("tComboBox").enable();
+        //        $('#techniacianDropDownList').removeClass('t-state-disabled').removeAttr('disabled');
         $('#itemNumberDropDownList').data('tComboBox').enable();
         $('#itemNumberDropDownList').removeClass('t-state-disabled').removeAttr('disabled',
                 'disabled');
-        $('#siteComboBox').data('tComboBox').enable();
-        $('#siteComboBox').removeClass('t-state-disabled').removeAttr('disabled',
-                'disabled');
-        $('#LinePropertyDropDownList').data('tComboBox').enable();
-        $('#LinePropertyDropDownList').removeClass('t-state-disabled').removeAttr('disabled',
-                   'disabled');
+        //        $('#siteComboBox').data('tComboBox').enable();
+        ////        $('#siteComboBox').removeClass('t-state-disabled').removeAttr('disabled',
+        //                'disabled');
+        //        $('#LinePropertyDropDownList').data('tComboBox').enable();
+        //        $('#LinePropertyDropDownList').removeClass('t-state-disabled').removeAttr('disabled',
+        //                   'disabled');
         $('#partNumberLabel').text("");
         $('#repairTypeLabel').text("");
         $('#warrantyLabel').text("");
-        
+
     });
 
     function onItemNumberSiteChange(e) {
@@ -967,7 +1089,7 @@
         if (status == 'error') {
             //xhr.status is the HTTP code returned by the server
             if (xhr.status == "404") {
-                alert("Select the Transaction Type to choose Specailty Code")
+//                alert("Select the Specailty Code")
             }
         }
 

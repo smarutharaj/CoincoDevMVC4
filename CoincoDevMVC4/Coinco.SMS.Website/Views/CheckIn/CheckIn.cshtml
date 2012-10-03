@@ -22,7 +22,7 @@
         .Placeholder("<--SELECT-->")
         .ClientEvents(e => e.OnChange("onCustomerAccountDropDownListChange"))
         .HtmlAttributes(new { @class = "dropDownProperties" })
-        .DropDownHtmlAttributes(new { @class = "dropDownProperties" })
+        .DropDownHtmlAttributes(new { @class = "htmldropDownPropertiesSP" })
         .SelectedIndex(0)
         .Render();
                             }
@@ -125,7 +125,6 @@
                             }
                         </div>
                     </div>
-                   
                     <div id="WOClassification" class="leftViewClassforThirdColumn">
                         <div id="WOClassificationLabel" class="leftView">
                             @Html.Label("WO Classification:", new { @class = "leftView" })
@@ -140,17 +139,13 @@
                           .SelectedIndex(0)
                           .Render();
                             }
-                        
-                          
                         </div>
-                             <div style="font-size: 8pt; font-family: Verdana; font-weight: bold; color: Red;
+                        <div style="font-size: 8pt; font-family: Verdana; font-weight: bold; color: Red;
                             float: right; width: 15px; height: 15px; position: inherit">
                             <span style="font-size: 8pt; font-family: Verdana; font-weight: bold; color: Red;
                                 float: right">*</span>
                         </div>
                     </div>
-                      
-              
                     <div id="ServiceResponsible" class="rightViewClass">
                         <div id="ServiceResponsibleLabel" class="rightView">
                             @Html.Label("Service Responsible:", new { @class = "rightView" })
@@ -526,14 +521,14 @@
 
             technicinanNo = "";
         }
-//        var technicinanNo = $('#serviceTechnicianDropDownList').val();
-//        if (($.trim(technicinanNo) == '<--SELECT-->') || (technicinanNo == null)) {
-//            technicinanNo = '';
-//        }
-//        var responsibleNo = $('#serviceResponsibleDropDownList').val();
-//        if (($.trim(responsibleNo) == '<--SELECT-->') || (responsibleNo == null)) {
-//            responsibleNo = '';
-//        }
+        //        var technicinanNo = $('#serviceTechnicianDropDownList').val();
+        //        if (($.trim(technicinanNo) == '<--SELECT-->') || (technicinanNo == null)) {
+        //            technicinanNo = '';
+        //        }
+        //        var responsibleNo = $('#serviceResponsibleDropDownList').val();
+        //        if (($.trim(responsibleNo) == '<--SELECT-->') || (responsibleNo == null)) {
+        //            responsibleNo = '';
+        //        }
         var responsibleNo;
         if ($('#serviceResponsibleDropDownList').data('tComboBox').value() != null && $('#serviceResponsibleDropDownList').data('tComboBox').value() != "" && $('#serviceResponsibleDropDownList').data('tComboBox').selectedIndex != -1) {
             var responsibleNodata = $('#serviceResponsibleDropDownList').data('tComboBox').data[$('#serviceResponsibleDropDownList').data('tComboBox').selectedIndex];
@@ -544,7 +539,7 @@
 
             responsibleNo = "";
         }
-        
+
 
         var customerComments = $('#customerCommentTextArea').val();
         var $checkedRecords = $(':checked');
@@ -554,7 +549,7 @@
             return;
         }
 
-     
+
 
         $checkedRecords.each(function (index, domEle) {
             // domEle == this
@@ -576,7 +571,7 @@
             alert('Please add atleast one service order line to create an order.');
             return;
         }
-      
+
         $("#Create").prop("disabled", "disabled");
         // $('#Add').prop("disabled", true);
 
