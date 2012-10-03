@@ -43,10 +43,11 @@ namespace Coinco.SMS.Website.Controllers
                 ViewData["ServiceOrder"] = GetServiceOrders(TempData["SiteId"].ToString(), process);
                 ViewData["ServiceOrderLine"] = GetServiceOrderLinesByServiceOrderID("");
             }
-            catch (Exception)
+            catch (Exception ex)
             {
                 TempData.Keep();
-                return RedirectToAction("ServiceOrderWithHistory");
+                throw ex;
+                //return RedirectToAction("ServiceOrderWithHistory");
             }
             return View("ServiceOrderWithHistory");
         }
@@ -229,8 +230,9 @@ namespace Coinco.SMS.Website.Controllers
             catch (Exception)
             {
                 TempData.Keep();
-                //throw new Exception("Select the service order number in Service Order with history page");
-                return RedirectToAction("ServiceOrderWithHistory");
+
+                throw new Exception("Select the service order number in Service Order with history page");
+                //return RedirectToAction("ServiceOrderWithHistory");
               // return Json("Select the service order number in Service Order with history page",JsonRequestBehavior.AllowGet);
             
             }
@@ -371,14 +373,21 @@ namespace Coinco.SMS.Website.Controllers
         {
 
             List<SpecialtyCode> specialtyCodeList = new List<SpecialtyCode> { };
-
+            SpecialtyCode specialtyCodeObject = new SpecialtyCode();
+           
+           
             string userName = "";
             userName = User.Identity.Name.ToString().Split('\\')[1];
             string _transactionTypeId = TransactionTypeID.ToString();
-            specialtyCodeList = (new SpecialtyCode()).GetSpecialCodes(userName, _transactionTypeId);
-            return Json(new SelectList(specialtyCodeList, "SpecialityCodeNo", "SpecialityDescription"), JsonRequestBehavior.AllowGet);
+            //specialtyCodeList = (new SpecialtyCode()).GetSpecialCodes(userName, _transactionTypeId);
+            IEnumerable<SpecialtyCode> specialtyCodeCollection = null;
+            specialtyCodeCollection = specialtyCodeObject.GetSpecialCodes(userName, _transactionTypeId);
+            specialtyCodeObject.SpecialityCodeList = new SelectList(specialtyCodeCollection, "SpecialityCodeNo", "SpecialityDescription");
+            ViewData["SpecialityCodeList"]=specialtyCodeObject.SpecialityCodeList;
+            return Json(ViewData["SpecialityCodeList"], JsonRequestBehavior.AllowGet);
 
         }
+
 
         //[HttpGet]
         //public JsonResult _GetDropDownListTechnicianSpecialtyCode(int? transactionTypeDropDownList, string specialtyCodeDropDownList)
