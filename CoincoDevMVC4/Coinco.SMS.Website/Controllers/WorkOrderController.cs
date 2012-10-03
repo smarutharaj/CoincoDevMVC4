@@ -146,8 +146,16 @@ namespace Coinco.SMS.Website.Controllers
             SerivceOrderPartLine serivceOrderPartLineObject = new SerivceOrderPartLine();
             ServiceOrderLine serivceOrderLineObject = new ServiceOrderLine();
             List<ServiceOrderLine> serviceOrderLineList = new List<ServiceOrderLine>();
+           
             try
             {
+                if (HttpContext.Session != null)
+                {
+                    if (Session["SiteID"] == null)
+                    {
+                        return Json("SessionExpired", JsonRequestBehavior.AllowGet);
+                    }
+                }
                 if (!String.IsNullOrEmpty(TempData["ServiceOrderId"].ToString()))
                 {
 
@@ -227,14 +235,14 @@ namespace Coinco.SMS.Website.Controllers
                     
                 }
             }
-            catch (Exception)
+            catch (Exception ex)
             {
                 TempData.Keep();
-
-                throw new Exception("Select the service order number in Service Order with history page");
+               
+               // throw new Exception("Select the service order number in Service Order with history page");
                 //return RedirectToAction("ServiceOrderWithHistory");
-              // return Json("Select the service order number in Service Order with history page",JsonRequestBehavior.AllowGet);
-            
+             //  return Json("Select the service order number in Service Order with history page",JsonRequestBehavior.AllowGet);
+                
             }
             
             return View(serivceOrderPartLineObject);
