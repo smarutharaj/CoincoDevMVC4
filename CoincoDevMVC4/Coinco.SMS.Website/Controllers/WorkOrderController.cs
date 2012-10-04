@@ -41,6 +41,7 @@ namespace Coinco.SMS.Website.Controllers
                     IEnumerable<Site> existingSites = (IEnumerable<Site>)TempData["AllSites"];
                     site.SiteList = new SelectList(existingSites, "SiteId", "SiteName", siteId);
                     TempData["FeaturedSites"] = site.SiteList;
+                    ViewData["FeaturedSites"] = site.SiteList;
                     TempData.Keep();
                 }
                 ViewData["ServiceOrder"] = GetServiceOrders(TempData["SiteId"].ToString(), process);
@@ -106,6 +107,7 @@ namespace Coinco.SMS.Website.Controllers
                 Session["SiteID"] = TempData["SiteId"];
                 TempData["AllSites"] = siteCollection;
                 TempData["FeaturedSites"] = site.SiteList;
+                ViewData["FeaturedSites"] = site.SiteList;
                 TempData.Keep();
             }
             catch (Exception ex)
