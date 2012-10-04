@@ -276,10 +276,10 @@ namespace Coinco.SMS.Website.Controllers
             string userName = null;
             ServiceOrderLine serviceOrderLineObject = new ServiceOrderLine();
             List<ServiceOrderLine> serviceOrderLineList = new List<ServiceOrderLine>();
-
+            userName = User.Identity.Name.ToString().Split('\\')[1];
             try
             {
-                userName = User.Identity.Name.ToString().Split('\\')[1];
+                
                 if (!String.IsNullOrEmpty(serialNumber))
                 {
                     serviceOrderLineList = serviceOrderLineObject.GetServiceOrderLinesDetailsBySerialNumber(serialNumber, "", userName);
@@ -303,7 +303,7 @@ namespace Coinco.SMS.Website.Controllers
             catch (Exception ex)
             {
                 TempData.Keep();
-                throw ex;
+                ExceptionLog.LogException(ex, userName);
             }
             return View("PartDetailsView", serviceOrderLineObject);
         }
@@ -315,10 +315,10 @@ namespace Coinco.SMS.Website.Controllers
             ServiceOrder serviceOrderObject = new ServiceOrder();
             List<ServiceOrder> serviceOrderList = new List<ServiceOrder>();
             string process = "-1";
-            
+            userName = User.Identity.Name.ToString().Split('\\')[1];
             try
             {
-                userName = User.Identity.Name.ToString().Split('\\')[1];
+                
                 if (!String.IsNullOrEmpty(serviceOrder))
                 {
                     serviceOrderList = serviceOrderObject.GetServiceOrders(siteId, process, serviceOrder, userName);
@@ -347,7 +347,7 @@ namespace Coinco.SMS.Website.Controllers
             catch (Exception ex)
             {
                 TempData.Keep();
-                throw ex;
+                ExceptionLog.LogException(ex, userName);
             }
             return serviceOrderList;
         }
@@ -477,10 +477,11 @@ namespace Coinco.SMS.Website.Controllers
             string userName = null;
 
             bool isSuccess = false;
+            userName = User.Identity.Name.ToString().Split('\\')[1];
             try
             {
 
-                userName = User.Identity.Name.ToString().Split('\\')[1];
+               
                 SerivceOrderPartLine serviceOrderPartLine = new SerivceOrderPartLine();
                 isSuccess = serviceOrderPartLine.CreateServiceOrderItemLines(serviceOrderNo, transactionType, technicinanNo, quantity, specialityCode, failureCode, lineProperty, serviceOrderRelation, description, serviceComments, itemNumber, site, wareHouse, transSerialCodeNo, colorId = "", sizeId = "", configId = "", locationId, userName);
 
@@ -497,7 +498,7 @@ namespace Coinco.SMS.Website.Controllers
             catch (Exception ex)
             {
                 TempData.Keep();
-                throw ex;
+                ExceptionLog.LogException(ex, userName);
             }
             return View("ServiceOrderPartLinesView");
         }
@@ -508,10 +509,11 @@ namespace Coinco.SMS.Website.Controllers
             string userName = null;
 
             bool isSuccess = false;
+            userName = User.Identity.Name.ToString().Split('\\')[1];
             try
             {
 
-                userName = User.Identity.Name.ToString().Split('\\')[1];
+               
                
                 SerivceOrderPartLine serviceOrderPartLine = new SerivceOrderPartLine();
                 isSuccess = serviceOrderPartLine.UpdateServiceOrderPartLines(uniqueId, serviceOrderNo, transactionType, technicinanNo, quantity, specialityCode, failureCode, lineProperty, serviceOrderRelation, description, serviceComments, itemNumber, site, wareHouse, transSerialCodeNo, colorId = "", sizeId = "", configId = "", locationId, userName);
@@ -529,7 +531,7 @@ namespace Coinco.SMS.Website.Controllers
             catch (Exception ex)
             {
                 TempData.Keep();
-                throw ex;
+                ExceptionLog.LogException(ex, userName);
             }
             return View("ServiceOrderPartLinesView");
         }

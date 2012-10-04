@@ -26,6 +26,13 @@ namespace Coinco.SMS.Website.Controllers
             List<Address> addressList = new List<Address>();
             try
             {
+                if (HttpContext.Session != null)
+                {
+                    if (Session["SiteID"] == null)
+                    {
+                        RedirectToAction("ServiceOrderWithHistory", "WorkOrder");
+                    }
+                }
                 IEnumerable<Customer> customerCollection = customer.GetCustomers(User.Identity.Name.ToString().Split('\\')[1]);
                 customer.CustomerList = new SelectList(customerCollection, "CustomerAccount", "CustomerName", null);
                 serviceOrder.Customer = customer;
