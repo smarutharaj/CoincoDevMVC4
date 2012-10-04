@@ -5,7 +5,7 @@ using System.Web;
 using System.Configuration;
 using System.IO;
 
-namespace Coinco.SMS.WCF
+namespace Coinco.SMS.Website
 {
     public class ExceptionLog
     {

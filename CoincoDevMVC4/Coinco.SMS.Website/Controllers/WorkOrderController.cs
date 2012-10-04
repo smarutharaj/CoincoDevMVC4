@@ -20,8 +20,11 @@ namespace Coinco.SMS.Website.Controllers
         [HttpGet]
         public ActionResult ServiceOrderWithHistory(string siteId, string process)
         {
+            string userName = null;
+            userName = User.Identity.Name.ToString().Split('\\')[1];
             try
             {
+               
                 if (String.IsNullOrEmpty(siteId))
                 {
                     GetSites();
@@ -46,7 +49,7 @@ namespace Coinco.SMS.Website.Controllers
             catch (Exception ex)
             {
                 TempData.Keep();
-                throw ex;
+                ExceptionLog.LogException(ex, userName);
                 //return RedirectToAction("ServiceOrderWithHistory");
             }
             return View("ServiceOrderWithHistory");
@@ -87,12 +90,13 @@ namespace Coinco.SMS.Website.Controllers
 
             Site site = new Site();
             IEnumerable<Site> siteCollection = null;
+            string userName = null;
+            userName = User.Identity.Name.ToString().Split('\\')[1];
             try
             {
                 if (site.SiteList == null)
                 {
-                    string userName = null;
-                    userName = User.Identity.Name.ToString().Split('\\')[1];
+                  
 
                     siteCollection = site.GetSitesListByUsername(userName);
                     site.SiteList = new SelectList(siteCollection, "SiteId", "SiteName", siteCollection.First<Site>().SiteID);
@@ -107,7 +111,7 @@ namespace Coinco.SMS.Website.Controllers
             catch (Exception ex)
             {
                 TempData.Keep();
-                throw ex;
+                ExceptionLog.LogException(ex, userName);
                 //return Json("Select the service order number in Service Order with history page", JsonRequestBehavior.AllowGet);
             }
             return siteCollection.First<Site>().SiteID;
@@ -136,7 +140,7 @@ namespace Coinco.SMS.Website.Controllers
 
         #region "ServiceOrderProcess"
         // GET: /ServiceOrderProcess/
-    
+        [HandleError]
         public ActionResult ServiceOrderProcess()
         {
             string userName = "";
@@ -153,7 +157,7 @@ namespace Coinco.SMS.Website.Controllers
                 {
                     if (Session["SiteID"] == null)
                     {
-                        return Json("SessionExpired", JsonRequestBehavior.AllowGet);
+                        return RedirectToAction("ServiceOrderWithHistory");
                     }
                 }
                 if (!String.IsNullOrEmpty(TempData["ServiceOrderId"].ToString()))
@@ -238,7 +242,7 @@ namespace Coinco.SMS.Website.Controllers
             catch (Exception ex)
             {
                 TempData.Keep();
-              
+                ExceptionLog.LogException(ex, userName);
                // throw new Exception("Select the service order number in Service Order with history page");
                 //return RedirectToAction("ServiceOrderWithHistory");
              //  return Json("Select the service order number in Service Order with history page",JsonRequestBehavior.AllowGet);
