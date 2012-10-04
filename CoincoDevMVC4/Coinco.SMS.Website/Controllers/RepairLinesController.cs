@@ -29,7 +29,7 @@ namespace Coinco.SMS.Website.Controllers
                         return RedirectToAction("ServiceOrderWithHistory", "WorkOrder");
                     }
                 }
-                if (!String.IsNullOrEmpty(TempData["ServiceOrderId"].ToString()))
+                if (TempData["ServiceOrderId"] != null)
                 {
                     ServiceOrderLine serviceOrderLineobj = new ServiceOrderLine();
                     repairTypeObj.ServiceOrderLine = serviceOrderLineobj;
@@ -96,6 +96,7 @@ namespace Coinco.SMS.Website.Controllers
             {
                 TempData.Keep();
                 ExceptionLog.LogException(ex, userName);
+              
             }
             return View(repairTypeObj);
         }
@@ -269,7 +270,7 @@ namespace Coinco.SMS.Website.Controllers
             catch (Exception ex)
             {
                 TempData.Keep();
-                ExceptionLog.LogException(ex, userName);
+                throw ex;
             }
             return View("RepairLineDetails");
         }
@@ -297,7 +298,10 @@ namespace Coinco.SMS.Website.Controllers
             catch (Exception ex)
             {
                 TempData.Keep();
-                ExceptionLog.LogException(ex, userName);
+                //if (!isSuccess)
+                //{
+                //    ExceptionLog.LogException(ex, userName);
+                //}
             }
             return View("RepairLineDetails");
         }

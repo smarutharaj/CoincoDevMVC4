@@ -157,7 +157,7 @@ namespace Coinco.SMS.Website.Controllers
             catch (Exception ex)
             {
                 TempData.Keep();
-                ExceptionLog.LogException(ex, userName);
+                throw ex;
             }
             return View(new GridModel(serviceOrderLineExistingList));
         }
