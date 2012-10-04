@@ -415,7 +415,10 @@ namespace Coinco.SMS.Website.Controllers
             catch (Exception ex)
             {
                 TempData.Keep();
-                ExceptionLog.LogException(ex, userName);
+                if (ex.Message != "No service order lines found for the entered part number")
+                {
+                    ExceptionLog.LogException(ex, userName);
+                }
 
             }
             return Json(ViewData["ServiceOrderLine"], JsonRequestBehavior.AllowGet);
