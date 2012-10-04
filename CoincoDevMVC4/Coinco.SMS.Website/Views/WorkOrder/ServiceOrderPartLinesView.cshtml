@@ -280,10 +280,107 @@
             if (itemtype == 'Item') {
 
                 $('#itemNumberDropDownList').data('tComboBox').value(itemnumber);
-                $('#wareHouseDropDownList').data('tComboBox').value(warehouse);
-                $('#siteComboBox').data('tComboBox').value(site)
-                $('#locationDropDownList').data('tComboBox').value(location);
-                $('#trackingSerialNoDropDownList').data('tComboBox').value(transactionSerialNumber);
+                $('#siteComboBox').data('tComboBox').value(site);
+
+                var SelectedSiteId = site;
+                var SelectedItemNumber = itemnumber;
+                if (SelectedItemNumber != "" | SelectedSiteId != "") {
+                    var getwareHouse = $('#wareHouseDropDownList').data('tComboBox');
+
+                    var getLocation = $('#locationDropDownList').data('tComboBox');
+
+                    var gettrackingSerialNo = $('#trackingSerialNoDropDownList').data('tComboBox');
+
+                    getwareHouse.loader.showBusy();
+
+                    jQuery.ajax({
+                        url: "../WorkOrder/_GetDropDownWareHouse",
+                        type: 'GET',
+                        data: { partNumberDropDownList: SelectedItemNumber, siteComboBox: SelectedSiteId },
+                        success: function (result) {
+                            getwareHouse.dataBind(result);
+//                            getLocation.dataBind();
+//                           
+//                            gettrackingSerialNo.dataBind();
+                      
+                            getwareHouse.loader.hideBusy();
+                            $('#wareHouseDropDownList').data('tComboBox').value(warehouse);
+
+                        },
+                        error: function (result) {
+                            alert(result.responseText);
+                        }
+
+
+                    });
+
+                }
+               
+
+                var SelectedSiteId = site;
+                var SelectedItemNumber = itemnumber;
+                var SelectedwarehouseId = warehouse;
+                if (SelectedItemNumber != "" | SelectedSiteId != "" | SelectedwarehouseId != "") {
+                    var getLocation = $('#locationDropDownList').data('tComboBox');
+                 
+
+                    var gettrackingSerialNo = $('#trackingSerialNoDropDownList').data('tComboBox');
+                  
+                    getLocation.loader.showBusy();
+
+                    jQuery.ajax({
+                        url: "../WorkOrder/_GetLocationList",
+                        type: 'GET',
+                        data: { partNumberDropDownList: SelectedItemNumber, siteComboBox: SelectedSiteId, wareHouseDropDownList: SelectedwarehouseId },
+                        success: function (result) {
+
+                            getLocation.dataBind(result);
+//                            gettrackingSerialNo.dataBind();
+                
+                            getLocation.loader.hideBusy();
+                            $('#locationDropDownList').data('tComboBox').value(location);
+                        },
+                        error: function (result) {
+                            alert(result.responseText);
+                        }
+
+
+                    });
+                }
+
+              
+                var SelectedSiteId = site;
+                var SelectedItemNumber = itemnumber;
+                var SelectedwarehouseId = warehouse;
+                if (SelectedItemNumber != "" | SelectedSiteId != "" | SelectedwarehouseId != "") {
+                    if (location != "") {
+                        SelectedlocationId = location;
+                    }
+                    else {
+                        SelectedlocationId = "";
+                    }
+                    var gettrackingSerialNo = $('#trackingSerialNoDropDownList').data('tComboBox');
+
+                    gettrackingSerialNo.loader.showBusy();
+                    jQuery.ajax({
+                        url: "../WorkOrder/_GetTransactionSerialNumberList",
+                        type: 'GET',
+                        data: { partNumberDropDownList: SelectedItemNumber, siteComboBox: SelectedSiteId, wareHouseDropDownList: SelectedwarehouseId, locationDropDownList: SelectedlocationId },
+                        success: function (result) {
+
+                            gettrackingSerialNo.dataBind(result);
+                            gettrackingSerialNo.loader.hideBusy();
+                            $('#trackingSerialNoDropDownList').data('tComboBox').value(transactionSerialNumber);
+                        },
+                        error: function (result) {
+                            alert(result.responseText);
+                        }
+
+
+                    });
+                }
+                
+
                 $('#addLineRightcolumn').show();
             }
             else {

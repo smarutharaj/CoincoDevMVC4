@@ -644,7 +644,7 @@
         else {
 
             var serviceOrderNo = $('#serviceOrderViewlabel')[0].innerHTML;
-          
+
             var transactionType;
             //            if ($('#transactionTypeDropDownList').data('tComboBox').value() != null && $('#transactionTypeDropDownList').data('tComboBox').value() != "" && $('#transactionTypeDropDownList').data('tComboBox').selectedIndex != -1) {
             //                if ($('#transactionTypeDropDownList').data('tComboBox').selectedIndex != undefined) {
@@ -670,19 +670,21 @@
             else if ($('#transactionTypeDropDownList').data('tComboBox').value() == 'Expense') {
                 transactionType = '4';
             }
-            var technicinanNo;
+            debugger
+
             if ($('#techniacianDropDownList').data('tComboBox').value() != null && $('#techniacianDropDownList').data('tComboBox').value() != "" && $('#techniacianDropDownList').data('tComboBox').selectedIndex != -1) {
                 if ($('#techniacianDropDownList').data('tComboBox').selectedIndex != undefined) {
                     var technicinanNodata = $('#techniacianDropDownList').data('tComboBox').data[$('#techniacianDropDownList').data('tComboBox').selectedIndex];
                     technicinanNo = technicinanNodata.Value;
                 }
-                else {
-                    alert('Invalid Technician.');
-                    $('#submit').attr('disabled', false);
-                    return;
-                }
-
             }
+            else {
+                alert('Invalid Technician.');
+                $('#submit').attr('disabled', false);
+                return;
+            }
+
+
 
 
             var specialityCode;
@@ -717,7 +719,7 @@
             var serviceComments = $('#commentsText').val();
 
             if (transactionType == '3') {
-       
+
 
                 var itemNumber = $('#itemNumberDropDownList').val();
 
@@ -726,8 +728,7 @@
                         var sitedata = $('#siteComboBox').data('tComboBox').data[$('#siteComboBox').data('tComboBox').selectedIndex];
                         site = sitedata.Value;
                     }
-                    else
-                    {
+                    else {
                         alert('Invalid Site Selection.');
                         $('#submit').attr('disabled', false);
                         return;
@@ -736,9 +737,11 @@
 
                 var wareHouse;
                 if ($('#wareHouseDropDownList').data('tComboBox').value() != null && $('#wareHouseDropDownList').data('tComboBox').value() != "" && $('#wareHouseDropDownList').data('tComboBox').selectedIndex != -1) {
-                    var wareHousedata = $('#wareHouseDropDownList').data('tComboBox').data[$('#wareHouseDropDownList').data('tComboBox').selectedIndex];
+                    if ($('#wareHouseDropDownList').data('tComboBox').selectedIndex != undefined) {
+                        var wareHousedata = $('#wareHouseDropDownList').data('tComboBox').data[$('#wareHouseDropDownList').data('tComboBox').selectedIndex];
 
-                    wareHouse = wareHousedata.Value;
+                        wareHouse = wareHousedata.Value;
+                    }
                 }
                 else {
 
@@ -773,7 +776,7 @@
 
 
             }
-        
+
 
             var failureCode;
             if ($('#failureCodeDropDownList').data('tComboBox').value() != null && $('#failureCodeDropDownList').data('tComboBox').value() != "" && $('#failureCodeDropDownList').data('tComboBox').selectedIndex != -1) {
@@ -788,7 +791,7 @@
 
             }
 
-          
+
             var serviceComments = $('#commentsText').val();
 
             var itemNumber = $('#itemNumberDropDownList').val();
