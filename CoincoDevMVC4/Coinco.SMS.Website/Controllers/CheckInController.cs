@@ -24,6 +24,8 @@ namespace Coinco.SMS.Website.Controllers
             ServiceOrderLine serviceOrderLine = new ServiceOrderLine();
             List<ServiceOrderLine> serviceOrderLineList = new List<ServiceOrderLine>();
             List<Address> addressList = new List<Address>();
+            string userName = null;
+            userName = User.Identity.Name.ToString().Split('\\')[1];
             try
             {
                 if (HttpContext.Session != null)
@@ -126,6 +128,7 @@ namespace Coinco.SMS.Website.Controllers
         public ActionResult _UpdateServiceOrderLine(string serialNumber)
        
         {List<ServiceOrderLine> serviceOrderLineExistingList =new List<ServiceOrderLine>();
+        string userName = User.Identity.Name.ToString().Split('\\')[1];
             try
             {
                 if (HttpContext.Session != null)
@@ -337,9 +340,11 @@ namespace Coinco.SMS.Website.Controllers
         [OutputCache(Duration = 0)] 
         public JsonResult ClearServiceOrderLines()
         {
+            string userName;
             ServiceOrder serviceOrder = new ServiceOrder();
             ServiceOrderLine serviceOrderLine = new ServiceOrderLine();
             List<ServiceOrderLine> serviceOrderLineEmptyList = new List<ServiceOrderLine>();
+            userName = User.Identity.Name.ToString().Split('\\')[1];
             try
             {
                 TempData["ServiceOrderLine"] = serviceOrderLineEmptyList;
