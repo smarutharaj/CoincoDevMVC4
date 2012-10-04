@@ -139,7 +139,10 @@
                     getSymtomCode.loader.hideBusy();
                     $('#symptomCodeList').data("tComboBox").value(symptomCodeId)
 
-                    }
+                    },
+                error: function (result) {
+                    alert(result.responseText);
+                }
 
 
                 });
@@ -163,6 +166,8 @@
                     getdiagnosisCode.loader.hideBusy();
                     $('#diagnosisCodeList').data("tComboBox").value(diagonsisCodeId)
 
+                }, error: function (result) {
+                    alert(result.responseText);
                 }
 
 
