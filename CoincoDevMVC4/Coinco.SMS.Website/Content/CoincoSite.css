@@ -357,7 +357,7 @@ footer
 .textBoxPropertiesSP
 {
     margin:0px 0px 0px 0px;
-    width:145px;
+    width:146px;
     height: 16px; 
     vertical-align:middle;
     font-weight:normal;
@@ -495,7 +495,7 @@ footer
     padding-left: 5px;
     padding-top:0px;
     padding-bottom:10px;
-    padding-right:10px;
+    padding-right:5px;
     max-width: 412px;
     width:412px;
     max-height: 55px;
@@ -510,8 +510,8 @@ footer
    padding-left: 5px;
    padding-top:0px;
    padding-right:10px;
-   max-width: 413px;
-   width:413px;
+   max-width: 412px;
+   width:412px;
    height: 160px;
    font-family:  Verdana;
    font-size:8pt;
@@ -548,8 +548,8 @@ footer
 .leftadjacentView
 {
    float:left;
-   width:230px;
-   max-width:230px;
+   width:222px;
+   max-width:222px;
    text-align: left;
    max-height: 50px;
    vertical-align:middle;
@@ -1450,14 +1450,14 @@ input, textarea
     color: #333;
     font-size:8pt;
     margin: 15px 0px 0 3px 0;
-    width: 145px;
+    width: 146px;
     font-family: Verdana;
 }
 
 textarea {
     font-family: Verdana;
     font-size:8pt;
-    width: 145px;
+    width: 146px;
     height:30px;
     
   
