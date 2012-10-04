@@ -381,6 +381,7 @@
                         if (firstCell == serialNumber) {
                             alert('The entered serial number is already availble in the lines table. Please enter a different serial number.');
                             $('#serialNumberTextBox').focus();
+                            $('#serialNumberTextBox').val('');
                             isSerialNumberExist = true;
                             return;
                         }
@@ -447,6 +448,7 @@
                 if (firstCell == serialNumber) {
                     alert('The entered serial number is already availble in the lines table. Please enter a different serial number.');
                     $('#serialNumberTextBox').focus();
+                    $('#serialNumberTextBox').val('');
                     isSerialNumberExist = true;
                     return;
                 }
