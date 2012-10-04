@@ -298,10 +298,11 @@ namespace Coinco.SMS.Website.Controllers
             catch (Exception ex)
             {
                 TempData.Keep();
-                //if (!isSuccess)
-                //{
-                //    ExceptionLog.LogException(ex, userName);
-                //}
+                if (!isSuccess)
+                {
+                    ExceptionLog.LogException(ex, userName);
+                    throw ex;
+                }
             }
             return View("RepairLineDetails");
         }
