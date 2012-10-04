@@ -328,7 +328,7 @@ namespace Coinco.SMS.Website.Controllers
             catch (Exception ex)
             {
                 TempData.Keep();
-                ExceptionLog.LogException(ex, userName);
+                throw ex;
             }
             return Json(salesHistory);
         }
@@ -419,6 +419,7 @@ namespace Coinco.SMS.Website.Controllers
                 {
                     ExceptionLog.LogException(ex, userName);
                 }
+                throw ex;
 
             }
             return Json(ViewData["ServiceOrderLine"], JsonRequestBehavior.AllowGet);
@@ -463,7 +464,11 @@ namespace Coinco.SMS.Website.Controllers
             catch (Exception ex)
             {
                 TempData.Keep();
-                ExceptionLog.LogException(ex, userName);
+                if (!isSuccess)
+                {
+                    ExceptionLog.LogException(ex, userName);
+                    throw ex;
+                }
             }
             return Json(ViewData["ServiceOrderLine"], JsonRequestBehavior.AllowGet);
         }
