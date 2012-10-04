@@ -140,7 +140,7 @@ namespace Coinco.SMS.Website.Controllers
 
         #region "ServiceOrderProcess"
         // GET: /ServiceOrderProcess/
-        [HandleError]
+       
         public ActionResult ServiceOrderProcess()
         {
             string userName = "";
@@ -160,7 +160,7 @@ namespace Coinco.SMS.Website.Controllers
                         return RedirectToAction("ServiceOrderWithHistory");
                     }
                 }
-                if (!String.IsNullOrEmpty(TempData["ServiceOrderId"].ToString()))
+                if (TempData["ServiceOrderId"] != null)
                 {
 
                     serivceOrderLineObject.ServiceOrderLineList = serviceOrderLineList;
@@ -498,7 +498,11 @@ namespace Coinco.SMS.Website.Controllers
             catch (Exception ex)
             {
                 TempData.Keep();
-                ExceptionLog.LogException(ex, userName);
+                if (!isSuccess)
+                {
+                    ExceptionLog.LogException(ex, userName);
+                    throw ex;
+                }
             }
             return View("ServiceOrderPartLinesView");
         }
@@ -531,7 +535,12 @@ namespace Coinco.SMS.Website.Controllers
             catch (Exception ex)
             {
                 TempData.Keep();
-                ExceptionLog.LogException(ex, userName);
+
+                if (!isSuccess)
+                {
+                    ExceptionLog.LogException(ex, userName);
+                    throw ex;
+                }
             }
             return View("ServiceOrderPartLinesView");
         }

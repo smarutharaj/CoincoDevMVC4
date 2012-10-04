@@ -213,7 +213,7 @@
         if (uniqueId == '') {
 
             var serviceOrderNo = $('#serviceOrderNo')[0].innerHTML;
-
+            debugger
             var serialNumberList;
             if ($('#serialNumberList').data('tComboBox').value() != null && $('#serialNumberList').data('tComboBox').value() != "" && $('#serialNumberList').data('tComboBox').selectedIndex != -1) {
                 var serialNumberListdata = $('#serialNumberList').data('tComboBox').data[$('#serialNumberList').data('tComboBox').selectedIndex];
@@ -319,7 +319,7 @@
                 return;
             }
 
-      
+
             var resolutionId;
             if ($('#resolutionList').data('tComboBox').value() != null && $('#resolutionList').data('tComboBox').value() != "" && $('#resolutionList').data('tComboBox').selectedIndex != -1) {
 
@@ -348,12 +348,13 @@
                 $('#submit').attr('disabled', false);
                 return;
             }
-
+           
             var technicianNo;
             if ($('#technicianList').data('tComboBox').value() != null && $('#technicianList').data('tComboBox').value() != "" && $('#technicianList').data('tComboBox').selectedIndex != -1) {
-
-                var technicinanNodata = $('#technicianList').data('tComboBox').data[$('#technicianList').data('tComboBox').selectedIndex];
-                technicianNo = technicinanNodata.Value;
+                if ($('#technicianList').data('tComboBox').selectedIndex != undefined) {
+                    var technicinanNodata = $('#technicianList').data('tComboBox').data[$('#technicianList').data('tComboBox').selectedIndex];
+                    technicianNo = technicinanNodata.Value;
+                }
             }
 
 
@@ -440,13 +441,13 @@
         else {
             var serviceOrderNo = $('#serviceOrderNo')[0].innerHTML;
             var serialNumberList = $("#serialNumberList").val();
-//            var conditionId = $('#conditionList').val();
-//            var symptomAreaId = $('#symptomAreaList').val();
-//            var symptomCodeId = $('#symptomCodeList').val();
-//            var diagnosisAreaId = $('#diagnosisAreaList').val();
-//            var diagnosisCodeId = $('#diagnosisCodeList').val();
-//            var resolutionId = $('#resolutionList').val();
-//            var repairStageId = $('#repairStageList').val();
+            //            var conditionId = $('#conditionList').val();
+            //            var symptomAreaId = $('#symptomAreaList').val();
+            //            var symptomCodeId = $('#symptomCodeList').val();
+            //            var diagnosisAreaId = $('#diagnosisAreaList').val();
+            //            var diagnosisCodeId = $('#diagnosisCodeList').val();
+            //            var resolutionId = $('#resolutionList').val();
+            //            var repairStageId = $('#repairStageList').val();
             //            var technicianNo = $('#technicianList').val();
             var conditionId;
             if ($('#conditionList').data('tComboBox').value() != null && $('#conditionList').data('tComboBox').value() != "" && $('#conditionList').data('tComboBox').selectedIndex != -1) {
@@ -540,12 +541,13 @@
                 $('#submit').attr('disabled', false);
                 return;
             }
-
+            debugger
             var technicianNo;
             if ($('#technicianList').data('tComboBox').value() != null && $('#technicianList').data('tComboBox').value() != "" && $('#technicianList').data('tComboBox').selectedIndex != -1) {
-
-                var technicinanNodata = $('#technicianList').data('tComboBox').data[$('#technicianList').data('tComboBox').selectedIndex];
-                technicianNo = technicinanNodata.Value;
+                if ($('#technicianList').data('tComboBox').selectedIndex != undefined) {
+                    var technicinanNodata = $('#technicianList').data('tComboBox').data[$('#technicianList').data('tComboBox').selectedIndex];
+                    technicianNo = technicinanNodata.Value;
+                }
             }
 
 
@@ -615,7 +617,7 @@
                     $('#diagnosisCodeList').data("tComboBox").value("--Select--");
                     $('#resolutionList').data("tComboBox").value("--Select--");
                     $('#repairStageList').data("tComboBox").value("--Select--");
-                   // $('#technicianList').data("tComboBox").value("--Select--");
+                    // $('#technicianList').data("tComboBox").value("--Select--");
                     $('#descriptionTextBox').val('');
                     $('#commentsTextBox').val('');
                     $('#submit').text('Add');
@@ -623,18 +625,18 @@
                     $("#serialNumberList").data("tComboBox").enable();
                     $('#serialNumberList').removeClass('t-state-disabled').removeAttr('disabled',
                 'disabled');
-//                    $('#conditionList').data('tComboBox').enable();
-//                    $('#conditionList').removeClass('t-state-disabled').removeAttr('disabled',
-//                'disabled');
-//                    $('#symptomAreaList').data("tComboBox").enable();
-//                    $('#symptomAreaList').removeClass('t-state-disabled').removeAttr('disabled',
-//                'disabled');
-//                    $('#symptomCodeList').data('tComboBox').enable();
-//                    $('#symptomCodeList').removeClass('t-state-disabled').removeAttr('disabled',
-//                'disabled');
-//                    $('#technicianList').data('tComboBox').enable();
-//                    $('#technicianList').removeClass('t-state-disabled').removeAttr('disabled',
-//                'disabled');
+                    //                    $('#conditionList').data('tComboBox').enable();
+                    //                    $('#conditionList').removeClass('t-state-disabled').removeAttr('disabled',
+                    //                'disabled');
+                    //                    $('#symptomAreaList').data("tComboBox").enable();
+                    //                    $('#symptomAreaList').removeClass('t-state-disabled').removeAttr('disabled',
+                    //                'disabled');
+                    //                    $('#symptomCodeList').data('tComboBox').enable();
+                    //                    $('#symptomCodeList').removeClass('t-state-disabled').removeAttr('disabled',
+                    //                'disabled');
+                    //                    $('#technicianList').data('tComboBox').enable();
+                    //                    $('#technicianList').removeClass('t-state-disabled').removeAttr('disabled',
+                    //                'disabled');
                     $('#submit').attr('disabled', false);
                 },
                 error: function (result) {

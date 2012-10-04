@@ -950,7 +950,9 @@
         if (SelectedItemNumber != "" | SelectedSiteId != "") {
             var getwareHouse = $('#wareHouseDropDownList').data('tComboBox');
             $('#wareHouseDropDownList').data('tComboBox').value('-- Select --');
+            var getLocation = $('#locationDropDownList').data('tComboBox');
             $('#locationDropDownList').data('tComboBox').value('-- Select --');
+            var gettrackingSerialNo = $('#trackingSerialNoDropDownList').data('tComboBox');
             $('#trackingSerialNoDropDownList').data('tComboBox').value('-- Select --');
             getwareHouse.loader.showBusy();
 
@@ -960,6 +962,10 @@
                 data: { partNumberDropDownList: SelectedItemNumber, siteComboBox: SelectedSiteId },
                 success: function (result) {
                     getwareHouse.dataBind(result);
+                    getLocation.dataBind();
+                    $('#locationDropDownList').data('tComboBox').value('-- Select --');
+                    gettrackingSerialNo.dataBind();
+                    $('#trackingSerialNoDropDownList').data('tComboBox').value('-- Select --');
                     getwareHouse.loader.hideBusy();
                     getwareHouse.select(0);
 
@@ -1018,6 +1024,8 @@
         if (SelectedItemNumber != "" | SelectedSiteId != "" | SelectedwarehouseId != "") {
             var getLocation = $('#locationDropDownList').data('tComboBox');
             $('#locationDropDownList').data('tComboBox').value('-- Select --');
+         
+            var gettrackingSerialNo = $('#trackingSerialNoDropDownList').data('tComboBox');
             $('#trackingSerialNoDropDownList').data('tComboBox').value('-- Select --');
             getLocation.loader.showBusy();
 
@@ -1028,6 +1036,8 @@
                 success: function (result) {
 
                     getLocation.dataBind(result);
+                    gettrackingSerialNo.dataBind();
+                    $('#trackingSerialNoDropDownList').data('tComboBox').value('-- Select --');
                     getLocation.loader.hideBusy();
                     getLocation.select(0);
                 },
