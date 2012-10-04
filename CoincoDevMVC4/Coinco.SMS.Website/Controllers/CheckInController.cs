@@ -65,7 +65,7 @@ namespace Coinco.SMS.Website.Controllers
             catch(Exception ex)
             {
                 TempData.Keep();
-                throw (ex);
+                ExceptionLog.LogException(ex, userName);
             }
 
             return View(serviceOrder);
@@ -154,7 +154,7 @@ namespace Coinco.SMS.Website.Controllers
             catch (Exception ex)
             {
                 TempData.Keep();
-                throw ex;
+                ExceptionLog.LogException(ex, userName);
             }
             return View(new GridModel(serviceOrderLineExistingList));
         }
@@ -231,11 +231,12 @@ namespace Coinco.SMS.Website.Controllers
             PartDetails partDetails = new PartDetails();
             ServiceOrder serviceOrder = new ServiceOrder();
             ServiceOrderLine serviceOrderLine = new ServiceOrderLine();
+            string userName = null;
             try
             {
                 if (customerAccount != null)
                 {
-                    string userName = null;
+                   
                     userName = User.Identity.Name.ToString().Split('\\')[1];
                     List<Address> addressList = (new Address()).GetCustomerAddress(customerAccount, userName);
                     List<Address> addressShipping = (from item1 in addressList
@@ -289,7 +290,7 @@ namespace Coinco.SMS.Website.Controllers
             catch (Exception ex)
             {
                 TempData.Keep();
-                throw ex;
+                ExceptionLog.LogException(ex, userName);
             }
             return Json(serviceOrder, JsonRequestBehavior.AllowGet);
         }
@@ -324,7 +325,7 @@ namespace Coinco.SMS.Website.Controllers
             catch (Exception ex)
             {
                 TempData.Keep();
-                throw ex;
+                ExceptionLog.LogException(ex, userName);
             }
             return Json(salesHistory);
         }
@@ -350,7 +351,7 @@ namespace Coinco.SMS.Website.Controllers
             catch (Exception ex)
             {
                 TempData.Keep();
-                throw ex;
+                ExceptionLog.LogException(ex, userName);
             }
             return Json(serviceOrder, JsonRequestBehavior.AllowGet);
         }
@@ -409,7 +410,7 @@ namespace Coinco.SMS.Website.Controllers
             catch (Exception ex)
             {
                 TempData.Keep();
-                throw ex;
+                ExceptionLog.LogException(ex, userName);
 
             }
             return Json(ViewData["ServiceOrderLine"], JsonRequestBehavior.AllowGet);
@@ -454,7 +455,7 @@ namespace Coinco.SMS.Website.Controllers
             catch (Exception ex)
             {
                 TempData.Keep();
-                throw ex;
+                ExceptionLog.LogException(ex, userName);
             }
             return Json(ViewData["ServiceOrderLine"], JsonRequestBehavior.AllowGet);
         }
@@ -475,7 +476,7 @@ namespace Coinco.SMS.Website.Controllers
             catch (Exception ex)
             {
                 TempData.Keep();
-                throw ex;
+                ExceptionLog.LogException(ex, userName);
             }   
             return serviceOrderLine;
         }
