@@ -699,6 +699,9 @@
                     getSymtomCode.loader.hideBusy();
                     getSymtomCode.select(0);
 
+                },
+                error: function (result) {
+                    alert(result.responseText);
                 }
 
 
@@ -748,6 +751,9 @@
                     getdiagnosisCode.loader.hideBusy();
                     getdiagnosisCode.select(0);
 
+                },
+                error: function (result) {
+                    alert(result.responseText);
                 }
 
 
