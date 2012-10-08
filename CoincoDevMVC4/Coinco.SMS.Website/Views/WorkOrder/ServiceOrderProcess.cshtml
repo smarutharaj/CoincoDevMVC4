@@ -769,27 +769,34 @@
                     transSerialCodeNo = transSerialCodeNodata.Value;
                 }
                 else {
-                    alert('Invalid Tracking Serial Number .');
-                    $('#submit').attr('disabled', false);
-                    return;
+                    if ($('#trackingSerialNoDropDownList').data('tComboBox').value() != "-- Select --" && $('#trackingSerialNoDropDownList').data('tComboBox').value() != "" && $('#trackingSerialNoDropDownList').data('tComboBox').value() != undefined) {
+                        alert('Invalid Tracking Serial Number .');
+                        $('#submit').attr('disabled', false);
+                        return;
+                    }
                 }
-
 
             }
 
 
             var failureCode;
             if ($('#failureCodeDropDownList').data('tComboBox').value() != null && $('#failureCodeDropDownList').data('tComboBox').value() != "" && $('#failureCodeDropDownList').data('tComboBox').selectedIndex != -1) {
+
                 var failureCodedata = $('#failureCodeDropDownList').data('tComboBox').data[$('#failureCodeDropDownList').data('tComboBox').selectedIndex];
                 failureCode = failureCodedata.Value;
             }
             else {
-
-                alert('Invalid Failure Code.');
-                $('#submit').attr('disabled', false);
-                return;
-
+                if ($('#failureCodeDropDownList').data('tComboBox').value() != "-- Select --" && $('#failureCodeDropDownList').data('tComboBox').value() != "" && $('#failureCodeDropDownList').data('tComboBox').value() != undefined) {
+                    alert('Invalid Failure Code.');
+                    $('#submit').attr('disabled', false);
+                    return;
+                }
             }
+
+
+
+
+
 
 
             var serviceComments = $('#commentsText').val();
