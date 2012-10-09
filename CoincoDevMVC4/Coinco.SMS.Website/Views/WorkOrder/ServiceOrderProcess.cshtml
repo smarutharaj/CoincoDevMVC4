@@ -744,10 +744,11 @@
                     }
                 }
                 else {
-
-                    alert('Invalid Ware House.');
-                    $('#submit').attr('disabled', false);
-                    return;
+                    if ($('#wareHouseDropDownList').data('tComboBox').value() != "-- Select --" && $('#wareHouseDropDownList').data('tComboBox').value() != "" && $('#wareHouseDropDownList').data('tComboBox').value() != undefined) {
+                        alert('Invalid Ware House.');
+                        $('#submit').attr('disabled', false);
+                        return;
+                    }
                 }
 
                 var locationId;
@@ -757,10 +758,12 @@
                     locationId = locationIddata.Value;
                 }
                 else {
+                    if ($('#locationDropDownList').data('tComboBox').value() != "-- Select --" && $('#locationDropDownList').data('tComboBox').value() != "" && $('#locationDropDownList').data('tComboBox').value() != undefined) {
 
-                    alert('Invalid location.');
-                    $('#submit').attr('disabled', false);
-                    return;
+                        alert('Invalid location.');
+                        $('#submit').attr('disabled', false);
+                        return;
+                    }
                 }
 
                 var transSerialCodeNo;
