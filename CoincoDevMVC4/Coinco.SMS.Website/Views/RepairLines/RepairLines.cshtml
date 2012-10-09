@@ -213,7 +213,7 @@
         if (uniqueId == '') {
 
             var serviceOrderNo = $('#serviceOrderNo')[0].innerHTML;
-            debugger
+
             var serialNumberList;
             if ($('#serialNumberList').data('tComboBox').value() != null && $('#serialNumberList').data('tComboBox').value() != "" && $('#serialNumberList').data('tComboBox').selectedIndex != -1) {
                 var serialNumberListdata = $('#serialNumberList').data('tComboBox').data[$('#serialNumberList').data('tComboBox').selectedIndex];
@@ -302,9 +302,11 @@
                 diagnosisAreaId = diagnosisAreadata.Value;
             }
             else {
-                alert('Invalid Diagnosis Area.');
-                $('#submit').attr('disabled', false);
-                return;
+                if ($('#diagnosisAreaList').data('tComboBox').value() != "--Select--" && $('#diagnosisAreaList').data('tComboBox').value() != "" && $('#diagnosisAreaList').data('tComboBox').value() != undefined) {
+                    alert('Invalid Diagnosis Area.');
+                    $('#submit').attr('disabled', false);
+                    return;
+                }
             }
 
 
@@ -314,9 +316,11 @@
                 diagnosisCodeId = diagnosisCodedata.Value;
             }
             else {
-                alert('Invalid Diagnosis Code.');
-                $('#submit').attr('disabled', false);
-                return;
+                if ($('#diagnosisCodeList').data('tComboBox').value() != "--Select--" && $('#diagnosisCodeList').data('tComboBox').value() != "" && $('#diagnosisCodeList').data('tComboBox').value() != undefined) {
+                    alert('Invalid Diagnosis Code.');
+                    $('#submit').attr('disabled', false);
+                    return;
+                }
             }
 
 
@@ -329,9 +333,11 @@
 
 
             else {
-                alert('Invalid Resolution.');
-                $('#submit').attr('disabled', false);
-                return;
+                if ($('#resolutionList').data('tComboBox').value() != "--Select--" && $('#resolutionList').data('tComboBox').value() != "" && $('#resolutionList').data('tComboBox').value() != undefined) {
+                    alert('Invalid Resolution.');
+                    $('#submit').attr('disabled', false);
+                    return;
+                }
             }
 
 
@@ -344,11 +350,13 @@
 
 
             else {
-                alert('Invalid Repair Stage.');
-                $('#submit').attr('disabled', false);
-                return;
+                if ($('#repairStageList').data('tComboBox').value() != "--Select--" && $('#repairStageList').data('tComboBox').value() != "" && $('#repairStageList').data('tComboBox').value() != undefined) {
+                    alert('Invalid Repair Stage.');
+                    $('#submit').attr('disabled', false);
+                    return;
+                }
             }
-           
+
             var technicianNo;
             if ($('#technicianList').data('tComboBox').value() != null && $('#technicianList').data('tComboBox').value() != "" && $('#technicianList').data('tComboBox').selectedIndex != -1) {
                 if ($('#technicianList').data('tComboBox').selectedIndex != undefined) {
@@ -495,9 +503,11 @@
                 diagnosisAreaId = diagnosisAreadata.Value;
             }
             else {
-                alert('Invalid Diagnosis Area.');
-                $('#submit').attr('disabled', false);
-                return;
+                if ($('#diagnosisAreaList').data('tComboBox').value() != "--Select--" && $('#diagnosisAreaList').data('tComboBox').value() != "" && $('#diagnosisAreaList').data('tComboBox').value() != undefined) {
+                    alert('Invalid Diagnosis Area.');
+                    $('#submit').attr('disabled', false);
+                    return;
+                }
             }
 
 
@@ -507,9 +517,11 @@
                 diagnosisCodeId = diagnosisCodedata.Value;
             }
             else {
-                alert('Invalid Diagnosis Code.');
-                $('#submit').attr('disabled', false);
-                return;
+                if ($('#diagnosisCodeList').data('tComboBox').value() != "--Select--" && $('#diagnosisCodeList').data('tComboBox').value() != "" && $('#diagnosisCodeList').data('tComboBox').value() != undefined) {
+                    alert('Invalid Diagnosis Code.');
+                    $('#submit').attr('disabled', false);
+                    return;
+                }
             }
 
 
@@ -522,9 +534,11 @@
 
 
             else {
-                alert('Invalid Resolution.');
-                $('#submit').attr('disabled', false);
-                return;
+                if ($('#resolutionList').data('tComboBox').value() != "--Select--" && $('#resolutionList').data('tComboBox').value() != "" && $('#resolutionList').data('tComboBox').value() != undefined) {
+                    alert('Invalid Resolution.');
+                    $('#submit').attr('disabled', false);
+                    return;
+                }
             }
 
 
@@ -537,11 +551,13 @@
 
 
             else {
-                alert('Invalid Repair Stage.');
-                $('#submit').attr('disabled', false);
-                return;
+                if ($('#repairStageList').data('tComboBox').value() != "--Select--" && $('#repairStageList').data('tComboBox').value() != "" && $('#repairStageList').data('tComboBox').value() != undefined) {
+                    alert('Invalid Repair Stage.');
+                    $('#submit').attr('disabled', false);
+                    return;
+                }
             }
-          
+
             var technicianNo;
             if ($('#technicianList').data('tComboBox').value() != null && $('#technicianList').data('tComboBox').value() != "" && $('#technicianList').data('tComboBox').selectedIndex != -1) {
                 if ($('#technicianList').data('tComboBox').selectedIndex != undefined) {
