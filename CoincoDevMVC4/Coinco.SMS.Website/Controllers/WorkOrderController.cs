@@ -51,6 +51,7 @@ namespace Coinco.SMS.Website.Controllers
             {
                 TempData.Keep();
                 ExceptionLog.LogException(ex, userName);
+                //return Json("No Sites assigned for this user in AX Dynamics", JsonRequestBehavior.AllowGet);
                 //return RedirectToAction("ServiceOrderWithHistory");
             }
             return View("ServiceOrderWithHistory");
@@ -100,20 +101,29 @@ namespace Coinco.SMS.Website.Controllers
                   
 
                     siteCollection = site.GetSitesListByUsername(userName);
-                    site.SiteList = new SelectList(siteCollection, "SiteId", "SiteName", siteCollection.First<Site>().SiteID);
+                    if (siteCollection.Count() > 0)
+                    {
+                        site.SiteList = new SelectList(siteCollection, "SiteId", "SiteName", siteCollection.First<Site>().SiteID);
+                        TempData["SiteId"] = siteCollection.First<Site>().SiteID;
+                        Session["SiteID"] = TempData["SiteId"];
+                        TempData["AllSites"] = siteCollection;
+                        TempData["FeaturedSites"] = site.SiteList;
+                        ViewData["FeaturedSites"] = site.SiteList;
+                        TempData.Keep();
+                    }
+                    else
+                    {
+                        throw new Exception("No Sites assigned for this user in AX Dynamics");
+                    }
 
                 }
-                TempData["SiteId"] = siteCollection.First<Site>().SiteID;
-                Session["SiteID"] = TempData["SiteId"];
-                TempData["AllSites"] = siteCollection;
-                TempData["FeaturedSites"] = site.SiteList;
-                ViewData["FeaturedSites"] = site.SiteList;
-                TempData.Keep();
+              
             }
             catch (Exception ex)
             {
                 TempData.Keep();
                 ExceptionLog.LogException(ex, userName);
+                throw ex;
                 //return Json("Select the service order number in Service Order with history page", JsonRequestBehavior.AllowGet);
             }
             return siteCollection.First<Site>().SiteID;
